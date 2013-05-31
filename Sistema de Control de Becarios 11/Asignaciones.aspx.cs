@@ -108,6 +108,10 @@ public partial class Asignaciones : System.Web.UI.Page
         habilitarContenidoAsignacion(true);
         limpiarContenidoAsignacion();
         commonService.mostrarPrimerBotonDePopUp("PopUpAsignacion");
+        int cantidadDeBecariosAsignados = 3; // Get cantidad de becarios asigandos a encargado
+        this.lblCiclo.Text = "I";
+        this.lblAnio.Text = "2013";
+        this.btnCantidadBecariosDeEncargado.Text = "Becarios asignados: " + cantidadDeBecariosAsignados.ToString();
     }
 
     // Abrir PopUp Eliminar
@@ -128,7 +132,8 @@ public partial class Asignaciones : System.Web.UI.Page
     // Seleccionar el de ver becarios asignados a un encargado
     protected void btnCantidadBecariosDeEncargado_Click(object sender, EventArgs e)
     {
-        commonService.correrJavascript("abrirPopUpVerBecariosAsignados('"+"Gabriel Ulloa Murillo"+"');");
+        String nombreDeEncargado = "Gabriel Ulloa Murillo"; // Get nombre de encargado
+        commonService.correrJavascript("abrirPopUpVerBecariosAsignados('" + nombreDeEncargado + "');");
         llenarGridaBecariosAsigandosAEncargado();
     }
 
@@ -144,6 +149,10 @@ public partial class Asignaciones : System.Web.UI.Page
                     mostrarBotonesPrincipales(true);
                     habilitarContenidoAsignacion(false);
                     commonService.esconderPrimerBotonDePopUp("PopUpAsignacion");
+                    int cantidadDeBecariosAsignados = 3; // Get cantidad de becarios asigandos a encargado
+                    this.lblCiclo.Text = "I";
+                    this.lblAnio.Text = "2013";
+                    this.btnCantidadBecariosDeEncargado.Text = "Becarios asignados: " + cantidadDeBecariosAsignados.ToString();
                 } break;
         }
     }
