@@ -1,0 +1,58 @@
+﻿/** Hoja de estilo para Encargado **/
+
+.txtEncargado
+{
+    float: left;
+    width: 90%;
+}
+
+.error
+{
+    float: left;
+    width: 90%;
+}
+
+.lblEncargado
+{
+    float: left;
+    width: 90%;
+}
+
+.wrap_encargado
+{
+    width: 50%;
+    float: left;
+    margin: 5px 0;
+}
+.wrap_row_encargado
+{    
+    min-height: 60px;
+    float: left;
+    width: 100%;
+}
+
+.wrap_encargadoPuesto
+{
+    width: 100%;
+    float: left;
+    margin: 5px 0;
+}
+.wrap_row_encargadoPuesto
+{    
+    min-height: 60px;
+    float: left;
+    width: 100%;
+}
+
+.txtEncargadoPuesto
+{
+    float: left;
+    width: 95%;
+}
+
+.botonParcial
+{
+    width: 40%;
+    height: 30px;
+    cursor: pointer;
+}
