@@ -194,7 +194,7 @@
                 <asp:UpdatePanel ID="UpdatePanelListaDeAsignados" runat="server">
                     <Triggers></Triggers>
                     <ContentTemplate>
-                        <asp:GridView ID="GridBecariosAsignadosAEncargado" CssClass="table_css" runat="server">
+                        <asp:GridView ID="GridBecariosAsignadosAEncargado" CssClass="table_css centerText" runat="server">
                         </asp:GridView>
                     </ContentTemplate>
                 </asp:UpdatePanel>
@@ -207,43 +207,72 @@
                 <Triggers></Triggers>
 
                 <ContentTemplate>
+                    <!-- Botones Invisibles -->
+                    <asp:Button ID="btnInvisibleAceptarAsignacionEncargado" runat="server" 
+                        CssClass="invisible btnInvisibleAceptarAsignacionEncargado" Text="Button" 
+                        onclick="btnInvisibleAceptarAsignacionEncargado_Click" />
+                    <asp:Button ID="btnInvisibleRechazarAsignacionEncargado" runat="server" 
+                        CssClass="invisible btnInvisibleRechazarAsignacionEncargado" Text="Button" 
+                        onclick="btnInvisibleRechazarAsignacionEncargado_Click" />
+
                     <!-- Título -->
                     <span style="width: 100%; font-weight: bold; font-size: 24px; float: left; margin: 20px 0 5px 0; text-align:center;">Becarios Asignados</span>
                     <span style="width: 100%; font-weight: normal; font-style:italic; font-size: 16px; float: left; margin: 5px 0 20px 0; text-align:center; border-bottom: 2px solid #414141; padding-bottom: 5px;">Consulte los becarios que tiene bajo tutela. Acepte o rechace las asignaciones que tenga pendientes. </span>
                     
                     <!-- Buscador -->
-                    <div class="buscadorAsignacion" style="width: 50%; margin-bottom: 20px;">
-                        <div style="width: 35%; float:left; font-weight: bold; font-size: 16px; border-bottom: 1px solid #fff; margin-bottom: 5px;">Buscar:</div>
-                        <div style="width: 65%; float:left; font-weight: bold; font-size: 16px; border-bottom: 1px solid #fff;  margin-bottom: 5px;">Filtro:</div>
+                    <div class="buscadorAsignacion" style="width: 20%; margin-bottom: 20px;">
+                        <div style="width: 100%; float:left; font-weight: bold; font-size: 16px; border-bottom: 1px solid #fff; margin-bottom: 5px;">Buscar:</div>
                         <!-- TXT Buscar -->
-                        <div style="width: 34%; float: left; margin-right: 1%;">
-                            <span style="float:left; width:100%;">&nbsp;</span>
+                        <div style="width: 59%; float: left; margin-right: 1%;">
                             <asp:TextBox ID="txtBuscarVistaEncargado"  onkeydown = "enterBuscar(event, 'MainContent_txtBuscarVistaEncargado');" CssClass="txtAsignacion" runat="server"></asp:TextBox>
                         </div>
 
-                        <!-- DRP Estado -->
-                        <div style="width: 34%; float: left; margin-right: 1%;">
-                            <span style="float:left; width:100%;">Estado:</span>
-                            <asp:DropDownList ID="DropDownEstadoVistaEncargado" CssClass="txtAsignacion" runat="server">
-                            </asp:DropDownList>
-                        </div>
-
                         <!-- BTN Buscar -->
-                        <div style="width: 29%; float: left; margin-right: 1%;">
-                            <span style="float:left; width:100%;">&nbsp;</span>
+                        <div style="width: 39%; float: left; margin-right: 1%;">
                             <asp:Button ID="btnBuscarVistaEncargado" runat="server" Text="Buscar" CausesValidation="false" CssClass="boton ui-widget ui-state-default ui-corner-all ui-button-text-only" />
                         </div>
                     </div>
 
+                    <!-- Periodo -->
+                    <div class="buscadorAsignacion" style="width: 15%; margin-bottom: 20px;">
+                        <div style="width: 100%; float:left; font-weight: bold; font-size: 16px; border-bottom: 1px solid #fff; margin-bottom: 5px;">Periodo:</div>
+                        <div style="text-align:center;"><b>
+                            <asp:Label ID="lblCicloPrincipalVistaEncargado" runat="server" Text=""></asp:Label> - <asp:Label ID="lblAnioPrincipalVistaEncargado" runat="server" Text="Label"></asp:Label></b>
+                        </div>
+                    </div>
+
                     <!-- Grid con Becarios asignados y por asignar -->
-                    <asp:GridView ID="GridBecariosAsignadosVistaEncargado" CssClass="table_css" runat="server" 
+                    <asp:GridView ID="GridBecariosAsignadosVistaEncargado" CssClass="table_css centerText" runat="server" 
                         onrowcommand="GridBecariosAsignadosVistaEncargado_RowCommand">
                         <columns>
-                            <asp:ButtonField CommandName="btnSeleccionarTupla_Click" CausesValidation="false" ButtonType="Image" Visible="true" ImageUrl="~/Images/arrow-right.png" ItemStyle-HorizontalAlign="Center" ItemStyle-VerticalAlign="Middle"/> 
+                            <asp:ButtonField CommandName="btnSeleccionarTupla_Click" CausesValidation="false" ButtonType="Button" Visible="true" ImageUrl="~/Images/arrow-right.png" ItemStyle-HorizontalAlign="Center" Text="Aceptar/Rechazar" ItemStyle-VerticalAlign="Middle"/> 
                         </columns>
                     </asp:GridView>
                 </ContentTemplate>
             </asp:UpdatePanel>
+
+            <div id="PopUpAsignacionEncargado">
+                <asp:UpdatePanel ID="UpdatePanelPopUpAsignacionEncargado" runat="server">
+                    <Triggers ></Triggers>
+                    <ContentTemplate>
+                        <p>
+                        <span style="float: left; width: 100%;">
+                            Usted ha sido elegido para ser encargado del becario: 
+                            <b><asp:Label ID="lblNombreBecarioPopUpVistaEncargado" runat="server" Text=""></asp:Label></b>
+                        </span>
+                        <span style="float: left; width: 100%;">
+                            Se le han asignado un total de:
+                            <b><asp:Label ID="lblHorasBecarioPopUpVistaEncargado" runat="server" Text=""></asp:Label></b>
+                            horas al becario.
+                        </span>
+                        <span style="float: left; width: 100%;">
+                            Esta asignación está provista para el: <b><asp:Label ID="lblCicloBecarioPopUpVistaEncargado" runat="server" Text=""></asp:Label> - 
+                            <asp:Label ID="lblAnioBecarioPopUpVistaEncargado" runat="server" Text=""></asp:Label></b>
+                        </span>
+                        ¿Acepta la asignación?</p>
+                    </ContentTemplate>
+                </asp:UpdatePanel>
+            </div>
 
         </asp:View>
 
