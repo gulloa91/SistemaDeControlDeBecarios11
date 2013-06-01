@@ -26,6 +26,7 @@ public partial class Asignaciones : System.Web.UI.Page
             this.DropDownBecariosPopUp.Items.Add(noSelectedItem);
             this.DropDownEncargadosPopUp.Items.Add(noSelectedItem);
             llenarGridaBecariosAsignadosVistaEncargado();
+            llenarCicloYAnioVistaEncargados();
         }
         // END TEMP
 
@@ -94,6 +95,20 @@ public partial class Asignaciones : System.Web.UI.Page
         commonService.mensajeJavascript("La asignación se eliminó correctamente", "Eliminado"); // Obviamente se tiene que cambiar con el resultado de vd
     }
 
+    // Aceptar Asignación Vista Encargado
+    protected void btnInvisibleAceptarAsignacionEncargado_Click(object sender, EventArgs e)
+    {
+        commonService.cerrarPopUp("PopUpAsignacionEncargado");
+        commonService.mensajeJavascript("Se ha aceptado la asignación. Un mensaje se enviará la dirección de la ECCI.", "Aceptada"); // Obviamente se tiene que cambiar con el resultado de vd
+    }
+
+    // Rechazar Asignación Vista Encargado
+    protected void btnInvisibleRechazarAsignacionEncargado_Click(object sender, EventArgs e)
+    {
+        commonService.cerrarPopUp("PopUpAsignacionEncargado");
+        commonService.mensajeJavascript("Se ha rechazado la asignación. Un mensaje se enviará la dirección de la ECCI.", "Rechazada"); // Obviamente se tiene que cambiar con el resultado de vd
+    }
+
     // BUSCAR CLICK
     protected void btnBuscar_Click(object sender, EventArgs e)
     {
@@ -132,8 +147,8 @@ public partial class Asignaciones : System.Web.UI.Page
     // Seleccionar el de ver becarios asignados a un encargado
     protected void btnCantidadBecariosDeEncargado_Click(object sender, EventArgs e)
     {
-        String nombreDeEncargado = "Gabriel Ulloa Murillo"; // Get nombre de encargado
-        commonService.correrJavascript("abrirPopUpVerBecariosAsignados('" + nombreDeEncargado + "');");
+        String nombreDeEncargado = "Becarios asignados a: Gabriel Ulloa Murillo"; // Get nombre de encargado
+        commonService.abrirPopUp("PopUpVerBecariosAsignados", nombreDeEncargado);
         llenarGridaBecariosAsigandosAEncargado();
     }
 
@@ -162,14 +177,14 @@ public partial class Asignaciones : System.Web.UI.Page
     {
         switch (e.CommandName)
         {
-            // Consultar tupla
+            // Abrir Pop Up aceptar/rechazar asignación vista encargado
             case "btnSeleccionarTupla_Click":
                 {
-                    //commonService.abrirPopUp("PopUpAsignacion", "Consultar Asignación");
-                    //mostrarBotonesPrincipales(true);
-                    //habilitarContenidoAsignacion(false);
-                    //commonService.esconderPrimerBotonDePopUp("PopUpAsignacion");
-                    commonService.mensajeJavascript("cuerpo","titlo");
+                    commonService.abrirPopUp("PopUpAsignacionEncargado", "Aceptar/Rechazar Asignación");
+                    this.lblNombreBecarioPopUpVistaEncargado.Text = "José Perez";
+                    this.lblCicloBecarioPopUpVistaEncargado.Text = "I";
+                    this.lblAnioBecarioPopUpVistaEncargado.Text = "2013";
+                    this.lblHorasBecarioPopUpVistaEncargado.Text = "72";
                 } break;
         }
     }
@@ -216,6 +231,12 @@ public partial class Asignaciones : System.Web.UI.Page
         this.txtUnidAcademica.Text = "";
         this.txtInfoDeUbicacion.Text = "";
         this.txtTotalHoras.Text = "";
+    }
+
+    protected void llenarCicloYAnioVistaEncargados()
+    {
+        this.lblCicloPrincipalVistaEncargado.Text = "I";
+        this.lblAnioPrincipalVistaEncargado.Text = "2013";
     }
 
     // Llenar tabla con todas las asignaciones
@@ -353,7 +374,7 @@ public partial class Asignaciones : System.Web.UI.Page
         newRow["Carné"] = "-";
         newRow["Correo"] = "-";
         newRow["Celular"] = "-";
-        newRow["Estado"] = "Pendiente";
+        newRow["Estado"] = "-";
 
         tablaBecariosAsignadosVistaEncargado.Rows.InsertAt(newRow, 0);
 
@@ -497,5 +518,5 @@ public partial class Asignaciones : System.Web.UI.Page
         GridBecariosAsignadosVistaEncargado.HeaderRow.Cells[4].Text = "Celular";
         GridBecariosAsignadosVistaEncargado.HeaderRow.Cells[5].Text = "Estado";
     }
-    
+
 }
