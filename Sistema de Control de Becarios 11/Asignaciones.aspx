@@ -17,6 +17,7 @@
                     <asp:AsyncPostBackTrigger ControlID="btnInvisibleAceptarAsignacion" EventName="Click" />
                 </Triggers>
 
+				<!-- Deje de pedirla, Gabo -->
                 <ContentTemplate>
                     <!-- Botones Invisibles -->
                     <asp:Button ID="btnInvisibleAceptarAsignacion" 
