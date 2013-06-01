@@ -184,7 +184,7 @@ public partial class Asignaciones : System.Web.UI.Page
                     this.lblNombreBecarioPopUpVistaEncargado.Text = "José Perez";
                     this.lblCicloBecarioPopUpVistaEncargado.Text = "I";
                     this.lblAnioBecarioPopUpVistaEncargado.Text = "2013";
-                    this.lblHorasBecarioPopUpVistaEncargado.Text = "72";
+                    this.lblHorasBecarioPopUpVistaEncargado.Text = "73";
                 } break;
         }
     }
