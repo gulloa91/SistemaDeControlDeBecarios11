@@ -6,6 +6,7 @@ using EncargadoDataSetTableAdapters;
 using System.Data;
 using System.Data.SqlClient;
 
+//Comentario agregado para jugar con el Merge de Git :3
 
 public class ControladoraBDEncargado
 {
