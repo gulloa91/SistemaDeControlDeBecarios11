@@ -11,4 +11,16 @@ public partial class Reportes : System.Web.UI.Page
     {
         MultiViewReportes.ActiveViewIndex = 0;
     }
+
+    // Click del Menu
+    protected void MenuListaReportes_MenuItemClick(object sender, MenuEventArgs e)
+    {
+        switch (e.Item.Text)
+        {
+            case "":
+                {
+
+                } break;
+        }
+    }
 }

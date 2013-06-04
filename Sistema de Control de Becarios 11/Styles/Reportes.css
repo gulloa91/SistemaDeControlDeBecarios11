@@ -1,8 +1,16 @@
 ﻿.menu_reportes {
-	border-radius: 5px;
+    font-size: 0.85em;
+    background: none repeat scroll 0 0 #414141;
+    -webkit-border-radius: 5px 0px 5px 5px;
+    border-radius: 5px;
 }
 
 .menu_reportes ul li{
 	width: 96%;
 	padding: 0 2%;
+}
+
+.menu_reportes ul li a{
+	border-radius: 5px;
+	margin: 1px 0;
 }

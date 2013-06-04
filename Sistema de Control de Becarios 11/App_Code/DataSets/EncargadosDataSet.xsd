@@ -11,7 +11,7 @@
         <Tables>
           <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="EncargadoTableAdapter" GeneratorDataComponentClassName="EncargadoTableAdapter" Name="Encargado" UserDataComponentName="EncargadoTableAdapter">
             <MainSource>
-              <DbSource ConnectionRef="ingegsg2ConnectionString (Web.config)" DbObjectName="ingegsg2.dbo.Encargado" DbObjectType="Table" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="true" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetData" UserSourceName="Fill">
+              <DbSource ConnectionRef="SistemaControlBecariosConnectionString (Web.config)" DbObjectName="SistemaControlBecarios.dbo.Encargado" DbObjectType="Table" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="true" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetData" UserSourceName="Fill">
                 <DeleteCommand>
                   <DbCommand CommandType="Text" ModifiedByUser="false">
                     <CommandText>DELETE FROM [dbo].[Encargado] WHERE (([Cedula] = @Original_Cedula) AND ([Nombre] = @Original_Nombre) AND ([Apellido1] = @Original_Apellido1) AND ((@IsNull_Apellido2 = 1 AND [Apellido2] IS NULL) OR ([Apellido2] = @Original_Apellido2)) AND ([Correo] = @Original_Correo) AND ((@IsNull_Telefono = 1 AND [Telefono] IS NULL) OR ([Telefono] = @Original_Telefono)) AND ((@IsNull_Celular = 1 AND [Celular] IS NULL) OR ([Celular] = @Original_Celular)) AND ((@IsNull_OtroTel = 1 AND [OtroTel] IS NULL) OR ([OtroTel] = @Original_OtroTel)) AND ([Activo] = @Original_Activo))</CommandText>
@@ -100,7 +100,7 @@
               <Mapping SourceColumn="Activo" DataSetColumn="Activo" />
             </Mappings>
             <Sources>
-              <DbSource ConnectionRef="ingegsg2ConnectionString (Web.config)" DbObjectName="ingegsg2.dbo.Encargado" DbObjectType="Table" GenerateMethods="Get" GenerateShortCommands="true" GeneratorGetMethodName="obtenerEncargadoPorCedula" GetMethodModifier="Public" GetMethodName="obtenerEncargadoPorCedula" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="obtenerEncargadoPorCedula" UserSourceName="obtenerEncargadoPorCedula">
+              <DbSource ConnectionRef="SistemaControlBecariosConnectionString (Web.config)" DbObjectName="SistemaControlBecarios.dbo.Encargado" DbObjectType="Table" GenerateMethods="Get" GenerateShortCommands="true" GeneratorGetMethodName="obtenerEncargadoPorCedula" GetMethodModifier="Public" GetMethodName="obtenerEncargadoPorCedula" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="obtenerEncargadoPorCedula" UserSourceName="obtenerEncargadoPorCedula">
                 <SelectCommand>
                   <DbCommand CommandType="Text" ModifiedByUser="true">
                     <CommandText>SELECT Cedula, Nombre, Apellido1, Apellido2, Correo, Telefono, Celular, OtroTel, Puesto, Activo FROM dbo.Encargado WHERE Cedula = @Cedula</CommandText>
@@ -110,7 +110,7 @@
                   </DbCommand>
                 </SelectCommand>
               </DbSource>
-              <DbSource ConnectionRef="ingegsg2ConnectionString (Web.config)" DbObjectName="ingegsg2.dbo.Encargado" DbObjectType="Table" GenerateMethods="Get" GenerateShortCommands="true" GeneratorGetMethodName="ObtenerTablaEncargadosPorBusquedaSelectiva" GetMethodModifier="Public" GetMethodName="ObtenerTablaEncargadosPorBusquedaSelectiva" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="ObtenerTablaEncargadosPorBusquedaSelectiva" UserSourceName="ObtenerTablaEncargadosPorBusquedaSelectiva">
+              <DbSource ConnectionRef="SistemaControlBecariosConnectionString (Web.config)" DbObjectName="SistemaControlBecarios.dbo.Encargado" DbObjectType="Table" GenerateMethods="Get" GenerateShortCommands="true" GeneratorGetMethodName="ObtenerTablaEncargadosPorBusquedaSelectiva" GetMethodModifier="Public" GetMethodName="ObtenerTablaEncargadosPorBusquedaSelectiva" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="ObtenerTablaEncargadosPorBusquedaSelectiva" UserSourceName="ObtenerTablaEncargadosPorBusquedaSelectiva">
                 <SelectCommand>
                   <DbCommand CommandType="Text" ModifiedByUser="true">
                     <CommandText>SELECT Activo, Apellido1, Apellido2, Cedula, Celular, Correo, Nombre, OtroTel, Puesto, Telefono FROM Encargado WHERE (Cedula LIKE @criterioDeBusqueda OR Nombre=@criterioDeBusqueda OR Apellido1=@criterioDeBusqueda OR Apellido2=@criterioDeBusqueda OR Correo=@criterioDeBusqueda)</CommandText>
@@ -120,7 +120,7 @@
                   </DbCommand>
                 </SelectCommand>
               </DbSource>
-              <DbSource ConnectionRef="ingegsg2ConnectionString (Web.config)" DbObjectName="" DbObjectType="Unknown" GenerateShortCommands="true" GeneratorSourceName="UpdateQuery" Modifier="Public" Name="UpdateQuery" QueryType="NoData" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy" UserSourceName="UpdateQuery">
+              <DbSource ConnectionRef="SistemaControlBecariosConnectionString (Web.config)" DbObjectName="" DbObjectType="Unknown" GenerateShortCommands="true" GeneratorSourceName="UpdateQuery" Modifier="Public" Name="UpdateQuery" QueryType="NoData" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy" UserSourceName="UpdateQuery">
                 <UpdateCommand>
                   <DbCommand CommandType="Text" ModifiedByUser="true">
                     <CommandText>UPDATE [dbo].[Encargado] SET [Cedula] = @Cedula, [Nombre] = @Nombre, [Apellido1] = @Apellido1, [Apellido2] = @Apellido2, [Correo] = @Correo, [Telefono] = @Telefono, [Celular] = @Celular, [OtroTel] = @OtroTel, [Puesto] = @Puesto, [Activo] = @Activo WHERE (([Cedula] = @Original_Cedula)) </CommandText>
