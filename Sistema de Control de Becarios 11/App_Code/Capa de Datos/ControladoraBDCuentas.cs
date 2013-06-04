@@ -120,12 +120,12 @@ public class ControladoraBDCuentas
 
     public String getCedulaByUsuario(string nombreUsuario)
     {
-        return adapterCuentas.getCedulaByUsuario( nombreUsuario );
+        return (string)adapterCuentas.getCedulaByUsuario( nombreUsuario );
     }
 
     public String getPerfilByCuenta(string nombreUsuario)
     {
-        return adapterCuenta_Perfil.getPerfilByCuenta(nombreUsuario);
+        return (string)adapterCuenta_Perfil.getPerfilByCuenta(nombreUsuario);
     }
 
     public void actualizarFechaIngresoCuenta(DateTime fecha, String cuenta)

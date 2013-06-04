@@ -1,0 +1,8 @@
+﻿.menu_reportes {
+	border-radius: 5px;
+}
+
+.menu_reportes ul li{
+	width: 96%;
+	padding: 0 2%;
+}
