@@ -1,0 +1,156 @@
+﻿/*CCSS DE BECARIO*/
+
+
+.wrap_grid
+{
+    width: 42%;
+    float: left;
+    margin-top:2%;
+    margin-bottom:2%;
+    margin-left: 6%;
+    height: 60%;
+}
+
+.wrap_becario
+{
+    width: 33.3333%;
+    float: left;
+    margin: 5px 0;
+    height: 60px;
+}
+
+
+.wrap_row_becario
+{
+
+    min-height: 50px;
+    float: left;
+    width: 100%;
+    margin-top:10px;
+}
+
+
+.txtBecario
+{
+    float: left;
+    width: 85%;
+}
+
+.lblBecario
+{
+    float: left;
+    width: 90%;
+}
+
+
+
+.wrap_perfil
+{
+    width: 95%;
+    float: left;
+    margin: 5px 0;
+    height: 65px;
+}
+
+.wrap_otros
+{
+    width: 75%;
+    float: left;
+    height: 60px;
+}
+
+
+.wrap_Cualidaes
+{
+    width: 95%;
+    float: left;
+    height: 160px;
+}
+
+
+.checkBoxBecario
+{
+    margin-left:12px;
+    margin-top:16px;
+    float:left;
+    font-family:"Palatino Linotype", "Book Antiqua", Palatino, serif;
+    font-size:12px;
+}
+
+.lblPerfilBecario
+{
+    font-family:"Times New Roman", Times, serif;
+    font-size:17px;
+    float: left;
+    width: 100%;
+    margin-top:5px;
+}
+
+.lblOtros
+{
+    font-family:"Palatino Linotype", "Book Antiqua", Palatino, serif;
+    font-size:15px;
+    float: left;
+    width: 12%;
+    margin-left:12px;
+    /*font-weight:bold;*/
+}
+
+.txtOtros
+{
+    float: left;
+    width: 35%;
+    height:38px;
+}
+
+
+.txtCualidades
+{
+
+   margin-left:15px;
+   margin-top:20px;
+   float: left;
+   width: 40%;
+   height:60px;
+}
+
+
+.btnGridPerfil
+{
+   
+   background: #103818;
+   background: -webkit-gradient(linear, left top, left bottom, from(#29d935), to(#103818));
+   background: -webkit-linear-gradient(top, #29d935, #103818);
+   background: -moz-linear-gradient(top, #29d935, #103818);
+   background: -ms-linear-gradient(top, #29d935, #103818);
+   background: -o-linear-gradient(top, #29d935, #103818);
+   -webkit-border-radius: 10px;
+   -moz-border-radius: 10px;
+   -webkit-box-shadow: rgba(0,0,0,1) 0 1px 0;
+   -moz-box-shadow: rgba(0,0,0,1) 0 1px 0;
+   color: white;
+   font-size: 8px;
+   font-family: Georgia, Serif;
+   text-decoration: none;
+   vertical-align: middle;
+ }
+
+
+#divGridBecarios {
+
+  width:100%;
+  float:left;
+  margin-top:10px;
+
+}
+
+.img_becario 
+{
+    height: 100%;    
+}
+
+.gridBecario {
+
+    width: 100%;
+
+}

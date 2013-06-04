@@ -1,0 +1,405 @@
+﻿/*** body ***/
+body
+{
+    background-color: #2F4F2F;
+    font-family: "Segoe UI",Verdana,Helvetica,Sans-Serif;
+    font-size: 16px;
+}
+
+
+/*** page, header, main, footer ***/
+
+.page
+{
+    width: 95%;
+    margin: 0 auto;
+}
+
+.header
+{
+    float: left;
+    width: 98%;
+    padding: 1%;
+    background-color: #FFF;
+    background-image: url(../Images/header_pattern.gif);
+    -moz-border-top-left-radius: 5px;
+    -moz-border-top-right-radius: 5px;
+    -webkit-border-top-left-radius: 5px;
+    -webkit-border-top-right-radius: 5px;
+    border-top: 4px solid #414141;
+    border-left: 4px solid #414141;
+    border-right: 4px solid #414141;
+    border-bottom: 4px solid #414141;
+}
+
+.main
+{
+    float: left;
+    width: 98%;
+    padding: 1%;
+    min-height: 500px;
+    background-color: #FFF;
+    border-left: 4px solid #414141;
+    border-right: 4px solid #414141;
+}
+
+.footer
+{
+    float: left;
+    width: 98%;
+    padding: 1%;
+    background-color: #FFF;
+    -moz-border-bottom-left-radius: 5px;
+    -moz-border-bottom-right-radius: 5px;
+    -webkit-border-bottom-left-radius: 5px;
+    -webkit-border-bottom-right-radius: 5px;
+    border-bottom: 4px solid #414141;
+    border-left: 4px solid #414141;
+    border-right: 4px solid #414141;
+    margin-bottom: 10px;
+}
+
+
+/*** Page ***/
+
+    /*** Logo ECCI - Left ***/
+    
+    #LogoECCI 
+    {
+        width: 33.333333%;
+        float: left;
+        margin-bottom: 5px;
+        height: 110px;
+    }
+    
+    #LogoECCI img
+    {
+        float: left;
+        height: 100%;
+    }
+    
+    #LogoSistema 
+    {
+        width: 33.333333%;
+        float: left;
+        margin-bottom: 5px;
+        height: 110px;
+        text-align: center;
+    }
+    
+    #LogoSistema img
+    {
+        height: 100%;
+        margin-left:auto; 
+        margin-right:auto;
+    }
+    
+    /** Logo UCR - Right **/
+    #LogoUCR
+    {
+        width: 33.333333%;
+        float: right;
+        margin-bottom: 5px;
+        height: 110px;
+    }
+    
+    
+    #LogoUCR img
+    {
+        float: right;
+        height: 100%;
+    }
+   
+
+    /*** Menu ***/
+    
+    #Menu_Container
+    {
+        width: 100%;
+        float: left;
+    }
+    
+    #Menu_Container .menu
+    {
+        float: right !important;
+        font-size: 0.85em;
+        width: 100%;
+        background: none repeat scroll 0 0 #414141;
+        padding: 0px 2px;
+        -webkit-border-radius: 5px 0px 5px 5px;
+        border-radius: 5px 0px 5px 5px;
+    }
+
+    .pnlCerrarSesion {
+        float:right;
+
+        border-radius: 5px 5px 0px 0px;
+        background-color: #414141;
+    }
+
+    #btnCerrarSesion {
+        background-color: #414141;
+        border:none;
+        color: #C8C8C8;
+        cursor: pointer;
+    }
+    
+    #Menu_Container ul 
+    {
+        margin: 0;
+        padding: 0;
+        list-style-type: none;
+    }
+    
+    #Menu_Container ul li
+    {
+        float: left;
+        position: relative;
+        text-align: center;
+        display: inline;
+    }
+    
+    #Menu_Container ul li a
+    {
+        text-decoration: none;
+        color: #FFF;
+        background: none repeat scroll 0 0 #414141;
+        padding: 8px 10px;
+        display: block;
+        font-weight: bold;
+    }
+    
+    #Menu_Container ul li a:hover, #Menu_Container ul li a:active
+    {
+        background: none repeat scroll 0 0 #000;
+    }
+    
+
+/*** Main ***/
+
+
+/*** Footer ***/
+
+.footer #footer_content 
+{
+    width: 100%;
+    float: left;
+    text-align: center;
+    color: #FFF;
+    border-radius: 5px;
+    height: 100%;
+    background: #414141;
+    padding: 5px 0;
+    font-size: 0.85em;
+}
+
+
+.invisible 
+{
+    display: none;
+}
+
+.table_css
+{   
+    width: 100%;
+    border: 1px solid #2F4F2F;
+}
+
+.insertar
+{
+    width: 20%;
+    float: left;
+    background-color: #2F4F2F;
+    border-radius: 5px;
+    min-height: 50px;
+    margin: 0 0 10px 0;
+    padding: 1%;
+    color: #FFF;
+}
+
+.buscador
+{
+    width: 20%;
+    float: left;
+    background-color: #2F4F2F;
+    border-radius: 5px;
+    min-height: 50px;
+    margin: 0 0 10px 0;
+    padding: 1%;
+    color: #FFF;
+    margin-right: 2%;
+}
+
+.boton
+{
+    width: 100%;
+    height: 30px;
+    cursor: pointer;
+}
+
+/*** Títulos ***/
+
+h1, h2, h3,
+h4, h5, h6 {
+    color: #000;
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+h1 {
+    font-size: 2em;
+}
+
+h2 {
+    font-size: 1.75em;
+}
+
+h3 {
+    font-size: 1.2em;
+}
+
+h4 {
+    font-size: 1.1em;
+}
+
+h5, h6 {
+    font-size: 1em;
+}
+
+    h5 a:link, h5 a:visited, h5 a:active {
+        padding: 0;
+        text-decoration: none;
+    }
+
+
+/** Change some jQuery UI CSS **/
+.ui-dialog-titlebar-close {
+  visibility: hidden;
+}
+
+.ui-widget {
+    font-family: "Segoe UI",Verdana,Helvetica,Sans-Serif;
+    font-size: 1em;
+}
+
+
+/*Log In*/
+
+.Datos
+{
+    width: 50%;
+	margin: 0 20%;
+	float: left;
+	padding: 5%;
+	background: #d4ccb0;
+	border-radius: 5px;
+	border: 4px solid #414141;
+	background-image: url(../Images/firma_ucr_blanco.png);
+	background-repeat: no-repeat;
+	background-position: 10px 5px;
+	background-size: 45%;
+}
+
+.elementoLogIn
+{
+    width: 100%;
+    border-radius: 5px;
+}
+
+.boton
+{
+    width: 100%;
+    height: 30px;
+    cursor: pointer;
+}
+
+.login
+{
+    float: left;
+    width: 98%;
+    padding: 1%;
+    background-color: #FFF;
+    -moz-border-bottom-left-radius: 5px;
+    -moz-border-bottom-right-radius: 5px;
+    -webkit-border-bottom-left-radius: 5px;
+    -webkit-border-bottom-right-radius: 5px;
+    border-bottom: 4px solid #414141;
+    border-left: 4px solid #414141;
+    border-right: 4px solid #414141;
+    margin-bottom: 10px;
+}
+
+.ventanaLogIn {
+	width: 60%;
+    float: left;
+    padding: 5% 20%;
+}
+
+#log_ECCI_Logo
+{
+    margin-top: 15%;
+    width: 90%;
+    margin-left: 5%;
+    margin-right: 5%;
+    text-align: center;
+    float: left;
+}
+
+#log_ECCI_Logo img
+{
+    width: 85%;
+}
+
+.globalTable
+{
+    width: 100%;
+    float: left;
+    margin-top: 10px;
+    text-align: center;
+}
+
+.pagerGlobal span
+{
+    background: #414141;
+    padding: 0px 8px 2px 8px;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+.pagerGlobal a
+{
+    padding: 0px 8px 2px 8px;
+    color: #414141;
+    text-decoration: none;
+}
+
+.pagerGlobal a:hover
+{
+    background: #414141;
+    padding: 0px 8px 2px 8px;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+#lblCerrarSesion
+{
+    font-size: 13px;
+    font-family: Arial;
+    padding: 0 5px;
+}
+
+.centerText
+{
+    text-align: center;
+}
+
+/** Responsive web design **/
+@media screen and (max-width: 905px)
+{
+    #LogoSistema
+    {
+        float: none;
+    }       
+}

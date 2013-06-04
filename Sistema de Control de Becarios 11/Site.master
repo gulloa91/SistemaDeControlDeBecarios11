@@ -1,0 +1,93 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="Site.master.cs" Inherits="SiteMaster" %>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head runat="server">
+    <title>Sistema de Control de Becarios 11 - ECCI</title>
+
+    <!-- CSS Global Files -->
+    <link href="~/Styles/south-street/jquery-ui-1.10.2.custom.css" rel="stylesheet" type="text/css" />
+    <link href="~/Styles/Global.css" rel="stylesheet" type="text/css" />
+    <link href="~/Styles/Menu.css" rel="stylesheet" type="text/css" />
+
+    <!-- JS/jQuery Global Files -->
+    <script src="http://code.jquery.com/jquery-1.9.1.js" type="text/javascript"></script>
+    <script src="Scripts/jquery-ui-1.10.2.custom.js" type="text/javascript"></script>
+    <script src="Scripts/popUpScript.js" type="text/javascript"></script>
+    <script src="Scripts/funcionesGlobales.js" type="text/javascript"></script>
+
+    <asp:ContentPlaceHolder ID="HeadContent" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+<body>
+    <form runat="server" enctype="multipart/form-data" method="post">
+    <div class="page">
+        <asp:MultiView ID="MultiViewSiteMaster" runat="server">
+            <asp:View ID="VistaPrincipal" runat="server">
+                <div class="header">
+            
+                    <div id="LogoECCI">
+                        <img src="Images/logo_ecci.png" alt="Logo ECCI" />
+                    </div>
+                    <div id="LogoSistema">
+                        <img src="Images/logo.png" alt="Logo Sistema" />
+                    </div>
+                    <div id="LogoUCR">
+                        <img src="Images/firma_ucr.png" alt="Logo UCR" />
+                    </div>
+                    <div id="Menu_Container">
+                        <div class ="pnlCerrarSesion">
+                            <asp:Button id="btnCerrarSesion" Text="Cerrar Sesión" runat="server" CausesValidation="false" OnClick="btnCerrarSesion_Click" />
+                            <asp:Label id="lblCerrarSesion" Text="" runat="server" ForeColor="#C8C8C8"></asp:Label>
+                        </div>
+                        <asp:Menu ID="NavigationMenu" runat="server" CssClass="menu" EnableViewState="false" IncludeStyleBlock="false" Orientation="Horizontal">
+                            <Items>
+                                
+                            </Items>
+                        </asp:Menu>
+                    </div>
+                </div>
+                <div class="main">
+                    <asp:ContentPlaceHolder ID="MainContent" runat="server"/>
+                </div>
+                <div class="footer">
+                    <div id="footer_content">
+                        Proyecto de Ingeniería de Software II | Grupo 2 | 2013 
+                    </div>
+                </div>
+            </asp:View>
+            <asp:View ID="VistaLogin" runat="server">
+                <!-- Cuerpo con la tabla -->
+                <div class="ventanaLogIn">
+                    <div class="Datos">
+                        <div id="log_ECCI_Logo">
+                            <img src="Images/logo.png" alt="Logo Sistema" />
+                        </div>
+                        <div style="width: 100%; float:left; font-weight: bold; font-size: 16px; border-bottom: 1px solid #fff; margin-bottom: 10px;">Ingresar:</div>
+                        <div style="width: 92%; float: left; margin: 0 4%;">
+                            <asp:Label ID="lblUsuario" CssClass="elementoLogIn" Text="Usuario: " runat="server"></asp:Label>
+                        </div>
+                        <div style="width: 92%; float: left; margin: 0 4%;">
+                            <asp:TextBox ID="txtUsuario" CssClass="elementoLogIn" runat="server"></asp:TextBox>
+                        </div>                 
+                        <div style="width: 92%; float: left; margin: 4% 4% 0 4%;">
+                            <asp:Label ID="lblContrasena" CssClass="elementoLogIn" Text="Contraseña: " runat="server"></asp:Label>
+                        </div>
+                        <div style="width: 92%; float: left; margin: 0 4%;">
+                            <asp:TextBox ID="txtContrasena" TextMode="Password" CssClass="elementoLogIn" runat="server"></asp:TextBox>
+                            <asp:Label ID="lblErrorUsuario" runat="server" Text="Usuario o contraseña incorrectos" ForeColor="#990000" Visible="False"></asp:Label>
+                        </div>
+                        <div style="width: 60%; float: left; margin: 5% 20% 0 20%;" >
+                            <asp:Button ID="btnAceptar" runat="server" Text="Aceptar" 
+                                CssClass="boton ui-widget ui-state-default ui-corner-all ui-button-text-only" 
+                                onclick="Click_Aceptar" />
+                        </div>
+                    </div>                        
+                </div>
+            </asp:View>
+        </asp:MultiView>
+    </div>
+    <div id="popUpMensaje"></div>
+    </form>
+</body>
+</html>
