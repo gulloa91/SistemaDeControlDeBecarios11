@@ -1,6 +1,7 @@
 ﻿$(document).ready(function () {
 
     setPopUp("PopUpAsignacion", "btnInvisible1");
+    setPopUp("PopUpConfirmarRechazoBecario", "btnInvisibleConfirmarRechazo");
     setPopUpVerBecariosAsignados();
     setPopUpAceptarRechazarBecarios();
     setDeletePopUp("PopUpEliminarAsignacion", "btnInvisible2");

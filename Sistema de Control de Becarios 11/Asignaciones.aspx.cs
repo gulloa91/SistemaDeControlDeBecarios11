@@ -16,8 +16,10 @@ public partial class Asignaciones : System.Web.UI.Page
         List<int> permisos = new List<int>();
         permisos = Session["ListaPermisos"] as List<int>;
 
-        // START TEMP
-        MultiViewEncargado.ActiveViewIndex = 1;
+        // Cuando perfiles esté actualizado con los permisos más recientes entonces vamos a poder
+        // mover estos campos a sus respectivos Loads, por el momento todos están juntos, aunque 
+        // eso no genera error.
+        MultiViewEncargado.ActiveViewIndex = 0;
 
         if (!IsPostBack)
         {
@@ -27,6 +29,7 @@ public partial class Asignaciones : System.Web.UI.Page
             this.DropDownEncargadosPopUp.Items.Add(noSelectedItem);
             llenarGridaBecariosAsignadosVistaEncargado();
             llenarCicloYAnioVistaEncargados();
+            llenarInfoVistaBecario();
         }
         // END TEMP
 
@@ -519,4 +522,52 @@ public partial class Asignaciones : System.Web.UI.Page
         GridBecariosAsignadosVistaEncargado.HeaderRow.Cells[5].Text = "Estado";
     }
 
+    /**********************************************************************************************************
+     * 
+     *                                          VISTA BECARIO
+     * 
+     * ********************************************************************************************************/
+    protected void llenarInfoVistaBecario()
+    {
+        this.lblAnioVistaBecario.Text = "2013";
+        this.lblCicloVistaBecario.Text = "I";
+        this.lblEncargadoVistaBecario.Text = "Gabriel Ulloa Murillo";
+        this.lblHorasVistaBecario.Text = "73";
+    }
+
+
+    // Aceptar asignación
+    protected void btnAceptarAsignacionBecario_Click(object sender, EventArgs e)
+    {
+        commonService.mensajeJavascript("Usted ha aceptado la asignación satisfactoriamente", "Aceptado");
+        esconderBotonesVistaBecario(true);
+    }
+
+    // Abrir confirmación de rechazo de asignación
+    protected void btnCancelarAsignacionBecario_Click(object sender, EventArgs e)
+    {
+        commonService.abrirPopUp("PopUpConfirmarRechazoBecario", "Rechazar Asignación");
+    }
+
+    // Confirmar rechazo
+    protected void btnInvisibleConfirmarRechazo_Click(object sender, EventArgs e)
+    {
+        commonService.cerrarPopUp("PopUpConfirmarRechazoBecario");
+        commonService.mensajeJavascript("¡Su rechazo ha sido procesado satisfactoriamente!","Rechazo procesado");
+        esconderBotonesVistaBecario(true);
+    }
+
+    protected void esconderBotonesVistaBecario(Boolean esconder)
+    {
+        if (esconder)
+        {
+            this.btnAceptarAsignacionBecario.Visible = false;
+            this.btnCancelarAsignacionBecario.Visible = false;
+        }
+        else
+        {
+            this.btnAceptarAsignacionBecario.Visible = true;
+            this.btnCancelarAsignacionBecario.Visible = true;
+        }
+    }
 }

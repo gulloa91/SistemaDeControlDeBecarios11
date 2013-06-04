@@ -17,7 +17,6 @@
                     <asp:AsyncPostBackTrigger ControlID="btnInvisibleAceptarAsignacion" EventName="Click" />
                 </Triggers>
 
-				<!-- Deje de pedirla, Gabo -->
                 <ContentTemplate>
                     <!-- Botones Invisibles -->
                     <asp:Button ID="btnInvisibleAceptarAsignacion" 
@@ -279,8 +278,56 @@
 
         <!-- Consulta de Encargados relacionados con ese Becario -->
         <asp:View ID="VistaBecario" runat="server">
+            <asp:UpdatePanel ID="UpdatePanelVistaBecario" runat="server">
+                <Triggers>
+                    <asp:AsyncPostBackTrigger EventName="Click" ControlID="btnInvisibleConfirmarRechazo" />
+                </Triggers>
 
-            
+                <ContentTemplate>
+                    <!-- Botones Invisibles -->
+                    <asp:Button ID="btnInvisibleConfirmarRechazo" 
+                        CssClass="btnInvisibleConfirmarRechazo invisible" runat="server" Text="" 
+                        onclick="btnInvisibleConfirmarRechazo_Click" />
+
+                    <div style="width: 40%; float: left; border: 2px solid #414141; margin: 5% 20%; padding: 10%; border-radius: 5px;">
+                        <div style="width: 100%; float: left; text-align: center; font-weight: bold; font-size: 1.2em;">
+                            <span style="width: 100%; float: left;">Asignación de Encargado</span>
+                            <asp:Label ID="lblCicloVistaBecario" runat="server" Text=""></asp:Label> - 
+                            <asp:Label ID="lblAnioVistaBecario" runat="server" Text=""></asp:Label>
+                        </div>
+                        <div style="width: 100%; float: left; font-size: 1em; padding: 10px 0;">
+                            <p> La persona encargada del control de las horas de su beca es: 
+                            <b><asp:Label ID="lblEncargadoVistaBecario" runat="server" Text=""></asp:Label></b></p>
+                            <p> Total de horas a cumplir este semestre:  
+                            <b><asp:Label ID="lblHorasVistaBecario" runat="server" Text=""></asp:Label></b></p>
+                        </div>
+                        <div style="width: 100%; float: left; padding: 10px 0;">
+                            <asp:Button ID="btnAceptarAsignacionBecario" runat="server" 
+                                Text="Aceptar Asignación" CausesValidation="false" 
+                                CssClass="boton ui-widget ui-state-default ui-corner-all ui-button-text-only" 
+                                onclick="btnAceptarAsignacionBecario_Click" />
+                        </div>
+                        <div style="width: 100%; float: left; padding: 10px 0 0 0;">
+                            <asp:Button ID="btnCancelarAsignacionBecario" runat="server" 
+                                Text="Rechazar Asignación" CausesValidation="false" 
+                                CssClass="boton ui-widget ui-state-default ui-corner-all ui-button-text-only" 
+                                onclick="btnCancelarAsignacionBecario_Click" />
+                        </div>
+                    </div>
+                </ContentTemplate>
+
+            </asp:UpdatePanel>
+
+            <div id="PopUpConfirmarRechazoBecario">
+                <asp:UpdatePanel ID="UpdatePanelConfirmarRechazo" runat="server">
+                    <Triggers></Triggers>
+
+                    <ContentTemplate>
+                        ¿Seguro que desea rechazar esta asignación? En caso afirmativo su decisión se mandará a la dirección de la ECCI.
+                    </ContentTemplate>
+                </asp:UpdatePanel>
+            </div>
+
         </asp:View>
 
         <!-- Sin acceso al módulo -->
