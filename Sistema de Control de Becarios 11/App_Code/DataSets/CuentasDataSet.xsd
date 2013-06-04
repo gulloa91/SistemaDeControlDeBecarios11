@@ -12,7 +12,7 @@
         <Tables>
           <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="CuentaTableAdapter" GeneratorDataComponentClassName="CuentaTableAdapter" Name="Cuenta" UserDataComponentName="CuentaTableAdapter">
             <MainSource>
-              <DbSource ConnectionRef="SistemaControlBecariosConnectionString (Web.config)" DbObjectName="SistemaControlBecarios.dbo.Cuenta" DbObjectType="Table" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="true" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetData" UserSourceName="Fill">
+              <DbSource ConnectionRef="ingegsg2ConnectionString (Web.config)" DbObjectName="ingegsg2.dbo.Cuenta" DbObjectType="Table" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="true" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetData" UserSourceName="Fill">
                 <DeleteCommand>
                   <DbCommand CommandType="Text" ModifiedByUser="false">
                     <CommandText>DELETE FROM [dbo].[Cuenta] WHERE (([Nombre] = @Original_Nombre) AND ([Contraseña] = @Original_Contraseña) AND ((@IsNull_UltimoAcceso = 1 AND [UltimoAcceso] IS NULL) OR ([UltimoAcceso] = @Original_UltimoAcceso)) AND ((@IsNull_CedulaUsuario = 1 AND [CedulaUsuario] IS NULL) OR ([CedulaUsuario] = @Original_CedulaUsuario)))</CommandText>
@@ -69,7 +69,7 @@
               <Mapping SourceColumn="CedulaUsuario" DataSetColumn="CedulaUsuario" />
             </Mappings>
             <Sources>
-              <DbSource ConnectionRef="SistemaControlBecariosConnectionString (Web.config)" DbObjectName="" DbObjectType="Unknown" GenerateShortCommands="true" GeneratorSourceName="actualizarFechaIngresoCuenta" Modifier="Public" Name="actualizarFechaIngresoCuenta" QueryType="NoData" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy2" UserSourceName="actualizarFechaIngresoCuenta">
+              <DbSource ConnectionRef="ingegsg2ConnectionString (Web.config)" DbObjectName="" DbObjectType="Unknown" GenerateShortCommands="true" GeneratorSourceName="actualizarFechaIngresoCuenta" Modifier="Public" Name="actualizarFechaIngresoCuenta" QueryType="NoData" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy" UserSourceName="actualizarFechaIngresoCuenta">
                 <UpdateCommand>
                   <DbCommand CommandType="Text" ModifiedByUser="true">
                     <CommandText>UPDATE [dbo].[Cuenta] SET [UltimoAcceso] = @fecha WHERE Nombre=@nombreCuenta</CommandText>
@@ -80,7 +80,7 @@
                   </DbCommand>
                 </UpdateCommand>
               </DbSource>
-              <DbSource ConnectionRef="SistemaControlBecariosConnectionString (Web.config)" DbObjectName="SistemaControlBecarios.dbo.Cuenta" DbObjectType="Table" GenerateShortCommands="true" GeneratorSourceName="getCedulaByUsuario" Modifier="Public" Name="getCedulaByUsuario" QueryType="Scalar" ScalarCallRetval="System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy" UserSourceName="getCedulaByUsuario">
+              <DbSource ConnectionRef="ingegsg2ConnectionString (Web.config)" DbObjectName="ingegsg2.dbo.Cuenta" DbObjectType="Table" GenerateShortCommands="true" GeneratorSourceName="getCedulaByUsuario" Modifier="Public" Name="getCedulaByUsuario" QueryType="Scalar" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy1" UserSourceName="getCedulaByUsuario">
                 <SelectCommand>
                   <DbCommand CommandType="Text" ModifiedByUser="true">
                     <CommandText>SELECT        CedulaUsuario
@@ -92,7 +92,7 @@ WHERE        (Nombre = @Nombre)</CommandText>
                   </DbCommand>
                 </SelectCommand>
               </DbSource>
-              <DbSource ConnectionRef="SistemaControlBecariosConnectionString (Web.config)" DbObjectName="SistemaControlBecarios.dbo.Cuenta" DbObjectType="Table" GenerateMethods="Get" GenerateShortCommands="true" GeneratorGetMethodName="GetDataByBusqueda" GetMethodModifier="Public" GetMethodName="GetDataByBusqueda" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataByBusqueda" UserSourceName="GetDataByBusqueda">
+              <DbSource ConnectionRef="ingegsg2ConnectionString (Web.config)" DbObjectName="ingegsg2.dbo.Cuenta" DbObjectType="Table" GenerateMethods="Get" GenerateShortCommands="true" GeneratorGetMethodName="GetDataByBusqueda" GetMethodModifier="Public" GetMethodName="GetDataByBusqueda" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataByBusqueda" UserSourceName="GetDataByBusqueda">
                 <SelectCommand>
                   <DbCommand CommandType="Text" ModifiedByUser="true">
                     <CommandText>SELECT Nombre, Contraseña, UltimoAcceso, CedulaUsuario FROM dbo.Cuenta WHERE(Nombre LIKE @Nombre);</CommandText>
@@ -102,7 +102,7 @@ WHERE        (Nombre = @Nombre)</CommandText>
                   </DbCommand>
                 </SelectCommand>
               </DbSource>
-              <DbSource ConnectionRef="SistemaControlBecariosConnectionString (Web.config)" DbObjectName="SistemaControlBecarios.dbo.Cuenta" DbObjectType="Table" GenerateMethods="Get" GenerateShortCommands="true" GeneratorGetMethodName="GetDataByNombreContr" GetMethodModifier="Public" GetMethodName="GetDataByNombreContr" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataByNombreContr" UserSourceName="GetDataByNombreContr">
+              <DbSource ConnectionRef="ingegsg2ConnectionString (Web.config)" DbObjectName="ingegsg2.dbo.Cuenta" DbObjectType="Table" GenerateMethods="Get" GenerateShortCommands="true" GeneratorGetMethodName="GetDataByNombreContr" GetMethodModifier="Public" GetMethodName="GetDataByNombreContr" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataByNombreContr" UserSourceName="GetDataByNombreContr">
                 <SelectCommand>
                   <DbCommand CommandType="Text" ModifiedByUser="true">
                     <CommandText>SELECT CedulaUsuario, Contraseña, Nombre, UltimoAcceso FROM Cuenta WHERE (Nombre = @Nombre) AND (Contraseña = @Contraseña)</CommandText>
@@ -113,7 +113,7 @@ WHERE        (Nombre = @Nombre)</CommandText>
                   </DbCommand>
                 </SelectCommand>
               </DbSource>
-              <DbSource ConnectionRef="SistemaControlBecariosConnectionString (Web.config)" DbObjectName="SistemaControlBecarios.dbo.Cuenta" DbObjectType="Table" GenerateMethods="Get" GenerateShortCommands="true" GeneratorGetMethodName="obtenerDatosNombre" GetMethodModifier="Public" GetMethodName="obtenerDatosNombre" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="obtenerDatosNombre" UserSourceName="obtenerDatosNombre">
+              <DbSource ConnectionRef="ingegsg2ConnectionString (Web.config)" DbObjectName="ingegsg2.dbo.Cuenta" DbObjectType="Table" GenerateMethods="Get" GenerateShortCommands="true" GeneratorGetMethodName="obtenerDatosNombre" GetMethodModifier="Public" GetMethodName="obtenerDatosNombre" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="obtenerDatosNombre" UserSourceName="obtenerDatosNombre">
                 <SelectCommand>
                   <DbCommand CommandType="Text" ModifiedByUser="true">
                     <CommandText>SELECT Nombre, Contraseña, UltimoAcceso, CedulaUsuario FROM dbo.Cuenta WHERE(Nombre=@Nombre);</CommandText>
@@ -123,7 +123,7 @@ WHERE        (Nombre = @Nombre)</CommandText>
                   </DbCommand>
                 </SelectCommand>
               </DbSource>
-              <DbSource ConnectionRef="SistemaControlBecariosConnectionString (Web.config)" DbObjectType="Unknown" GenerateShortCommands="true" GeneratorSourceName="validarUsuario" Modifier="Public" Name="validarUsuario" QueryType="Scalar" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy1" UserSourceName="validarUsuario">
+              <DbSource ConnectionRef="ingegsg2ConnectionString (Web.config)" DbObjectType="Unknown" GenerateShortCommands="true" GeneratorSourceName="validarUsuario" Modifier="Public" Name="validarUsuario" QueryType="Scalar" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy2" UserSourceName="validarUsuario">
                 <SelectCommand>
                   <DbCommand CommandType="Text" ModifiedByUser="true">
                     <CommandText>SELECT COUNT(*) FROM Cuenta WHERE(Nombre=@Nombre AND Contraseña=@Contraseña);</CommandText>

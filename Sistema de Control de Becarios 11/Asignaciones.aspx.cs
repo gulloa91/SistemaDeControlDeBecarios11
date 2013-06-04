@@ -88,6 +88,7 @@ public partial class Asignaciones : System.Web.UI.Page
     protected void btnInvisibleAceptarAsignacion_Click(object sender, EventArgs e)
     {
         commonService.cerrarPopUp("PopUpAsignacion");
+
         commonService.mensajeJavascript("La asignación se insertó correctamente", "Insertada");
     }
 

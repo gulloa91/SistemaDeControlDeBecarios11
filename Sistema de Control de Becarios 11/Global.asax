@@ -1,7 +1,6 @@
 ﻿<%@ Application Language="C#" %>
-<script runat="server">
 
-//Jojojojo
+<script runat="server">
 
     void Application_Start(object sender, EventArgs e) 
     {
