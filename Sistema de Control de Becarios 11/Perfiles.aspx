@@ -127,27 +127,31 @@
                                     GroupName="Encargados" Text="Sin acceso a Encargado" Enabled="False" />
                             </div>
                         </div>
-                        <!--<div id="perfil_permisos_col1" class="columna-perfil">
+                        <div id="perfil_permisos_col1" class="columna-perfil">
                             <div id="permisos_horas" class="borde_perfil">
-                                <asp:CheckBox ID="checkControlBecario" CssClass="perfil_radio" runat="server" Text="Control Horas Estudiante" Enabled="False" />
+                                <asp:RadioButton ID="radioControlBecario" CssClass="perfil_radio" runat="server" Text="Control Horas Estudiante" Enabled="False" GroupName="ControlHoras"/>
                                 <span class="perfil_mensaje">Permite al becario las horas que cumplen para ser aprobadas</span>
-                                <asp:CheckBox ID="checkControlEncargado" Text="Control Horas Encargado" Enabled="False" CssClass="perfil_radio" runat="server" />
+                                <asp:RadioButton ID="radioControlEncargado" Text="Control Horas Encargado" Enabled="False" CssClass="perfil_radio" runat="server" GroupName="ControlHoras"/>
                                 <span class="perfil_mensaje">Permite al encargado revisar las horas de los becarios
                                     asignados a él</span>
+                                <asp:RadioButton ID="radioControlAdmin"  Text="Administrador" CssClass="perfil_radio" GroupName="ControlHoras" runat="server" />
+                                <span class="perfil_mensaje">Permite la vista de administrador para control de horas.</span>
+                                <asp:RadioButton ID="noControlHoras" Text="Sin Acceso Control de Horas" CssClass="perfil_radio" GroupName="ControlHoras" runat="server" />
+                            
                             </div>
                             <div id="asignacion" class="borde_perfil">
-                                <asp:CheckBox ID="checkAsignacionCompleta" CssClass="perfil_radio" runat="server"
-                                    Text="Asignacion de horas Completa" Enabled="False" />
+                                <asp:RadioButton ID="radioAsignacionCompleta" CssClass="perfil_radio" runat="server"
+                                    Text="Asignacion de horas Completa" Enabled="False" GroupName="radioAsignaciones"/>
                                 <span class="perfil_mensaje">Muestra la vista completa de asignación, es decir, tanto
                                     de encargados como de Becarios.</span>
-                                <asp:CheckBox ID="checkAsignacionEncargado" CssClass="perfil_radio" runat="server"
-                                    Text="Asignación de horas Encargado" Enabled="False" />
+                                <asp:RadioButton ID="radioAsignacionEncargado" CssClass="perfil_radio" runat="server"
+                                    Text="Asignación de horas Encargado" Enabled="False" GroupName="radioAsignaciones"/>
                                 <span class="perfil_mensaje">Muestra ...</span>
-                                <asp:CheckBox ID="checkAsignacionBecario" CssClass="perfil_radio" runat="server"
-                                    Text="Asignación de horas Becario" Enabled="False" />
+                                <asp:RadioButton ID="radioAsignacionBecario" CssClass="perfil_radio" runat="server"
+                                    Text="Asignación de horas Becario" Enabled="False" GroupName="radioAsignaciones"/>
                                 <span class="perfil_mensaje">Muestra ...</span>
                             </div>
-                        </div>-->
+                        </div>
                         <div id="perfil_permisos_col2" class="columna-perfil">
                             <div id="cuentas_perfiles" class="borde_perfil">
                                 <asp:CheckBox ID="checkPerfiles" CssClass="perfil_radio" runat="server" Text="Vista Completa de Perfiles" />

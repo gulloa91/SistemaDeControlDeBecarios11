@@ -26,7 +26,7 @@ public partial class Perfiles : System.Web.UI.Page
         {
 
              int permiso = 0; /* Query to user validation */
-             if (permisos.Contains(11))
+             if (permisos.Contains(11))/**Cambiar**/
              {
                  permiso = 11;
              }
@@ -58,39 +58,40 @@ public partial class Perfiles : System.Web.UI.Page
     {
         if (Page.IsValid)
         {
-            Object[] datos = new Object[15];//crea el objeto para almacenar los datos del perfil
-            datos[0] = this.txtNombrePerfil.Text;
-            datos[1] = (this.radioBecarioCompleto.Checked) ? "1" : "0";
-            datos[2] = (this.radioBecarioParcial.Checked) ? "2" : "0";
-            datos[3] = (this.radioEncargadoCompleto.Checked) ? "3" : "0";
-            datos[4] = (this.radioEncargadoParcial.Checked) ? "4" : "0";
-            datos[5] = "0";// (this.checkControlBecario.Checked) ? "5" : "0";
-            datos[6] = "0";//(this.checkControlEncargado.Checked) ? "6" : "0";
-            datos[7] = "0";//(this.checkAsignacionCompleta.Checked) ? "7" : "0";
-            datos[8] = "0";//(this.checkAsignacionEncargado.Checked) ? "8" : "0";
-            datos[9] = "0";//(this.checkAsignacionBecario.Checked) ? "9" : "0";
-            datos[10] = (this.radioCuentaCompleta.Checked) ? "10" : "0";
-            datos[11] = (this.checkPerfiles.Checked) ? "11" : "0";
-            datos[12] = (this.radioCuentaParcial.Checked) ? "12" : "0";
-            //para saber el tipo de perfil revizo los radioButtons
-
+            Object[] datos = new Object[16];//crea el objeto para almacenar los datos del perfil
+            datos[0] = this.txtNombrePerfil.Text;//nombre nuevo del permiso
             if (radioAdministrador.Checked)
             {
-                datos[13] = "0";
+                datos[1] = "0";
             }
             else if (radioEncargado.Checked)
             {
-                datos[13] = "1";
+                datos[1] = "1";
             }
             else if (radioBecario.Checked)
             {
-                datos[13] = "2";
+                datos[1] = "2";
             }
             else
             {
-                datos[13] = "3";
+                datos[1] = "3";
             }
-            datos[14] = nombreAnterior;//para modificar el nombre de ser necesario
+            datos[2] = nombreAnterior;//para modificar el nombre de ser necesario
+            datos[3] = (this.radioBecarioCompleto.Checked) ? "1" : "0";
+            datos[4] = (this.radioBecarioParcial.Checked) ? "2" : "0";
+            datos[5] = (this.radioEncargadoCompleto.Checked) ? "3" : "0";
+            datos[6] = (this.radioEncargadoParcial.Checked) ? "4" : "0";
+            datos[7] = (this.radioControlBecario.Checked) ? "5" : "0";
+            datos[8] = (this.radioControlEncargado.Checked) ? "6" : "0";
+            datos[9] = (this.radioControlAdmin.Checked) ? "7" : "0";
+            datos[10] = (this.radioAsignacionCompleta.Checked) ? "8" : "0";
+            datos[11] = (this.radioAsignacionEncargado.Checked) ? "9" : "0";
+            datos[12] = (this.radioAsignacionBecario.Checked) ? "10" : "0";
+            datos[13] = (this.radioCuentaCompleta.Checked) ? "11" : "0";
+            datos[14] = (this.checkPerfiles.Checked) ? "12" : "0";
+            datos[15] = (this.radioCuentaParcial.Checked) ? "13" : "0";
+            //para saber el tipo de perfil revizo los radioButtons            
+            
             String resultado = cp.ejecutar(modo, datos);//se realiza la accion y se retorna el resultado
             if (resultado.Equals(""))
             {//exito al realizar la accion, mensaje de exito
@@ -208,11 +209,12 @@ public partial class Perfiles : System.Web.UI.Page
             this.radioBecarioParcial.Enabled = true;
             this.radioEncargadoCompleto.Enabled = true;
             this.radioEncargadoParcial.Enabled = true;
-            this.checkControlBecario.Enabled = true;
-            this.checkControlEncargado.Enabled = true;
-            this.checkAsignacionCompleta.Enabled = true;
-            this.checkAsignacionEncargado.Enabled = true;
-            this.checkAsignacionBecario.Enabled = true;
+            this.radioControlBecario.Enabled = true;
+            this.radioControlEncargado.Enabled = true;
+            this.radioControlAdmin.Enabled = true;
+            this.radioAsignacionCompleta.Enabled = true;
+            this.radioAsignacionEncargado.Enabled = true;
+            this.radioAsignacionBecario.Enabled = true;
             this.radioCuentaCompleta.Enabled = true;
             this.radioCuentaParcial.Enabled = true;
             this.checkPerfiles.Enabled = true;
@@ -230,11 +232,12 @@ public partial class Perfiles : System.Web.UI.Page
             this.radioBecarioParcial.Enabled = false;
             this.radioEncargadoCompleto.Enabled = false;
             this.radioEncargadoParcial.Enabled = false;
-            this.checkControlBecario.Enabled = false;
-            this.checkControlEncargado.Enabled = false;
-            this.checkAsignacionCompleta.Enabled = false;
-            this.checkAsignacionEncargado.Enabled = false;
-            this.checkAsignacionBecario.Enabled = false;
+            this.radioControlBecario.Enabled = false;
+            this.radioControlEncargado.Enabled = false;
+            this.radioControlAdmin.Enabled = false;
+            this.radioAsignacionCompleta.Enabled = false;
+            this.radioAsignacionEncargado.Enabled = false;
+            this.radioAsignacionBecario.Enabled = false;
             this.radioCuentaCompleta.Enabled = false;
             this.radioCuentaParcial.Enabled = false;
             this.checkPerfiles.Enabled = false;
@@ -255,17 +258,19 @@ public partial class Perfiles : System.Web.UI.Page
         this.radioBecarioParcial.Checked = false;
         this.radioEncargadoCompleto.Checked = false;
         this.radioEncargadoParcial.Checked = false;
-        this.checkControlBecario.Checked = false;
-        this.checkControlEncargado.Checked = false;
-        this.checkAsignacionCompleta.Checked = false;
-        this.checkAsignacionEncargado.Checked = false;
-        this.checkAsignacionBecario.Checked = false;
+        this.radioControlBecario.Checked = false;
+        this.radioControlEncargado.Checked = false;
+        this.radioControlAdmin.Checked = false;
+        this.radioAsignacionCompleta.Checked = false;
+        this.radioAsignacionEncargado.Checked = false;
+        this.radioAsignacionBecario.Checked = false;
         this.radioCuentaCompleta.Checked = false;
         this.radioCuentaParcial.Checked = false;
         this.checkPerfiles.Checked = false;
         this.radioSinAccesoBecario.Checked = true;
         this.radioSinAccesoEncargado.Checked = true;
         this.radioSinCuenta.Checked = true;
+        this.noControlHoras.Checked = false;
     }
 
     public void habilitarBotones(bool modo)
@@ -312,20 +317,21 @@ public partial class Perfiles : System.Web.UI.Page
     public void siElimina(object sender, EventArgs e)
     {//confirmacion del usuario para eliminar un perfil
         commonService.cerrarPopUp("PopUp");//cierro el popUp con los datos
-        Object[] datos = new Object[13];
+        Object[] datos = new Object[16];
         datos[0] = this.txtNombrePerfil.Text;
-        datos[1] = (this.radioBecarioCompleto.Checked) ? "1" : "0";
-        datos[2] = (this.radioBecarioParcial.Checked) ? "2" : "0";
-        datos[3] = (this.radioEncargadoCompleto.Checked) ? "3" : "0";
-        datos[4] = "0";// (this.radioEncargadoParcial.Checked) ? "4" : "0";
-        datos[5] = "0";//(this.checkControlBecario.Checked) ? "5" : "0";
-        datos[6] = "0";//(this.checkControlEncargado.Checked) ? "6" : "0";
-        datos[7] = "0";//(this.checkAsignacionCompleta.Checked) ? "7" : "0";
-        datos[8] = "0";//(this.checkAsignacionEncargado.Checked) ? "8" : "0";
-        datos[9] = "0";//(this.checkAsignacionBecario.Checked) ? "9" : "0";
-        datos[10] = (this.radioCuentaCompleta.Checked) ? "10" : "0";
-        datos[11] = (this.checkPerfiles.Checked) ? "11" : "0";
-        datos[12] = (this.radioCuentaParcial.Checked) ? "12" : "0";
+        datos[3] = (this.radioBecarioCompleto.Checked) ? "1" : "0";
+        datos[4] = (this.radioBecarioParcial.Checked) ? "2" : "0";
+        datos[5] = (this.radioEncargadoCompleto.Checked) ? "3" : "0";
+        datos[6] =  (this.radioEncargadoParcial.Checked) ? "4" : "0";
+        datos[7] = (this.radioControlBecario.Checked) ? "5" : "0";
+        datos[8] = (this.radioControlEncargado.Checked) ? "6" : "0";
+        datos[9] = (this.radioControlAdmin.Checked) ? "7" : "0";
+        datos[10] = (this.radioAsignacionCompleta.Checked) ? "8" : "0";
+        datos[11] = (this.radioAsignacionEncargado.Checked) ? "9" : "0";
+        datos[12] = (this.radioAsignacionBecario.Checked) ? "10" : "0";
+        datos[13] = (this.radioCuentaCompleta.Checked) ? "11" : "0";
+        datos[14] = (this.checkPerfiles.Checked) ? "12" : "0";
+        datos[15] = (this.radioCuentaParcial.Checked) ? "13" : "0";
         String result = cp.ejecutar(3, datos);//ejectuo la accion de eliminar el perfil
         if (result.Equals(""))
         {//mesaje de exito
@@ -399,31 +405,33 @@ public partial class Perfiles : System.Web.UI.Page
                 this.radioEncargadoParcial.Checked = true;
                 break;
             case 5:
-                this.checkControlBecario.Checked = true;
+                this.radioControlBecario.Checked = true;
                 break;
             case 6:
-                this.checkControlEncargado.Checked = true;
+                this.radioControlEncargado.Checked = true;
                 break;
             case 7:
-                this.checkAsignacionCompleta.Checked = true;
+                this.radioControlAdmin.Checked = true;
                 break;
             case 8:
-                this.checkAsignacionEncargado.Checked = true;
+                this.radioAsignacionCompleta.Checked = true;
                 break;
             case 9:
-                this.checkAsignacionBecario.Checked = true;
+                this.radioAsignacionEncargado.Checked = true;
                 break;
             case 10:
+                this.radioAsignacionBecario.Checked = true;
+                break;
+            case 11:
                 this.radioSinCuenta.Checked = false;
                 this.radioCuentaCompleta.Checked = true;
                 break;
-            case 11:
+            case 12:
                 this.checkPerfiles.Checked = true;
                 break;
-            case 12:{
+            case 13:{
                 this.radioSinCuenta.Checked = false;
                 this.radioCuentaParcial.Checked = true;
-                
                 } break;
         }
     }

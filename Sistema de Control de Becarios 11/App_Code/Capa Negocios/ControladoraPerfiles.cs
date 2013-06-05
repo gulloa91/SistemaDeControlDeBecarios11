@@ -35,21 +35,20 @@ public class ControladoraPerfiles
     //ejecuta la accion
     public String ejecutar(int accion, Object[] datos)
     {
-        
         String retorno = "";
         Perfil p;
         switch (accion)
         {
             case 1: //insertar
                 //agrego un perfil en la tabla Perfiles
-                cp.agregarPerfil(datos[0].ToString(), Convert.ToInt32(datos[13].ToString()));
+                cp.agregarPerfil(datos[0].ToString(), Convert.ToInt32(datos[1].ToString()));
                 //recorro los permisos
-                for (int i = 1; i < 13; ++i)
+                for (int i = 3; i < datos.Length; ++i)
                 {
                     if (!datos[i].Equals("0"))
                     {//si tiene permiso en el perfil i
                         //el datos[12] es el tipo de perfil, administrador, encargado o becario
-                        p = new Perfil(datos[0].ToString(), datos[i].ToString(), datos[13].ToString());
+                        p = new Perfil(datos[0].ToString(), datos[i].ToString(), datos[1].ToString());
                         retorno = cp.agregarPermisos(p);//envio a insertar el permiso para el perfil p
                     }
                 }
@@ -57,28 +56,30 @@ public class ControladoraPerfiles
 
 
             case 2://modificar
-                for (int i = 1; i < 13; ++i)
+                for (int i = 3; i < datos.Length; ++i)
                 {//primero las inserciones
                     if (!datos[i].Equals("0"))
                     {//hay que hacer la insercion
-                        p = new Perfil(datos[14].ToString(), datos[i].ToString(), datos[13].ToString());
+                        //modifico los permisos para el nombre anterior
+                        p = new Perfil(datos[2].ToString(), datos[i].ToString(), datos[1].ToString());
                         retorno = cp.modificaPerfil(1, p);
                     }
                 }
-                for (int i = 1; i < 13; ++i)
+                for (int i = 3; i < datos.Length; ++i)
                 {//borrar los que no se necesitan
                     if (datos[i].Equals("0"))
                     {//el permiso i no se necesita
-                        p = new Perfil(datos[0].ToString(), i.ToString(), datos[13].ToString());
+                        p = new Perfil(datos[2].ToString(), datos[i].ToString(), datos[1].ToString());
                         retorno = cp.modificaPerfil(2, p);
                     }
                 }
-                retorno = cp.modNom(datos[0].ToString(),datos[13].ToString());
+                retorno = cp.modNom(datos[0].ToString(),datos[2].ToString());
+                retorno = cp.modificarTipo(datos[0].ToString(), datos[1].ToString());
                 break;
 
 
             case 3://eliminar
-                for (int i = 1; i < 13; ++i)
+                for (int i = 3; i < datos.Length; ++i)
                 {
                     if (!datos[i].Equals("0"))
                     {//tiene perfil, hay que eliminarlo

@@ -11,7 +11,7 @@
         <Tables>
           <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="PerfilTableAdapter" GeneratorDataComponentClassName="PerfilTableAdapter" Name="Perfil" UserDataComponentName="PerfilTableAdapter">
             <MainSource>
-              <DbSource ConnectionRef="SistemaControlBecariosConnectionString (Web.config)" DbObjectName="SistemaControlBecarios.dbo.Perfil" DbObjectType="Table" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="true" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="false" UserGetMethodName="GetData" UserSourceName="Fill">
+              <DbSource ConnectionRef="ingegsg2ConnectionString (Web.config)" DbObjectName="ingegsg2.dbo.Perfil" DbObjectType="Table" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="true" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="false" UserGetMethodName="GetData" UserSourceName="Fill">
                 <DeleteCommand>
                   <DbCommand CommandType="Text" ModifiedByUser="false">
                     <CommandText>DELETE FROM [dbo].[Perfil] WHERE (([Nombre] = @Original_Nombre))</CommandText>
@@ -52,7 +52,7 @@
               <Mapping SourceColumn="Tipo" DataSetColumn="Tipo" />
             </Mappings>
             <Sources>
-              <DbSource ConnectionRef="SistemaControlBecariosConnectionString (Web.config)" DbObjectName="SistemaControlBecarios.dbo.Perfil" DbObjectType="Table" FillMethodModifier="Public" FillMethodName="FillBy" GenerateMethods="Both" GenerateShortCommands="true" GeneratorGetMethodName="getNombres" GeneratorSourceName="FillBy" GetMethodModifier="Public" GetMethodName="getNombres" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="getNombres" UserSourceName="FillBy">
+              <DbSource ConnectionRef="ingegsg2ConnectionString (Web.config)" DbObjectName="ingegsg2.dbo.Perfil" DbObjectType="Table" FillMethodModifier="Public" FillMethodName="FillBy" GenerateMethods="Both" GenerateShortCommands="true" GeneratorGetMethodName="getNombres" GeneratorSourceName="FillBy" GetMethodModifier="Public" GetMethodName="getNombres" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="getNombres" UserSourceName="FillBy">
                 <SelectCommand>
                   <DbCommand CommandType="Text" ModifiedByUser="true">
                     <CommandText>SELECT DISTINCT Nombre,Tipo
@@ -64,7 +64,7 @@ WHERE        (Nombre LIKE @nombre)</CommandText>
                   </DbCommand>
                 </SelectCommand>
               </DbSource>
-              <DbSource ConnectionRef="SistemaControlBecariosConnectionString (Web.config)" DbObjectName="SistemaControlBecarios.dbo.Perfil" DbObjectType="Table" GenerateShortCommands="true" GeneratorSourceName="getTipoByNombre" Modifier="Public" Name="getTipoByNombre" QueryType="Scalar" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy" UserSourceName="getTipoByNombre">
+              <DbSource ConnectionRef="ingegsg2ConnectionString (Web.config)" DbObjectName="ingegsg2.dbo.Perfil" DbObjectType="Table" GenerateShortCommands="true" GeneratorSourceName="getTipoByNombre" Modifier="Public" Name="getTipoByNombre" QueryType="Scalar" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy" UserSourceName="getTipoByNombre">
                 <SelectCommand>
                   <DbCommand CommandType="Text" ModifiedByUser="true">
                     <CommandText>SELECT        Tipo
@@ -76,7 +76,7 @@ WHERE        (Nombre = @Nombre)</CommandText>
                   </DbCommand>
                 </SelectCommand>
               </DbSource>
-              <DbSource ConnectionRef="SistemaControlBecariosConnectionString (Web.config)" DbObjectName="" DbObjectType="Unknown" GenerateShortCommands="true" GeneratorSourceName="updateNombre" Modifier="Public" Name="updateNombre" QueryType="NoData" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy1" UserSourceName="updateNombre">
+              <DbSource ConnectionRef="ingegsg2ConnectionString (Web.config)" DbObjectName="" DbObjectType="Unknown" GenerateShortCommands="true" GeneratorSourceName="updateNombre" Modifier="Public" Name="updateNombre" QueryType="NoData" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy1" UserSourceName="updateNombre">
                 <UpdateCommand>
                   <DbCommand CommandType="Text" ModifiedByUser="true">
                     <CommandText>UPDATE       Perfil
@@ -89,11 +89,22 @@ WHERE        (Nombre = @NombreAnterior)</CommandText>
                   </DbCommand>
                 </UpdateCommand>
               </DbSource>
+              <DbSource ConnectionRef="ingegsg2ConnectionString (Web.config)" DbObjectName="" DbObjectType="Unknown" GenerateShortCommands="true" GeneratorSourceName="updateTipo" Modifier="Public" Name="updateTipo" QueryType="NoData" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy2" UserSourceName="updateTipo">
+                <UpdateCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="true">
+                    <CommandText>UPDATE [dbo].[Perfil] SET [Tipo] = @Tipo WHERE (([Nombre] = @Original_Nombre))</CommandText>
+                    <Parameters>
+                      <Parameter AllowDbNull="false" AutogeneratedName="Tipo" ColumnName="Tipo" DataSourceName="ingegsg2.dbo.Perfil" DataTypeServer="int" DbType="Int32" Direction="Input" ParameterName="@Tipo" Precision="0" ProviderType="Int" Scale="0" Size="4" SourceColumn="Tipo" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="Original_Nombre" ColumnName="Nombre" DataSourceName="ingegsg2.dbo.Perfil" DataTypeServer="varchar(50)" DbType="AnsiString" Direction="Input" ParameterName="@Original_Nombre" Precision="0" ProviderType="VarChar" Scale="0" Size="50" SourceColumn="Nombre" SourceColumnNullMapping="false" SourceVersion="Original" />
+                    </Parameters>
+                  </DbCommand>
+                </UpdateCommand>
+              </DbSource>
             </Sources>
           </TableAdapter>
           <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="Perfil_PermisoTableAdapter" GeneratorDataComponentClassName="Perfil_PermisoTableAdapter" Name="Perfil_Permiso" UserDataComponentName="Perfil_PermisoTableAdapter">
             <MainSource>
-              <DbSource ConnectionRef="SistemaControlBecariosConnectionString (Web.config)" DbObjectName="SistemaControlBecarios.dbo.Perfil_Permiso" DbObjectType="Table" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="true" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="false" UserGetMethodName="GetData" UserSourceName="Fill">
+              <DbSource ConnectionRef="ingegsg2ConnectionString (Web.config)" DbObjectName="ingegsg2.dbo.Perfil_Permiso" DbObjectType="Table" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="true" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="false" UserGetMethodName="GetData" UserSourceName="Fill">
                 <DeleteCommand>
                   <DbCommand CommandType="Text" ModifiedByUser="false">
                     <CommandText>DELETE FROM [dbo].[Perfil_Permiso] WHERE (([NombrePerfil] = @Original_NombrePerfil) AND ([Permiso] = @Original_Permiso))</CommandText>
@@ -136,7 +147,7 @@ WHERE        (Nombre = @NombreAnterior)</CommandText>
               <Mapping SourceColumn="Permiso" DataSetColumn="Permiso" />
             </Mappings>
             <Sources>
-              <DbSource ConnectionRef="SistemaControlBecariosConnectionString (Web.config)" DbObjectName="SistemaControlBecarios.dbo.Perfil_Permiso" DbObjectType="Table" FillMethodModifier="Public" FillMethodName="FillBy" GenerateMethods="Both" GenerateShortCommands="true" GeneratorGetMethodName="consultarPerfil" GeneratorSourceName="FillBy" GetMethodModifier="Public" GetMethodName="consultarPerfil" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="consultarPerfil" UserSourceName="FillBy">
+              <DbSource ConnectionRef="ingegsg2ConnectionString (Web.config)" DbObjectName="ingegsg2.dbo.Perfil_Permiso" DbObjectType="Table" FillMethodModifier="Public" FillMethodName="FillBy" GenerateMethods="Both" GenerateShortCommands="true" GeneratorGetMethodName="consultarPerfil" GeneratorSourceName="FillBy" GetMethodModifier="Public" GetMethodName="consultarPerfil" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="consultarPerfil" UserSourceName="FillBy">
                 <SelectCommand>
                   <DbCommand CommandType="Text" ModifiedByUser="true">
                     <CommandText>SELECT NombrePerfil, Permiso FROM dbo.Perfil_Permiso where NombrePerfil=@nombre</CommandText>

@@ -45,6 +45,22 @@ public class ControladoraPerfilesDB
         return returnValue;
     }
 
+    public String modificarTipo(String nom,String tipo) {
+        string returnValue = "";
+
+        try
+        {
+            pt.updateTipo(Convert.ToInt32(tipo),nom);
+        }
+        catch (SqlException e)
+        {
+            returnValue = "Ha ocurrido un error al modificar el perfil";
+
+        }
+
+        return returnValue;
+    }
+
     public String modNom(String nom,String nomAnt) {
         string returnValue = "";
 
