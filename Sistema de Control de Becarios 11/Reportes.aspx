@@ -68,12 +68,30 @@
 
                                                 <div style="width: 100%; float:left; font-weight: bold; font-size: 16px; border-bottom: 1px solid #fff; margin-bottom: 5px;">Buscar:</div>
                                                 <!-- TXT Buscar -->
-                                                <div style="float: left; margin-right: 1%;">
-                                                    <asp:TextBox ID="txtBuscarGeneral"  onkeydown = "enterBuscar(event, 'MainContent_txtBuscarGeneral');" CssClass="txtAsignacion" runat="server"></asp:TextBox>
+                                                <div style="float: left; margin-right: 10px; width: 120px;">
+                                                    <br />
+                                                    <asp:TextBox ID="txtBuscarGeneral" onkeydown = "enterBuscar(event, 'MainContent_txtBuscarGeneral');" CssClass="inputElement" runat="server"></asp:TextBox>
                                                 </div>
+
+                                                <!-- DRP Criterio 1 -->
+                                                <div id="criterio1" style="float: left; margin-right: 10px; width: 120px;">
+                                                    <asp:Label ID="lblCriterio1" CssClass="inputElement" runat="server" Text=""></asp:Label>
+                                                    <asp:DropDownList CssClass="inputElement" ID="DropDownListCriterio1" runat="server">
+                                                    </asp:DropDownList>
+                                                </div>
+
+                                                <!-- DRP Criterio 2 -->
+                                                <div id="criterio2" style="float: left; margin-right: 10px; width: 120px;">
+                                                    <asp:Label ID="lblCriterio2" CssClass="inputElement" runat="server" Text=""></asp:Label>
+                                                    <asp:DropDownList CssClass="inputElement" ID="DropDownListCriterio2" runat="server">
+                                                    </asp:DropDownList>
+                                                </div>
+
+                                                <!-- Se puede hasta Criterio 5 más o menos ... -->
 
                                                 <!-- BTN Buscar -->
                                                 <div style="float: left; margin-right: 1%;">
+                                                    <br />
                                                     <asp:Button ID="btnBuscar" runat="server" Text="Buscar" CausesValidation="false" CssClass="boton ui-widget ui-state-default ui-corner-all ui-button-text-only" />
                                                 </div>
 

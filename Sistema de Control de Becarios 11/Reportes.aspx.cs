@@ -28,13 +28,15 @@ public partial class Reportes : System.Web.UI.Page
             case "Con horas finalizadas":
                 {
                     this.lblReporteActivo.Text = "Consultar Becarios que han finalizado sus horas";
+                    this.lblCriterio1.Text = "Estado"; // Dejar el primero
+                    commonService.correrJavascript("$('#criterio2').css('display', 'none');"); // Esconder el segundo criterio
                     llenarGridReportes(0);
                 } break;
 
             // REPORTE 2
             case "No asignados":
                 {
-                    this.lblReporteActivo.Text = "Reporte de becarios no asignados en un Semestre y Año que si fueron asignados en el semestre anterior o tras-anterior";
+                    this.lblReporteActivo.Text = "Reporte de becarios no asignados en un Semestre y Año, que si fueron asignados en el semestre anterior o tras-anterior";
                 } break;
 
             // REPORTE 3
@@ -101,6 +103,13 @@ public partial class Reportes : System.Web.UI.Page
                     this.GridViewReporte.DataBind();
 
                 } break;
+
+            // Reporte 2
+            // Reporte 3
+            // Reporte 4
+            // Reporte 5
+            // Reporte 6
+            // Reporte 7
         }
 
         this.headersCorrectosTablaReporte();
