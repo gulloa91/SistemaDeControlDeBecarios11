@@ -87,6 +87,26 @@
                                                     </asp:DropDownList>
                                                 </div>
 
+                                                <!-- DRP Criterio 3 -->
+                                                <div id="criterio3" style="float: left; margin-right: 10px; width: 120px;">
+                                                    <asp:Label ID="lblCriterio3" CssClass="inputElement" runat="server" Text=""></asp:Label>
+                                                    <asp:DropDownList CssClass="inputElement" ID="DropDownListCriterio3" runat="server">
+                                                    </asp:DropDownList>
+                                                </div>
+
+                                                <!-- DRP Criterio 4 -->
+                                                <div id="criterio4" style="float: left; margin-right: 10px; width: 120px;">
+                                                    <asp:Label ID="lblCriterio4" CssClass="inputElement" runat="server" Text=""></asp:Label>
+                                                    <asp:DropDownList CssClass="inputElement" ID="DropDownListCriterio4" runat="server">
+                                                    </asp:DropDownList>
+                                                </div>
+
+                                                 <!-- DRP Criterio 5 -->
+                                                <div id="criterio5" style="float: left; margin-right: 10px; width: 120px;">
+                                                    <asp:Label ID="lblCriterio5" CssClass="inputElement" runat="server" Text=""></asp:Label>
+                                                    <asp:DropDownList CssClass="inputElement" ID="DropDownListCriterio5" runat="server">
+                                                    </asp:DropDownList>
+                                                </div>
                                                 <!-- Se puede hasta Criterio 5 más o menos ... -->
 
                                                 <!-- BTN Buscar -->
@@ -101,9 +121,13 @@
                                         <!-- Grid -->
                                         <div style="float: left; width: 96%; margin: 0 2%;">
                                             <asp:GridView ID="GridViewReporte" CssClass="table_css" 
-                                            GridLines="Both" AllowPaging="True" RowStyle-HorizontalAlign="Center" 
-                                            RowStyle-VerticalAlign="Middle" PageSize="15" 
-                                            PagerStyle-CssClass="pagerGlobal"  runat="server">
+                                                GridLines="Both" AllowPaging="True" RowStyle-HorizontalAlign="Center" 
+                                                RowStyle-VerticalAlign="Middle" PageSize="15" 
+                                                PagerStyle-CssClass="pagerGlobal"  runat="server">
+
+                                                <columns>
+                                                    <asp:ButtonField CommandName="btnSeleccionarTupla_Click" CausesValidation="false" ButtonType="Image" Visible="true" ImageUrl="~/Images/arrow-right.png" ItemStyle-HorizontalAlign="Center" ItemStyle-VerticalAlign="Middle"/> 
+                                                </columns>
                                             </asp:GridView>
                                         </div>
                                     </div>
