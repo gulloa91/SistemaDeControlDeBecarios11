@@ -99,6 +99,9 @@ public partial class SiteMaster : System.Web.UI.MasterPage
 		//MultiViewSiteMaster.SetActiveView(VistaPrincipal);
 		Boolean usuarioValido = controladoraCuentas.validarUsuario(this.txtUsuario.Text, this.txtContrasena.Text);
         DateTime fecha = DateTime.Now;
+        String aux = fecha.ToString("dd-MM-yyyy H:mm:ss");
+        fecha = Convert.ToDateTime(aux);
+        
 
 		if (usuarioValido)
 		{

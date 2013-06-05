@@ -4,3 +4,9 @@
     text-align: center;
     margin-top: 2%;
 }
+
+.textoGrid {
+    background-color: white;
+    border: none;
+    width: 30%;
+}

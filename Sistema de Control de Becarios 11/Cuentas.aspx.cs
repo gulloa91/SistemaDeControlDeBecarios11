@@ -88,7 +88,7 @@ public partial class Cuentas : System.Web.UI.Page
         if(modo==1 || modo==2){
             datos[0] = this.txtUsuario.Text;
             datos[1] = this.cntUsuario.Text;
-            datos[2] = "";
+            datos[2] = this.txtFechaAux.Text;
             if (this.drpDownPerfiles.SelectedValue != "1" && this.drpDownPerfiles.SelectedValue != "2")
             {
                 datos[3] = "000000000";
@@ -189,7 +189,7 @@ public partial class Cuentas : System.Web.UI.Page
     {
         datosOriginales[0] = this.txtUsuario.Text;
         datosOriginales[1] = this.cntUsuario.Text;
-        datosOriginales[2] = "";
+        datosOriginales[2] = this.txtFechaAux.Text;
         datosOriginales[3] = this.txtCedula.Text;
         datosOriginalesAsociacion[0] = this.txtUsuario.Text;
         datosOriginalesAsociacion[1] = this.drpDownPerfiles.SelectedItem.Text;
@@ -258,6 +258,7 @@ public partial class Cuentas : System.Web.UI.Page
             this.cntUsuario.Text = "";
             this.cofCntUsuario.Text = "";
             this.txtCedula.Text = "";
+            this.txtFechaAux.Text = "";
         }
     }
 
@@ -352,10 +353,13 @@ public partial class Cuentas : System.Web.UI.Page
         switch(e.CommandName){
             case "seleccionarPosibleCuenta": {
                 GridViewRow filaSeleccionda = this.GridViewCuentas.Rows[Convert.ToInt32(e.CommandArgument)];
-                DataTable dt = controladoraCuentas.consultarPorNombreContr(filaSeleccionda.Cells[1].Text, filaSeleccionda.Cells[2].Text);
+                TextBox txtU = filaSeleccionda.FindControl("txtUsuarioG") as TextBox;
+                TextBox txtC = filaSeleccionda.FindControl("txtContrasenna") as TextBox;
+                DataTable dt = controladoraCuentas.consultarPorNombreContr(txtU.Text, txtC.Text);
                 if(dt.Rows.Count==1){
                    foreach(DataRow r in dt.Rows){
                        this.txtUsuario.Text = commonService.procesarStringDeUI(r[0].ToString());
+                       this.txtFechaAux.Text = r[2].ToString();
                        this.cntUsuario.Text = commonService.procesarStringDeUI(r[1].ToString());
                        this.cofCntUsuario.Text = commonService.procesarStringDeUI(r[1].ToString());
                        this.txtCedula.Text = commonService.procesarStringDeUI(r[3].ToString());
@@ -387,27 +391,19 @@ public partial class Cuentas : System.Web.UI.Page
         DataTable aux = crearTablaCuentas();
         if (dt.Rows.Count > 0)
         {
-            foreach (DataRow r in dt.Rows)
-            {
-                Object[] datos = new Object[3];
-                datos[0] = r[0].ToString();
-                datos[1] = r[1].ToString();
-                datos[2] = r[2].ToString();
-                aux.Rows.Add(datos);
-            }
+
         }
         else {
             Object[] datos = new Object[3];
             datos[0] = "-";
             datos[1] = "-";
             datos[2] = "-";
-            aux.Rows.Add(datos);        
         }
-        
-        this.GridViewCuentas.DataSource = aux;
+        this.GridViewCuentas.DataSource = dt;
         this.GridViewCuentas.DataBind();
         this.GridViewCuentas.HeaderRow.BackColor = System.Drawing.Color.FromArgb(4562432);
-        this.GridViewCuentas.HeaderRow.ForeColor = System.Drawing.Color.White;
+        this.GridViewCuentas.HeaderRow.ForeColor = System.Drawing.Color.White;        
+
     }
 
     protected DataTable crearTablaCuentas() {
@@ -416,7 +412,7 @@ public partial class Cuentas : System.Web.UI.Page
 
         columna = new DataColumn();
         columna.DataType = System.Type.GetType("System.String");
-        columna.ColumnName = "Usuario";
+        columna.ColumnName = "Nombre";
         retorno.Columns.Add(columna);
 
         columna = new DataColumn();
@@ -426,7 +422,7 @@ public partial class Cuentas : System.Web.UI.Page
 
         columna = new DataColumn();
         columna.DataType = System.Type.GetType("System.String");
-        columna.ColumnName = "Último Acceso";
+        columna.ColumnName = "UltimoAcceso";
         retorno.Columns.Add(columna);
 
         return retorno;

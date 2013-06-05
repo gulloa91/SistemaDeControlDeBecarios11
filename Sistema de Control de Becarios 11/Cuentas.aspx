@@ -44,9 +44,24 @@
                                 CssClass="boton ui-widget ui-state-default ui-corner-all ui-button-text-only" 
                                 onclick="btnInsertarCuenta_Click" CausesValidation="false"/>
                         </div>
-                        <asp:GridView ID="GridViewCuentas" runat="server" CssClass="tabla_cuentas" AllowPaging="true" PageSize="15" OnRowCommand="GridViewCuentas_RowCommand" OnPageIndexChanging="GridViewCuentas_PageIndexChanging" PagerStyle-CssClass="pagerGlobal">
+                        <asp:GridView ID="GridViewCuentas" runat="server" CssClass="tabla_cuentas" AllowPaging="true" PageSize="15" OnRowCommand="GridViewCuentas_RowCommand" OnPageIndexChanging="GridViewCuentas_PageIndexChanging" PagerStyle-CssClass="pagerGlobal" AutoGenerateColumns="false">
                             <Columns>
                                 <asp:ButtonField CommandName="seleccionarPosibleCuenta" CausesValidation="false" ButtonType="Image" Visible="true" ImageUrl="Images/arrow-right.png"/>
+                                <asp:TemplateField HeaderText="Usuario"> 
+                                        <ItemTemplate> 
+                                            <asp:TextBox ID="txtUsuarioG" CssClass="textoGrid" runat ="server" Text='<%# Bind("Nombre") %>' Enabled="false"></asp:TextBox>
+                                        </ItemTemplate> 
+                                </asp:TemplateField>
+                                <asp:TemplateField HeaderText="Contraseña"> 
+                                        <ItemTemplate> 
+                                            <asp:TextBox ID="txtContrasenna" type="password" CssClass="textoGrid" runat ="server" Text='<%# Bind("Contraseña") %>' Enabled="false"></asp:TextBox>
+                                        </ItemTemplate> 
+                                </asp:TemplateField>
+                                <asp:TemplateField HeaderText="Ultimo Acceso"> 
+                                        <ItemTemplate> 
+                                            <asp:TextBox ID="txtUltimoAcceso" CssClass="textoGrid" runat ="server" Text='<%# Bind("UltimoAcceso") %>' Enabled="false"></asp:TextBox>
+                                        </ItemTemplate> 
+                                </asp:TemplateField>
                             </Columns>
                         </asp:GridView>
                     </div>
@@ -73,6 +88,7 @@
                                 <td class="auto-style2">Usuario</td>
                                 <td class="auto-style6">
                                     <asp:TextBox ID="txtUsuario" runat="server" Width="323px" CausesValidation="true"></asp:TextBox>
+                                    <asp:TextBox ID="txtFechaAux" runat="server" Width="323px" CausesValidation="false" Enabled ="false" Visible ="false"></asp:TextBox>
                                     <asp:RequiredFieldValidator ID="RequiredFieldValidatorUser" runat="server" ErrorMessage="* Campo Requerido" ControlToValidate="txtUsuario" Display="Dynamic"></asp:RequiredFieldValidator>
                                     <asp:RegularExpressionValidator ID="rxvUsuario" runat="server" ErrorMessage="El nombre de usuario no puede contener caracteres blancos, comillas dobles o sencillas"
 						        ValidationExpression="([^\s&quot;' ])+" ControlToValidate="txtUsuario" Display="Dynamic"/>
