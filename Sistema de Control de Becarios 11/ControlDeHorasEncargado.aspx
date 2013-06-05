@@ -1,6 +1,7 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.master" AutoEventWireup="true" CodeFile="ControlDeHorasEncargado.aspx.cs" Inherits="ControlDeHorasEncargado" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" Runat="Server">
+    <script src="Scripts/ControlDeHorasEncargado.js" type="text/javascript"></script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" Runat="Server">
     <asp:ScriptManager ID="ScriptManager" runat="server">
@@ -17,7 +18,8 @@
                 <ContentTemplate>
                     <!-- Botones Invisibles -->
                     <asp:Button ID="btnInvisibleEnviarRevision" 
-                        CssClass="btnInvisibleEnviarRevision invisible" runat="server" Text="" />
+                        CssClass="btnInvisibleEnviarRevision invisible" runat="server" Text="" 
+                        onclick="btnInvisibleEnviarRevision_Click" />
 
                     <!-- Cuerpo -->
                     <div style="width: 100%; float: left;">
@@ -28,9 +30,11 @@
                         <span style="width: 100%; font-weight: bold; font-size: 16px; float: left; margin: 0px 0 5px 0; text-align:left;">Becarios con horas pendientes de revisar. Por favor seleccione uno para empezar a revisar sus horas.</span>
 
                         <!-- Grid con Becarios con horas pendientes de revisar -->
-                        <asp:GridView ID="GridBecariosConHorasPendientes" CssClass="table_css centerText" runat="server">
+                        <asp:GridView ID="GridBecariosConHorasPendientes" 
+                            CssClass="table_css centerText" runat="server" 
+                            onrowcommand="GridBecariosConHorasPendientes_RowCommand">
                             <columns>
-                                <asp:ButtonField CommandName="btnSeleccionarTupla_Click" CausesValidation="false" ButtonType="Button" Visible="true" ImageUrl="~/Images/arrow-right.png" ItemStyle-HorizontalAlign="Center" Text="Aceptar/Rechazar" ItemStyle-VerticalAlign="Middle"/> 
+                                <asp:ButtonField CommandName="btnSeleccionarTupla_Click" CausesValidation="false" ButtonType="Button" Visible="true" ImageUrl="~/Images/arrow-right.png" ItemStyle-HorizontalAlign="Center" Text="Revisar" ItemStyle-VerticalAlign="Middle"/> 
                             </columns>
                         </asp:GridView>
                     </div>
@@ -38,6 +42,18 @@
                 </ContentTemplate>
 
             </asp:UpdatePanel>
+
+
+            <!-- Pop Up -->
+            <div id="PopUpControlDeHorasEncargado">
+                <asp:UpdatePanel ID="UpdatePanel1" runat="server">
+                    <Triggers></Triggers>
+
+                    <ContentTemplate>
+                        PopUp
+                    </ContentTemplate>
+                </asp:UpdatePanel>
+            </div>
         </asp:View>
 
         <!-- Sin acceso al módulo -->
