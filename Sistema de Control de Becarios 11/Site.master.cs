@@ -43,6 +43,10 @@ public partial class SiteMaster : System.Web.UI.MasterPage
                 MenuItem ReportesMenuItem = new MenuItem("Reportes", "m0", "", "~/Reportes.aspx");
                 NavigationMenu.Items.Add(ReportesMenuItem);
 
+                // PLEASE REMOVE
+                MenuItem CtrlEncargadoMenuItem = new MenuItem("Control de Horas - Encargado", "m0", "", "~/ControlDeHorasEncargado.aspx");
+                NavigationMenu.Items.Add(CtrlEncargadoMenuItem);
+
                 foreach (int permiso in permisos)
                 {
                     switch( permiso )
