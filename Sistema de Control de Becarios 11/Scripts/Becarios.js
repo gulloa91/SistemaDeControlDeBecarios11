@@ -4,7 +4,7 @@
                 autoOpen: false,
                 modal: true,
                 appendTo: "form",
-                width: 690,
+                width: 795,
                 open: function () {
                     $("#tabs").tabs();
                 },
@@ -64,6 +64,11 @@
         function crearTabs() {
             $("#tabs").tabs("destroy");
             $("#tabs").tabs();
+        }
+
+
+        function seleccionarTabs() {
+            $('#tabs a[href="#tabs-2"]').click();
         }
 
         function destruyeTabsP() {

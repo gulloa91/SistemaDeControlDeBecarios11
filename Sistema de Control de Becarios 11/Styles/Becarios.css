@@ -20,6 +20,15 @@
 }
 
 
+.wrap_perfil
+{
+    width: 48%;
+    float: left;
+    margin: 5px 0;
+    min-height: 155px;
+    margin-bottom:7px;
+}
+
 .wrap_row_becario
 {
 
@@ -29,6 +38,13 @@
     margin-top:10px;
 }
 
+
+.botonMas
+{
+    width: 15%;
+    float: right;
+    margin-top:15px;
+}
 
 .txtBecario
 {
@@ -43,14 +59,6 @@
 }
 
 
-
-.wrap_perfil
-{
-    width: 95%;
-    float: left;
-    margin: 5px 0;
-    height: 65px;
-}
 
 .wrap_otros
 {

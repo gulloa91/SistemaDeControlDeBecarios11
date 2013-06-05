@@ -21,6 +21,11 @@ public partial class Becarios : System.Web.UI.Page
     private static int rowIndex; 
     private static ControladoraBecarios controladoraBecarios = new ControladoraBecarios();
     private static ControladoraCuentas controladoraCuentas = new ControladoraCuentas();
+
+    private static List<String> listaLocalLenguajes = new List<String>();
+    private static List<String> listaLocalIdiomas = new List<String>();
+    private static List<String> listaLocalAreasInteres = new List<String>();
+    private static List<String> listaLocalCualidades = new List<String>();
   
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -64,19 +69,10 @@ public partial class Becarios : System.Web.UI.Page
                          llenarGridBecarios(1);
                          if (!Page.IsPostBack)
                          {
-                             this.gridLenguajesProgC.DataSource = crearListaLenguajes();
-                             this.gridLenguajesProgC.DataBind();
-
-
-                             this.gridIdiomasC.DataSource = crearListaIdiomas();
-                             this.gridIdiomasC.DataBind();
-
-                             this.gridAreasInteresC.DataSource = crearListaAreas();
-                             this.gridAreasInteresC.DataBind();
-
-                             this.gridCualidadesC.DataSource = crearListaCualidades();
-                             this.gridCualidadesC.DataBind();
-
+                             llenarGridLenguajes();
+                             llenarGridIdiomas();
+                             llenarGridAreasInteres();
+                             llenarGridCualidades();
                          }
 
                      } break;
@@ -93,17 +89,7 @@ public partial class Becarios : System.Web.UI.Page
 
                          if (!Page.IsPostBack)
                          {
-                             this.gridLenguajesProg.DataSource = crearListaLenguajes();
-                             this.gridLenguajesProg.DataBind();
-
-                             this.gridIdiomas.DataSource = crearListaIdiomas();
-                             this.gridIdiomas.DataBind();
-
-                             this.gridAreasInteres.DataSource = crearListaAreas();
-                             this.gridAreasInteres.DataBind();
-
-                             this.gridCualidades.DataSource = crearListaCualidades();
-                             this.gridCualidades.DataBind();
+                             
 
                          }
 
@@ -237,6 +223,23 @@ public partial class Becarios : System.Web.UI.Page
     {
 
         habilitarBotonesPrincipales(true);
+
+        listaLocalLenguajes.Clear();
+        llenarGridLenguajes();
+        lblInsercionLenguaje.Visible = false;
+
+        listaLocalIdiomas.Clear();
+        llenarGridIdiomas();
+        lblInsercionIdioma.Visible = false;
+
+        listaLocalAreasInteres.Clear();
+        llenarGridAreasInteres();
+        lblInsercionAreaInt.Visible = false;
+
+        listaLocalCualidades.Clear();
+        llenarGridCualidades();
+        lblInsercionCualidad.Visible = false;
+        
     }
 
 
@@ -749,335 +752,277 @@ public partial class Becarios : System.Web.UI.Page
      */
 
 
+    protected bool datosPersonalesVacios(){ 
+    
+       bool retorno = false;
 
-    protected List<Lenguaje> obtenerListaLenguajes() {
+       if ((txtCedula.Text.ToString().Equals("")) || (txtNombre.ToString().Equals("")) || (txtApellido1.Text.ToString().Equals("")))
+       {
+           retorno = true;    
+       }
 
 
-        if (Session["listaNueva"] == null)
-            return this.crearListaLenguajes();
-        else
-            return (List<Lenguaje>)Session["listaNueva"];
+       return retorno;
     }
 
+
+    /**GRID DE LENGUAJES DE PROGRAMACION**/
 
     protected void btnNuevoLenguaje_click(object sender, EventArgs e)
     {
 
-       
-        if (permiso==0)
+        correrJavascript("crearTabs();");
+        correrJavascript("seleccionarTabs();");
+        TextBox txtBoxAux = (TextBox)gridLenguajesProg.FooterRow.Cells[0].FindControl("txtNuevoLenguaje");
+
+
+        if (datosPersonalesVacios()==false)
         {
-            TextBox tbLenguajeC = (TextBox)gridLenguajesProgC.FooterRow.Cells[0].FindControl("txtNuevoLenguajeC");
-            Lenguaje lg = new Lenguaje(tbLenguajeC.Text);
-            agregaLenguaje(lg);
-            this.gridLenguajesProgC.DataSource = crearListaLenguajes();
-            this.gridLenguajesProgC.DataBind();
-            correrJavascript("crearTabsP();");
+
+            lblInsercionLenguaje.Visible = false;
+            TextInfo miTexto = CultureInfo.CurrentCulture.TextInfo;
+            listaLocalLenguajes.Add(miTexto.ToTitleCase(txtBoxAux.Text.ToLower()));
+
         }
-        else {
-
-            TextBox tbLenguaje = (TextBox)gridLenguajesProg.FooterRow.Cells[0].FindControl("txtNuevoLenguaje");
-            Lenguaje lg = new Lenguaje(tbLenguaje.Text);
-            agregaLenguaje(lg);
-            this.gridLenguajesProg.DataSource = this.obtenerListaLenguajes();
-            this.gridLenguajesProg.DataBind();
-        }
-
-
-
-    }
-
-
-
-    protected void agregaLenguaje(Lenguaje ln) {
-
-
-        if( Session["listaNueva"]==null){
-
-            List<Lenguaje> lt = this.crearListaLenguajes();
-            lt.Add(ln);
-            Session["listaNueva"] = lt;
-        
-        }else{
-
-            List<Lenguaje> lt = (List<Lenguaje>)Session["listaNueva"];
-            lt.Add(ln);
-            Session["listaNueva"] = lt;
-        }
-        
-    }
-
-
-    protected List<Lenguaje> crearListaLenguajes()
-    {
-
-
-         List<Lenguaje> listaNueva = new List<Lenguaje>();
-
-         Lenguaje len1 = new Lenguaje();
-         len1.NombreLenguaje = "Java";
-
-         Lenguaje len2 = new Lenguaje();
-         len2.NombreLenguaje = "C++";
-
-         listaNueva.Add(len1);
-         listaNueva.Add(len2);
-
-         return listaNueva;
-    }
-
-
-
-    //
-
-
-    protected List<Idioma> obtenerListaIdiomas()
-    {
-
-
-        if (Session["listaIdiomas"] == null)
-            return this.crearListaIdiomas();
         else
-            return (List<Idioma>)Session["listaIdiomas"];
+        {
+            lblInsercionLenguaje.Visible = true;
+        }
+
+        llenarGridLenguajes();
+
     }
 
+
+    
+    protected void llenarGridLenguajes()
+    {
+
+
+        DataTable dt = new DataTable();
+        DataColumn column = new DataColumn();
+        column.DataType = System.Type.GetType("System.String");
+        column.ColumnName = "LenguajeProgramacion";
+        dt.Columns.Add(column);
+
+        DataRow newRow;
+        if (listaLocalLenguajes.Count != 0)
+        {
+
+            for (int i = 0; i < listaLocalLenguajes.Count; ++i)
+            {
+                newRow = dt.NewRow();
+                newRow["LenguajeProgramacion"] = listaLocalLenguajes[i];
+                dt.Rows.InsertAt(newRow, i);
+
+            }
+        }
+        else
+        {
+
+            newRow = dt.NewRow();
+            newRow["LenguajeProgramacion"] = "--";
+            dt.Rows.InsertAt(newRow, 0);
+        }
+
+        gridLenguajesProg.DataSource = dt;
+        gridLenguajesProg.DataBind();
+    }
+
+
+    /**GRID DE IDIOMAS**/
 
     protected void btnNuevoIdioma_click(object sender, EventArgs e)
     {
 
+        correrJavascript("crearTabs();");
+        correrJavascript("seleccionarTabs();");
+        TextBox txtBoxAux = (TextBox)gridIdiomas.FooterRow.Cells[0].FindControl("txtNuevoIdioma");
 
-        if (permiso == 0)
+
+        if (datosPersonalesVacios() == false)
         {
 
-            TextBox tbLenguaje = (TextBox)gridIdiomasC.FooterRow.Cells[0].FindControl("txtNuevoIdiomaC");
-
-            Idioma ido = new Idioma(tbLenguaje.Text);
-
-            agregaLenguaje(ido);
-
-
-            this.gridIdiomasC.DataSource = this.obtenerListaIdiomas();
-            this.gridIdiomasC.DataBind();
-
-        }
-        else {
-
-
-            TextBox tbLenguaje = (TextBox)gridIdiomas.FooterRow.Cells[0].FindControl("txtNuevoIdioma");
-
-            Idioma ido = new Idioma(tbLenguaje.Text);
-
-            agregaLenguaje(ido);
-
-            this.gridIdiomas.DataSource = this.obtenerListaIdiomas();
-            this.gridIdiomas.DataBind();
-        }
-       
-    }
-
-
-
-    protected void agregaLenguaje(Idioma ld)
-    {
-
-
-        if (Session["listaIdiomas"] == null)
-        {
-
-            List<Idioma> lt = this.crearListaIdiomas();
-            lt.Add(ld);
-            Session["listaIdiomas"] = lt;
+            lblInsercionIdioma.Visible = false;
+            TextInfo miTexto = CultureInfo.CurrentCulture.TextInfo;
+            string texto = commonService.procesarStringDeUI(miTexto.ToTitleCase(txtBoxAux.Text.ToLower()));
+            listaLocalIdiomas.Add(texto);
 
         }
         else
         {
-
-            List<Idioma> lt = (List<Idioma>)Session["listaIdiomas"];
-            lt.Add(ld);
-            Session["listaIdiomas"] = lt;
+            lblInsercionIdioma.Visible = true;
         }
 
-    }
-
-
-    protected List<Idioma> crearListaIdiomas()
-    {
-
-
-        List<Idioma> listaIdiomas = new List<Idioma>();
-
-        Idioma id = new Idioma();
-        id.NombreIdioma = "Inglés";
-
-        Idioma id2 = new Idioma();
-        id2.NombreIdioma = "Alemán";
-
-        listaIdiomas.Add(id);
-        listaIdiomas.Add(id2);
-
-        return listaIdiomas;
-    }
-
-
-    //
-
-
-    protected List<AreaInteres> obtenerListaAreas()
-    {
-
-
-        if (Session["listaAreas"] == null)
-            return this.crearListaAreas();
-        else
-            return (List<AreaInteres>)Session["listaAreas"];
-    }
-
-
-    protected void btnNuevaArea_click(object sender, EventArgs e)
-    {
-
-
-
-        if (permiso == 0)
-        {
-            TextBox tb = (TextBox)gridAreasInteresC.FooterRow.Cells[0].FindControl("txtNuevaAreaC");
-            AreaInteres lg = new AreaInteres(tb.Text);
-            agregaArea(lg);
-            this.gridAreasInteresC.DataSource = this.obtenerListaAreas();
-            this.gridAreasInteresC.DataBind();
-        }
-        else {
-
-            TextBox tb = (TextBox)gridAreasInteres.FooterRow.Cells[0].FindControl("txtNuevaArea");
-            AreaInteres lg = new AreaInteres(tb.Text);
-            agregaArea(lg);
-            this.gridAreasInteres.DataSource = this.obtenerListaAreas();
-            this.gridAreasInteres.DataBind();
-        }
+        llenarGridIdiomas();
 
     }
 
 
-
-    protected void agregaArea(AreaInteres ln)
+    //llena con la listatemporal
+    protected void llenarGridIdiomas()
     {
 
+        DataTable dt = new DataTable();
+        DataColumn column = new DataColumn();
+        column.DataType = System.Type.GetType("System.String");
+        column.ColumnName = "Idioma";
+        dt.Columns.Add(column);
 
-        if (Session["listaAreas"] == null)
+        DataRow newRow;
+        if (listaLocalIdiomas.Count != 0)
         {
 
-            List<AreaInteres> lt = this.crearListaAreas();
-            lt.Add(ln);
-            Session["listaAreas"] = lt;
+            for (int i = 0; i < listaLocalIdiomas.Count; ++i)
+            {
+                newRow = dt.NewRow();
+                newRow["Idioma"] = listaLocalIdiomas[i];
+                dt.Rows.InsertAt(newRow, i);
 
+            }
         }
         else
         {
 
-            List<AreaInteres> lt = (List<AreaInteres>)Session["listaAreas"];
-            lt.Add(ln);
-            Session["listaAreas"] = lt;
+            newRow = dt.NewRow();
+            newRow["Idioma"] = "--";
+            dt.Rows.InsertAt(newRow, 0);
         }
 
+        gridIdiomas.DataSource = dt;
+        gridIdiomas.DataBind();
     }
 
 
-    protected List<AreaInteres> crearListaAreas()
+
+    /**GRID DE AREAS DE INTERÉS**/
+
+    protected void btnNuevaAreaInteres_click(object sender, EventArgs e)
     {
 
-
-        List<AreaInteres> listaAreas = new List<AreaInteres>();
-
-        AreaInteres ar1 = new AreaInteres();
-        ar1.NombreArea="Bases de Datos";
-
-        AreaInteres ar2 = new AreaInteres();
-        ar2.NombreArea = "Redes";
-
-        listaAreas.Add(ar1);
-        listaAreas.Add(ar2);
-
-        return listaAreas;
-    }
+        correrJavascript("crearTabs();");
+        correrJavascript("seleccionarTabs();");
+        TextBox txtBoxAux = (TextBox)gridAreasInteres.FooterRow.Cells[0].FindControl("txtNuevaAreaInteres");
 
 
-    //
+        if (datosPersonalesVacios() == false)
+        {
 
+            lblInsercionAreaInt.Visible = false;
+            TextInfo miTexto = CultureInfo.CurrentCulture.TextInfo;
+            string texto = commonService.procesarStringDeUI(miTexto.ToTitleCase(txtBoxAux.Text.ToLower()));
+            listaLocalAreasInteres.Add(texto);
 
-    protected List<Cualidades_Personales> obtenerListaCualidades()
-    {
-
-
-        if (Session["listaCualidades"] == null)
-            return this.crearListaCualidades();
+        }
         else
-            return (List<Cualidades_Personales>)Session["listaCualidades"];
+        {
+            lblInsercionAreaInt.Visible = true;
+        }
+
+        llenarGridAreasInteres();
+
     }
 
+
+    //llena con la listatemporal
+    protected void llenarGridAreasInteres()
+    {
+
+        DataTable dt = new DataTable();
+        DataColumn column = new DataColumn();
+        column.DataType = System.Type.GetType("System.String");
+        column.ColumnName = "AreaInteres";
+        dt.Columns.Add(column);
+
+        DataRow newRow;
+        if (listaLocalAreasInteres.Count != 0)
+        {
+
+            for (int i = 0; i < listaLocalAreasInteres.Count; ++i)
+            {
+                newRow = dt.NewRow();
+                newRow["AreaInteres"] = listaLocalAreasInteres[i];
+                dt.Rows.InsertAt(newRow, i);
+
+            }
+        }
+        else
+        {
+
+            newRow = dt.NewRow();
+            newRow["AreaInteres"] = "--";
+            dt.Rows.InsertAt(newRow, 0);
+        }
+
+        gridAreasInteres.DataSource = dt;
+        gridAreasInteres.DataBind();
+    }
+
+
+
+    /**GRID DE CUALIDADES PERSONALES**/
 
     protected void btnNuevaCualidad_click(object sender, EventArgs e)
     {
 
-        if(permiso==0){
-            TextBox tbC = (TextBox)gridCualidadesC.FooterRow.Cells[0].FindControl("txtNuevaCualidadC");
-            Cualidades_Personales cp = new Cualidades_Personales(tbC.Text);
-            agregaCualidad(cp);
-            this.gridCualidadesC.DataSource = this.obtenerListaCualidades();
-            this.gridCualidadesC.DataBind();
-        
-       }else{
-
-           TextBox tbC = (TextBox)gridCualidades.FooterRow.Cells[0].FindControl("txtNuevaCualidad");
-           Cualidades_Personales cp = new Cualidades_Personales(tbC.Text);
-           agregaCualidad(cp);
-           this.gridCualidades.DataSource = this.obtenerListaCualidades();
-           this.gridCualidades.DataBind();
-
-       }
-
-    }
+        correrJavascript("crearTabs();");
+        correrJavascript("seleccionarTabs();");
+        TextBox txtBoxAux = (TextBox)gridCualidades.FooterRow.Cells[0].FindControl("txtNuevaCualidad");
 
 
-
-    protected void agregaCualidad(Cualidades_Personales lc)
-    {
-
-
-        if (Session["listaCualidades"] == null)
+        if (datosPersonalesVacios() == false)
         {
 
-            List<Cualidades_Personales> cp = this.crearListaCualidades();
-            cp.Add(lc);
-            Session["listaCualidades"] = cp;
+            lblInsercionAreaInt.Visible = false;
+            TextInfo miTexto = CultureInfo.CurrentCulture.TextInfo;
+            string texto = commonService.procesarStringDeUI(miTexto.ToTitleCase(txtBoxAux.Text.ToLower()));
+            listaLocalCualidades.Add(texto);
 
         }
         else
         {
-
-            List<Cualidades_Personales> cp = (List<Cualidades_Personales>)Session["listaCualidades"];
-            cp.Add(lc);
-            Session["listaCualidades"] = cp;
+            lblInsercionCualidad.Visible = true;
         }
 
+        llenarGridCualidades();
+
     }
 
 
-    protected List<Cualidades_Personales> crearListaCualidades()
+    //llena con la listatemporal
+    protected void llenarGridCualidades()
     {
 
+        DataTable dt = new DataTable();
+        DataColumn column = new DataColumn();
+        column.DataType = System.Type.GetType("System.String");
+        column.ColumnName = "Cualidad";
+        dt.Columns.Add(column);
 
-        List<Cualidades_Personales> listaCualidades = new List<Cualidades_Personales>();
+        DataRow newRow;
+        if (listaLocalCualidades.Count != 0)
+        {
 
-        Cualidades_Personales nuevaCp = new Cualidades_Personales();
-        nuevaCp.NombreCualidad = "Puntual";
+            for (int i = 0; i < listaLocalCualidades.Count; ++i)
+            {
+                newRow = dt.NewRow();
+                newRow["Cualidad"] = listaLocalCualidades[i];
+                dt.Rows.InsertAt(newRow, i);
 
-        Cualidades_Personales nuevaCp2 = new Cualidades_Personales();
-        nuevaCp2.NombreCualidad = "Responsable";
+            }
+        }
+        else
+        {
 
-        listaCualidades.Add(nuevaCp);
-        listaCualidades.Add(nuevaCp2);
+            newRow = dt.NewRow();
+            newRow["Cualidad"] = "--";
+            dt.Rows.InsertAt(newRow, 0);
+        }
 
-        return listaCualidades;
+        gridCualidades.DataSource = dt;
+        gridCualidades.DataBind();
     }
+
 
 
 

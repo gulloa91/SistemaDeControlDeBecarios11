@@ -81,7 +81,7 @@
       <div id="PopUp" style="min-height: 375px;">
         
 
-        <div id="tabs" style="min-height:450px;">
+        <div id="tabs" style="min-height:540px">
 
            <asp:UpdatePanel runat="server" ID="UpdatePopUp">
              <Triggers>
@@ -91,7 +91,7 @@
            <ContentTemplate>
 
                 <ul>
-		          <li><a href="#tabs-1">Datos</a></li>
+		          <li><a href="#tabs-1">Datos Personales</a></li>
 		          <li><a href="#tabs-2">Perfil</a></li>
 	            </ul>
 
@@ -325,8 +325,8 @@
 
 	                </div>
 
-                   <!-- PERFIL -->
-	                <div id="tabs-2" style= "width:96% ">
+                    <!--PERFIL DEL BECARIO-->
+	                <div id="tabs-2" style= "width:96%; max-height:100px">
 
                        <div style="width: 96%; padding: 2%; float: left;" >
 
@@ -342,154 +342,251 @@
                             </div>
                         </div>
 
-              <div style="width: 96%; padding: 0 2%; float: left; background: #D8D8BF; border-radius: 5px;">
+             
+                     <div style="width: 96%; padding: 0 2%; float: left; background: #D8D8BF; border-radius: 5px;">
 
-              <p></p>
-              <p>Por favor completar los tablas segun sus conocimientos actuales</p>
+                       <p></p>
+                       <p>Por favor completar los tablas segun sus conocimientos actuales</p>
               
-             <asp:UpdatePanel runat="server" ID="UpdatePanel1">
+                       <asp:UpdatePanel runat="server" ID="UpdatePanel1">
 
-                <Triggers>
-                   
-                </Triggers>
-                <ContentTemplate>             
-                 <div class="wrap_grid">
-                  <p>a)Lenguajes de programación:</p>
-                  <asp:GridView ID="gridLenguajesProgC" runat="server"  
-                        ShowFooter="True"  AutoGenerateColumns="False" CellPadding="4" 
-                         ForeColor="#333333" GridLines="None">
-                      <AlternatingRowStyle BackColor="White" />
-                      <Columns>
-                          <asp:TemplateField HeaderText="Lenguaje de Programacion" SortExpression="nombreLenguaje">
-                              <EditItemTemplate>
-                                  <asp:TextBox ID="txtBoxLenguajeC" runat="server" Text='<%# Bind("nombreLenguaje") %>'></asp:TextBox>
-                              </EditItemTemplate>
-                              <FooterTemplate>
-                                  <asp:TextBox ID="txtNuevoLenguajeC" runat="server"></asp:TextBox>
-                                  <asp:Button ID="btnNuevoLenguajeC" runat="server" OnClick="btnNuevoLenguaje_click" Text=" Nuevo" />
-                              </FooterTemplate>
-                              <ItemTemplate>
-                                  <asp:Label ID="lblLenguaje" runat="server" Text='<%# Bind("nombreLenguaje") %>'></asp:Label>
-                              </ItemTemplate>
-                          </asp:TemplateField>
-                      </Columns>
-                      <EditRowStyle BackColor="#7C6F57" />
-                      <FooterStyle BackColor="#1C5E55" Font-Bold="True" ForeColor="White" />
-                      <HeaderStyle BackColor="#1C5E55" Font-Bold="True" ForeColor="White" />
-                      <PagerStyle BackColor="#666666" ForeColor="White" HorizontalAlign="Center" />
-                      <RowStyle BackColor="#E3EAEB" />
-                      <SelectedRowStyle BackColor="#C5BBAF" Font-Bold="True" ForeColor="#333333" />
-                      <SortedAscendingCellStyle BackColor="#F8FAFA" />
-                      <SortedAscendingHeaderStyle BackColor="#246B61" />
-                      <SortedDescendingCellStyle BackColor="#D4DFE1" />
-                      <SortedDescendingHeaderStyle BackColor="#15524A" />
-                  </asp:GridView>
-                 </div>
+                         <Triggers>
+                            <asp:AsyncPostBackTrigger ControlID="btnAgregaLenguaje" EventName="Click" />
+                             <asp:AsyncPostBackTrigger ControlID="btnAgregaIdioma" EventName="Click" />
+                             <asp:AsyncPostBackTrigger ControlID="btnAgregaAreaInteres" EventName="Click" />
+                             <asp:AsyncPostBackTrigger ControlID="btnAgregaCualidad" EventName="Click" />
+                         </Triggers>
+                           
+                         <ContentTemplate>
+                             
+                           <div class="wrap_row_becario">
 
-                <div class="wrap_grid">
-                  <p>b) Idiomas que conoce :</p>
-                  <asp:GridView ID="gridIdiomasC" runat="server"  
-                        ShowFooter="True"  AutoGenerateColumns="False" CellPadding="4" 
-                        ForeColor="#333333" GridLines="None">
-                      <AlternatingRowStyle BackColor="White" />
-                      <Columns>
-                          <asp:TemplateField HeaderText="Idioma" SortExpression="nombreIdioma">
-                              <EditItemTemplate>
-                                  <asp:TextBox ID="txtBoxIdiomaC" runat="server" Text='<%# Bind("nombreIdioma") %>'></asp:TextBox>
-                              </EditItemTemplate>
-                              <FooterTemplate>
-                                  <asp:TextBox ID="txtNuevoIdiomaC" runat="server"></asp:TextBox>
-                                  <asp:Button ID="btnNuevoIdiomaC" runat="server" OnClick="btnNuevoIdioma_click" Text=" Nuevo" />
-                              </FooterTemplate>
-                              <ItemTemplate>
-                                  <asp:Label ID="lblIdioma" runat="server" Text='<%# Bind("nombreIdioma") %>'></asp:Label>
-                              </ItemTemplate>
-                          </asp:TemplateField>
-                      </Columns>
-                      <EditRowStyle BackColor="#7C6F57" />
-                      <FooterStyle BackColor="#1C5E55" Font-Bold="True" ForeColor="White" />
-                      <HeaderStyle BackColor="#1C5E55" Font-Bold="True" ForeColor="White" />
-                      <PagerStyle BackColor="#666666" ForeColor="White" HorizontalAlign="Center" />
-                      <RowStyle BackColor="#E3EAEB" />
-                      <SelectedRowStyle BackColor="#C5BBAF" Font-Bold="True" ForeColor="#333333" />
-                      <SortedAscendingCellStyle BackColor="#F8FAFA" />
-                      <SortedAscendingHeaderStyle BackColor="#246B61" />
-                      <SortedDescendingCellStyle BackColor="#D4DFE1" />
-                      <SortedDescendingHeaderStyle BackColor="#15524A" />
-                  </asp:GridView>
-                 </div>
+                              <!--Grid Lenguajes Programación-->
+                             <div class="wrap_perfil">
 
-                 <div class="wrap_grid">
-                  <p>c) Áreas de interés :</p>
-                  <asp:GridView ID="gridAreasInteresC" runat="server"  
-                        ShowFooter="True"  AutoGenerateColumns="False" CellPadding="4" 
-                         ForeColor="#333333" GridLines="None">
-                      <AlternatingRowStyle BackColor="White" />
-                      <Columns>
-                          <asp:TemplateField HeaderText="Áreas de Interés" SortExpression="nombreArea">
-                              <EditItemTemplate>
-                                  <asp:TextBox ID="txtBoxAreaC" runat="server" Text='<%# Bind("nombreArea") %>'></asp:TextBox>
-                              </EditItemTemplate>
-                              <FooterTemplate>
-                                  <asp:TextBox ID="txtNuevaAreaC" runat="server"></asp:TextBox>
-                                  <asp:Button ID="btnNuevaArea" runat="server" OnClick="btnNuevaArea_click" Text=" Nuevo" />
-                              </FooterTemplate>
-                              <ItemTemplate>
-                                  <asp:Label ID="lblArea" runat="server" Text='<%# Bind("nombreArea") %>'></asp:Label>
-                              </ItemTemplate>
-                          </asp:TemplateField>
-                      </Columns>
-                      <EditRowStyle BackColor="#7C6F57" />
-                      <FooterStyle BackColor="#1C5E55" Font-Bold="True" ForeColor="White" />
-                      <HeaderStyle BackColor="#1C5E55" Font-Bold="True" ForeColor="White" />
-                      <PagerStyle BackColor="#666666" ForeColor="White" HorizontalAlign="Center" />
-                      <RowStyle BackColor="#E3EAEB" />
-                      <SelectedRowStyle BackColor="#C5BBAF" Font-Bold="True" ForeColor="#333333" />
-                      <SortedAscendingCellStyle BackColor="#F8FAFA" />
-                      <SortedAscendingHeaderStyle BackColor="#246B61" />
-                      <SortedDescendingCellStyle BackColor="#D4DFE1" />
-                      <SortedDescendingHeaderStyle BackColor="#15524A" />
-                  </asp:GridView>
-                 </div>
+                               <span class="lbl1" style="margin-left: 15px">a)Lenguajes de programación:</span>
 
-                 <div class="wrap_grid">
-                  <p>d) Cualidades Personales :</p>
-                  <asp:GridView ID="gridCualidadesC" runat="server"  
-                        ShowFooter="True"  AutoGenerateColumns="False" CellPadding="4" 
-                         ForeColor="#333333" GridLines="None">
-                      <AlternatingRowStyle BackColor="White" />
-                      <Columns>
-                          <asp:TemplateField HeaderText="CualidaesPersonales" SortExpression="nombreCualidad">
-                              <EditItemTemplate>
-                                  <asp:TextBox ID="txtBoxCualidadC" runat="server" Text='<%# Bind("nombreCualidad") %>'></asp:TextBox>
-                              </EditItemTemplate>
-                              <FooterTemplate>
-                                  <asp:TextBox ID="txtNuevaCualidadC" runat="server"></asp:TextBox>
-                                  <asp:Button ID="btnNuevaCualidad" runat="server" OnClick="btnNuevaCualidad_click" Text=" Nuevo" />
-                              </FooterTemplate>
-                              <ItemTemplate>
-                                  <asp:Label ID="lblCualidad" runat="server" Text='<%# Bind("nombreCualidad") %>'></asp:Label>
-                              </ItemTemplate>
-                          </asp:TemplateField>
-                      </Columns>
-                      <EditRowStyle BackColor="#7C6F57" />
-                      <FooterStyle BackColor="#1C5E55" Font-Bold="True" ForeColor="White" />
-                      <HeaderStyle BackColor="#1C5E55" Font-Bold="True" ForeColor="White" />
-                      <PagerStyle BackColor="#666666" ForeColor="White" HorizontalAlign="Center" />
-                      <RowStyle BackColor="#E3EAEB" />
-                      <SelectedRowStyle BackColor="#C5BBAF" Font-Bold="True" ForeColor="#333333" />
-                      <SortedAscendingCellStyle BackColor="#F8FAFA" />
-                      <SortedAscendingHeaderStyle BackColor="#246B61" />
-                      <SortedDescendingCellStyle BackColor="#D4DFE1" />
-                      <SortedDescendingHeaderStyle BackColor="#15524A" />
-                  </asp:GridView>
-                 </div>
+                               <div style= "margin-top: 20px;margin-left: 20px;">
 
-             </ContentTemplate>
-           </asp:UpdatePanel>
-          </div>
+                                <div class="botonMas">
+                                   <asp:ImageButton ID="btnAgregaLenguaje" runat="server"
+                                    ImageUrl="~/Images/signoMas.png" OnClick="btnNuevoLenguaje_click" CausesValidation="False" />
+                                </div>
 
+                                <asp:GridView ID="gridLenguajesProg" runat="server" AutoGenerateColumns="False" ShowFooter="True"
+                                  CellPadding="7" 
+                                  ForeColor="#333333" GridLines="Vertical">
+
+                                  <AlternatingRowStyle BackColor="White" />
+                                  <Columns>
+
+                                     <asp:ButtonField ImageUrl="Images/signoMenos.png" ButtonType="Image" />
+
+                                     <asp:TemplateField HeaderText="Lenguaje de Programación" SortExpression="Lenguaje">
+                                       <ItemTemplate>
+                                         <asp:Label ID="lblLeng" runat="server" Text='<%# Bind("LenguajeProgramacion") %>'></asp:Label>
+                                       </ItemTemplate>
+                                       <FooterTemplate>
+                                         <asp:TextBox ID="txtNuevoLenguaje" runat="server"></asp:TextBox>
+                                       </FooterTemplate>
+
+                                     </asp:TemplateField>
+                                   </Columns>
+                                   <EditRowStyle BackColor="#7C6F57" />
+                                   <FooterStyle BackColor="#1C5E55" Font-Bold="True" ForeColor="White" />
+                                   <HeaderStyle BackColor="#1C5E55" Font-Bold="True" ForeColor="White" />
+                                   <PagerStyle BackColor="#666666" ForeColor="White" HorizontalAlign="Center" />
+                                   <RowStyle BackColor="#E3EAEB" />
+                                   <SelectedRowStyle BackColor="#C5BBAF" Font-Bold="True" ForeColor="#333333" />
+                                   <SortedAscendingCellStyle BackColor="#F8FAFA" />
+                                   <SortedAscendingHeaderStyle BackColor="#246B61" />
+                                   <SortedDescendingCellStyle BackColor="#D4DFE1" />
+                                   <SortedDescendingHeaderStyle BackColor="#15524A" />
+                                </asp:GridView>
+
+                                <div style="color:red;font-size:12px;width:85%">
+                                  <asp:Label ID="lblInsercionLenguaje" runat="server"
+                                  Text="Debe proveer un nombre, apellido y una cédula antes de completar el perfil" 
+                                 Visible="false"></asp:Label>
+                                </div>
+                                                                                              
+                               </div>                                       
+                            </div>
+                                  
+                             <!--Grid Idiomas-->
+                            <div class="wrap_perfil">
+
+                               <span class="lbl1" style="margin-left: 15px">b) Idiomas:</span>
+
+                                 <div style= "margin-top: 20px;margin-left: 20px;">
+                        
+                                    <div class="botonMas">
+                                       <asp:ImageButton ID="btnAgregaIdioma" runat="server" ImageUrl="~/Images/signoMas.png" 
+                                       OnClick="btnNuevoIdioma_click" CausesValidation="False" />
+                                    </div>
+
+                                    <asp:GridView ID="gridIdiomas" runat="server" AutoGenerateColumns="False" ShowFooter="True"
+                                      CellPadding="7" 
+                                      ForeColor="#333333" GridLines="Vertical">
+
+                                      <AlternatingRowStyle BackColor="White" />
+
+                                      <Columns>
+
+                                         <asp:ButtonField ImageUrl="Images/signoMenos.png" ButtonType="Image" />
+
+                                         <asp:TemplateField HeaderText="Idioma" SortExpression="Lenguaje">
+                                           <ItemTemplate>
+                                             <asp:Label ID="lblIdioma" runat="server" Text='<%# Bind("Idioma") %>'></asp:Label>
+                                           </ItemTemplate>
+                                           <FooterTemplate>
+                                             <asp:TextBox ID="txtNuevoIdioma" runat="server"></asp:TextBox>
+                                           </FooterTemplate>
+                               
+                                         </asp:TemplateField>
+
+                                      </Columns>
+                                      <EditRowStyle BackColor="#7C6F57" />
+                                       <FooterStyle BackColor="#1C5E55" Font-Bold="True" ForeColor="White" />
+                                       <HeaderStyle BackColor="#1C5E55" Font-Bold="True" ForeColor="White" />
+                                       <PagerStyle BackColor="#666666" ForeColor="White" HorizontalAlign="Center" />
+                                       <RowStyle BackColor="#E3EAEB" />
+                                       <SelectedRowStyle BackColor="#C5BBAF" Font-Bold="True" ForeColor="#333333" />
+                                       <SortedAscendingCellStyle BackColor="#F8FAFA" />
+                                       <SortedAscendingHeaderStyle BackColor="#246B61" />
+                                       <SortedDescendingCellStyle BackColor="#D4DFE1" />
+                                       <SortedDescendingHeaderStyle BackColor="#15524A" />
+                                    </asp:GridView>
+                                    <div style="color:red;font-size:12px;width:85%">
+                                      <asp:Label ID="lblInsercionIdioma" runat="server"
+                                      Text="Debe proveer un nombre, apellido y una cédula antes de completar el perfil" 
+                                      Visible="false"></asp:Label>
+                                    </div>
+                    
+                                 </div>
+
+                            </div>                                                         
+                                  
+                           </div>
+
+
+                           <div class="wrap_row_becario">
+                           
+                            <!--Grid Áreas de Interés-->                        
+                             <div class="wrap_perfil">
+
+                               <span class="lbl1" style="margin-left: 15px">c)Áreas de Interés:</span>
+
+                               <div style= "margin-top: 20px;margin-left: 20px;">
+
+                                 <div class="botonMas">
+                                   <asp:ImageButton ID="btnAgregaAreaInteres" runat="server" ImageUrl="~/Images/signoMas.png"
+                                   OnClick="btnNuevaAreaInteres_click" CausesValidation="False" />
+                                 </div>
+
+                                <asp:GridView ID="gridAreasInteres" runat="server" AutoGenerateColumns="False" ShowFooter="True"
+                                 CellPadding="7" 
+                                 ForeColor="#333333" GridLines="Vertical">
+
+                                  <AlternatingRowStyle BackColor="White" />
+                                  <Columns>
+
+                                     <asp:ButtonField ImageUrl="Images/signoMenos.png" ButtonType="Image" />
+
+                                     <asp:TemplateField HeaderText="Área de Interés" SortExpression="Lenguaje">
+                                       <ItemTemplate>
+                                         <asp:Label ID="lbArea" runat="server" Text='<%# Bind("AreaInteres") %>'></asp:Label>
+                                       </ItemTemplate>
+                                       <FooterTemplate>
+                                         <asp:TextBox ID="txtNuevaAreaInteres" runat="server"></asp:TextBox>
+                                       </FooterTemplate>
+
+                                     </asp:TemplateField>
+                                   </Columns>
+                                   <EditRowStyle BackColor="#7C6F57" />
+                                   <FooterStyle BackColor="#1C5E55" Font-Bold="True" ForeColor="White" />
+                                   <HeaderStyle BackColor="#1C5E55" Font-Bold="True" ForeColor="White" />
+                                   <PagerStyle BackColor="#666666" ForeColor="White" HorizontalAlign="Center" />
+                                   <RowStyle BackColor="#E3EAEB" />
+                                   <SelectedRowStyle BackColor="#C5BBAF" Font-Bold="True" ForeColor="#333333" />
+                                   <SortedAscendingCellStyle BackColor="#F8FAFA" />
+                                   <SortedAscendingHeaderStyle BackColor="#246B61" />
+                                   <SortedDescendingCellStyle BackColor="#D4DFE1" />
+                                   <SortedDescendingHeaderStyle BackColor="#15524A" />
+                                 </asp:GridView>
+                                   
+                                 <div style="color:red;font-size:12px;width:85%">
+                                   <asp:Label ID="lblInsercionAreaInt" runat="server"
+                                   Text="Debe proveer un nombre, apellido y una cédula antes de completar el perfil"
+                                    Visible="false"></asp:Label>
+                                 </div>  
+
+                               </div>
+
+                            </div>
+
+
+                            <!--Grid Cualidades-->
+                             <div class="wrap_perfil">
+
+                               <span class="lbl1" style="margin-left: 15px">d)Cualidades Personales:</span>
+
+                               <div style= "margin-top: 20px;margin-left: 20px;">
+
+                                 <div class="botonMas">
+                                   <asp:ImageButton ID="btnAgregaCualidad" runat="server" ImageUrl="~/Images/signoMas.png"
+                                   OnClick="btnNuevaCualidad_click" CausesValidation="False" />
+                                 </div>
+
+                                <asp:GridView ID="gridCualidades" runat="server" AutoGenerateColumns="False" ShowFooter="True"
+                                 CellPadding="7" 
+                                 ForeColor="#333333" GridLines="Vertical">
+
+                                  <AlternatingRowStyle BackColor="White" />
+                                  <Columns>
+
+                                     <asp:ButtonField ImageUrl="Images/signoMenos.png" ButtonType="Image" />
+
+                                     <asp:TemplateField HeaderText="Cualidades Personales" SortExpression="Lenguaje">
+                                       <ItemTemplate>
+                                         <asp:Label ID="lblCualidad" runat="server" Text='<%# Bind("Cualidad") %>'></asp:Label>
+                                       </ItemTemplate>
+                                       <FooterTemplate>
+                                         <asp:TextBox ID="txtNuevaCualidad" runat="server"></asp:TextBox>
+                                       </FooterTemplate>
+
+                                     </asp:TemplateField>
+                                   </Columns>
+                                   <EditRowStyle BackColor="#7C6F57" />
+                                   <FooterStyle BackColor="#1C5E55" Font-Bold="True" ForeColor="White" />
+                                   <HeaderStyle BackColor="#1C5E55" Font-Bold="True" ForeColor="White" />
+                                   <PagerStyle BackColor="#666666" ForeColor="White" HorizontalAlign="Center" />
+                                   <RowStyle BackColor="#E3EAEB" />
+                                   <SelectedRowStyle BackColor="#C5BBAF" Font-Bold="True" ForeColor="#333333" />
+                                   <SortedAscendingCellStyle BackColor="#F8FAFA" />
+                                   <SortedAscendingHeaderStyle BackColor="#246B61" />
+                                   <SortedDescendingCellStyle BackColor="#D4DFE1" />
+                                   <SortedDescendingHeaderStyle BackColor="#15524A" />
+                                 </asp:GridView>
+                                   
+                                 <div style="color:red;font-size:12px;width:85%">
+                                   <asp:Label ID="lblInsercionCualidad" runat="server"
+                                   Text="Debe proveer un nombre, apellido y una cédula antes de completar el perfil"
+                                   Visible="false"></asp:Label>
+                                 </div>  
+
+                               </div>
+
+                            </div>
+                               
+
+
+                           </div>
+                        </ContentTemplate>
+                       </asp:UpdatePanel>
                     </div>
+
+                 </div>
             </ContentTemplate>
           </asp:UpdatePanel>
         </div>
@@ -736,11 +833,9 @@
                     onclick="btnModificarBecario_Click" />
                </div>
 
-          <div style="width: 90%; padding: 0 2%; float: left; background: #D8D8BF; border-radius: 5px; margin-left:3%">
+           <div style="width: 90%; padding: 0 2%; float: left; background: #D8D8BF; border-radius: 5px; margin-left:3%">
               
-              <p></p>
-              <p>Por favor completar los tablas segun sus conocimientos actuales</p>
-              
+             
              <asp:UpdatePanel runat="server" ID="UpdatePanelLenguaje">
 
                 <Triggers>
@@ -748,138 +843,7 @@
                 </Triggers>
                 <ContentTemplate>
                
-                 <div class="wrap_grid">
-                  <p>a)Lenguajes de programación:</p>
-                  <asp:GridView ID="gridLenguajesProg" runat="server"  
-                        ShowFooter="True"  AutoGenerateColumns="False" CellPadding="4" 
-                         ForeColor="#333333" GridLines="None">
-                      <AlternatingRowStyle BackColor="White" />
-                      <Columns>
-                          <asp:TemplateField HeaderText="Lenguaje de Programacion" SortExpression="nombreLenguaje">
-                              <EditItemTemplate>
-                                  <asp:TextBox ID="txtBoxLenguaje" runat="server" Text='<%# Bind("nombreLenguaje") %>'></asp:TextBox>
-                              </EditItemTemplate>
-                              <FooterTemplate>
-                                  <asp:TextBox ID="txtNuevoLenguaje" runat="server"></asp:TextBox>
-                                  <asp:Button ID="btnNuevoLenguaje" runat="server" OnClick="btnNuevoLenguaje_click" Text=" Nuevo" CssClass="btnGridPerfil" />
-                              </FooterTemplate>
-                              <ItemTemplate>
-                                  <asp:Label ID="lblLenguaje" runat="server" Text='<%# Bind("nombreLenguaje") %>'></asp:Label>
-                              </ItemTemplate>
-                          </asp:TemplateField>
-                      </Columns>
-                      <EditRowStyle BackColor="#7C6F57" />
-                      <FooterStyle BackColor="#1C5E55" Font-Bold="True" ForeColor="White" />
-                      <HeaderStyle BackColor="#1C5E55" Font-Bold="True" ForeColor="White" />
-                      <PagerStyle BackColor="#666666" ForeColor="White" HorizontalAlign="Center" />
-                      <RowStyle BackColor="#E3EAEB" />
-                      <SelectedRowStyle BackColor="#C5BBAF" Font-Bold="True" ForeColor="#333333" />
-                      <SortedAscendingCellStyle BackColor="#F8FAFA" />
-                      <SortedAscendingHeaderStyle BackColor="#246B61" />
-                      <SortedDescendingCellStyle BackColor="#D4DFE1" />
-                      <SortedDescendingHeaderStyle BackColor="#15524A" />
-                  </asp:GridView>
-                 </div>
-
-                <div class="wrap_grid">
-                  <p>b) Idiomas que conoce :</p>
-                  <asp:GridView ID="gridIdiomas" runat="server"  
-                        ShowFooter="True"  AutoGenerateColumns="False" CellPadding="4" 
-                        ForeColor="#333333" GridLines="None">
-                      <AlternatingRowStyle BackColor="White" />
-                      <Columns>
-                          <asp:TemplateField HeaderText="Idioma" SortExpression="nombreIdioma">
-                              <EditItemTemplate>
-                                  <asp:TextBox ID="txtBoxIdioma" runat="server" Text='<%# Bind("nombreIdioma") %>'></asp:TextBox>
-                              </EditItemTemplate>
-                              <FooterTemplate>
-                                  <asp:TextBox ID="txtNuevoIdioma" runat="server"></asp:TextBox>
-                                  <asp:Button ID="btnNuevoIdioma" runat="server" OnClick="btnNuevoIdioma_click" Text=" Nuevo"  CssClass="btnGridPerfil" />
-                              </FooterTemplate>
-                              <ItemTemplate>
-                                  <asp:Label ID="lblIdioma" runat="server" Text='<%# Bind("nombreIdioma") %>'></asp:Label>
-                              </ItemTemplate>
-                          </asp:TemplateField>
-                      </Columns>
-                      <EditRowStyle BackColor="#7C6F57" />
-                      <FooterStyle BackColor="#1C5E55" Font-Bold="True" ForeColor="White" />
-                      <HeaderStyle BackColor="#1C5E55" Font-Bold="True" ForeColor="White" />
-                      <PagerStyle BackColor="#666666" ForeColor="White" HorizontalAlign="Center" />
-                      <RowStyle BackColor="#E3EAEB" />
-                      <SelectedRowStyle BackColor="#C5BBAF" Font-Bold="True" ForeColor="#333333" />
-                      <SortedAscendingCellStyle BackColor="#F8FAFA" />
-                      <SortedAscendingHeaderStyle BackColor="#246B61" />
-                      <SortedDescendingCellStyle BackColor="#D4DFE1" />
-                      <SortedDescendingHeaderStyle BackColor="#15524A" />
-                  </asp:GridView>
-                 </div>
-
-                 <div class="wrap_grid">
-                  <p>c) Áreas de interés :</p>
-                  <asp:GridView ID="gridAreasInteres" runat="server"  
-                        ShowFooter="True"  AutoGenerateColumns="False" CellPadding="4" 
-                         ForeColor="#333333" GridLines="None">
-                      <AlternatingRowStyle BackColor="White" />
-                      <Columns>
-                          <asp:TemplateField HeaderText="Áreas de Interés" SortExpression="nombreArea">
-                              <EditItemTemplate>
-                                  <asp:TextBox ID="txtBoxArea" runat="server" Text='<%# Bind("nombreArea") %>'></asp:TextBox>
-                              </EditItemTemplate>
-                              <FooterTemplate>
-                                  <asp:TextBox ID="txtNuevaArea" runat="server"></asp:TextBox>
-                                  <asp:Button ID="btnNuevaArea" runat="server" OnClick="btnNuevaArea_click" Text=" Nuevo" CssClass="btnGridPerfil" />
-                              </FooterTemplate>
-                              <ItemTemplate>
-                                  <asp:Label ID="lblArea" runat="server" Text='<%# Bind("nombreArea") %>'></asp:Label>
-                              </ItemTemplate>
-                          </asp:TemplateField>
-                      </Columns>
-                      <EditRowStyle BackColor="#7C6F57" />
-                      <FooterStyle BackColor="#1C5E55" Font-Bold="True" ForeColor="White" />
-                      <HeaderStyle BackColor="#1C5E55" Font-Bold="True" ForeColor="White" />
-                      <PagerStyle BackColor="#666666" ForeColor="White" HorizontalAlign="Center" />
-                      <RowStyle BackColor="#E3EAEB" />
-                      <SelectedRowStyle BackColor="#C5BBAF" Font-Bold="True" ForeColor="#333333" />
-                      <SortedAscendingCellStyle BackColor="#F8FAFA" />
-                      <SortedAscendingHeaderStyle BackColor="#246B61" />
-                      <SortedDescendingCellStyle BackColor="#D4DFE1" />
-                      <SortedDescendingHeaderStyle BackColor="#15524A" />
-                  </asp:GridView>
-                 </div>
-
-                 <div class="wrap_grid">
-                  <p>d) Cualidades Personales :</p>
-                  <asp:GridView ID="gridCualidades" runat="server"  
-                        ShowFooter="True"  AutoGenerateColumns="False" CellPadding="4" 
-                         ForeColor="#333333" GridLines="None">
-                      <AlternatingRowStyle BackColor="White" />
-                      <Columns>
-                          <asp:TemplateField HeaderText="CualidaesPersonales" SortExpression="nombreCualidad">
-                              <EditItemTemplate>
-                                  <asp:TextBox ID="txtBoxCualidad" runat="server" Text='<%# Bind("nombreCualidad") %>'></asp:TextBox>
-                              </EditItemTemplate>
-                              <FooterTemplate>
-                                  <asp:TextBox ID="txtNuevaCualidad" runat="server"></asp:TextBox>
-                                  <asp:Button ID="btnNuevaCualidad" runat="server" OnClick="btnNuevaCualidad_click" Text=" Nuevo" CssClass="btnGridPerfil" />
-                              </FooterTemplate>
-                              <ItemTemplate>
-                                  <asp:Label ID="lblCualidad" runat="server" Text='<%# Bind("nombreCualidad") %>'></asp:Label>
-                              </ItemTemplate>
-                          </asp:TemplateField>
-                      </Columns>
-                      <EditRowStyle BackColor="#7C6F57" />
-                      <FooterStyle BackColor="#1C5E55" Font-Bold="True" ForeColor="White" />
-                      <HeaderStyle BackColor="#1C5E55" Font-Bold="True" ForeColor="White" />
-                      <PagerStyle BackColor="#666666" ForeColor="White" HorizontalAlign="Center" />
-                      <RowStyle BackColor="#E3EAEB" />
-                      <SelectedRowStyle BackColor="#C5BBAF" Font-Bold="True" ForeColor="#333333" />
-                      <SortedAscendingCellStyle BackColor="#F8FAFA" />
-                      <SortedAscendingHeaderStyle BackColor="#246B61" />
-                      <SortedDescendingCellStyle BackColor="#D4DFE1" />
-                      <SortedDescendingHeaderStyle BackColor="#15524A" />
-                  </asp:GridView>
-                 </div>
-
+                
              </ContentTemplate>
            </asp:UpdatePanel>
           </div>
