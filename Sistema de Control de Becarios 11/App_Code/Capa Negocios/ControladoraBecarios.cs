@@ -44,35 +44,6 @@ public class ControladoraBecarios
         return mensajeResultado;
     }
 
-
-    
-    public String guardarPerfilBecario( List<String>listaLenguajesProg, List<String> listaIdiomas, List<String> listaIntereses, List<String> listaCualidades, String cedBecario ){
-
-
-        string mensajeResultado = "-1";
-
-        for (int i = 0; i < listaLenguajesProg.Count; i++){
-           mensajeResultado = controladoraBDBecario.insertarLenguajeProg(listaLenguajesProg[i], cedBecario);
-        }
-
-        for (int i = 0; i < listaLenguajesProg.Count; i++)
-        {
-           mensajeResultado = controladoraBDBecario.insertarLenguajeProg(listaLenguajesProg[i], cedBecario);
-        }
-
-        for (int i = 0; i < listaLenguajesProg.Count; i++)
-        {
-           mensajeResultado = controladoraBDBecario.insertarLenguajeProg(listaLenguajesProg[i], cedBecario);
-        }
-
-        for (int i = 0; i < listaLenguajesProg.Count; i++)
-        {
-           mensajeResultado =  controladoraBDBecario.insertarLenguajeProg(listaLenguajesProg[i], cedBecario);
-        }
-
-        return mensajeResultado;
-    }
-
    
     public List<Becario> consultarTablaBecario()
     {
@@ -143,6 +114,36 @@ public class ControladoraBecarios
     }
 
 
+
+    public String guardarPerfilBecario(List<String> listaLenguajesProg, List<String> listaIdiomas, List<String> listaIntereses, List<String> listaCualidades, String cedBecario)
+    {
+
+        string mensajeResultado = "-1";
+
+        for (int i = 0; i < listaLenguajesProg.Count; i++)
+        {
+            mensajeResultado = controladoraBDBecario.insertarLenguajeProg(listaLenguajesProg[i], cedBecario);
+        }
+
+        for (int i = 0; i < listaIdiomas.Count; i++)
+        {
+            mensajeResultado = controladoraBDBecario.insertarIdioma(listaIdiomas[i], cedBecario);
+        }
+
+        for (int i = 0; i < listaIntereses.Count; i++)
+        {
+            mensajeResultado = controladoraBDBecario.insertarAreaInteres(listaIntereses[i], cedBecario);
+        }
+
+        for (int i = 0; i < listaCualidades.Count; i++)
+        {
+            mensajeResultado = controladoraBDBecario.insertarCualidad(listaCualidades[i], cedBecario);
+        }
+
+        return mensajeResultado;
+    }
+
+
     public List<String> consultarLenguajes(string ced){
 
        BecariosDataSet.LenguajesProgDataTable tabla = controladoraBDBecario.consultarLenguajes(ced);
@@ -190,6 +191,7 @@ public class ControladoraBecarios
     }
 
 
+
     public List<String> consultarCualidades(string ced)
     {
 
@@ -204,6 +206,7 @@ public class ControladoraBecarios
         }
         return listaCualidades;
     }
+
 
 
 }

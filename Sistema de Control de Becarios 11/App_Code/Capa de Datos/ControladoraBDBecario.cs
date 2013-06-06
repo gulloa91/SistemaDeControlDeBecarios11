@@ -192,7 +192,6 @@ public class ControladoraBDBecario
         return returnValue;
     }
 
-
     public String insertarCualidad(String nuevoCualidad, String cedBecario)
     {
         String returnValue = "Exito";//"Se ha insertado correctamente al nuevo becario";
@@ -216,6 +215,7 @@ public class ControladoraBDBecario
         return returnValue;
     }
 
+    
     public BecariosDataSet.LenguajesProgDataTable consultarLenguajes(String cedula){
 
        BecariosDataSet.LenguajesProgDataTable dt = new BecariosDataSet.LenguajesProgDataTable();

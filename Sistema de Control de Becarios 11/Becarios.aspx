@@ -81,7 +81,7 @@
       <div id="PopUp" style="min-height: 375px;">
         
 
-        <div id="tabs" style="min-height:540px">
+        <div id="tabs" style="min-height:610px">
 
            <asp:UpdatePanel runat="server" ID="UpdatePopUp">
              <Triggers>
@@ -326,7 +326,7 @@
 	                </div>
 
                     <!--PERFIL DEL BECARIO-->
-	                <div id="tabs-2" style= "width:96%; max-height:100px">
+	                <div id="tabs-2" style= "width:96%;">
 
                        <div style="width: 96%; padding: 2%; float: left;" >
 
@@ -368,13 +368,13 @@
                                 </div>
 
                                 <asp:GridView ID="gridLenguajesProg" runat="server" AutoGenerateColumns="False" ShowFooter="True"
-                                  CellPadding="7" 
+                                  CellPadding="7" onrowcommand="gridLenguajesProg_RowCommand"
                                   ForeColor="#333333" GridLines="Vertical">
 
                                   <AlternatingRowStyle BackColor="White" />
                                   <Columns>
 
-                                     <asp:ButtonField ImageUrl="Images/signoMenos.png" ButtonType="Image" />
+                                     <asp:ButtonField CommandName="btnEliminaLenguaje_Click" CausesValidation="false" ImageUrl="Images/signoMenos.png" ButtonType="Image" />
 
                                      <asp:TemplateField HeaderText="Lenguaje de Programación" SortExpression="Lenguaje">
                                        <ItemTemplate>
@@ -420,14 +420,14 @@
                                     </div>
 
                                     <asp:GridView ID="gridIdiomas" runat="server" AutoGenerateColumns="False" ShowFooter="True"
-                                      CellPadding="7" 
+                                      CellPadding="7"  onrowcommand="gridIdiomas_RowCommand"
                                       ForeColor="#333333" GridLines="Vertical">
 
                                       <AlternatingRowStyle BackColor="White" />
 
                                       <Columns>
 
-                                         <asp:ButtonField ImageUrl="Images/signoMenos.png" ButtonType="Image" />
+                                         <asp:ButtonField CommandName="btnEliminaIdioma_Click" CausesValidation="false" ImageUrl="Images/signoMenos.png" ButtonType="Image" />
 
                                          <asp:TemplateField HeaderText="Idioma" SortExpression="Lenguaje">
                                            <ItemTemplate>
@@ -479,13 +479,13 @@
                                  </div>
 
                                 <asp:GridView ID="gridAreasInteres" runat="server" AutoGenerateColumns="False" ShowFooter="True"
-                                 CellPadding="7" 
+                                 CellPadding="7" onrowcommand="gridAreasInteres_RowCommand"
                                  ForeColor="#333333" GridLines="Vertical">
 
                                   <AlternatingRowStyle BackColor="White" />
                                   <Columns>
 
-                                     <asp:ButtonField ImageUrl="Images/signoMenos.png" ButtonType="Image" />
+                                     <asp:ButtonField CommandName="btnEliminaInteres_Click" CausesValidation="false" ImageUrl="Images/signoMenos.png" ButtonType="Image" />
 
                                      <asp:TemplateField HeaderText="Área de Interés" SortExpression="Lenguaje">
                                        <ItemTemplate>
@@ -533,13 +533,13 @@
                                  </div>
 
                                 <asp:GridView ID="gridCualidades" runat="server" AutoGenerateColumns="False" ShowFooter="True"
-                                 CellPadding="7" 
+                                 CellPadding="7" onrowcommand="gridCualidades_RowCommand"
                                  ForeColor="#333333" GridLines="Vertical">
 
                                   <AlternatingRowStyle BackColor="White" />
                                   <Columns>
 
-                                     <asp:ButtonField ImageUrl="Images/signoMenos.png" ButtonType="Image" />
+                                     <asp:ButtonField CommandName="btnEliminaCualidad_Click" CausesValidation="false" ImageUrl="Images/signoMenos.png" ButtonType="Image" />
 
                                      <asp:TemplateField HeaderText="Cualidades Personales" SortExpression="Lenguaje">
                                        <ItemTemplate>
