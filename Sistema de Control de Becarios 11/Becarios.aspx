@@ -328,6 +328,15 @@
                     <!--PERFIL DEL BECARIO-->
 	                <div id="tabs-2" style= "width:96%; max-height:100px">
 
+                       <div style="width: 96%; padding: 2%; float: left;" >
+
+                            <div style="width: 20%; float: right;">
+                                <asp:Button ID="btnModificarBecarioPerfil" runat="server" Text="Modificar" 
+                                 CssClass="boton ui-widget ui-state-default ui-corner-all ui-button-text-only" 
+                                 onclick="btnModificarPerfilBecario_Click" />
+                            </div>
+                        </div>                
+
                      <div style="width: 96%; padding: 0 2%; float: left; background: #D8D8BF; border-radius: 5px;">
 
                        <p></p>

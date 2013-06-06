@@ -118,6 +118,104 @@ public class ControladoraBDBecario
     }
 
 
+    /***METODOS PARA MENEJO DE PERFIL DE BECARIO **/
+
+
+    public String insertarLenguajeProg(String nuevoLenguaje,String cedBecario)
+    {
+        String returnValue = "Exito";//"Se ha insertado correctamente al nuevo becario";
+        int r;
+        try
+        {
+           this.adapterLenguajes.insertarLenguaje(cedBecario,nuevoLenguaje);
+        }
+        catch (SqlException e)
+        {
+            r = e.Number;
+            if (r == 2627)
+            {
+                returnValue = "Error1";
+            }
+            else
+            {
+                returnValue = "Error2";
+            }
+        }
+        return returnValue;
+    }
+
+
+    public String insertarIdioma(String nuevoIdioma, String cedBecario)
+    {
+        String returnValue = "Exito";//"Se ha insertado correctamente al nuevo becario";
+        int r;
+        try
+        {
+            this.adapterIdiomas.insertarIdioma(cedBecario, nuevoIdioma);
+        }
+        catch (SqlException e)
+        {
+            r = e.Number;
+            if (r == 2627)
+            {
+                returnValue = "Error1";
+            }
+            else
+            {
+                returnValue = "Error2";
+            }
+        }
+        return returnValue;
+    }
+
+
+    public String insertarAreaInteres(String nuevoInteres, String cedBecario)
+    {
+        String returnValue = "Exito";//"Se ha insertado correctamente al nuevo becario";
+        int r;
+        try
+        {
+            this.adapterAreas.insertarAreaInteres(cedBecario, nuevoInteres);
+        }
+        catch (SqlException e)
+        {
+            r = e.Number;
+            if (r == 2627)
+            {
+                returnValue = "Error1";
+            }
+            else
+            {
+                returnValue = "Error2";
+            }
+        }
+        return returnValue;
+    }
+
+
+    public String insertarCualidad(String nuevoCualidad, String cedBecario)
+    {
+        String returnValue = "Exito";//"Se ha insertado correctamente al nuevo becario";
+        int r;
+        try
+        {
+            this.adapterCualidades.insertarCualidad(cedBecario, nuevoCualidad);
+        }
+        catch (SqlException e)
+        {
+            r = e.Number;
+            if (r == 2627)
+            {
+                returnValue = "Error1";
+            }
+            else
+            {
+                returnValue = "Error2";
+            }
+        }
+        return returnValue;
+    }
+
     public BecariosDataSet.LenguajesProgDataTable consultarLenguajes(String cedula){
 
        BecariosDataSet.LenguajesProgDataTable dt = new BecariosDataSet.LenguajesProgDataTable();

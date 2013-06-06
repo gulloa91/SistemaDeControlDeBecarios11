@@ -7,10 +7,10 @@
 <DiagramLayout xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ex:showrelationlabel="False" ViewPortX="15" ViewPortY="0" xmlns:ex="urn:schemas-microsoft-com:xml-msdatasource-layout-extended" xmlns="urn:schemas-microsoft-com:xml-msdatasource-layout">
   <Shapes>
     <Shape ID="DesignTable:Becario" ZOrder="6" X="100" Y="39" Height="362" Width="283" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="235" />
-    <Shape ID="DesignTable:LenguajesProg" ZOrder="5" X="411" Y="37" Height="134" Width="230" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="64" />
-    <Shape ID="DesignTable:AreasInteres" ZOrder="4" X="410" Y="193" Height="134" Width="217" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="64" />
-    <Shape ID="DesignTable:Idiomas" ZOrder="3" X="411" Y="348" Height="134" Width="222" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="64" />
-    <Shape ID="DesignTable:CualidadesPersonales" ZOrder="2" X="122" Y="432" Height="134" Width="269" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="64" />
+    <Shape ID="DesignTable:LenguajesProg" ZOrder="5" X="411" Y="37" Height="153" Width="295" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="64" />
+    <Shape ID="DesignTable:AreasInteres" ZOrder="4" X="410" Y="193" Height="153" Width="293" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="64" />
+    <Shape ID="DesignTable:Idiomas" ZOrder="1" X="466" Y="366" Height="153" Width="273" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="64" />
+    <Shape ID="DesignTable:CualidadesPersonales" ZOrder="3" X="122" Y="432" Height="153" Width="293" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="64" />
   </Shapes>
   <Connectors>
     <Connector ID="DesignRelation:FK_LenguajesProg_CedulaBecario" ZOrder="9" LineWidth="11">
@@ -25,7 +25,7 @@
         </Point>
         <Point>
           <X>461</X>
-          <Y>171</Y>
+          <Y>190</Y>
         </Point>
       </RoutePoints>
     </Connector>
@@ -41,7 +41,7 @@
         </Point>
         <Point>
           <X>471</X>
-          <Y>327</Y>
+          <Y>346</Y>
         </Point>
       </RoutePoints>
     </Connector>
@@ -49,15 +49,15 @@
       <RoutePoints>
         <Point>
           <X>383</X>
-          <Y>376</Y>
+          <Y>394</Y>
         </Point>
         <Point>
-          <X>411</X>
-          <Y>376</Y>
+          <X>466</X>
+          <Y>394</Y>
         </Point>
       </RoutePoints>
     </Connector>
-    <Connector ID="DesignRelation:FK_Cualidades_CedulaBecario" ZOrder="1" LineWidth="11">
+    <Connector ID="DesignRelation:FK_Cualidades_CedulaBecario" ZOrder="2" LineWidth="11">
       <RoutePoints>
         <Point>
           <X>180</X>

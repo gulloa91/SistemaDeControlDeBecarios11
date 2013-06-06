@@ -44,6 +44,36 @@ public class ControladoraBecarios
         return mensajeResultado;
     }
 
+
+    
+    public String guardarPerfilBecario( List<String>listaLenguajesProg, List<String> listaIdiomas, List<String> listaIntereses, List<String> listaCualidades, String cedBecario ){
+
+
+        string mensajeResultado = "-1";
+
+        for (int i = 0; i < listaLenguajesProg.Count; i++){
+           mensajeResultado = controladoraBDBecario.insertarLenguajeProg(listaLenguajesProg[i], cedBecario);
+        }
+
+        for (int i = 0; i < listaLenguajesProg.Count; i++)
+        {
+           mensajeResultado = controladoraBDBecario.insertarLenguajeProg(listaLenguajesProg[i], cedBecario);
+        }
+
+        for (int i = 0; i < listaLenguajesProg.Count; i++)
+        {
+           mensajeResultado = controladoraBDBecario.insertarLenguajeProg(listaLenguajesProg[i], cedBecario);
+        }
+
+        for (int i = 0; i < listaLenguajesProg.Count; i++)
+        {
+           mensajeResultado =  controladoraBDBecario.insertarLenguajeProg(listaLenguajesProg[i], cedBecario);
+        }
+
+        return mensajeResultado;
+    }
+
+   
     public List<Becario> consultarTablaBecario()
     {
         BecariosDataSet.BecarioDataTable tabla = controladoraBDBecario.consultarBecarios();

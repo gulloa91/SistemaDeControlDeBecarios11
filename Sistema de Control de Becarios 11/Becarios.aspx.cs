@@ -190,7 +190,10 @@ public partial class Becarios : System.Web.UI.Page
                     }
                 }
             }
-            
+
+
+            string resultadoPerfil = controladoraBecarios.guardarPerfilBecario(listaLocalLenguajes, listaLocalIdiomas, listaLocalAreasInteres, listaLocalCualidades, this.txtCedula.Text);
+
             llenarGridBecarios(1);
             habilitarBotonesPrincipales(true);
         }
@@ -291,6 +294,16 @@ public partial class Becarios : System.Web.UI.Page
     }
 
 
+    protected void btnModificarPerfilBecario_Click(object sender, EventArgs e)
+    {
+
+        correrJavascript("crearTabs();");
+        correrJavascript("seleccionarTabs();");
+        habilitarBotonesPrincipales(false);
+        habilitarCampos(true, 0);
+    }
+
+
     // Activa el 'popUp' para confirmar la eliminación
     protected void btnEliminarBecario_Click(object sender, EventArgs e)
     {
@@ -385,11 +398,13 @@ public partial class Becarios : System.Web.UI.Page
         {
             this.btnModificarBecarioDatos.Visible = true;
             this.btnEliminarBecarioDatos.Visible = true;
+            btnModificarBecarioPerfil.Visible = true;
         }
         else
         {
             this.btnModificarBecarioDatos.Visible = false;
             this.btnEliminarBecarioDatos.Visible = false;
+            btnModificarBecarioPerfil.Visible = false;
         }
     }
 
@@ -402,11 +417,13 @@ public partial class Becarios : System.Web.UI.Page
          {
              this.btnModificarBecarioDatos.Enabled = true;
              this.btnEliminarBecarioDatos.Enabled = true;
+             this.btnModificarBecarioPerfil.Enabled = true;
           }
           else
           {
               this.btnModificarBecarioDatos.Enabled = false;
               this.btnEliminarBecarioDatos.Enabled = false;
+              this.btnModificarBecarioPerfil.Enabled = false;
           }
      
 
@@ -431,6 +448,14 @@ public partial class Becarios : System.Web.UI.Page
                 this.txtCel.Enabled = true;
                 this.txtOtroTel.Enabled = true;
                 this.txtCorreo.Enabled = true;
+                TextBox txtBoxAux = (TextBox)gridLenguajesProg.FooterRow.Cells[0].FindControl("txtNuevoLenguaje");
+                txtBoxAux.Enabled = true;
+                txtBoxAux = (TextBox)gridIdiomas.FooterRow.Cells[0].FindControl("txtNuevoIdioma");
+                txtBoxAux.Enabled = true;
+                txtBoxAux = (TextBox)gridAreasInteres.FooterRow.Cells[0].FindControl("txtNuevaAreaInteres");
+                txtBoxAux.Enabled = true;
+                txtBoxAux = (TextBox)gridCualidades.FooterRow.Cells[0].FindControl("txtNuevaCualidad");
+                txtBoxAux.Enabled = true;
 
             }
             else
@@ -445,6 +470,16 @@ public partial class Becarios : System.Web.UI.Page
                 this.txtCel.Enabled = false;
                 this.txtOtroTel.Enabled = false;
                 this.txtCorreo.Enabled = false;
+                TextBox txtBoxAux = (TextBox)gridLenguajesProg.FooterRow.Cells[0].FindControl("txtNuevoLenguaje");
+                txtBoxAux.Enabled = false;
+                txtBoxAux = (TextBox)gridIdiomas.FooterRow.Cells[0].FindControl("txtNuevoIdioma");
+                txtBoxAux.Enabled = false;
+                txtBoxAux = (TextBox)gridAreasInteres.FooterRow.Cells[0].FindControl("txtNuevaAreaInteres");
+                txtBoxAux.Enabled = false;
+                txtBoxAux = (TextBox)gridCualidades.FooterRow.Cells[0].FindControl("txtNuevaCualidad");
+                txtBoxAux.Enabled = false;
+
+
             }
         }
         else
@@ -675,7 +710,7 @@ public partial class Becarios : System.Web.UI.Page
                     rowIndex += (pageIndex * pageSize);
 
                     llenarGridBecarios(1);
-
+                    llenarGridsPerfil();
                     
                     mostrarBotonesPrincipales(true);
                     cargarCamposBecario();
@@ -691,7 +726,6 @@ public partial class Becarios : System.Web.UI.Page
 
     protected void llenarGridsPerfil(){
 
-        llenarGridsPerfil();
         string cedBecario = listaBecarios[rowIndex].cedula;
         listaLocalLenguajes = controladoraBecarios.consultarLenguajes(cedBecario);
         llenarGridLenguajes();
