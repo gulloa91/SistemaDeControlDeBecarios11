@@ -128,4 +128,52 @@ public class ControladoraBecarios
    }
 
 
+    public List<String> consultarIdiomas(string ced)
+    {
+
+        BecariosDataSet.IdiomasDataTable tabla = controladoraBDBecario.consultarIdiomas(ced);
+       List<String> listaIdiomas = new List<String>();
+
+       foreach (DataRow r in tabla.Rows)
+       {
+
+            string texto = cs.procesarStringDeUI(r["Idioma"].ToString());
+            listaIdiomas.Add(texto);
+        }
+       return listaIdiomas;
+    }
+
+
+    public List<String> consultarAreasInteres(string ced)
+    {
+
+        BecariosDataSet.AreasInteresDataTable tabla = controladoraBDBecario.consultarAreasInteres(ced);
+        List<String> listaAreas = new List<String>();
+
+        foreach (DataRow r in tabla.Rows)
+        {
+
+            string texto = cs.procesarStringDeUI(r["Interes"].ToString());
+            listaAreas.Add(texto);
+        }
+        return listaAreas;
+    }
+
+
+    public List<String> consultarCualidades(string ced)
+    {
+
+        BecariosDataSet.CualidadesPersonalesDataTable tabla = controladoraBDBecario.consultarCualidades(ced);
+        List<String> listaCualidades = new List<String>();
+
+        foreach (DataRow r in tabla.Rows)
+        {
+
+            string texto = cs.procesarStringDeUI(r["Cualidad"].ToString());
+            listaCualidades.Add(texto);
+        }
+        return listaCualidades;
+    }
+
+
 }

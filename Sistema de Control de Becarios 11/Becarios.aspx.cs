@@ -683,15 +683,27 @@ public partial class Becarios : System.Web.UI.Page
                     correrJavascript("abrirPopUp();");
                     modoEjecucion = -1;
 
-                    listaLocalLenguajes = controladoraBecarios.consultarLenguajes(listaBecarios[rowIndex].cedula);
-                    llenarGridLenguajes();
-
                 } break;
         }
     }
 
 
 
+    protected void llenarGridsPerfil(){
+
+        llenarGridsPerfil();
+        string cedBecario = listaBecarios[rowIndex].cedula;
+        listaLocalLenguajes = controladoraBecarios.consultarLenguajes(cedBecario);
+        llenarGridLenguajes();
+        listaLocalIdiomas = controladoraBecarios.consultarIdiomas(cedBecario);
+        llenarGridIdiomas();
+        listaLocalAreasInteres = controladoraBecarios.consultarAreasInteres(cedBecario);
+        llenarGridAreasInteres();
+        listaLocalCualidades = controladoraBecarios.consultarCualidades(cedBecario);
+        llenarGridCualidades();
+    }
+
+    
     //Pide crear una cuenta para un becario 
     protected string cearCuenta( string cedula,string nombre,string apellido, string apellido2, string correo){
 

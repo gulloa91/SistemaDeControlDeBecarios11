@@ -13,11 +13,17 @@ public class ControladoraBDBecario
 {
     private BecarioTableAdapter adapterBecarios;
     private LenguajesProgTableAdapter adapterLenguajes;
+    private IdiomasTableAdapter adapterIdiomas;
+    private AreasInteresTableAdapter adapterAreas;
+    private CualidadesPersonalesTableAdapter adapterCualidades;
 
     public ControladoraBDBecario()
     {
         adapterBecarios = new BecarioTableAdapter();
         adapterLenguajes = new LenguajesProgTableAdapter();
+        adapterIdiomas = new IdiomasTableAdapter();
+        adapterAreas = new AreasInteresTableAdapter();
+        adapterCualidades = new CualidadesPersonalesTableAdapter();
     }
 
     public String insertarBecario(Becario becario)
@@ -117,7 +123,33 @@ public class ControladoraBDBecario
        BecariosDataSet.LenguajesProgDataTable dt = new BecariosDataSet.LenguajesProgDataTable();
        this.adapterLenguajes.consultarLenguajes(dt, cedula);
        return dt;
-
    }
+
+    public BecariosDataSet.IdiomasDataTable consultarIdiomas(String cedula)
+    {
+        BecariosDataSet.IdiomasDataTable dt = new BecariosDataSet.IdiomasDataTable();
+        this.adapterIdiomas.consultarIdiomas(dt, cedula);
+        return dt;
+
+    }
+
+    public BecariosDataSet.AreasInteresDataTable consultarAreasInteres(String cedula)
+    {
+
+        BecariosDataSet.AreasInteresDataTable dt = new BecariosDataSet.AreasInteresDataTable();
+        this.adapterAreas.consultarAreasInteres(dt, cedula);
+        return dt;
+
+    }
+
+    public BecariosDataSet.CualidadesPersonalesDataTable consultarCualidades(String cedula)
+    {
+
+        BecariosDataSet.CualidadesPersonalesDataTable dt = new BecariosDataSet.CualidadesPersonalesDataTable();
+        this.adapterCualidades.consultarCualidades(dt, cedula);
+        return dt;
+    }
+
+
 
 }

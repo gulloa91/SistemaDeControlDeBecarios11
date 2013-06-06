@@ -2,7 +2,7 @@
 <xs:schema id="BecariosDataSet" targetNamespace="http://tempuri.org/BecariosDataSet.xsd" xmlns:mstns="http://tempuri.org/BecariosDataSet.xsd" xmlns="http://tempuri.org/BecariosDataSet.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
   <xs:annotation>
     <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
-      <DataSource DefaultConnectionIndex="5" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="6" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
         <Connections>
           <Connection AppSettingsObjectName="Web.config" AppSettingsPropertyName="BD_BecariosConnectionString" IsAppSettingsProperty="true" Modifier="Assembly" Name="BD_BecariosConnectionString (Web.config)" ParameterPrefix="@" PropertyReference="AppConfig.System.Configuration.ConfigurationManager.0.ConnectionStrings.BD_BecariosConnectionString.ConnectionString" Provider="System.Data.SqlClient" />
           <Connection AppSettingsObjectName="Web.config" AppSettingsPropertyName="ingegsg2ConnectionString" ConnectionStringObject="" IsAppSettingsProperty="true" Modifier="Assembly" Name="ingegsg2ConnectionString (Web.config)" ParameterPrefix="@" PropertyReference="AppConfig.System.Configuration.ConfigurationManager.0.ConnectionStrings.ingegsg2ConnectionString.ConnectionString" Provider="System.Data.SqlClient" />
@@ -10,11 +10,12 @@
           <Connection AppSettingsObjectName="Web.config" AppSettingsPropertyName="ingegsg2ConnectionString1" IsAppSettingsProperty="true" Modifier="Assembly" Name="ingegsg2ConnectionString1 (Web.config)" ParameterPrefix="@" PropertyReference="AppConfig.System.Configuration.ConfigurationManager.0.ConnectionStrings.ingegsg2ConnectionString1.ConnectionString" Provider="System.Data.SqlClient" />
           <Connection AppSettingsObjectName="Web.config" AppSettingsPropertyName="Sistema de Gestion de PruebasConnectionString" ConnectionStringObject="" IsAppSettingsProperty="true" Modifier="Assembly" Name="Sistema de Gestion de PruebasConnectionString (Web.config)" ParameterPrefix="@" PropertyReference="AppConfig.System.Configuration.ConfigurationManager.0.ConnectionStrings.Sistema de Gestion de PruebasConnectionString.ConnectionString" Provider="System.Data.SqlClient" />
           <Connection AppSettingsObjectName="Web.config" AppSettingsPropertyName="Sistema Control BecariosConnectionString" ConnectionStringObject="" IsAppSettingsProperty="true" Modifier="Assembly" Name="Sistema Control BecariosConnectionString (Web.config)" ParameterPrefix="@" PropertyReference="AppConfig.System.Configuration.ConfigurationManager.0.ConnectionStrings.Sistema Control BecariosConnectionString.ConnectionString" Provider="System.Data.SqlClient" />
+          <Connection AppSettingsObjectName="Web.config" AppSettingsPropertyName="Sistema BecariosConnectionString" ConnectionStringObject="" IsAppSettingsProperty="true" Modifier="Assembly" Name="Sistema BecariosConnectionString (Web.config)" ParameterPrefix="@" PropertyReference="AppConfig.System.Configuration.ConfigurationManager.0.ConnectionStrings.Sistema BecariosConnectionString.ConnectionString" Provider="System.Data.SqlClient" />
         </Connections>
         <Tables>
           <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="BecarioTableAdapter" GeneratorDataComponentClassName="BecarioTableAdapter" Name="Becario" UserDataComponentName="BecarioTableAdapter">
             <MainSource>
-              <DbSource ConnectionRef="Sistema Control BecariosConnectionString (Web.config)" DbObjectName="[Sistema Control Becarios].dbo.Becario" DbObjectType="Table" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="true" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetData" UserSourceName="Fill">
+              <DbSource ConnectionRef="Sistema BecariosConnectionString (Web.config)" DbObjectName="[Sistema Becarios].dbo.Becario" DbObjectType="Table" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="true" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetData" UserSourceName="Fill">
                 <DeleteCommand>
                   <DbCommand CommandType="Text" ModifiedByUser="true">
                     <CommandText>DELETE FROM Becario
@@ -98,7 +99,7 @@ WHERE        (Cedula = @Original_Cedula)</CommandText>
               <Mapping SourceColumn="Activo" DataSetColumn="Activo" />
             </Mappings>
             <Sources>
-              <DbSource ConnectionRef="Sistema Control BecariosConnectionString (Web.config)" DbObjectName="" DbObjectType="Unknown" GenerateShortCommands="true" GeneratorSourceName="actualizaEstado" Modifier="Public" Name="actualizaEstado" QueryType="NoData" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy" UserSourceName="actualizaEstado">
+              <DbSource ConnectionRef="Sistema BecariosConnectionString (Web.config)" DbObjectName="" DbObjectType="Unknown" GenerateShortCommands="true" GeneratorSourceName="actualizaEstado" Modifier="Public" Name="actualizaEstado" QueryType="NoData" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy" UserSourceName="actualizaEstado">
                 <UpdateCommand>
                   <DbCommand CommandType="Text" ModifiedByUser="true">
                     <CommandText>UPDATE       Becario
@@ -111,7 +112,7 @@ WHERE        (Cedula = @Original_Cedula)</CommandText>
                   </DbCommand>
                 </UpdateCommand>
               </DbSource>
-              <DbSource ConnectionRef="Sistema Control BecariosConnectionString (Web.config)" DbObjectName="[Sistema Control Becarios].dbo.Becario" DbObjectType="Table" FillMethodModifier="Public" FillMethodName="buscarBecarios" GenerateMethods="Fill" GenerateShortCommands="true" GeneratorSourceName="buscarBecarios" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy1" UserSourceName="buscarBecarios">
+              <DbSource ConnectionRef="Sistema BecariosConnectionString (Web.config)" DbObjectName="[Sistema Becarios].dbo.Becario" DbObjectType="Table" FillMethodModifier="Public" FillMethodName="buscarBecarios" GenerateMethods="Fill" GenerateShortCommands="true" GeneratorSourceName="buscarBecarios" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy1" UserSourceName="buscarBecarios">
                 <SelectCommand>
                   <DbCommand CommandType="Text" ModifiedByUser="true">
                     <CommandText>SELECT        Cedula, Nombre, Apellido1, Apellido2, Correo, Carne, Telefono, Celular, OtroTel, Foto, Activo
@@ -128,7 +129,7 @@ WHERE        (Nombre LIKE @criterioBusqueda) AND (Activo = 1) OR
                   </DbCommand>
                 </SelectCommand>
               </DbSource>
-              <DbSource ConnectionRef="Sistema Control BecariosConnectionString (Web.config)" DbObjectName="[Sistema Control Becarios].dbo.Becario" DbObjectType="Table" FillMethodModifier="Public" FillMethodName="consultarBecariosCompletos" GenerateMethods="Fill" GenerateShortCommands="true" GeneratorSourceName="consultarBecariosCompletos" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy2" UserSourceName="consultarBecariosCompletos">
+              <DbSource ConnectionRef="Sistema BecariosConnectionString (Web.config)" DbObjectName="[Sistema Becarios].dbo.Becario" DbObjectType="Table" FillMethodModifier="Public" FillMethodName="consultarBecariosCompletos" GenerateMethods="Fill" GenerateShortCommands="true" GeneratorSourceName="consultarBecariosCompletos" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy2" UserSourceName="consultarBecariosCompletos">
                 <SelectCommand>
                   <DbCommand CommandType="Text" ModifiedByUser="true">
                     <CommandText>SELECT Cedula, Nombre, Apellido1, Apellido2, Correo, Carne, Telefono, Celular, OtroTel, Foto, Activo FROM dbo.Becario WHERE Activo=1</CommandText>
@@ -136,7 +137,7 @@ WHERE        (Nombre LIKE @criterioBusqueda) AND (Activo = 1) OR
                   </DbCommand>
                 </SelectCommand>
               </DbSource>
-              <DbSource ConnectionRef="Sistema Control BecariosConnectionString (Web.config)" DbObjectName="[Sistema Control Becarios].dbo.Becario" DbObjectType="Table" GenerateMethods="Get" GenerateShortCommands="true" GeneratorGetMethodName="obtenerBecarioPorCedula" GetMethodModifier="Public" GetMethodName="obtenerBecarioPorCedula" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="obtenerBecarioPorCedula" UserSourceName="obtenerBecarioPorCedula">
+              <DbSource ConnectionRef="Sistema BecariosConnectionString (Web.config)" DbObjectName="[Sistema Becarios].dbo.Becario" DbObjectType="Table" GenerateMethods="Get" GenerateShortCommands="true" GeneratorGetMethodName="obtenerBecarioPorCedula" GetMethodModifier="Public" GetMethodName="obtenerBecarioPorCedula" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="obtenerBecarioPorCedula" UserSourceName="obtenerBecarioPorCedula">
                 <SelectCommand>
                   <DbCommand CommandType="Text" ModifiedByUser="true">
                     <CommandText>SELECT Cedula, Nombre, Apellido1, Apellido2, Correo, Carne, Telefono, Celular, OtroTel, Foto, Activo FROM dbo.Becario WHERE @Cedula=Cedula</CommandText>
@@ -150,7 +151,7 @@ WHERE        (Nombre LIKE @criterioBusqueda) AND (Activo = 1) OR
           </TableAdapter>
           <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="LenguajesProgTableAdapter" GeneratorDataComponentClassName="LenguajesProgTableAdapter" Name="LenguajesProg" UserDataComponentName="LenguajesProgTableAdapter">
             <MainSource>
-              <DbSource ConnectionRef="Sistema Control BecariosConnectionString (Web.config)" DbObjectName="[Sistema Control Becarios].dbo.LenguajesProg" DbObjectType="Table" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="true" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="false" UserGetMethodName="GetData" UserSourceName="Fill">
+              <DbSource ConnectionRef="Sistema BecariosConnectionString (Web.config)" DbObjectName="[Sistema Becarios].dbo.LenguajesProg" DbObjectType="Table" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="true" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="false" UserGetMethodName="GetData" UserSourceName="Fill">
                 <DeleteCommand>
                   <DbCommand CommandType="Text" ModifiedByUser="false">
                     <CommandText>DELETE FROM [dbo].[LenguajesProg] WHERE (([CedulaBecario] = @Original_CedulaBecario) AND ([Lenguaje] = @Original_Lenguaje))</CommandText>
@@ -193,7 +194,7 @@ WHERE        (Nombre LIKE @criterioBusqueda) AND (Activo = 1) OR
               <Mapping SourceColumn="Lenguaje" DataSetColumn="Lenguaje" />
             </Mappings>
             <Sources>
-              <DbSource ConnectionRef="Sistema Control BecariosConnectionString (Web.config)" DbObjectName="[Sistema Control Becarios].dbo.LenguajesProg" DbObjectType="Table" FillMethodModifier="Public" FillMethodName="consultarLenguajes" GenerateMethods="Fill" GenerateShortCommands="true" GeneratorSourceName="consultarLenguajes" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy" UserSourceName="consultarLenguajes">
+              <DbSource ConnectionRef="Sistema BecariosConnectionString (Web.config)" DbObjectName="[Sistema Becarios].dbo.LenguajesProg" DbObjectType="Table" FillMethodModifier="Public" FillMethodName="consultarLenguajes" GenerateMethods="Fill" GenerateShortCommands="true" GeneratorSourceName="consultarLenguajes" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy" UserSourceName="consultarLenguajes">
                 <SelectCommand>
                   <DbCommand CommandType="Text" ModifiedByUser="true">
                     <CommandText>SELECT        CedulaBecario, Lenguaje
@@ -201,6 +202,177 @@ FROM            LenguajesProg
 WHERE        (CedulaBecario = @Cedula)</CommandText>
                     <Parameters>
                       <Parameter AllowDbNull="false" AutogeneratedName="Cedula" ColumnName="CedulaBecario" DataSourceName="[Sistema Control Becarios].dbo.LenguajesProg" DataTypeServer="varchar(15)" DbType="AnsiString" Direction="Input" ParameterName="@Cedula" Precision="0" ProviderType="VarChar" Scale="0" Size="15" SourceColumn="CedulaBecario" SourceColumnNullMapping="false" SourceVersion="Current" />
+                    </Parameters>
+                  </DbCommand>
+                </SelectCommand>
+              </DbSource>
+            </Sources>
+          </TableAdapter>
+          <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="AreasInteresTableAdapter" GeneratorDataComponentClassName="AreasInteresTableAdapter" Name="AreasInteres" UserDataComponentName="AreasInteresTableAdapter">
+            <MainSource>
+              <DbSource ConnectionRef="Sistema BecariosConnectionString (Web.config)" DbObjectName="[Sistema Becarios].dbo.AreasInteres" DbObjectType="Table" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="true" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="false" UserGetMethodName="GetData" UserSourceName="Fill">
+                <DeleteCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
+                    <CommandText>DELETE FROM [dbo].[AreasInteres] WHERE (([CedulaBecario] = @Original_CedulaBecario) AND ([Interes] = @Original_Interes))</CommandText>
+                    <Parameters>
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@Original_CedulaBecario" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="CedulaBecario" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="@Original_Interes" Precision="0" ProviderType="NVarChar" Scale="0" Size="0" SourceColumn="Interes" SourceColumnNullMapping="false" SourceVersion="Original" />
+                    </Parameters>
+                  </DbCommand>
+                </DeleteCommand>
+                <InsertCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
+                    <CommandText>INSERT INTO [dbo].[AreasInteres] ([CedulaBecario], [Interes]) VALUES (@CedulaBecario, @Interes)</CommandText>
+                    <Parameters>
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@CedulaBecario" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="CedulaBecario" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="@Interes" Precision="0" ProviderType="NVarChar" Scale="0" Size="0" SourceColumn="Interes" SourceColumnNullMapping="false" SourceVersion="Current" />
+                    </Parameters>
+                  </DbCommand>
+                </InsertCommand>
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
+                    <CommandText>SELECT CedulaBecario, Interes FROM dbo.AreasInteres</CommandText>
+                    <Parameters />
+                  </DbCommand>
+                </SelectCommand>
+                <UpdateCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
+                    <CommandText>UPDATE [dbo].[AreasInteres] SET [CedulaBecario] = @CedulaBecario, [Interes] = @Interes WHERE (([CedulaBecario] = @Original_CedulaBecario) AND ([Interes] = @Original_Interes))</CommandText>
+                    <Parameters>
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@CedulaBecario" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="CedulaBecario" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="@Interes" Precision="0" ProviderType="NVarChar" Scale="0" Size="0" SourceColumn="Interes" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@Original_CedulaBecario" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="CedulaBecario" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="@Original_Interes" Precision="0" ProviderType="NVarChar" Scale="0" Size="0" SourceColumn="Interes" SourceColumnNullMapping="false" SourceVersion="Original" />
+                    </Parameters>
+                  </DbCommand>
+                </UpdateCommand>
+              </DbSource>
+            </MainSource>
+            <Mappings>
+              <Mapping SourceColumn="CedulaBecario" DataSetColumn="CedulaBecario" />
+              <Mapping SourceColumn="Interes" DataSetColumn="Interes" />
+            </Mappings>
+            <Sources>
+              <DbSource ConnectionRef="Sistema BecariosConnectionString (Web.config)" DbObjectName="[Sistema Becarios].dbo.AreasInteres" DbObjectType="Table" FillMethodModifier="Public" FillMethodName="consultarAreasInteres" GenerateMethods="Fill" GenerateShortCommands="true" GeneratorSourceName="consultarAreasInteres" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy" UserSourceName="consultarAreasInteres">
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="true">
+                    <CommandText>SELECT CedulaBecario, Interes FROM dbo.AreasInteres WHERE CedulaBecario =@ced</CommandText>
+                    <Parameters>
+                      <Parameter AllowDbNull="false" AutogeneratedName="ced" ColumnName="CedulaBecario" DataSourceName="[Sistema Becarios].dbo.AreasInteres" DataTypeServer="varchar(15)" DbType="AnsiString" Direction="Input" ParameterName="@ced" Precision="0" ProviderType="VarChar" Scale="0" Size="15" SourceColumn="CedulaBecario" SourceColumnNullMapping="false" SourceVersion="Current" />
+                    </Parameters>
+                  </DbCommand>
+                </SelectCommand>
+              </DbSource>
+            </Sources>
+          </TableAdapter>
+          <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="IdiomasTableAdapter" GeneratorDataComponentClassName="IdiomasTableAdapter" Name="Idiomas" UserDataComponentName="IdiomasTableAdapter">
+            <MainSource>
+              <DbSource ConnectionRef="Sistema BecariosConnectionString (Web.config)" DbObjectName="[Sistema Becarios].dbo.Idiomas" DbObjectType="Table" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="true" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="false" UserGetMethodName="GetData" UserSourceName="Fill">
+                <DeleteCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
+                    <CommandText>DELETE FROM [dbo].[Idiomas] WHERE (([CedulaBecario] = @Original_CedulaBecario) AND ([Idioma] = @Original_Idioma))</CommandText>
+                    <Parameters>
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@Original_CedulaBecario" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="CedulaBecario" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@Original_Idioma" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="Idioma" SourceColumnNullMapping="false" SourceVersion="Original" />
+                    </Parameters>
+                  </DbCommand>
+                </DeleteCommand>
+                <InsertCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
+                    <CommandText>INSERT INTO [dbo].[Idiomas] ([CedulaBecario], [Idioma]) VALUES (@CedulaBecario, @Idioma)</CommandText>
+                    <Parameters>
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@CedulaBecario" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="CedulaBecario" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@Idioma" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="Idioma" SourceColumnNullMapping="false" SourceVersion="Current" />
+                    </Parameters>
+                  </DbCommand>
+                </InsertCommand>
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
+                    <CommandText>SELECT CedulaBecario, Idioma FROM dbo.Idiomas</CommandText>
+                    <Parameters />
+                  </DbCommand>
+                </SelectCommand>
+                <UpdateCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
+                    <CommandText>UPDATE [dbo].[Idiomas] SET [CedulaBecario] = @CedulaBecario, [Idioma] = @Idioma WHERE (([CedulaBecario] = @Original_CedulaBecario) AND ([Idioma] = @Original_Idioma))</CommandText>
+                    <Parameters>
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@CedulaBecario" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="CedulaBecario" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@Idioma" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="Idioma" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@Original_CedulaBecario" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="CedulaBecario" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@Original_Idioma" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="Idioma" SourceColumnNullMapping="false" SourceVersion="Original" />
+                    </Parameters>
+                  </DbCommand>
+                </UpdateCommand>
+              </DbSource>
+            </MainSource>
+            <Mappings>
+              <Mapping SourceColumn="CedulaBecario" DataSetColumn="CedulaBecario" />
+              <Mapping SourceColumn="Idioma" DataSetColumn="Idioma" />
+            </Mappings>
+            <Sources>
+              <DbSource ConnectionRef="Sistema BecariosConnectionString (Web.config)" DbObjectName="[Sistema Becarios].dbo.Idiomas" DbObjectType="Table" FillMethodModifier="Public" FillMethodName="consultarIdiomas" GenerateMethods="Fill" GenerateShortCommands="true" GeneratorSourceName="consultarIdiomas" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy" UserSourceName="consultarIdiomas">
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="true">
+                    <CommandText>SELECT CedulaBecario, Idioma FROM dbo.Idiomas WHERE CedulaBecario=@ced</CommandText>
+                    <Parameters>
+                      <Parameter AllowDbNull="false" AutogeneratedName="ced" ColumnName="CedulaBecario" DataSourceName="[Sistema Becarios].dbo.Idiomas" DataTypeServer="varchar(15)" DbType="AnsiString" Direction="Input" ParameterName="@ced" Precision="0" ProviderType="VarChar" Scale="0" Size="15" SourceColumn="CedulaBecario" SourceColumnNullMapping="false" SourceVersion="Current" />
+                    </Parameters>
+                  </DbCommand>
+                </SelectCommand>
+              </DbSource>
+            </Sources>
+          </TableAdapter>
+          <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="CualidadesPersonalesTableAdapter" GeneratorDataComponentClassName="CualidadesPersonalesTableAdapter" Name="CualidadesPersonales" UserDataComponentName="CualidadesPersonalesTableAdapter">
+            <MainSource>
+              <DbSource ConnectionRef="Sistema BecariosConnectionString (Web.config)" DbObjectName="[Sistema Becarios].dbo.CualidadesPersonales" DbObjectType="Table" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="true" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="false" UserGetMethodName="GetData" UserSourceName="Fill">
+                <DeleteCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
+                    <CommandText>DELETE FROM [dbo].[CualidadesPersonales] WHERE (([CedulaBecario] = @Original_CedulaBecario) AND ([Cualidad] = @Original_Cualidad))</CommandText>
+                    <Parameters>
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@Original_CedulaBecario" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="CedulaBecario" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@Original_Cualidad" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="Cualidad" SourceColumnNullMapping="false" SourceVersion="Original" />
+                    </Parameters>
+                  </DbCommand>
+                </DeleteCommand>
+                <InsertCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
+                    <CommandText>INSERT INTO [dbo].[CualidadesPersonales] ([CedulaBecario], [Cualidad]) VALUES (@CedulaBecario, @Cualidad)</CommandText>
+                    <Parameters>
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@CedulaBecario" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="CedulaBecario" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@Cualidad" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="Cualidad" SourceColumnNullMapping="false" SourceVersion="Current" />
+                    </Parameters>
+                  </DbCommand>
+                </InsertCommand>
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
+                    <CommandText>SELECT CedulaBecario, Cualidad FROM dbo.CualidadesPersonales</CommandText>
+                    <Parameters />
+                  </DbCommand>
+                </SelectCommand>
+                <UpdateCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
+                    <CommandText>UPDATE [dbo].[CualidadesPersonales] SET [CedulaBecario] = @CedulaBecario, [Cualidad] = @Cualidad WHERE (([CedulaBecario] = @Original_CedulaBecario) AND ([Cualidad] = @Original_Cualidad))</CommandText>
+                    <Parameters>
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@CedulaBecario" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="CedulaBecario" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@Cualidad" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="Cualidad" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@Original_CedulaBecario" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="CedulaBecario" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@Original_Cualidad" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="Cualidad" SourceColumnNullMapping="false" SourceVersion="Original" />
+                    </Parameters>
+                  </DbCommand>
+                </UpdateCommand>
+              </DbSource>
+            </MainSource>
+            <Mappings>
+              <Mapping SourceColumn="CedulaBecario" DataSetColumn="CedulaBecario" />
+              <Mapping SourceColumn="Cualidad" DataSetColumn="Cualidad" />
+            </Mappings>
+            <Sources>
+              <DbSource ConnectionRef="Sistema BecariosConnectionString (Web.config)" DbObjectName="[Sistema Becarios].dbo.CualidadesPersonales" DbObjectType="Table" FillMethodModifier="Public" FillMethodName="consultarCualidades" GenerateMethods="Fill" GenerateShortCommands="true" GeneratorSourceName="consultarCualidades" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy" UserSourceName="consultarCualidades">
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="true">
+                    <CommandText>SELECT CedulaBecario, Cualidad FROM dbo.CualidadesPersonales WHERE CedulaBecario=@ced</CommandText>
+                    <Parameters>
+                      <Parameter AllowDbNull="false" AutogeneratedName="ced" ColumnName="CedulaBecario" DataSourceName="[Sistema Becarios].dbo.CualidadesPersonales" DataTypeServer="varchar(15)" DbType="AnsiString" Direction="Input" ParameterName="@ced" Precision="0" ProviderType="VarChar" Scale="0" Size="15" SourceColumn="CedulaBecario" SourceColumnNullMapping="false" SourceVersion="Current" />
                     </Parameters>
                   </DbCommand>
                 </SelectCommand>
@@ -215,7 +387,7 @@ WHERE        (CedulaBecario = @Cedula)</CommandText>
   <xs:element name="BecariosDataSet" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:Generator_DataSetName="BecariosDataSet" msprop:Generator_UserDSName="BecariosDataSet">
     <xs:complexType>
       <xs:choice minOccurs="0" maxOccurs="unbounded">
-        <xs:element name="Becario" msprop:Generator_TableClassName="BecarioDataTable" msprop:Generator_TableVarName="tableBecario" msprop:Generator_RowChangedName="BecarioRowChanged" msprop:Generator_TablePropName="Becario" msprop:Generator_RowDeletingName="BecarioRowDeleting" msprop:Generator_RowChangingName="BecarioRowChanging" msprop:Generator_RowEvHandlerName="BecarioRowChangeEventHandler" msprop:Generator_RowDeletedName="BecarioRowDeleted" msprop:Generator_RowClassName="BecarioRow" msprop:Generator_UserTableName="Becario" msprop:Generator_RowEvArgName="BecarioRowChangeEvent">
+        <xs:element name="Becario" msprop:Generator_TableClassName="BecarioDataTable" msprop:Generator_TableVarName="tableBecario" msprop:Generator_TablePropName="Becario" msprop:Generator_RowDeletingName="BecarioRowDeleting" msprop:Generator_RowChangingName="BecarioRowChanging" msprop:Generator_RowEvHandlerName="BecarioRowChangeEventHandler" msprop:Generator_RowDeletedName="BecarioRowDeleted" msprop:Generator_UserTableName="Becario" msprop:Generator_RowChangedName="BecarioRowChanged" msprop:Generator_RowEvArgName="BecarioRowChangeEvent" msprop:Generator_RowClassName="BecarioRow">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="Cedula" msprop:Generator_ColumnVarNameInTable="columnCedula" msprop:Generator_ColumnPropNameInRow="Cedula" msprop:Generator_ColumnPropNameInTable="CedulaColumn" msprop:Generator_UserColumnName="Cedula">
@@ -292,7 +464,7 @@ WHERE        (CedulaBecario = @Cedula)</CommandText>
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="LenguajesProg" msprop:Generator_TableClassName="LenguajesProgDataTable" msprop:Generator_TableVarName="tableLenguajesProg" msprop:Generator_TablePropName="LenguajesProg" msprop:Generator_RowDeletingName="LenguajesProgRowDeleting" msprop:Generator_RowChangingName="LenguajesProgRowChanging" msprop:Generator_RowEvHandlerName="LenguajesProgRowChangeEventHandler" msprop:Generator_RowDeletedName="LenguajesProgRowDeleted" msprop:Generator_UserTableName="LenguajesProg" msprop:Generator_RowChangedName="LenguajesProgRowChanged" msprop:Generator_RowEvArgName="LenguajesProgRowChangeEvent" msprop:Generator_RowClassName="LenguajesProgRow">
+        <xs:element name="LenguajesProg" msprop:Generator_TableClassName="LenguajesProgDataTable" msprop:Generator_TableVarName="tableLenguajesProg" msprop:Generator_RowChangedName="LenguajesProgRowChanged" msprop:Generator_TablePropName="LenguajesProg" msprop:Generator_RowDeletingName="LenguajesProgRowDeleting" msprop:Generator_RowChangingName="LenguajesProgRowChanging" msprop:Generator_RowEvHandlerName="LenguajesProgRowChangeEventHandler" msprop:Generator_RowDeletedName="LenguajesProgRowDeleted" msprop:Generator_RowClassName="LenguajesProgRow" msprop:Generator_UserTableName="LenguajesProg" msprop:Generator_RowEvArgName="LenguajesProgRowChangeEvent">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="CedulaBecario" msprop:Generator_ColumnVarNameInTable="columnCedulaBecario" msprop:Generator_ColumnPropNameInRow="CedulaBecario" msprop:Generator_ColumnPropNameInTable="CedulaBecarioColumn" msprop:Generator_UserColumnName="CedulaBecario">
@@ -312,6 +484,66 @@ WHERE        (CedulaBecario = @Cedula)</CommandText>
             </xs:sequence>
           </xs:complexType>
         </xs:element>
+        <xs:element name="AreasInteres" msprop:Generator_TableClassName="AreasInteresDataTable" msprop:Generator_TableVarName="tableAreasInteres" msprop:Generator_TablePropName="AreasInteres" msprop:Generator_RowDeletingName="AreasInteresRowDeleting" msprop:Generator_RowChangingName="AreasInteresRowChanging" msprop:Generator_RowEvHandlerName="AreasInteresRowChangeEventHandler" msprop:Generator_RowDeletedName="AreasInteresRowDeleted" msprop:Generator_UserTableName="AreasInteres" msprop:Generator_RowChangedName="AreasInteresRowChanged" msprop:Generator_RowEvArgName="AreasInteresRowChangeEvent" msprop:Generator_RowClassName="AreasInteresRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="CedulaBecario" msprop:Generator_ColumnVarNameInTable="columnCedulaBecario" msprop:Generator_ColumnPropNameInRow="CedulaBecario" msprop:Generator_ColumnPropNameInTable="CedulaBecarioColumn" msprop:Generator_UserColumnName="CedulaBecario">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="15" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Interes" msprop:Generator_ColumnVarNameInTable="columnInteres" msprop:Generator_ColumnPropNameInRow="Interes" msprop:Generator_ColumnPropNameInTable="InteresColumn" msprop:Generator_UserColumnName="Interes">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="Idiomas" msprop:Generator_TableClassName="IdiomasDataTable" msprop:Generator_TableVarName="tableIdiomas" msprop:Generator_TablePropName="Idiomas" msprop:Generator_RowDeletingName="IdiomasRowDeleting" msprop:Generator_RowChangingName="IdiomasRowChanging" msprop:Generator_RowEvHandlerName="IdiomasRowChangeEventHandler" msprop:Generator_RowDeletedName="IdiomasRowDeleted" msprop:Generator_UserTableName="Idiomas" msprop:Generator_RowChangedName="IdiomasRowChanged" msprop:Generator_RowEvArgName="IdiomasRowChangeEvent" msprop:Generator_RowClassName="IdiomasRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="CedulaBecario" msprop:Generator_ColumnVarNameInTable="columnCedulaBecario" msprop:Generator_ColumnPropNameInRow="CedulaBecario" msprop:Generator_ColumnPropNameInTable="CedulaBecarioColumn" msprop:Generator_UserColumnName="CedulaBecario">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="15" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Idioma" msprop:Generator_ColumnVarNameInTable="columnIdioma" msprop:Generator_ColumnPropNameInRow="Idioma" msprop:Generator_ColumnPropNameInTable="IdiomaColumn" msprop:Generator_UserColumnName="Idioma">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="30" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="CualidadesPersonales" msprop:Generator_TableClassName="CualidadesPersonalesDataTable" msprop:Generator_TableVarName="tableCualidadesPersonales" msprop:Generator_TablePropName="CualidadesPersonales" msprop:Generator_RowDeletingName="CualidadesPersonalesRowDeleting" msprop:Generator_RowChangingName="CualidadesPersonalesRowChanging" msprop:Generator_RowEvHandlerName="CualidadesPersonalesRowChangeEventHandler" msprop:Generator_RowDeletedName="CualidadesPersonalesRowDeleted" msprop:Generator_UserTableName="CualidadesPersonales" msprop:Generator_RowChangedName="CualidadesPersonalesRowChanged" msprop:Generator_RowEvArgName="CualidadesPersonalesRowChangeEvent" msprop:Generator_RowClassName="CualidadesPersonalesRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="CedulaBecario" msprop:Generator_ColumnVarNameInTable="columnCedulaBecario" msprop:Generator_ColumnPropNameInRow="CedulaBecario" msprop:Generator_ColumnPropNameInTable="CedulaBecarioColumn" msprop:Generator_UserColumnName="CedulaBecario">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="15" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Cualidad" msprop:Generator_ColumnVarNameInTable="columnCualidad" msprop:Generator_ColumnPropNameInRow="Cualidad" msprop:Generator_ColumnPropNameInTable="CualidadColumn" msprop:Generator_UserColumnName="Cualidad">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="30" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
       </xs:choice>
     </xs:complexType>
     <xs:unique name="Constraint1" msdata:PrimaryKey="true">
@@ -323,10 +555,28 @@ WHERE        (CedulaBecario = @Cedula)</CommandText>
       <xs:field xpath="mstns:CedulaBecario" />
       <xs:field xpath="mstns:Lenguaje" />
     </xs:unique>
+    <xs:unique name="AreasInteres_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:AreasInteres" />
+      <xs:field xpath="mstns:CedulaBecario" />
+      <xs:field xpath="mstns:Interes" />
+    </xs:unique>
+    <xs:unique name="Idiomas_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:Idiomas" />
+      <xs:field xpath="mstns:CedulaBecario" />
+      <xs:field xpath="mstns:Idioma" />
+    </xs:unique>
+    <xs:unique name="CualidadesPersonales_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:CualidadesPersonales" />
+      <xs:field xpath="mstns:CedulaBecario" />
+      <xs:field xpath="mstns:Cualidad" />
+    </xs:unique>
   </xs:element>
   <xs:annotation>
     <xs:appinfo>
-      <msdata:Relationship name="FK_LenguajesProg_CedulaBecario" msdata:parent="Becario" msdata:child="LenguajesProg" msdata:parentkey="Cedula" msdata:childkey="CedulaBecario" msprop:Generator_UserChildTable="LenguajesProg" msprop:Generator_ChildPropName="GetLenguajesProgRows" msprop:Generator_UserRelationName="FK_LenguajesProg_CedulaBecario" msprop:Generator_ParentPropName="BecarioRow" msprop:Generator_RelationVarName="relationFK_LenguajesProg_CedulaBecario" msprop:Generator_UserParentTable="Becario" />
+      <msdata:Relationship name="FK_LenguajesProg_CedulaBecario" msdata:parent="Becario" msdata:child="LenguajesProg" msdata:parentkey="Cedula" msdata:childkey="CedulaBecario" msprop:Generator_UserChildTable="LenguajesProg" msprop:Generator_ChildPropName="GetLenguajesProgRows" msprop:Generator_UserRelationName="FK_LenguajesProg_CedulaBecario" msprop:Generator_RelationVarName="relationFK_LenguajesProg_CedulaBecario" msprop:Generator_UserParentTable="Becario" msprop:Generator_ParentPropName="BecarioRow" />
+      <msdata:Relationship name="FK_AreasInteres_Becario" msdata:parent="Becario" msdata:child="AreasInteres" msdata:parentkey="Cedula" msdata:childkey="CedulaBecario" msprop:Generator_UserChildTable="AreasInteres" msprop:Generator_ChildPropName="GetAreasInteresRows" msprop:Generator_UserRelationName="FK_AreasInteres_Becario" msprop:Generator_ParentPropName="BecarioRow" msprop:Generator_RelationVarName="relationFK_AreasInteres_Becario" msprop:Generator_UserParentTable="Becario" />
+      <msdata:Relationship name="FK_Idiomas_CedulaBecario" msdata:parent="Becario" msdata:child="Idiomas" msdata:parentkey="Cedula" msdata:childkey="CedulaBecario" msprop:Generator_UserChildTable="Idiomas" msprop:Generator_ChildPropName="GetIdiomasRows" msprop:Generator_UserRelationName="FK_Idiomas_CedulaBecario" msprop:Generator_ParentPropName="BecarioRow" msprop:Generator_RelationVarName="relationFK_Idiomas_CedulaBecario" msprop:Generator_UserParentTable="Becario" />
+      <msdata:Relationship name="FK_Cualidades_CedulaBecario" msdata:parent="Becario" msdata:child="CualidadesPersonales" msdata:parentkey="Cedula" msdata:childkey="CedulaBecario" msprop:Generator_UserChildTable="CualidadesPersonales" msprop:Generator_ChildPropName="GetCualidadesPersonalesRows" msprop:Generator_UserRelationName="FK_Cualidades_CedulaBecario" msprop:Generator_ParentPropName="BecarioRow" msprop:Generator_RelationVarName="relationFK_Cualidades_CedulaBecario" msprop:Generator_UserParentTable="Becario" />
     </xs:appinfo>
   </xs:annotation>
 </xs:schema>
