@@ -7,23 +7,27 @@ using System.Web.UI.WebControls;
 
 public partial class ControlDeHoras : System.Web.UI.Page
 {
-    protected void Page_Load(object sender, EventArgs e)
-    {
+	protected void Page_Load(object sender, EventArgs e)
+	{
 
-    }
-    protected void btnInvisibleAceptarAsignacion_Click(object sender, EventArgs e)
-    {
+	}
+	protected void btnInvisibleAceptarAsignacion_Click(object sender, EventArgs e)
+	{
 
-    }
+	}
 
-    protected void btnInvisibleEliminarAsignacion_Click(object sender, EventArgs e)
-    {
+	protected void btnInvisibleEliminarAsignacion_Click(object sender, EventArgs e)
+	{
 
-    }
+	}
 
-    // BUSCAR CLICK
-    protected void btnBuscar_Click(object sender, EventArgs e)
-    {
+	// BUSCAR CLICK
+	protected void btnBuscar_Click(object sender, EventArgs e)
+	{
 
-    }  
+	}
+	protected void gridControlHorasBecario_RowCommand(object sender, GridViewCommandEventArgs e)
+	{
+
+	}
 }
