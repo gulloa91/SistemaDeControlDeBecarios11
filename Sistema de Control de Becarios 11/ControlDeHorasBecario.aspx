@@ -53,7 +53,7 @@
 						<!-- Grid -->
 						<div id="divGridControlHorasBecario">
 							<asp:GridView ID="gridControlHorasBecario" runat="server" GridLines="Both" RowStyle-HorizontalAlign="Center" RowStyle-VerticalAlign="Middle"
-								AllowPaging="true" OnSelectedIndexChanging="gridControlHorasBecario_SelectedIndexChanged" OnPageIndexChanging="gridControlHorasBecario_PageIndexChanging" PageSize="15"
+								AllowPaging="true" OnSelectedIndexChanging="gridControlHorasBecario_SelectedIndexChanging" OnPageIndexChanging="gridControlHorasBecario_PageIndexChanging" PageSize="15"
 								OnRowCommand="gridControlHorasBecario_RowCommand" CssClass="gridControlHorasBecario" PagerStyle-CssClass="pagerGlobal">
 								<Columns>
 									<asp:ButtonField CommandName="btnSeleccionarTupla_Click" CausesValidation="false" ButtonType="Image" ImageUrl="~/Images/arrow-right.png"
@@ -65,15 +65,54 @@
 				</ContentTemplate>
 			</asp:UpdatePanel>
 
+			<!-- Pop-ups -->
 			<div id="PopUpNuevaAsignacion">
+					<asp:UpdatePanel runat="server" ID="UpdatePopUp">
+						<Triggers>
+							<asp:AsyncPostBackTrigger ControlID="btnInvisible2" EventName="Click" />
+							<asp:AsyncPostBackTrigger ControlID="btnInvisible3" EventName="Click" />
+						</Triggers>
+						<ContentTemplate>
+							<!-- Título -->
+							<span>Nuevo Reporte de Horas</span>
+							
+							<!-- Campos PopUp -->
+							<div id="popUpContent" style="width: 96%; padding: 0 2%; float: left; background: #D8D8BF; border-radius: 5px;">
+								<!-- Cantidad de Horas -->
+								<div style="width: 80%; float: left">
+									<div style="width: 40%; float: left;">
+										Cantidad de Horas:
+									</div>
+									<div style="width: 20%; float: left">
+										<asp:TextBox ID="txtCantidadHoras" runat="server"></asp:TextBox>
+									</div>
+								</div>
+
+								<!-- Textbox para comentario -->
+								<div style="width: 80%; float: left">
+									<asp:TextBox ID="txtComentario" TextMode="MultiLine" Rows="7" runat="server"></asp:TextBox>
+								</div>
+
+								<!-- Botones Enviar y cancelar -->
+								<div style="width: 80%; float: left">
+									<!-- Enviar -->
+									<div style="width: 12%; float: right; margin-bottom: 5%; margin-top: 4%">
+										<asp:Button ID="btnEnviarP" runat="server" Text="Enviar"
+											CssClass="boton ui-widget ui-state-default ui-corner-all ui-button-text-only"
+											OnClick="btnEnviarP_Click" CausesValidation="false" />
+									</div>
+
+									<!-- Cancelar -->
+									<div style="width: 12%; float: right; margin-bottom: 5%; margin-top: 4%; margin-right: 10px">
+										<asp:Button ID="btnCancelar" runat="server" Text="Cancelar"
+											CssClass="boton ui-widget ui-state-default ui-corner-all ui-button-text-only" />
+									</div>
+								</div>
+							</div>
+						</ContentTemplate>
+					</asp:UpdatePanel>
 			</div>
 
-			<div id="PopUpConsultarAsignacion">
-			</div>
-
-			<div id="PopUpEliminarAsignacion">
-				¿Seguro que desea eliminar esta asignación?
-			</div>
 		</asp:View>
 
 		<!-- Consulta de Becarios relacionados con el Encargado -->

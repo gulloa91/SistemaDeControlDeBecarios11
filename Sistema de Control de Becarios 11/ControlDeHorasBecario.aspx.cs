@@ -11,6 +11,22 @@ public partial class ControlDeHoras : System.Web.UI.Page
 	{
 
 	}
+
+	protected void btnReportarHoras_Click(object sender, EventArgs e)
+	{
+
+	}
+
+	protected void gridControlHorasBecario_SelectedIndexChanging(object sender, EventArgs e)
+	{
+
+	}
+
+	protected void gridControlHorasBecario_PageIndexChanging(object sender, EventArgs e)
+	{
+
+	}
+
 	protected void btnInvisibleAceptarAsignacion_Click(object sender, EventArgs e)
 	{
 
