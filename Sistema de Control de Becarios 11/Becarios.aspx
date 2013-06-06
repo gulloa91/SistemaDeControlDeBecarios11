@@ -81,7 +81,7 @@
       <div id="PopUp" style="min-height: 375px;">
         
 
-        <div id="tabs" style="min-height:540px">
+        <div id="tabs" style="min-height:610px">
 
            <asp:UpdatePanel runat="server" ID="UpdatePopUp">
              <Triggers>
@@ -326,23 +326,17 @@
 	                </div>
 
                     <!--PERFIL DEL BECARIO-->
-	                <div id="tabs-2" style= "width:96%; max-height:100px">
+	                <div id="tabs-2" style= "width:96%;">
 
                        <div style="width: 96%; padding: 2%; float: left;" >
 
                             <div style="width: 20%; float: right;">
                                 <asp:Button ID="btnModificarBecarioPerfil" runat="server" Text="Modificar" 
                                  CssClass="boton ui-widget ui-state-default ui-corner-all ui-button-text-only" 
-                                 onclick="btnModificarBecario_Click" />
+                                 onclick="btnModificarPerfilBecario_Click" />
                             </div>
-                            <div style="width: 20%; float: right;">
-                                <asp:Button ID="btnEliminarBecarioPerfil" runat="server" Text="Eliminar" 
-                                CssClass="boton ui-widget ui-state-default ui-corner-all ui-button-text-only" 
-                                onclick="btnEliminarBecario_Click" />
-                            </div>
-                        </div>
+                        </div>                
 
-             
                      <div style="width: 96%; padding: 0 2%; float: left; background: #D8D8BF; border-radius: 5px;">
 
                        <p></p>
@@ -374,13 +368,13 @@
                                 </div>
 
                                 <asp:GridView ID="gridLenguajesProg" runat="server" AutoGenerateColumns="False" ShowFooter="True"
-                                  CellPadding="7" 
+                                  CellPadding="7" onrowcommand="gridLenguajesProg_RowCommand"
                                   ForeColor="#333333" GridLines="Vertical">
 
                                   <AlternatingRowStyle BackColor="White" />
                                   <Columns>
 
-                                     <asp:ButtonField ImageUrl="Images/signoMenos.png" ButtonType="Image" />
+                                     <asp:ButtonField CommandName="btnEliminaLenguaje_Click" CausesValidation="false" ImageUrl="Images/signoMenos.png" ButtonType="Image" />
 
                                      <asp:TemplateField HeaderText="Lenguaje de Programación" SortExpression="Lenguaje">
                                        <ItemTemplate>
@@ -426,14 +420,14 @@
                                     </div>
 
                                     <asp:GridView ID="gridIdiomas" runat="server" AutoGenerateColumns="False" ShowFooter="True"
-                                      CellPadding="7" 
+                                      CellPadding="7"  onrowcommand="gridIdiomas_RowCommand"
                                       ForeColor="#333333" GridLines="Vertical">
 
                                       <AlternatingRowStyle BackColor="White" />
 
                                       <Columns>
 
-                                         <asp:ButtonField ImageUrl="Images/signoMenos.png" ButtonType="Image" />
+                                         <asp:ButtonField CommandName="btnEliminaIdioma_Click" CausesValidation="false" ImageUrl="Images/signoMenos.png" ButtonType="Image" />
 
                                          <asp:TemplateField HeaderText="Idioma" SortExpression="Lenguaje">
                                            <ItemTemplate>
@@ -485,13 +479,13 @@
                                  </div>
 
                                 <asp:GridView ID="gridAreasInteres" runat="server" AutoGenerateColumns="False" ShowFooter="True"
-                                 CellPadding="7" 
+                                 CellPadding="7" onrowcommand="gridAreasInteres_RowCommand"
                                  ForeColor="#333333" GridLines="Vertical">
 
                                   <AlternatingRowStyle BackColor="White" />
                                   <Columns>
 
-                                     <asp:ButtonField ImageUrl="Images/signoMenos.png" ButtonType="Image" />
+                                     <asp:ButtonField CommandName="btnEliminaInteres_Click" CausesValidation="false" ImageUrl="Images/signoMenos.png" ButtonType="Image" />
 
                                      <asp:TemplateField HeaderText="Área de Interés" SortExpression="Lenguaje">
                                        <ItemTemplate>
@@ -539,13 +533,13 @@
                                  </div>
 
                                 <asp:GridView ID="gridCualidades" runat="server" AutoGenerateColumns="False" ShowFooter="True"
-                                 CellPadding="7" 
+                                 CellPadding="7" onrowcommand="gridCualidades_RowCommand"
                                  ForeColor="#333333" GridLines="Vertical">
 
                                   <AlternatingRowStyle BackColor="White" />
                                   <Columns>
 
-                                     <asp:ButtonField ImageUrl="Images/signoMenos.png" ButtonType="Image" />
+                                     <asp:ButtonField CommandName="btnEliminaCualidad_Click" CausesValidation="false" ImageUrl="Images/signoMenos.png" ButtonType="Image" />
 
                                      <asp:TemplateField HeaderText="Cualidades Personales" SortExpression="Lenguaje">
                                        <ItemTemplate>

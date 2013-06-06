@@ -12,10 +12,18 @@ using System.Data;
 public class ControladoraBDBecario
 {
     private BecarioTableAdapter adapterBecarios;
+    private LenguajesProgTableAdapter adapterLenguajes;
+    private IdiomasTableAdapter adapterIdiomas;
+    private AreasInteresTableAdapter adapterAreas;
+    private CualidadesPersonalesTableAdapter adapterCualidades;
 
     public ControladoraBDBecario()
     {
         adapterBecarios = new BecarioTableAdapter();
+        adapterLenguajes = new LenguajesProgTableAdapter();
+        adapterIdiomas = new IdiomasTableAdapter();
+        adapterAreas = new AreasInteresTableAdapter();
+        adapterCualidades = new CualidadesPersonalesTableAdapter();
     }
 
     public String insertarBecario(Becario becario)
@@ -108,5 +116,138 @@ public class ControladoraBDBecario
     {
         return this.adapterBecarios.obtenerBecarioPorCedula(cedula);
     }
+
+
+    /***METODOS PARA MENEJO DE PERFIL DE BECARIO **/
+
+
+    public String insertarLenguajeProg(String nuevoLenguaje,String cedBecario)
+    {
+        String returnValue = "Exito";//"Se ha insertado correctamente al nuevo becario";
+        int r;
+        try
+        {
+           this.adapterLenguajes.insertarLenguaje(cedBecario,nuevoLenguaje);
+        }
+        catch (SqlException e)
+        {
+            r = e.Number;
+            if (r == 2627)
+            {
+                returnValue = "Error1";
+            }
+            else
+            {
+                returnValue = "Error2";
+            }
+        }
+        return returnValue;
+    }
+
+
+    public String insertarIdioma(String nuevoIdioma, String cedBecario)
+    {
+        String returnValue = "Exito";//"Se ha insertado correctamente al nuevo becario";
+        int r;
+        try
+        {
+            this.adapterIdiomas.insertarIdioma(cedBecario, nuevoIdioma);
+        }
+        catch (SqlException e)
+        {
+            r = e.Number;
+            if (r == 2627)
+            {
+                returnValue = "Error1";
+            }
+            else
+            {
+                returnValue = "Error2";
+            }
+        }
+        return returnValue;
+    }
+
+
+    public String insertarAreaInteres(String nuevoInteres, String cedBecario)
+    {
+        String returnValue = "Exito";//"Se ha insertado correctamente al nuevo becario";
+        int r;
+        try
+        {
+            this.adapterAreas.insertarAreaInteres(cedBecario, nuevoInteres);
+        }
+        catch (SqlException e)
+        {
+            r = e.Number;
+            if (r == 2627)
+            {
+                returnValue = "Error1";
+            }
+            else
+            {
+                returnValue = "Error2";
+            }
+        }
+        return returnValue;
+    }
+
+    public String insertarCualidad(String nuevoCualidad, String cedBecario)
+    {
+        String returnValue = "Exito";//"Se ha insertado correctamente al nuevo becario";
+        int r;
+        try
+        {
+            this.adapterCualidades.insertarCualidad(cedBecario, nuevoCualidad);
+        }
+        catch (SqlException e)
+        {
+            r = e.Number;
+            if (r == 2627)
+            {
+                returnValue = "Error1";
+            }
+            else
+            {
+                returnValue = "Error2";
+            }
+        }
+        return returnValue;
+    }
+
+    
+    public BecariosDataSet.LenguajesProgDataTable consultarLenguajes(String cedula){
+
+       BecariosDataSet.LenguajesProgDataTable dt = new BecariosDataSet.LenguajesProgDataTable();
+       this.adapterLenguajes.consultarLenguajes(dt, cedula);
+       return dt;
+   }
+
+    public BecariosDataSet.IdiomasDataTable consultarIdiomas(String cedula)
+    {
+        BecariosDataSet.IdiomasDataTable dt = new BecariosDataSet.IdiomasDataTable();
+        this.adapterIdiomas.consultarIdiomas(dt, cedula);
+        return dt;
+
+    }
+
+    public BecariosDataSet.AreasInteresDataTable consultarAreasInteres(String cedula)
+    {
+
+        BecariosDataSet.AreasInteresDataTable dt = new BecariosDataSet.AreasInteresDataTable();
+        this.adapterAreas.consultarAreasInteres(dt, cedula);
+        return dt;
+
+    }
+
+    public BecariosDataSet.CualidadesPersonalesDataTable consultarCualidades(String cedula)
+    {
+
+        BecariosDataSet.CualidadesPersonalesDataTable dt = new BecariosDataSet.CualidadesPersonalesDataTable();
+        this.adapterCualidades.consultarCualidades(dt, cedula);
+        return dt;
+    }
+
+
 
 }

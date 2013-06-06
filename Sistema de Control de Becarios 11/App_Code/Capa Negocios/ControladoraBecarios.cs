@@ -44,6 +44,7 @@ public class ControladoraBecarios
         return mensajeResultado;
     }
 
+   
     public List<Becario> consultarTablaBecario()
     {
         BecariosDataSet.BecarioDataTable tabla = controladoraBDBecario.consultarBecarios();
@@ -111,5 +112,101 @@ public class ControladoraBecarios
         becario.correo = cs.procesarStringDeUI(tabla.Rows[0]["Correo"].ToString());
         return becario;
     }
+
+
+
+    public String guardarPerfilBecario(List<String> listaLenguajesProg, List<String> listaIdiomas, List<String> listaIntereses, List<String> listaCualidades, String cedBecario)
+    {
+
+        string mensajeResultado = "-1";
+
+        for (int i = 0; i < listaLenguajesProg.Count; i++)
+        {
+            mensajeResultado = controladoraBDBecario.insertarLenguajeProg(listaLenguajesProg[i], cedBecario);
+        }
+
+        for (int i = 0; i < listaIdiomas.Count; i++)
+        {
+            mensajeResultado = controladoraBDBecario.insertarIdioma(listaIdiomas[i], cedBecario);
+        }
+
+        for (int i = 0; i < listaIntereses.Count; i++)
+        {
+            mensajeResultado = controladoraBDBecario.insertarAreaInteres(listaIntereses[i], cedBecario);
+        }
+
+        for (int i = 0; i < listaCualidades.Count; i++)
+        {
+            mensajeResultado = controladoraBDBecario.insertarCualidad(listaCualidades[i], cedBecario);
+        }
+
+        return mensajeResultado;
+    }
+
+
+    public List<String> consultarLenguajes(string ced){
+
+       BecariosDataSet.LenguajesProgDataTable tabla = controladoraBDBecario.consultarLenguajes(ced);
+       List<String> listaLeng = new List<String>();
+
+       foreach (DataRow r in tabla.Rows)
+       {
+
+           string texto = cs.procesarStringDeUI(r["Lenguaje"].ToString());
+           listaLeng.Add(texto);
+       }
+       return listaLeng;
+   }
+
+
+    public List<String> consultarIdiomas(string ced)
+    {
+
+        BecariosDataSet.IdiomasDataTable tabla = controladoraBDBecario.consultarIdiomas(ced);
+       List<String> listaIdiomas = new List<String>();
+
+       foreach (DataRow r in tabla.Rows)
+       {
+
+            string texto = cs.procesarStringDeUI(r["Idioma"].ToString());
+            listaIdiomas.Add(texto);
+        }
+       return listaIdiomas;
+    }
+
+
+    public List<String> consultarAreasInteres(string ced)
+    {
+
+        BecariosDataSet.AreasInteresDataTable tabla = controladoraBDBecario.consultarAreasInteres(ced);
+        List<String> listaAreas = new List<String>();
+
+        foreach (DataRow r in tabla.Rows)
+        {
+
+            string texto = cs.procesarStringDeUI(r["Interes"].ToString());
+            listaAreas.Add(texto);
+        }
+        return listaAreas;
+    }
+
+
+
+    public List<String> consultarCualidades(string ced)
+    {
+
+        BecariosDataSet.CualidadesPersonalesDataTable tabla = controladoraBDBecario.consultarCualidades(ced);
+        List<String> listaCualidades = new List<String>();
+
+        foreach (DataRow r in tabla.Rows)
+        {
+
+            string texto = cs.procesarStringDeUI(r["Cualidad"].ToString());
+            listaCualidades.Add(texto);
+        }
+        return listaCualidades;
+    }
+
+
 
 }

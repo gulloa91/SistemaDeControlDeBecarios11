@@ -127,7 +127,7 @@ public partial class Becarios : System.Web.UI.Page
     protected void btnInvisible1_Click(object sender, EventArgs e)
     {
 
-        if ((modoEjecucion == 1) || (modoEjecucion == 2))
+        if ((modoEjecucion == 1) || (modoEjecucion == 2)||(modoEjecucion==3))
         {
 
             TextInfo miTexto = CultureInfo.CurrentCulture.TextInfo;
@@ -147,11 +147,25 @@ public partial class Becarios : System.Web.UI.Page
             datos[9] = this.txtCorreo.Text;
 
             string resultado = "";
-            if(modoEjecucion==1){
-                 resultado = controladoraBecarios.ejecutar(modoEjecucion, datos, null);
-            }else{
-                 resultado = controladoraBecarios.ejecutar(modoEjecucion, datos, datosViejos);
+            switch (modoEjecucion)
+            {
+
+                case 1: //Insertar Nuevo Becario
+                    {
+                        resultado = controladoraBecarios.ejecutar(modoEjecucion, datos, null);
+                        string resultadoPerfil = controladoraBecarios.guardarPerfilBecario(listaLocalLenguajes, listaLocalIdiomas, listaLocalAreasInteres, listaLocalCualidades, this.txtCedula.Text);
+                    } break;
+                case 2: //Modificar Datos Personales
+                    {
+                        resultado = controladoraBecarios.ejecutar(modoEjecucion, datos, datosViejos);
+                    } break;
+                case 3: //Modificar Perfil
+                    {
+                      string resultadoPerfil = controladoraBecarios.guardarPerfilBecario(listaLocalLenguajes, listaLocalIdiomas, listaLocalAreasInteres, listaLocalCualidades, this.txtCedula.Text);
+                    } break;
+            
             }
+            
 
             if (resultado.Equals("Exito")&&(modoEjecucion==1))
             {
@@ -184,13 +198,13 @@ public partial class Becarios : System.Web.UI.Page
                     {
                         commonService.mensajeJavascript("Ya existe un becario con la cédula digitada", "Error");
                     }
-                    else
+                    else if (!(resultado.Equals("")))
                     {
                         commonService.mensajeJavascript("Se ha producido un error. Favor intentar más tarde", "Error");
                     }
                 }
-            }
-            
+            }           
+
             llenarGridBecarios(1);
             habilitarBotonesPrincipales(true);
         }
@@ -291,6 +305,17 @@ public partial class Becarios : System.Web.UI.Page
     }
 
 
+    protected void btnModificarPerfilBecario_Click(object sender, EventArgs e)
+    {
+
+        correrJavascript("crearTabs();");
+        correrJavascript("seleccionarTabs();");
+        habilitarBotonesPrincipales(false);
+        habilitarEdicionPefil(true, 0);
+        modoEjecucion = 3;
+    }
+
+
     // Activa el 'popUp' para confirmar la eliminación
     protected void btnEliminarBecario_Click(object sender, EventArgs e)
     {
@@ -385,15 +410,13 @@ public partial class Becarios : System.Web.UI.Page
         {
             this.btnModificarBecarioDatos.Visible = true;
             this.btnEliminarBecarioDatos.Visible = true;
-            this.btnModificarBecarioPerfil.Visible = true;
-            this.btnEliminarBecarioPerfil.Visible = true;
+            btnModificarBecarioPerfil.Visible = true;
         }
         else
         {
             this.btnModificarBecarioDatos.Visible = false;
             this.btnEliminarBecarioDatos.Visible = false;
-            this.btnModificarBecarioPerfil.Visible = false;
-            this.btnEliminarBecarioPerfil.Visible = false;
+            btnModificarBecarioPerfil.Visible = false;
         }
     }
 
@@ -407,14 +430,12 @@ public partial class Becarios : System.Web.UI.Page
              this.btnModificarBecarioDatos.Enabled = true;
              this.btnEliminarBecarioDatos.Enabled = true;
              this.btnModificarBecarioPerfil.Enabled = true;
-             this.btnEliminarBecarioPerfil.Enabled = true;
           }
           else
           {
               this.btnModificarBecarioDatos.Enabled = false;
               this.btnEliminarBecarioDatos.Enabled = false;
               this.btnModificarBecarioPerfil.Enabled = false;
-              this.btnEliminarBecarioPerfil.Enabled = false;
           }
      
 
@@ -683,21 +704,22 @@ public partial class Becarios : System.Web.UI.Page
                     rowIndex += (pageIndex * pageSize);
 
                     llenarGridBecarios(1);
-
-                    //this.gridBecarios.Rows[ Convert.ToInt32(e.CommandArgument)].BackColor= System.Drawing.Color.DodgerBlue;
-                    //this.gridBecarios.Rows[ Convert.ToInt32(e.CommandArgument)].ForeColor = System.Drawing.Color.White;
-
+                    llenarPerfilBecario();
+                    
                     mostrarBotonesPrincipales(true);
+                    habilitarBotonesPrincipales(true);
                     cargarCamposBecario();
                     habilitarCampos(false, 0);
+                    habilitarEdicionPefil(false, 0);
                     correrJavascript("abrirPopUp();");
                     modoEjecucion = -1;
+
                 } break;
         }
     }
 
 
-
+    
     //Pide crear una cuenta para un becario 
     protected string cearCuenta( string cedula,string nombre,string apellido, string apellido2, string correo){
 
@@ -752,6 +774,21 @@ public partial class Becarios : System.Web.UI.Page
      */
 
 
+    protected void llenarPerfilBecario()
+    {
+
+        string cedBecario = listaBecarios[rowIndex].cedula;
+        listaLocalLenguajes = controladoraBecarios.consultarLenguajes(cedBecario);
+        llenarGridLenguajes();
+        listaLocalIdiomas = controladoraBecarios.consultarIdiomas(cedBecario);
+        llenarGridIdiomas();
+        listaLocalAreasInteres = controladoraBecarios.consultarAreasInteres(cedBecario);
+        llenarGridAreasInteres();
+        listaLocalCualidades = controladoraBecarios.consultarCualidades(cedBecario);
+        llenarGridCualidades();
+    }
+
+
     protected bool datosPersonalesVacios(){ 
     
        bool retorno = false;
@@ -763,6 +800,58 @@ public partial class Becarios : System.Web.UI.Page
 
 
        return retorno;
+    }
+
+
+    protected void habilitarEdicionPefil(Boolean habilitar, int p)
+    {
+
+        if (p == 0)
+        {
+            if (habilitar)
+            {
+
+               TextBox txtBoxAux = (TextBox)gridLenguajesProg.FooterRow.Cells[0].FindControl("txtNuevoLenguaje");
+               txtBoxAux.Enabled = true;
+               txtBoxAux = (TextBox)gridIdiomas.FooterRow.Cells[0].FindControl("txtNuevoIdioma");
+               txtBoxAux.Enabled = true;
+               txtBoxAux = (TextBox)gridAreasInteres.FooterRow.Cells[0].FindControl("txtNuevaAreaInteres");
+               txtBoxAux.Enabled = true;
+               txtBoxAux = (TextBox)gridCualidades.FooterRow.Cells[0].FindControl("txtNuevaCualidad");
+               txtBoxAux.Enabled = true;
+               btnAgregaLenguaje.Enabled = true;
+
+            }
+            else
+            {
+
+               TextBox txtBoxAux = (TextBox)gridLenguajesProg.FooterRow.Cells[0].FindControl("txtNuevoLenguaje");
+               txtBoxAux.Enabled = false;
+               txtBoxAux = (TextBox)gridIdiomas.FooterRow.Cells[0].FindControl("txtNuevoIdioma");
+               txtBoxAux.Enabled = false;
+               txtBoxAux = (TextBox)gridAreasInteres.FooterRow.Cells[0].FindControl("txtNuevaAreaInteres");
+               txtBoxAux.Enabled = false;
+               txtBoxAux = (TextBox)gridCualidades.FooterRow.Cells[0].FindControl("txtNuevaCualidad");
+               txtBoxAux.Enabled = false;
+               btnAgregaLenguaje.Enabled = false;
+
+            }
+        }
+        else
+        {
+
+            if (habilitar)
+            {
+
+                //
+            }
+            else
+            {
+
+                //
+            }
+        }
+
     }
 
 
@@ -830,6 +919,28 @@ public partial class Becarios : System.Web.UI.Page
     }
 
 
+    protected void gridLenguajesProg_RowCommand(object sender, GridViewCommandEventArgs e)
+    {
+
+        correrJavascript("crearTabs();");
+        correrJavascript("seleccionarTabs();");
+       
+        /*modoEjecucion = 3;
+
+        int indiceFila;
+        switch (e.CommandName)
+        {
+            case "btnEliminaLenguaje_Click":
+                {
+                    indiceFila = Convert.ToInt32(e.CommandArgument);
+                    listaLocalLenguajes.RemoveAt(indiceFila);
+                    llenarGridLenguajes();
+                }
+                break;
+        }*/
+    }
+
+
     /**GRID DE IDIOMAS**/
 
     protected void btnNuevoIdioma_click(object sender, EventArgs e)
@@ -893,6 +1004,13 @@ public partial class Becarios : System.Web.UI.Page
         gridIdiomas.DataBind();
     }
 
+
+    protected void gridIdiomas_RowCommand(object sender, GridViewCommandEventArgs e)
+    {
+
+        correrJavascript("crearTabs();");
+        correrJavascript("seleccionarTabs();");
+    }
 
 
     /**GRID DE AREAS DE INTERÉS**/
@@ -959,6 +1077,13 @@ public partial class Becarios : System.Web.UI.Page
     }
 
 
+    protected void gridAreasInteres_RowCommand(object sender, GridViewCommandEventArgs e)
+    {
+
+        correrJavascript("crearTabs();");
+        correrJavascript("seleccionarTabs();");
+    }
+
 
     /**GRID DE CUALIDADES PERSONALES**/
 
@@ -1024,6 +1149,12 @@ public partial class Becarios : System.Web.UI.Page
     }
 
 
+    protected void gridCualidades_RowCommand(object sender, GridViewCommandEventArgs e)
+    {
+
+        correrJavascript("crearTabs();");
+        correrJavascript("seleccionarTabs();");
+    }
 
 
     /*
