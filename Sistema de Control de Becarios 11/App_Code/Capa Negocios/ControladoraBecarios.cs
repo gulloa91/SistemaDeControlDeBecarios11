@@ -112,4 +112,20 @@ public class ControladoraBecarios
         return becario;
     }
 
+
+    public List<String> consultarLenguajes(string ced){
+
+       BecariosDataSet.LenguajesProgDataTable tabla = controladoraBDBecario.consultarLenguajes(ced);
+       List<String> listaLeng = new List<String>();
+
+       foreach (DataRow r in tabla.Rows)
+       {
+
+           string texto = cs.procesarStringDeUI(r["Lenguaje"].ToString());
+           listaLeng.Add(texto);
+       }
+       return listaLeng;
+   }
+
+
 }

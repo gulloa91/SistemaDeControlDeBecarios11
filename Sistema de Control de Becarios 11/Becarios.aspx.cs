@@ -385,15 +385,11 @@ public partial class Becarios : System.Web.UI.Page
         {
             this.btnModificarBecarioDatos.Visible = true;
             this.btnEliminarBecarioDatos.Visible = true;
-            this.btnModificarBecarioPerfil.Visible = true;
-            this.btnEliminarBecarioPerfil.Visible = true;
         }
         else
         {
             this.btnModificarBecarioDatos.Visible = false;
             this.btnEliminarBecarioDatos.Visible = false;
-            this.btnModificarBecarioPerfil.Visible = false;
-            this.btnEliminarBecarioPerfil.Visible = false;
         }
     }
 
@@ -406,15 +402,11 @@ public partial class Becarios : System.Web.UI.Page
          {
              this.btnModificarBecarioDatos.Enabled = true;
              this.btnEliminarBecarioDatos.Enabled = true;
-             this.btnModificarBecarioPerfil.Enabled = true;
-             this.btnEliminarBecarioPerfil.Enabled = true;
           }
           else
           {
               this.btnModificarBecarioDatos.Enabled = false;
               this.btnEliminarBecarioDatos.Enabled = false;
-              this.btnModificarBecarioPerfil.Enabled = false;
-              this.btnEliminarBecarioPerfil.Enabled = false;
           }
      
 
@@ -684,14 +676,16 @@ public partial class Becarios : System.Web.UI.Page
 
                     llenarGridBecarios(1);
 
-                    //this.gridBecarios.Rows[ Convert.ToInt32(e.CommandArgument)].BackColor= System.Drawing.Color.DodgerBlue;
-                    //this.gridBecarios.Rows[ Convert.ToInt32(e.CommandArgument)].ForeColor = System.Drawing.Color.White;
-
+                    
                     mostrarBotonesPrincipales(true);
                     cargarCamposBecario();
                     habilitarCampos(false, 0);
                     correrJavascript("abrirPopUp();");
                     modoEjecucion = -1;
+
+                    listaLocalLenguajes = controladoraBecarios.consultarLenguajes(listaBecarios[rowIndex].cedula);
+                    llenarGridLenguajes();
+
                 } break;
         }
     }

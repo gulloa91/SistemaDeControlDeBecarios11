@@ -12,10 +12,12 @@ using System.Data;
 public class ControladoraBDBecario
 {
     private BecarioTableAdapter adapterBecarios;
+    private LenguajesProgTableAdapter adapterLenguajes;
 
     public ControladoraBDBecario()
     {
         adapterBecarios = new BecarioTableAdapter();
+        adapterLenguajes = new LenguajesProgTableAdapter();
     }
 
     public String insertarBecario(Becario becario)
@@ -108,5 +110,14 @@ public class ControladoraBDBecario
     {
         return this.adapterBecarios.obtenerBecarioPorCedula(cedula);
     }
+
+
+    public BecariosDataSet.LenguajesProgDataTable consultarLenguajes(String cedula){
+
+       BecariosDataSet.LenguajesProgDataTable dt = new BecariosDataSet.LenguajesProgDataTable();
+       this.adapterLenguajes.consultarLenguajes(dt, cedula);
+       return dt;
+
+   }
 
 }
