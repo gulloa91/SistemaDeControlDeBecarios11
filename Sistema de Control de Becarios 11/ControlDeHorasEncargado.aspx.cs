@@ -101,7 +101,8 @@ public partial class ControlDeHorasEncargado : System.Web.UI.Page
             // Abrir Pop Up aceptar/rechazar horas
             case "btnSeleccionarTupla_Click":
                 {
-                    commonService.abrirPopUp("PopUpControlDeHorasEncargado", "Horas por Revisar");
+                    String nombreDeBecarioSeleccionado = "Heriberto Ureña";
+                    commonService.abrirPopUp("PopUpControlDeHorasEncargado", "Revisar horas de: " + nombreDeBecarioSeleccionado);
                 } break;
 
         }
