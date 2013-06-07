@@ -48,7 +48,9 @@
             <!-- Pop Up -->
             <div id="PopUpControlDeHorasEncargado">
                 <asp:UpdatePanel ID="UpdatePanel1" runat="server">
-                    <Triggers></Triggers>
+                    <Triggers>
+                        <asp:AsyncPostBackTrigger EventName="CheckedChanged" ControlID="RadioButtonAceptarHoras" />
+                    </Triggers>
 
                     <ContentTemplate>
 
@@ -57,7 +59,7 @@
 
                         <!-- Grid con Horas de becario -->
                         <asp:GridView ID="GridViewHoraYFechaBecario" 
-                            CssClass="table_css centerText" runat="server">
+                            CssClass="table_css centerText" runat="server" OnRowCommand="GridViewHoraYFechaBecario_RowCommand">
                             <columns>
                                 <asp:ButtonField CommandName="btnSeleccionarTupla_Click" CausesValidation="false" ButtonType="Image" Visible="true" ImageUrl="~/Images/arrow-right.png" ItemStyle-HorizontalAlign="Center" Text="Revisar" ItemStyle-VerticalAlign="Middle"/> 
                             </columns>
@@ -75,9 +77,9 @@
                             <!-- Aceptar/Rechazar y Enviar -->
                             <div style="width: 34%; float: right;">
                                 <span style="width: 100%; float: left; text-align: center; margin-bottom: 10px;">¿Acepta las horas?</span>
-                                <asp:RadioButton ID="RadioButtonAceptarHoras" Text="Sí" GroupName="AceptarRechazar" runat="server" CssClass="radioLeft floatLeft" />
+                                <asp:RadioButton ID="RadioButtonAceptarHoras" Text="Sí" GroupName="AceptarRechazar" runat="server" CssClass="radioLeft floatLeft" OnCheckedChanged="RadioButtonAceptarHoras_CheckedChanged" />
                                 <asp:RadioButton ID="RadioButtonRechazarHoras" Text="No" GroupName="AceptarRechazar" runat="server" CssClass="radioRight floatRight" /> 
-                                <asp:Button ID="btnEnviar" Height="50px" runat="server" Text="Enviar" CssClass="boton ui-widget ui-state-default ui-corner-all ui-button-text-only" />
+                                <asp:Button ID="btnEnviar" Height="50px" runat="server" Text="Enviar" CssClass="boton ui-widget ui-state-default ui-corner-all ui-button-text-only" OnClick="btnEnviar_Click" />
                             </div>
                         </div>
                     </ContentTemplate>
