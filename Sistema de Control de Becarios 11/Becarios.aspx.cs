@@ -155,19 +155,14 @@ public partial class Becarios : System.Web.UI.Page
                 case 2: //Modificar Datos Personales
                     {
                         resultado = controladoraBecarios.ejecutar(modoEjecucion, datos, datosViejos);
+                        string mensaje = controladoraBecarios.eliminarPerfilBecario(this.txtCedula.Text);
+                        string resultadoPerfil = controladoraBecarios.guardarPerfilBecario(listaLocalLenguajes, listaLocalIdiomas, listaLocalAreasInteres, listaLocalCualidades, this.txtCedula.Text);
                     } break;
 
                 case 3: //Modificar Perfil
                     {
                       string mensaje = controladoraBecarios.eliminarPerfilBecario(this.txtCedula.Text);
-                      if (mensaje.Equals(""))
-                      {
-                         string resultadoPerfil = controladoraBecarios.guardarPerfilBecario(listaLocalLenguajes, listaLocalIdiomas, listaLocalAreasInteres, listaLocalCualidades, this.txtCedula.Text);
-                      }
-                      else {
-                         commonService.mensajeJavascript("Hubo un error al actualizar el perfil. Intentar más tarde", "Error");
-                      }
-                      
+                      string resultadoPerfil = controladoraBecarios.guardarPerfilBecario(listaLocalLenguajes, listaLocalIdiomas, listaLocalAreasInteres, listaLocalCualidades, this.txtCedula.Text);
                     } break;
             }
             
@@ -815,6 +810,9 @@ public partial class Becarios : System.Web.UI.Page
                txtBoxAux = (TextBox)gridCualidades.FooterRow.Cells[0].FindControl("txtNuevaCualidad");
                txtBoxAux.Enabled = true;
                btnAgregaLenguaje.Enabled = true;
+               btnAgregaIdioma.Enabled = true;
+               btnAgregaCualidad.Enabled = true;
+               btnAgregaAreaInteres.Enabled = true;
 
             }
             else
@@ -829,6 +827,9 @@ public partial class Becarios : System.Web.UI.Page
                txtBoxAux = (TextBox)gridCualidades.FooterRow.Cells[0].FindControl("txtNuevaCualidad");
                txtBoxAux.Enabled = false;
                btnAgregaLenguaje.Enabled = false;
+               btnAgregaIdioma.Enabled = false;
+               btnAgregaCualidad.Enabled = false;
+               btnAgregaAreaInteres.Enabled = false;
 
             }
         }

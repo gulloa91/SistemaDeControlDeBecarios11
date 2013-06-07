@@ -125,21 +125,23 @@ public class ControladoraBecarios
             mensajeResultado = controladoraBDBecario.insertarLenguajeProg(listaLenguajesProg[i], cedBecario);
         }
 
-        for (int i = 0; i < listaIdiomas.Count; i++)
-        {
-            mensajeResultado = controladoraBDBecario.insertarIdioma(listaIdiomas[i], cedBecario);
-        }
+            for (int i = 0; i < listaIdiomas.Count; i++)
+            {
+                mensajeResultado = controladoraBDBecario.insertarIdioma(listaIdiomas[i], cedBecario);
+            }
+        
 
-        for (int i = 0; i < listaIntereses.Count; i++)
-        {
-            mensajeResultado = controladoraBDBecario.insertarAreaInteres(listaIntereses[i], cedBecario);
-        }
+            for (int i = 0; i < listaIntereses.Count; i++)
+            {
+                mensajeResultado = controladoraBDBecario.insertarAreaInteres(listaIntereses[i], cedBecario);
+            }
+        
 
-        for (int i = 0; i < listaCualidades.Count; i++)
-        {
-            mensajeResultado = controladoraBDBecario.insertarCualidad(listaCualidades[i], cedBecario);
-        }
-
+            for (int i = 0; i < listaCualidades.Count; i++)
+            {
+                mensajeResultado = controladoraBDBecario.insertarCualidad(listaCualidades[i], cedBecario);
+            }
+       
         return mensajeResultado;
     }
 
