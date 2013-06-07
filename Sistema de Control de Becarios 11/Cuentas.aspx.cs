@@ -35,9 +35,9 @@ public partial class Cuentas : System.Web.UI.Page
         {
 
             int permiso = 0; /* Query to user validation */
-            if (permisos.Contains(10))
+            if (permisos.Contains(11))
             {
-                permiso = 10;
+                permiso = 11;
             }
             else
             {
@@ -49,7 +49,7 @@ public partial class Cuentas : System.Web.UI.Page
 
             switch (permiso)
             {
-                case 10:
+                case 11:
                     { // Vista completa
                         multiViewCuentas.SetActiveView(vistaAdmin);
                         if (!IsPostBack)
