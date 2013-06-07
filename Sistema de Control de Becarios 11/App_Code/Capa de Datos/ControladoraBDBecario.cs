@@ -249,12 +249,24 @@ public class ControladoraBDBecario
     }
 
 
-    public void eliminaPerfilBecario(String cedBecario){
+    public String eliminaPerfilBecario(String cedBecario){
 
-        this.adapterLenguajes.eliminaLenguajes(cedBecario);
-        this.adapterIdiomas.eliminaIdioma(cedBecario);
-        this.adapterAreas.eliminaInteres(cedBecario);
-        this.adapterCualidades.eliminaCualidad(cedBecario);
+        string mensaje = "Exito";
+
+        try
+        {
+            this.adapterLenguajes.eliminaLenguajes(cedBecario);
+            this.adapterIdiomas.eliminaIdioma(cedBecario);
+            this.adapterAreas.eliminaInteres(cedBecario);
+            this.adapterCualidades.eliminaCualidad(cedBecario);
+        }
+        catch (SqlException e)
+        {
+            mensaje = "Error";
+
+        }
+
+        return mensaje;
     }
 
 

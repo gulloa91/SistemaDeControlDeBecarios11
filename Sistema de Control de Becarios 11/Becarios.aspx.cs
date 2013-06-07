@@ -159,8 +159,15 @@ public partial class Becarios : System.Web.UI.Page
 
                 case 3: //Modificar Perfil
                     {
-                      controladoraBecarios.eliminarPerfilBecario(this.txtCedula.Text);
-                      string resultadoPerfil = controladoraBecarios.guardarPerfilBecario(listaLocalLenguajes, listaLocalIdiomas, listaLocalAreasInteres, listaLocalCualidades, this.txtCedula.Text);
+                      string mensaje = controladoraBecarios.eliminarPerfilBecario(this.txtCedula.Text);
+                      if (mensaje.Equals(""))
+                      {
+                         string resultadoPerfil = controladoraBecarios.guardarPerfilBecario(listaLocalLenguajes, listaLocalIdiomas, listaLocalAreasInteres, listaLocalCualidades, this.txtCedula.Text);
+                      }
+                      else {
+                         commonService.mensajeJavascript("Hubo un error al actualizar el perfil. Intentar más tarde", "Error");
+                      }
+                      
                     } break;
             }
             
@@ -480,11 +487,6 @@ public partial class Becarios : System.Web.UI.Page
             if (habilitar)
             {
 
-                this.txtNombreP.Enabled = true;
-                this.txtApellido1P.Enabled = true;
-                this.txtApellido2P.Enabled = true;
-                this.txtCarneP.Enabled = true;
-                this.txtCedulaP.Enabled = true;
                 this.txtTelFijoP.Enabled = true;
                 this.txtCelP.Enabled = true;
                 this.txtOtroTelP.Enabled = true;
@@ -494,11 +496,6 @@ public partial class Becarios : System.Web.UI.Page
             else
             {
 
-                this.txtNombreP.Enabled = false;
-                this.txtApellido1P.Enabled = false;
-                this.txtApellido2P.Enabled = false;
-                this.txtCarneP.Enabled = false;
-                this.txtCedulaP.Enabled = false;
                 this.txtTelFijoP.Enabled = false;
                 this.txtCelP.Enabled = false;
                 this.txtOtroTelP.Enabled = false;
