@@ -1,0 +1,18 @@
+﻿.txtEncargado
+{
+    float: left;
+    width: 90%;
+}
+
+.horasRestantes
+{
+    width: 20%;
+    float: right;
+    background-color: #2F4F2F;
+    border-radius: 5px;
+    min-height: 50px;
+    margin: 0 0 10px 0;
+    padding: 1%;
+    color: #FFF;
+    margin-left: 2%;
+}

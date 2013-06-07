@@ -26,14 +26,14 @@ public partial class Perfiles : System.Web.UI.Page
         {
 
              int permiso = 0; /* Query to user validation */
-             if (permisos.Contains(11))/**Cambiar**/
+             if (permisos.Contains(13))/**Cambiar**/
              {
-                 permiso = 11;
+                 permiso = 13;
              }
 
              switch (permiso)
              {
-                 case 11:
+                 case 13:
                      {
                          multiViewPerfiles.SetActiveView(vistaAdmin);
                          cp = new ControladoraPerfiles();//se crea el objeto de la controlador para solicitar servicios
@@ -88,8 +88,8 @@ public partial class Perfiles : System.Web.UI.Page
             datos[11] = (this.radioAsignacionEncargado.Checked) ? "9" : "0";
             datos[12] = (this.radioAsignacionBecario.Checked) ? "10" : "0";
             datos[13] = (this.radioCuentaCompleta.Checked) ? "11" : "0";
-            datos[14] = (this.checkPerfiles.Checked) ? "12" : "0";
-            datos[15] = (this.radioCuentaParcial.Checked) ? "13" : "0";
+            datos[15] = (this.radioCuentaParcial.Checked) ? "12" : "0";
+            datos[14] = (this.checkPerfiles.Checked) ? "13" : "0";
             //para saber el tipo de perfil revizo los radioButtons            
             
             String resultado = cp.ejecutar(modo, datos);//se realiza la accion y se retorna el resultado
