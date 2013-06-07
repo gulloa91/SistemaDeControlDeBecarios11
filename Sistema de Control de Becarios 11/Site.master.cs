@@ -104,6 +104,7 @@ public partial class SiteMaster : System.Web.UI.MasterPage
 		Boolean usuarioValido = controladoraCuentas.validarUsuario(this.txtUsuario.Text, this.txtContrasena.Text);
         DateTime fecha = DateTime.Now;
         String aux = fecha.ToString("dd-MM-yyyy H:mm:ss");
+        Session["UltimoAcceso"] = aux;
         fecha = Convert.ToDateTime(aux);
         
 
