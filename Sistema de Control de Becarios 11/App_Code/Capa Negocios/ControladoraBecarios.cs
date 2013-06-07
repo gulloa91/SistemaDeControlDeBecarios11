@@ -144,6 +144,19 @@ public class ControladoraBecarios
     }
 
 
+
+    public String eliminarPerfilBecario(String cedBecario)
+    {
+
+        string mensajeResultado = "";
+
+        controladoraBDBecario.eliminaPerfilBecario(cedBecario);
+
+        return mensajeResultado;
+    
+    }
+
+
     public List<String> consultarLenguajes(string ced){
 
        BecariosDataSet.LenguajesProgDataTable tabla = controladoraBDBecario.consultarLenguajes(ced);

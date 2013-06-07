@@ -368,8 +368,8 @@
                                 </div>
 
                                 <asp:GridView ID="gridLenguajesProg" runat="server" AutoGenerateColumns="False" ShowFooter="True"
-                                  CellPadding="7" onrowcommand="gridLenguajesProg_RowCommand"
-                                  ForeColor="#333333" GridLines="Vertical">
+                                  CellPadding="7" onrowcommand="eliminaDatosPerfil_RowCommand"
+                                  ForeColor="#333333" GridLines="Vertical" >
 
                                   <AlternatingRowStyle BackColor="White" />
                                   <Columns>
@@ -420,7 +420,7 @@
                                     </div>
 
                                     <asp:GridView ID="gridIdiomas" runat="server" AutoGenerateColumns="False" ShowFooter="True"
-                                      CellPadding="7"  onrowcommand="gridIdiomas_RowCommand"
+                                      CellPadding="7"  onrowcommand="eliminaDatosPerfil_RowCommand"
                                       ForeColor="#333333" GridLines="Vertical">
 
                                       <AlternatingRowStyle BackColor="White" />
@@ -479,7 +479,7 @@
                                  </div>
 
                                 <asp:GridView ID="gridAreasInteres" runat="server" AutoGenerateColumns="False" ShowFooter="True"
-                                 CellPadding="7" onrowcommand="gridAreasInteres_RowCommand"
+                                 CellPadding="7" onrowcommand="eliminaDatosPerfil_RowCommand"
                                  ForeColor="#333333" GridLines="Vertical">
 
                                   <AlternatingRowStyle BackColor="White" />
@@ -533,7 +533,7 @@
                                  </div>
 
                                 <asp:GridView ID="gridCualidades" runat="server" AutoGenerateColumns="False" ShowFooter="True"
-                                 CellPadding="7" onrowcommand="gridCualidades_RowCommand"
+                                 CellPadding="7" onrowcommand="eliminaDatosPerfil_RowCommand"
                                  ForeColor="#333333" GridLines="Vertical">
 
                                   <AlternatingRowStyle BackColor="White" />

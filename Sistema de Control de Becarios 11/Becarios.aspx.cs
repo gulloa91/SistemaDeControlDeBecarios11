@@ -127,9 +127,6 @@ public partial class Becarios : System.Web.UI.Page
     protected void btnInvisible1_Click(object sender, EventArgs e)
     {
 
-        if ((modoEjecucion == 1) || (modoEjecucion == 2)||(modoEjecucion==3))
-        {
-
             TextInfo miTexto = CultureInfo.CurrentCulture.TextInfo;
 
             Object[] datos;
@@ -159,11 +156,12 @@ public partial class Becarios : System.Web.UI.Page
                     {
                         resultado = controladoraBecarios.ejecutar(modoEjecucion, datos, datosViejos);
                     } break;
+
                 case 3: //Modificar Perfil
                     {
+                      controladoraBecarios.eliminarPerfilBecario(this.txtCedula.Text);
                       string resultadoPerfil = controladoraBecarios.guardarPerfilBecario(listaLocalLenguajes, listaLocalIdiomas, listaLocalAreasInteres, listaLocalCualidades, this.txtCedula.Text);
                     } break;
-            
             }
             
 
@@ -207,7 +205,7 @@ public partial class Becarios : System.Web.UI.Page
 
             llenarGridBecarios(1);
             habilitarBotonesPrincipales(true);
-        }
+        
 
         correrJavascript("cerrarPopUp();");
     }
@@ -855,6 +853,48 @@ public partial class Becarios : System.Web.UI.Page
     }
 
 
+    protected void eliminaDatosPerfil_RowCommand(object sender, GridViewCommandEventArgs e)
+    {
+
+        correrJavascript("crearTabs();");
+        correrJavascript("seleccionarTabs();");
+
+        modoEjecucion = 3;
+
+        int indiceFila;
+        switch (e.CommandName)
+        {
+            case "btnEliminaLenguaje_Click":
+                {
+                    indiceFila = Convert.ToInt32(e.CommandArgument);
+                    listaLocalLenguajes.RemoveAt(indiceFila);
+                    llenarGridLenguajes();
+                }
+                break;
+            case "btnEliminaIdioma_Click":
+                {
+                    indiceFila = Convert.ToInt32(e.CommandArgument);
+                    listaLocalIdiomas.RemoveAt(indiceFila);
+                    llenarGridIdiomas();
+                }
+                break;
+            case "btnEliminaInteres_Click":
+                {
+                    indiceFila = Convert.ToInt32(e.CommandArgument);
+                    listaLocalAreasInteres.RemoveAt(indiceFila);
+                    llenarGridAreasInteres();
+                }
+                break;
+            case "btnEliminaCualidad_Click":
+                {
+                    indiceFila = Convert.ToInt32(e.CommandArgument);
+                    listaLocalCualidades.RemoveAt(indiceFila);
+                    llenarGridCualidades();
+                }
+                break;
+        }
+    }
+
     /**GRID DE LENGUAJES DE PROGRAMACION**/
 
     protected void btnNuevoLenguaje_click(object sender, EventArgs e)
@@ -919,26 +959,18 @@ public partial class Becarios : System.Web.UI.Page
     }
 
 
-    protected void gridLenguajesProg_RowCommand(object sender, GridViewCommandEventArgs e)
+
+    /*protected void gridLenguajes_PageIndexChanging(object sender, GridViewPageEventArgs e)
     {
 
-        correrJavascript("crearTabs();");
-        correrJavascript("seleccionarTabs();");
-       
-        /*modoEjecucion = 3;
+        this.gridLenguajesProg.PageIndex = e.NewPageIndex;
+        this.gridLenguajesProg.DataBind();
 
-        int indiceFila;
-        switch (e.CommandName)
-        {
-            case "btnEliminaLenguaje_Click":
-                {
-                    indiceFila = Convert.ToInt32(e.CommandArgument);
-                    listaLocalLenguajes.RemoveAt(indiceFila);
-                    llenarGridLenguajes();
-                }
-                break;
-        }*/
-    }
+        this.gridLenguajesProg.HeaderRow.BackColor = System.Drawing.Color.FromArgb(4562432);
+        this.gridLenguajesProg.ForeColor = System.Drawing.Color.White;
+        this.gridLenguajesProg.HeaderRow.Cells[1].Text = "Lenguaje de Programación";
+        //this.headersCorrectosGridBecarios();
+    }*/
 
 
     /**GRID DE IDIOMAS**/
