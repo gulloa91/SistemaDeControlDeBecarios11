@@ -47,6 +47,10 @@ public partial class SiteMaster : System.Web.UI.MasterPage
                 MenuItem CtrlEncargadoMenuItem = new MenuItem("Control de Horas - Encargado", "m0", "", "~/ControlDeHorasEncargado.aspx");
                 NavigationMenu.Items.Add(CtrlEncargadoMenuItem);
 
+                // PLEASE REMOVE
+                MenuItem CtrlBecarioMenuItem = new MenuItem("Control de Horas - Becario", "m0", "", "~/ControlDeHorasBecario.aspx");
+                NavigationMenu.Items.Add(CtrlBecarioMenuItem);
+
                 foreach (int permiso in permisos)
                 {
                     switch( permiso )

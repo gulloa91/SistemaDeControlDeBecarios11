@@ -9,7 +9,7 @@ public partial class ControlDeHoras : System.Web.UI.Page
 {
 	protected void Page_Load(object sender, EventArgs e)
 	{
-
+        this.MultiViewBecario.ActiveViewIndex = 0;
 	}
 
 	protected void btnReportarHoras_Click(object sender, EventArgs e)

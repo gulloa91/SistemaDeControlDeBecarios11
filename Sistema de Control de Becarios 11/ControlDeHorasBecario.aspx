@@ -1,12 +1,14 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.master" AutoEventWireup="true" CodeFile="ControlDeHorasBecario.aspx.cs" Inherits="ControlDeHoras" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" Runat="Server">
+    <link href="Styles/ControlDeHorasBecario.css" rel="stylesheet" type="text/css" />
+    <script src="Scripts/ControlDeHorasBecario.js" type="text/javascript"></script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" Runat="Server">
 	<asp:ScriptManager ID="ScriptManager" runat="server">	
 	</asp:ScriptManager>
 
-	<asp:MultiView ID="MultiViewEncargado" runat="server">
+	<asp:MultiView ID="MultiViewBecario" runat="server">
 
 		<!-- IMEC de todas las asignaciones -->
 		<asp:View ID="VistaAdmin" runat="server">
@@ -17,30 +19,25 @@
 
 				<ContentTemplate>
 					<!-- Botones Invisibles -->
-					<asp:Button ID="btnInvisibleAceptarAsignacion" 
-						CssClass="btnInvisible1 invisible" runat="server" Text="" 
-						onclick="btnInvisibleAceptarAsignacion_Click" />
-					<asp:Button ID="btnInvisibleEliminarAsignacion" 
-						CssClass="btnInvisible2 invisible" runat="server" Text="" 
-						onclick="btnInvisibleEliminarAsignacion_Click" />
+                    <asp:Button ID="btnInvisibleEnviarReporte" CssClass="invisible btnInvisibleEnviarReporte" runat="server" Text="Button" />
 
 					<!-- Cuerpo -->
 					<div style="min-height: 500px;">
 
 						<!-- Título -->
-						<span style="width: 100%; font-weight: bold; font-size: 24px; float: left; margin: 20px 0 5px 0; text-align:center;">Módulo para Control de Horas</span>
-						<span style="width: 100%; font-weight: normal; font-style:italic; font-size: 16px; float: left; margin: 5px 0 20px 0; text-align:center; border-bottom: 2px solid #414141; padding-bottom: 5px;">Por medio de este módulo puede ver el detalle de todos los reportes de horas hechos hasta el momento, así como agregar nuevos reportes.</span>
+						<span style="width: 100%; font-weight: bold; font-size: 24px; float: left; margin: 20px 0 5px 0; text-align:center;">Módulo de Control de Horas para Becarios</span>
+						<span style="width: 100%; font-weight: normal; font-style:italic; font-size: 16px; float: left; margin: 5px 0 20px 0; text-align:center; border-bottom: 2px solid #414141; padding-bottom: 5px;">Por medio de este módulo puede ver el detalle de todos los reportes de horas hechos hasta el momento, así como agregar nuevos reportes de sus horas laboradas.</span>
 
 						<!-- Buscador -->
-						<div class="buscador">
-							<div style="width: 100%; float:left; font-weight: bold; font-size: 16px; border-bottom: 1px solid #fff; margin-bottom: 5px;">Buscar:</div>
-							<div style="width: 61%; float: left; margin-right: 4%;">
-								<asp:TextBox ID="txtBuscarAsignacion"  onkeydown = "enterBuscar(event, 'MainContent_btnBuscar');" CssClass="txtAsignacion" runat="server"></asp:TextBox>
-							</div>
-							<div style="width: 35%; float: right">
-								<asp:Button ID="btnBuscar" runat="server" Text="Buscar" CausesValidation="false" CssClass="boton ui-widget ui-state-default ui-corner-all ui-button-text-only" OnClick="btnBuscar_Click" />
-							</div>
-						</div>
+                        <div class="buscador">
+                            <div style="width: 100%; float:left; font-weight: bold; font-size: 16px; border-bottom: 1px solid #fff; margin-bottom: 5px;">Buscar:</div>
+                            <div style="width: 61%; float: left; margin-right: 4%;">
+                                <asp:TextBox ID="txtBuscarBecario"  onkeydown = "enterBuscar(event, 'MainContent_btnBuscar');" CssClass="txtEncargado" runat="server"></asp:TextBox>
+                            </div>
+                            <div style="width: 35%; float: right">
+                                <asp:Button ID="btnBuscar" runat="server" Text="Buscar" CausesValidation="false" CssClass="boton ui-widget ui-state-default ui-corner-all ui-button-text-only" OnClick="btnBuscar_Click" />
+                            </div>
+                        </div>
 
 						<!-- Botón Reportar Horas -->
 						<div class="insertar">
@@ -49,6 +46,14 @@
 								CssClass="boton ui-widget ui-state-default ui-corner-all ui-button-text-only" 
 								onclick="btnReportarHoras_Click" CausesValidation="false" />
 						</div>
+
+                        <!-- Horas restantes -->
+                        <div class="horasRestantes">
+                            <div style="width: 100%; float:left; font-weight: bold; font-size: 16px; border-bottom: 1px solid #fff; margin-bottom: 5px;">Horas restantes:</div>
+                            <div style="width: 92%; float: left; padding: 0 4%; text-align: center;">
+                                <b><asp:Label ID="Label1" runat="server" Text="45 Horas"></asp:Label></b>
+                            </div>
+                        </div>
 
 						<!-- Grid -->
 						<div id="divGridControlHorasBecario">
@@ -66,7 +71,7 @@
 			</asp:UpdatePanel>
 
 			<!-- Pop-ups -->
-			<div id="PopUpNuevaAsignacion">
+			<div id="PopUpCtrlBecario">
 					<asp:UpdatePanel runat="server" ID="UpdatePopUp">
 						<Triggers>
 						</Triggers>
