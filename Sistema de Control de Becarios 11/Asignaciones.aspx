@@ -31,7 +31,7 @@
 
                         <!-- Título -->
                         <span style="width: 100%; font-weight: bold; font-size: 24px; float: left; margin: 20px 0 5px 0; text-align:center;">Módulo para administración de Asignaciones</span>
-                        <span style="width: 100%; font-weight: normal; font-style:italic; font-size: 16px; float: left; margin: 5px 0 20px 0; text-align:center; border-bottom: 2px solid #414141; padding-bottom: 5px;">Por medio de este módulo se pueden insertar, modificar, eliminar y consultar todas las asignaciones entre un encargado y un becario.</span>
+                        <span style="width: 100%; font-weight: normal; font-style:italic; font-size: 16px; float: left; margin: 5px 0 20px 0; text-align:center; border-bottom: 2px solid #414141; padding-bottom: 5px; ">Por medio de este módulo se pueden insertar, modificar, eliminar y consultar todas las asignaciones entre un encargado y un becario.</span>
 
                         <!-- Buscador -->
                         <div class="buscadorAsignacion">
@@ -289,7 +289,7 @@
                         CssClass="btnInvisibleConfirmarRechazo invisible" runat="server" Text="" 
                         onclick="btnInvisibleConfirmarRechazo_Click" />
 
-                    <div style="width: 40%; float: left; border: 2px solid #414141; margin: 5% 20%; padding: 10%; border-radius: 5px;">
+                    <div style="width: 40%; float: left; border: 2px solid #414141; margin: 5% 20%; padding: 10%; border-radius: 5px; background-color: #D8D8BF;">
                         <div style="width: 100%; float: left; text-align: center; font-weight: bold; font-size: 1.2em;">
                             <span style="width: 100%; float: left;">Asignación de Encargado</span>
                             <asp:Label ID="lblCicloVistaBecario" runat="server" Text=""></asp:Label> - 

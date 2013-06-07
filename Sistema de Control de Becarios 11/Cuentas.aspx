@@ -147,51 +147,53 @@
             </div>
         </asp:View>
         <asp:View ID="viewEncBec" runat="server">
-            <div id="pnlBtnMod">
-                <asp:Button ID="btnModPers" runat="server" CssClass="boton ui-widget ui-state-default ui-corner-all ui-button-text-only" onclick="btnModificarCuentaPers_Click" Text="Modificar" Width="135px" CausesValidation="false" />
+            <div id="containerCuentaPers">
+                <div id="pnlBtnMod">
+                    <asp:Button ID="btnModPers" runat="server" CssClass="boton ui-widget ui-state-default ui-corner-all ui-button-text-only" onclick="btnModificarCuentaPers_Click" Text="Modificar" Width="135px" CausesValidation="false" />
+                </div>
+                <asp:UpdatePanel ID="updCuentaPersonal" runat="server">
+                    <Triggers>
+                        <asp:AsyncPostBackTrigger ControlID="btnModPers" EventName="Click" />
+                        <asp:AsyncPostBackTrigger ControlID="btnAcepPers" EventName="Click" />
+                    </Triggers>
+                    <ContentTemplate>
+                        <div id="infCuenta">
+                            <div id="pnlUsuarioPers" class="cont">
+                                    <asp:Label ID="lblUsuarioPers" runat="server" Text="Usuario" CssClass="etiq"></asp:Label>
+                                    <asp:TextBox ID="txtUsuarioPers" runat="server" CssClass="txtBox"></asp:TextBox>
+                            </div>
+                            <div id="pnlContrasenaPers" class="cont">
+                                <asp:Label ID="lblContrasenaPer" runat="server" Text="Contraseña" CssClass="etiq"></asp:Label>
+                                <asp:TextBox ID="txtContrasenaPers" runat="server" CausesValidation="true" type="password" CssClass="txtBox"></asp:TextBox>
+                                    <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ErrorMessage="* Contraseña de usuario requerida" ControlToValidate="txtContrasenaPers" Display="Dynamic"></asp:RequiredFieldValidator>
+                                    <asp:RegularExpressionValidator ID="RegularExpressionValidator3" runat="server" ErrorMessage="La contraseña no puede contener caracteres blancos, comillas dobles o sencillas"
+					            ValidationExpression="([^\s&quot;' ])+" ControlToValidate="txtContrasenaPers" Display="Dynamic"/>
+                            </div>
+                            <div id="pnlConfContrasenaPers" class="cont">
+                                <asp:Label ID="lblConfContrasenaPer" runat="server" Text="Contraseña" CssClass="etiq"></asp:Label>
+                                <asp:TextBox ID="txtConfContrasenaPers" runat="server" CausesValidation="true" type="password" CssClass="txtBox"></asp:TextBox>
+                                    <asp:RequiredFieldValidator ID="RequiredFieldValidator6" runat="server" ErrorMessage="* Contraseña de usuario requerida" ControlToValidate="txtConfContrasenaPers" Display="Dynamic"></asp:RequiredFieldValidator>
+                                    <asp:RegularExpressionValidator ID="RegularExpressionValidator6" runat="server" ErrorMessage="La contraseña no puede contener caracteres blancos, comillas dobles o sencillas"
+					            ValidationExpression="([^\s&quot;' ])+" ControlToValidate="txtConfContrasenaPers" Display="Dynamic"/>
+                                <asp:CompareValidator runat="server" id="CompareValidator2" ControlToValidate="txtConfContrasenaPers" ControlToCompare="txtContrasenaPers"
+                                operator="Equal" type="String" ErrorMessage="Las claves introducidas no son iguales" Display="Dynamic"/>
+                            </div>
+                            <div id="pnlDrpDown" class="cont">
+                                <asp:Label ID="lblAsigPerfil" runat="server" Text="Perfil" CssClass="etiq"></asp:Label>
+                                <asp:TextBox ID="txtPerfil" runat="server" CssClass="txtBox"></asp:TextBox>
+                            </div>
+                            <div id="pnlCedulaPers" class="cont">
+                                <asp:Label ID="lblCedulaPers" runat="server" Text="Cédula" CssClass="etiq"></asp:Label>
+                                <asp:TextBox ID="txtCedulaPers" runat="server" CssClass="txtBox"></asp:TextBox>
+                            </div>
+                            <div id="pnlBtnAcCan" class="cont">
+                                <asp:Button ID="btnAcepPers" runat="server" CssClass="boton ui-widget ui-state-default ui-corner-all ui-button-text-only" onclick="btnAceptarCuentaPers_Click" Text="Aceptar" Width="135px" />
+                                <asp:Button ID="btnCancPers" runat="server" CssClass="boton ui-widget ui-state-default ui-corner-all ui-button-text-only" onclick="btnCancelarCuentaPers_Click" Text="Cancelar" Width="135px" CausesValidation="false"/>
+                            </div>
+                        </div>
+                    </ContentTemplate>
+                </asp:UpdatePanel>
             </div>
-            <asp:UpdatePanel ID="updCuentaPersonal" runat="server">
-                <Triggers>
-                    <asp:AsyncPostBackTrigger ControlID="btnModPers" EventName="Click" />
-                    <asp:AsyncPostBackTrigger ControlID="btnAcepPers" EventName="Click" />
-                </Triggers>
-                <ContentTemplate>
-                    <div id="infCuenta">
-                        <div id="pnlUsuarioPers">
-                                <asp:Label ID="lblUsuarioPers" runat="server" Text="Usuario"></asp:Label>
-                                <asp:TextBox ID="txtUsuarioPers" runat="server" Width="323px"></asp:TextBox>
-                        </div>
-                        <div id="pnlContrasenaPers">
-                            <asp:Label ID="lblContrasenaPer" runat="server" Text="Contraseña"></asp:Label>
-                            <asp:TextBox ID="txtContrasenaPers" runat="server" Width="320px" CausesValidation="true"></asp:TextBox>
-                                <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ErrorMessage="* Contraseña de usuario requerida" ControlToValidate="txtContrasenaPers" Display="Dynamic"></asp:RequiredFieldValidator>
-                                <asp:RegularExpressionValidator ID="RegularExpressionValidator3" runat="server" ErrorMessage="La contraseña no puede contener caracteres blancos, comillas dobles o sencillas"
-					        ValidationExpression="([^\s&quot;' ])+" ControlToValidate="txtContrasenaPers" Display="Dynamic"/>
-                        </div>
-                        <div id="pnlConfContrasenaPers">
-                            <asp:Label ID="lblConfContrasenaPer" runat="server" Text="Contraseña"></asp:Label>
-                            <asp:TextBox ID="txtConfContrasenaPers" runat="server" Width="320px" CausesValidation="true" ></asp:TextBox>
-                                <asp:RequiredFieldValidator ID="RequiredFieldValidator6" runat="server" ErrorMessage="* Contraseña de usuario requerida" ControlToValidate="txtConfContrasenaPers" Display="Dynamic"></asp:RequiredFieldValidator>
-                                <asp:RegularExpressionValidator ID="RegularExpressionValidator6" runat="server" ErrorMessage="La contraseña no puede contener caracteres blancos, comillas dobles o sencillas"
-					        ValidationExpression="([^\s&quot;' ])+" ControlToValidate="txtConfContrasenaPers" Display="Dynamic"/>
-                            <asp:CompareValidator runat="server" id="CompareValidator2" ControlToValidate="txtConfContrasenaPers" ControlToCompare="txtContrasenaPers"
-                            operator="Equal" type="String" ErrorMessage="Las claves introducidas no son iguales" Display="Dynamic"/>
-                        </div>
-                        <div id="pnlDrpDown">
-                            <asp:Label ID="lblAsigPerfil" runat="server" Text="Perfil"></asp:Label>
-                            <asp:TextBox ID="txtPerfil" runat="server"></asp:TextBox>
-                        </div>
-                        <div id="pnlCedulaPers">
-                            <asp:Label ID="lblCedulaPers" runat="server" Text="Cédula"></asp:Label>
-                            <asp:TextBox ID="txtCedulaPers" runat="server"></asp:TextBox>
-                        </div>
-                        <div id="pnlBtnAcCan">
-                            <asp:Button ID="btnAcepPers" runat="server" CssClass="boton ui-widget ui-state-default ui-corner-all ui-button-text-only" onclick="btnAceptarCuentaPers_Click" Text="Aceptar" Width="135px" />
-                            <asp:Button ID="btnCancPers" runat="server" CssClass="boton ui-widget ui-state-default ui-corner-all ui-button-text-only" onclick="btnCancelarCuentaPers_Click" Text="Cancelar" Width="135px" CausesValidation="false"/>
-                        </div>
-                    </div>
-                </ContentTemplate>
-            </asp:UpdatePanel>
         </asp:View>
         <asp:View ID="VistaSinPermiso" runat="server">
             <h2 style="color: Red; text-align:center;">Lo sentimos. Usted no tiene acceso a esta sección.</h2>      

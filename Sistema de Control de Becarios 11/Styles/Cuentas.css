@@ -8,5 +8,47 @@
 .textoGrid {
     background-color: white;
     border: none;
-    width: 30%;
+    width: 100%;
+    text-align: center;
+}
+
+
+#containerCuentaPers
+{
+    border: 1px solid #414141;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+    width: 50%;
+    margin: 5% 20%;
+    padding: 5%;
+    float: left;
+    background-color:#D8D8BF;
+}
+
+.etiq
+{
+   float: left;
+   width: 20%;    
+}
+
+.txtBox
+{
+   float: left;
+   width: 70%;     
+}
+
+.cont
+{
+   float: left;
+   width: 100%;     
+}
+
+#pnlBtnMod
+{
+   margin-bottom:3%;    
+}
+
+#pnlBtnAcCan
+{
+   margin-top:3%;    
 }
