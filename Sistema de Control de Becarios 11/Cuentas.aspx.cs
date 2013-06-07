@@ -486,7 +486,7 @@ public partial class Cuentas : System.Web.UI.Page
     {
         datosOriginales[0] = this.txtUsuarioPers.Text;
         datosOriginales[1] = this.txtContrasenaPers.Text;
-        datosOriginales[2] = "";
+        datosOriginales[2] = Session["UltimoAcceso"];
         datosOriginales[3] = this.txtCedulaPers.Text;
         datosOriginalesAsociacion[0] = this.txtUsuarioPers.Text;
         datosOriginalesAsociacion[1] = this.txtPerfil.Text;
@@ -502,7 +502,7 @@ public partial class Cuentas : System.Web.UI.Page
         if(modo==2){
             datos[0] = this.txtUsuarioPers.Text;
             datos[1] = this.txtContrasenaPers.Text;
-            datos[2] = "";
+            datos[2] = Session["UltimoAcceso"];
             datos[3] = this.txtCedulaPers.Text;
             mensaje = controladoraCuentas.ejecutarAsociacion(3, datosOriginalesAsociacion, null);
             if (mensaje == "")
