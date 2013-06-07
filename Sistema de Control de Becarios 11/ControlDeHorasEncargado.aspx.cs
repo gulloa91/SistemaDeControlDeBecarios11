@@ -17,6 +17,69 @@ public partial class ControlDeHorasEncargado : System.Web.UI.Page
 
         this.MultiViewControlHorasEncargado.ActiveViewIndex = 0;
         llenarGridBecariosConHorasPorRevisar();
+        llenarGridViewHoraYFechaBecario();
+    }
+
+    /* Crear tabla */
+    protected void llenarGridViewHoraYFechaBecario()
+    {
+        DataTable tablaHoraYFechaBecario = crearTablaHoraYFechaBecario();
+        DataRow newRow;
+        /*
+        if (lsEncargados.Count > 0)
+        {
+            for (int i = 0; i < lsEncargados.Count; ++i)
+            {
+                newRow = tablaAsignaciones.NewRow();
+                newRow["Nombre"] = lsEncargados[i].Nombre + " " + lsEncargados[i].Apellido1 + " " + lsEncargados[i].Apellido2;
+                newRow["Cedula"] = lsEncargados[i].Cedula;
+                newRow["Correo"] = lsEncargados[i].Correo;
+                newRow["Celular"] = lsEncargados[i].TelefonoCelular;
+                if (lsEncargados[i].TelefonoFijo != "")
+                {
+                    newRow["Telefono"] = lsEncargados[i].TelefonoFijo;
+                }
+                else
+                {
+                    if (lsEncargados[i].OtroTelefono != "")
+                    {
+                        newRow["Telefono"] = lsEncargados[i].OtroTelefono;
+                    }
+                }
+
+                tablaAsignaciones.Rows.InsertAt(newRow, i);
+            }
+        }
+        else
+        {
+         */
+        newRow = tablaHoraYFechaBecario.NewRow();
+        newRow["Fecha"] = "06/06/2013";
+        newRow["Cnt. de Horas"] = "2";
+
+        tablaHoraYFechaBecario.Rows.InsertAt(newRow, 0);
+
+        newRow = tablaHoraYFechaBecario.NewRow();
+        newRow["Fecha"] = "04/06/2013";
+        newRow["Cnt. de Horas"] = "4";
+
+        tablaHoraYFechaBecario.Rows.InsertAt(newRow, 0);
+
+        newRow = tablaHoraYFechaBecario.NewRow();
+        newRow["Fecha"] = "28/05/2013";
+        newRow["Cnt. de Horas"] = "6";
+
+        tablaHoraYFechaBecario.Rows.InsertAt(newRow, 0);
+
+        newRow = tablaHoraYFechaBecario.NewRow();
+        newRow["Fecha"] = "25/05/2013";
+        newRow["Cnt. de Horas"] = "5";
+
+        tablaHoraYFechaBecario.Rows.InsertAt(newRow, 0);
+        //}
+        this.GridViewHoraYFechaBecario.DataSource = tablaHoraYFechaBecario;
+        this.GridViewHoraYFechaBecario.DataBind();
+        headersCorrectosHoraYFechaBecario();
     }
 
     /* Crear tabla */
@@ -87,10 +150,34 @@ public partial class ControlDeHorasEncargado : System.Web.UI.Page
         return dt;
     }
 
+    protected DataTable crearTablaHoraYFechaBecario()
+    {
+        DataTable dt = new DataTable();
+        DataColumn column;
+
+        column = new DataColumn();
+        column.DataType = System.Type.GetType("System.String");
+        column.ColumnName = "Fecha";
+        dt.Columns.Add(column);
+
+        column = new DataColumn();
+        column.DataType = System.Type.GetType("System.String");
+        column.ColumnName = "Cnt. de Horas";
+        dt.Columns.Add(column);
+
+        return dt;
+    }
+
     protected void headersCorrectosBecariosConHorasPendientes()
     {
         this.GridBecariosConHorasPendientes.HeaderRow.BackColor = System.Drawing.Color.FromArgb(4562432);
         this.GridBecariosConHorasPendientes.HeaderRow.ForeColor = System.Drawing.Color.White;
+    }
+
+    protected void headersCorrectosHoraYFechaBecario()
+    {
+        this.GridViewHoraYFechaBecario.HeaderRow.BackColor = System.Drawing.Color.FromArgb(4562432);
+        this.GridViewHoraYFechaBecario.HeaderRow.ForeColor = System.Drawing.Color.White;
     }
 
     // Selecciona tupla del grid
@@ -103,6 +190,7 @@ public partial class ControlDeHorasEncargado : System.Web.UI.Page
                 {
                     String nombreDeBecarioSeleccionado = "Heriberto Ureña";
                     commonService.abrirPopUp("PopUpControlDeHorasEncargado", "Revisar horas de: " + nombreDeBecarioSeleccionado);
+                    commonService.esconderPrimerBotonDePopUp("PopUpControlDeHorasEncargado");
                 } break;
 
         }

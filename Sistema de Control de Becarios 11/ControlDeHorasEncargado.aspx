@@ -2,6 +2,7 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" Runat="Server">
     <script src="Scripts/ControlDeHorasEncargado.js" type="text/javascript"></script>
+    <link href="Styles/ControlDeHorasEncargado.css" rel="stylesheet" type="text/css" />
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" Runat="Server">
     <asp:ScriptManager ID="ScriptManager" runat="server">
@@ -50,7 +51,35 @@
                     <Triggers></Triggers>
 
                     <ContentTemplate>
-                        PopUp
+
+                        <!-- Título -->
+                        <span style="width: 100%; font-weight: bold; font-size: 16px; float: left; margin: 0px 0 10px 0; text-align:left;">Horas pendientes de revisión. Seleccione una línea para revisarla.</span>
+
+                        <!-- Grid con Horas de becario -->
+                        <asp:GridView ID="GridViewHoraYFechaBecario" 
+                            CssClass="table_css centerText" runat="server">
+                            <columns>
+                                <asp:ButtonField CommandName="btnSeleccionarTupla_Click" CausesValidation="false" ButtonType="Image" Visible="true" ImageUrl="~/Images/arrow-right.png" ItemStyle-HorizontalAlign="Center" Text="Revisar" ItemStyle-VerticalAlign="Middle"/> 
+                            </columns>
+                        </asp:GridView>
+
+                        <!-- Cuerpo -->
+                        <div style="width: 92%; float: left; margin-top: 10px; background: #D8D8BF; padding: 4%; border-radius:5px;">
+                            <!-- Comentarios -->
+                            <div style="width: 60%; float: left; margin-right: 4%;">
+                                <span style="width: 100%; float: left;">Comentario del becario:</span>
+                                <asp:TextBox ID="txtComentarioBecario" TextMode="MultiLine" CssClass="multiLine" runat="server"></asp:TextBox>
+                                <span style="width: 100%; float: left; margin-top: 5px;">Responder al becario:</span>
+                                <asp:TextBox ID="txtComentarioEncargado" TextMode="MultiLine" CssClass="multiLine" runat="server"></asp:TextBox>
+                            </div>
+                            <!-- Aceptar/Rechazar y Enviar -->
+                            <div style="width: 34%; float: right;">
+                                <span style="width: 100%; float: left; text-align: center; margin-bottom: 10px;">¿Acepta las horas?</span>
+                                <asp:RadioButton ID="RadioButtonAceptarHoras" Text="Sí" GroupName="AceptarRechazar" runat="server" CssClass="radioLeft floatLeft" />
+                                <asp:RadioButton ID="RadioButtonRechazarHoras" Text="No" GroupName="AceptarRechazar" runat="server" CssClass="radioRight floatRight" /> 
+                                <asp:Button ID="btnEnviar" Height="50px" runat="server" Text="Enviar" CssClass="boton ui-widget ui-state-default ui-corner-all ui-button-text-only" />
+                            </div>
+                        </div>
                     </ContentTemplate>
                 </asp:UpdatePanel>
             </div>

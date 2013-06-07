@@ -403,3 +403,13 @@ h5, h6 {
         float: none;
     }       
 }
+
+.floatRight
+{
+    float: right;
+}
+
+.floatLeft 
+{
+    float: left;
+}

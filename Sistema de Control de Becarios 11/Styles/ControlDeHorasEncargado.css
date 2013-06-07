@@ -1,0 +1,20 @@
+﻿.multiLine
+{
+    float: left;
+    width: 99%;
+    padding: 0.5%;
+    resize: none;
+    margin: 0;
+}
+
+.radioLeft
+{
+    width: 35%;
+    padding: 0 0 0 15%;
+}
+
+.radioRight
+{
+    width: 48%;
+    margin-bottom: 39px;
+}
