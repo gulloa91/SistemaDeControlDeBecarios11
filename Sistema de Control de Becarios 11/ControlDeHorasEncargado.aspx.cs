@@ -116,9 +116,23 @@ public partial class ControlDeHorasEncargado : System.Web.UI.Page
         {
          */
         newRow = tablaBecariosConHorasPorRevisar.NewRow();
-        newRow["Nombre"] = "-";
-        newRow["Carné"] = "-";
-        newRow["Horas por Revisar"] = "-";
+        newRow["Nombre"] = "Constantino Bolaños Araya";
+        newRow["Carné"] = "B04512";
+        newRow["Horas por Revisar"] = "13";
+
+        tablaBecariosConHorasPorRevisar.Rows.InsertAt(newRow, 0);
+
+        newRow = tablaBecariosConHorasPorRevisar.NewRow();
+        newRow["Nombre"] = "Christopher Sánchez Coto";
+        newRow["Carné"] = "B01239";
+        newRow["Horas por Revisar"] = "14";
+
+        tablaBecariosConHorasPorRevisar.Rows.InsertAt(newRow, 0);
+
+        newRow = tablaBecariosConHorasPorRevisar.NewRow();
+        newRow["Nombre"] = "Heriberto Ureña Madrigal";
+        newRow["Carné"] = "B08888";
+        newRow["Horas por Revisar"] = "17";
 
         tablaBecariosConHorasPorRevisar.Rows.InsertAt(newRow, 0);
         //}
@@ -183,6 +197,8 @@ public partial class ControlDeHorasEncargado : System.Web.UI.Page
     // Selecciona tupla del grid
     protected void GridBecariosConHorasPendientes_RowCommand(object sender, GridViewCommandEventArgs e)
     {
+        desactivarCamposPrueba();
+        this.txtComentarioBecario.Text = "";
         switch (e.CommandName)
         {
             // Abrir Pop Up aceptar/rechazar horas
@@ -200,5 +216,36 @@ public partial class ControlDeHorasEncargado : System.Web.UI.Page
     protected void btnInvisibleEnviarRevision_Click(object sender, EventArgs e)
     {
         commonService.cerrarPopUp("PopUpControlDeHorasEncargado");
+    }
+
+    protected void desactivarCamposPrueba() {
+        this.txtComentarioBecario.Enabled = false;
+        this.txtComentarioEncargado.Enabled = false;
+    }
+
+    protected void activarCampoBecario()
+    {
+        this.txtComentarioBecario.Enabled = false;
+        this.txtComentarioEncargado.Enabled = true;
+    }
+    protected void GridViewHoraYFechaBecario_RowCommand(object sender, GridViewCommandEventArgs e)
+    {
+        switch (e.CommandName)
+        {
+            // Abrir Pop Up aceptar/rechazar horas
+            case "btnSeleccionarTupla_Click":
+                {
+                    this.txtComentarioBecario.Text = "Trabajo realizado el 23 de mayo del 2013";
+                } break;
+
+        }
+    }
+    protected void RadioButtonAceptarHoras_CheckedChanged(object sender, EventArgs e)
+    {
+        this.txtComentarioEncargado.Enabled = true;
+    }
+    protected void btnEnviar_Click(object sender, EventArgs e)
+    {
+        commonService.mensajeJavascript("Enviado","Atención");
     }
 }
