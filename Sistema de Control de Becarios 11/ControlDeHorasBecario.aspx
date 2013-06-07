@@ -69,8 +69,6 @@
 			<div id="PopUpNuevaAsignacion">
 					<asp:UpdatePanel runat="server" ID="UpdatePopUp">
 						<Triggers>
-							<asp:AsyncPostBackTrigger ControlID="btnInvisible2" EventName="Click" />
-							<asp:AsyncPostBackTrigger ControlID="btnInvisible3" EventName="Click" />
 						</Triggers>
 						<ContentTemplate>
 							<!-- Título -->
@@ -99,9 +97,9 @@
 									<div style="width: 12%; float: right; margin-bottom: 5%; margin-top: 4%">
 										<asp:Button ID="btnEnviarP" runat="server" Text="Enviar"
 											CssClass="boton ui-widget ui-state-default ui-corner-all ui-button-text-only"
-											OnClick="btnEnviarP_Click" CausesValidation="false" />
+											 CausesValidation="false" />
 									</div>
-
+                                    
 									<!-- Cancelar -->
 									<div style="width: 12%; float: right; margin-bottom: 5%; margin-top: 4%; margin-right: 10px">
 										<asp:Button ID="btnCancelar" runat="server" Text="Cancelar"
