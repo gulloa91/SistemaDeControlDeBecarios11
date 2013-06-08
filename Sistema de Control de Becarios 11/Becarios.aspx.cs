@@ -144,69 +144,95 @@ public partial class Becarios : System.Web.UI.Page
             datos[9] = this.txtCorreo.Text;
 
             string resultado = "";
+            string resultadoPerfil = "";
             switch (modoEjecucion)
             {
 
                 case 1: //Insertar Nuevo Becario
                     {
+
                         resultado = controladoraBecarios.ejecutar(modoEjecucion, datos, null);
-                        string resultadoPerfil = controladoraBecarios.guardarPerfilBecario(listaLocalLenguajes, listaLocalIdiomas, listaLocalAreasInteres, listaLocalCualidades, this.txtCedula.Text);
+                        resultadoPerfil = controladoraBecarios.guardarPerfilBecario(listaLocalLenguajes, listaLocalIdiomas, listaLocalAreasInteres, listaLocalCualidades, this.txtCedula.Text);
+                    
                     } break;
-                case 2: //Modificar Datos Personales
+                case 2: //Modificar Datos Personales y Perfil
                     {
                         resultado = controladoraBecarios.ejecutar(modoEjecucion, datos, datosViejos);
                         string mensaje = controladoraBecarios.eliminarPerfilBecario(this.txtCedula.Text);
-                        string resultadoPerfil = controladoraBecarios.guardarPerfilBecario(listaLocalLenguajes, listaLocalIdiomas, listaLocalAreasInteres, listaLocalCualidades, this.txtCedula.Text);
+                        if (mensaje.Equals("Exito"))
+                        {
+                            resultadoPerfil = controladoraBecarios.guardarPerfilBecario(listaLocalLenguajes, listaLocalIdiomas, listaLocalAreasInteres, listaLocalCualidades, this.txtCedula.Text);
+                        }
                     } break;
 
                 case 3: //Modificar Perfil
                     {
                       string mensaje = controladoraBecarios.eliminarPerfilBecario(this.txtCedula.Text);
-                      string resultadoPerfil = controladoraBecarios.guardarPerfilBecario(listaLocalLenguajes, listaLocalIdiomas, listaLocalAreasInteres, listaLocalCualidades, this.txtCedula.Text);
+                      if (mensaje.Equals("Exito"))
+                      {
+                          resultadoPerfil = controladoraBecarios.guardarPerfilBecario(listaLocalLenguajes, listaLocalIdiomas, listaLocalAreasInteres, listaLocalCualidades, this.txtCedula.Text);
+                      }
+                      
                     } break;
             }
+
+
+            string avisoParaUsuario = "";
+            switch (resultado) {
+
+
+                case "Exito": 
+                    {
+
+                        if (modoEjecucion == 1)
+                        {
+
+                          string resultadoCreacionCuenta = cearCuenta(this.txtCedula.Text, this.txtNombre.Text.ToLower(), this.txtApellido1.Text.ToLower(), this.txtApellido2.Text, this.txtCorreo.Text);
+                          if ((resultadoCreacionCuenta.Equals("Exito")) && ((resultadoPerfil.Equals("Exito")) || (resultadoPerfil.Equals("-1"))))
+                          {                          
+                              commonService.mensajeJavascript("El becario ha sido ingresado correctamente y su cuenta ha sido creada","Éxito");
+                          }
+                          else if (!(resultadoCreacionCuenta.Equals("Exito")))
+                          {
+                             commonService.mensajeJavascript("El becario ha sido ingresado correctamente pero hubo un problema al crear la cuenta", "Aviso");                     
+                          }
+                          else if (!(resultadoPerfil.Equals("Exito")))
+                          {
+                              commonService.mensajeJavascript("El becario ha sido ingresado correctamente pero hubo un problema al guardar la información del perfil", "Aviso");                                  
+                          }
+                     
+                        }
+                        else if (((resultadoPerfil.Equals("Exito")) || (resultadoPerfil.Equals("-1"))))
+                        {
+                            commonService.mensajeJavascript("Se ha modificado correctamente la información solcitada", "Éxito");
+                        }
+                        else {
+                          commonService.mensajeJavascript("Se ha modificado correctamente la información personal pero ha habido un problema al actualizar el perfil del becario", "Aviso");
+                        }
+                
+                    }break;
+                case "Error1": 
+                    {
+                      commonService.mensajeJavascript("Ya existe un becario con la cédula digitada", "Error");           
+                    }break;
+                default:
+                    {
+                        if (modoEjecucion != 3)
+                        {
+                            commonService.mensajeJavascript("Se ha producido un error. Favor intentar más tarde", "Error");
+                        }
+                   } break;
             
-
-            if (resultado.Equals("Exito")&&(modoEjecucion==1))
-            {
-
-                //luego de insertar un becario se crea una cuenta para este
-                string r = cearCuenta(this.txtCedula.Text, this.txtNombre.Text.ToLower(), this.txtApellido1.Text.ToLower(), this.txtApellido2.Text, this.txtCorreo.Text);
-                if (r.Equals("Exito"))
-                {
-                   commonService.mensajeJavascript("El becario ha sido ingresado correctamente y su cuenta ha sido creada", "Éxito");
-                   //string mensaje = "Bienvenido al Sistema de Control de Becarios 11 de la ECCI. Favor revisar y completar sus datos personales lo más prnto posible. También le recordamos cambiar su contraseña por su propia seguridad";
-                   //servicioCorreo.enviarCorreo(this.txtCorreo.Text,"Bienvenido",mensaje);
-                }
-                else {
-                   commonService.mensajeJavascript("El becario ha sido ingresado correctamente pero hubo un problema al crear la cuenta", "Aviso");
-                }
-                
-                
             }
-            else {
 
-                if (resultado.Equals("Exito") && (modoEjecucion == 2))
-                {
 
-                    commonService.mensajeJavascript("Se ha modificado correctamente la información solcitada", "Éxito");
-                }
-                else
-                {
-
-                    if (resultado.Equals("Error1"))
-                    {
-                        commonService.mensajeJavascript("Ya existe un becario con la cédula digitada", "Error");
-                    }
-                    else if (!(resultado.Equals("")))
-                    {
-                        commonService.mensajeJavascript("Se ha producido un error. Favor intentar más tarde", "Error");
-                    }
-                }
-            }           
-
-            llenarGridBecarios(1);
-            habilitarBotonesPrincipales(true);
+            if ((modoEjecucion == 3) && (resultadoPerfil.Equals("Exito"))) {
+                commonService.mensajeJavascript("Se ha modificado correctamente el perfil del becario.", "Éxito");         
+            }
+          
+           
+          llenarGridBecarios(1);
+          habilitarBotonesPrincipales(true);
         
 
         correrJavascript("cerrarPopUp();");
@@ -310,7 +336,7 @@ public partial class Becarios : System.Web.UI.Page
 
         correrJavascript("crearTabs();");
         correrJavascript("seleccionarTabs();");
-        habilitarBotonesPrincipales(false);
+        this.btnModificarBecarioPerfil.Enabled = false;
         habilitarEdicionPefil(true, 0);
         modoEjecucion = 3;
     }
@@ -429,13 +455,11 @@ public partial class Becarios : System.Web.UI.Page
          {
              this.btnModificarBecarioDatos.Enabled = true;
              this.btnEliminarBecarioDatos.Enabled = true;
-             this.btnModificarBecarioPerfil.Enabled = true;
           }
           else
           {
               this.btnModificarBecarioDatos.Enabled = false;
               this.btnEliminarBecarioDatos.Enabled = false;
-              this.btnModificarBecarioPerfil.Enabled = false;
           }
      
 
