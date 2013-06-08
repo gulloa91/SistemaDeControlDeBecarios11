@@ -82,16 +82,11 @@ public partial class Becarios : System.Web.UI.Page
                          MultiViewBecario.ActiveViewIndex = 1;
                          correrJavascript("crearTabsP();");
 
-                         //cargarCamposBecarioActual
-                         habilitarCampos(false, 1);
-                         this.btnAceptarP.Enabled = false;
-                         this.btnCancelarP.Enabled = false;
+                         cargarCamposBecarioLogueado();
 
-                         if (!Page.IsPostBack)
-                         {
-                             
-
-                         }
+                         //habilitarCampos(false, 1);
+                         //this.btnAceptarP.Enabled = false;
+                         //this.btnCancelarP.Enabled = false;
 
                      } break;
 
@@ -368,7 +363,7 @@ public partial class Becarios : System.Web.UI.Page
         datosViejos[4] = this.txtCarneP.Text;
         datosViejos[5] = this.txtCedulaP.Text;
         datosViejos[6] = this.txtTelFijoP.Text;
-        datosViejos[7] = this.txtCelP.Text;
+        datosViejos[7] = this.txtCelularP.Text;
         datosViejos[8] = this.txtOtroTelP.Text;
         datosViejos[9] = commonService.procesarStringDeUI(this.txtCorreoP.Text);
         habilitarCampos(true, 1);
@@ -384,7 +379,6 @@ public partial class Becarios : System.Web.UI.Page
 
         correrJavascript("destruyeTabsP();");
         correrJavascript("crearTabsP();");
-        vaciarCampos(1);
         habilitarCampos(false, 1);
         this.btnAceptarP.Enabled = false;
         this.btnCancelarP.Enabled = false;
@@ -393,8 +387,11 @@ public partial class Becarios : System.Web.UI.Page
 
     //Método que se invoca al dar click al botón 'ACEPTAR' en la vista parcial 
     //Toma los datos ingresados y pide modificar la información del becario correspondiente
-    protected void btnAceptarP_Click()
+    protected void btnAceptarP_Click(object sender, EventArgs e)
     {
+
+        correrJavascript("destruyeTabsP();");
+        correrJavascript("crearTabsP();");
 
         TextInfo miTexto = CultureInfo.CurrentCulture.TextInfo;
 
@@ -408,16 +405,24 @@ public partial class Becarios : System.Web.UI.Page
         datos[4] = this.txtCarneP.Text;
         datos[5] = this.txtCedulaP.Text;
         datos[6] = this.txtTelFijoP.Text;
-        datos[7] = this.txtCelP.Text;
+        datos[7] = this.txtCelularP.Text;
         datos[8] = this.txtOtroTelP.Text;
         datos[9] = this.txtCorreoP.Text;
 
         
-        String resultado = controladoraBecarios.ejecutar(2, datos, null); 
+        String resultado = controladoraBecarios.ejecutar(2, datos, datosViejos);
+        if (resultado.Equals("Exito"))
+        {
+           commonService.mensajeJavascript("Se ha modificado correctamente la información", "Éxito");
+        }
+        else {
+           commonService.mensajeJavascript("Se producido un error. Favor intentar más tarde", "Error");  
+        }
 
-        commonService.mensajeJavascript(resultado, "Aviso");
-        this.btnAceptarP.Enabled = false;
-        this.btnCancelarP.Enabled = false;
+        //this.btnAceptarP.Enabled = false;
+        //this.btnCancelarP.Enabled = false;
+
+        //habilitarCampos(false,1);
 
     }
 
@@ -506,8 +511,11 @@ public partial class Becarios : System.Web.UI.Page
             if (habilitar)
             {
 
+                this.txtNombreP.Enabled = true;
+                this.txtApellido1P.Enabled = true;
+                this.txtApellido2P.Enabled = true;
                 this.txtTelFijoP.Enabled = true;
-                this.txtCelP.Enabled = true;
+                this.txtCelularP.Enabled = true;
                 this.txtOtroTelP.Enabled = true;
                 this.txtCorreoP.Enabled = true;
 
@@ -515,8 +523,13 @@ public partial class Becarios : System.Web.UI.Page
             else
             {
 
+                this.txtNombreP.Enabled = false;
+                this.txtApellido1P.Enabled = false;
+                this.txtApellido2P.Enabled = false;
+                this.txtCedulaP.Enabled = false;
+                this.txtCarneP.Enabled = false;
                 this.txtTelFijoP.Enabled = false;
-                this.txtCelP.Enabled = false;
+                this.txtCelularP.Enabled = false;
                 this.txtOtroTelP.Enabled = false;
                 this.txtCorreoP.Enabled = false;
             }
@@ -548,7 +561,7 @@ public partial class Becarios : System.Web.UI.Page
             this.txtCarneP.Text = "";
             this.txtCedulaP.Text = "";
             this.txtTelFijoP.Text = "";
-            this.txtCelP.Text = "";
+            this.txtCelularP.Text = "";
             this.txtOtroTelP.Text = "";
             this.txtCorreoP.Text = "";   
         }
@@ -781,9 +794,11 @@ public partial class Becarios : System.Web.UI.Page
 
     }
    
+
+
     /*
      * -----------------------------------------------------------------------
-     * METODOS PARA PERFIL DE BECARIO
+     * METODOS PARA PERFIL DE BECARIO VISTA COMPLETA
      * -----------------------------------------------------------------------
      */
 
@@ -1213,15 +1228,28 @@ public partial class Becarios : System.Web.UI.Page
 
     /*
      * -----------------------------------------------------------------------
-     * METODOS PARA VISTA PARCIAL DE BECARIO
+     *              METODOS PARA VISTA PARCIAL DE BECARIO
      * -----------------------------------------------------------------------
      */
 
 
-    protected void cargarCamposBecarioActual()
-    { 
-        
-        //este metodo deberia cargar los campos de becario logueado
+    protected void cargarCamposBecarioLogueado()
+    {
+
+        string usuario = Session["Cuenta"].ToString();
+        string cedulaBecario = controladoraBecarios.obtieneCedulaDeUsuario(usuario);
+        Becario becarioActual = controladoraBecarios.obtenerBecarioPorCedula(cedulaBecario);
+
+        txtCedulaP.Text = becarioActual.cedula;
+        txtNombreP.Text = becarioActual.nombre;
+        txtApellido1P.Text = becarioActual.apellido1;
+        txtApellido2P.Text = becarioActual.apellido2;
+        txtCarneP.Text = becarioActual.carne;
+        txtTelFijoP.Text = becarioActual.telefonoFijo;
+        txtCelularP.Text = becarioActual.telefonoCelular;
+        txtOtroTelP.Text = becarioActual.telefonoOtro;
+        txtCorreoP.Text = becarioActual.correo;
+
     }
 
 
@@ -1251,4 +1279,16 @@ public partial class Becarios : System.Web.UI.Page
         }
         return extension;
     }
+
+
+  /*
+ * -----------------------------------------------------------------------
+ * METODOS PARA PERFIL DE BECARIO VISTA PARCIAL
+ * -----------------------------------------------------------------------
+ */
+
+
+
+
+
 }

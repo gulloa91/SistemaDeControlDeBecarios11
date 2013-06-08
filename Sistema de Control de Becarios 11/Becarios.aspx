@@ -604,6 +604,8 @@
 
             <Triggers>
                 <asp:AsyncPostBackTrigger ControlID="btnModificarBecarioDatosP" EventName="Click" />
+                 <asp:AsyncPostBackTrigger ControlID="btnCancelarP" EventName="Click" />
+                 <asp:AsyncPostBackTrigger ControlID="btnAceptarP" EventName="Click" />
              </Triggers>
 
          <ContentTemplate>
@@ -743,7 +745,8 @@
                                     
                                        <asp:RegularExpressionValidator ID="formato_correoP" runat="server" 
                                        ErrorMessage ="Formato de correo inválido"  Display="Dynamic"
-                                       ValidationExpression = "[a-zA-Z0-9-_\.]+@[a-zA-Z]+\.[a-z]+" ControlToValidate="txtCorreoP" ForeColor="#FF3300">
+                                       ValidationExpression = "[a-zA-Z0-9-_\.]+@[a-zA-Z]+\.[a-z]+" ControlToValidate="txtCorreoP" 
+                                           ForeColor="#FF3300">
                                        </asp:RegularExpressionValidator>
                                     </div>   
                                  
@@ -773,13 +776,13 @@
 
                                     <div>       
                                       <span class="lblBecario">Teléfono Móvil</span>
-                                      <asp:TextBox ID="txtCelP" runat="server" CssClass="txtBecario"></asp:TextBox>
+                                      <asp:TextBox ID="txtCelularP" runat="server" CssClass="txtBecario"></asp:TextBox>
                                    </div>
 
                                     <div style="width: 88%; font-size:14px">
                                       <asp:RegularExpressionValidator ID="formato_celP" runat="server" 
                                        ErrorMessage ="Formato de teléfono inválido"  Display="Dynamic"
-                                      ValidationExpression  = "^([0-9]|- ){8,11}$" ControlToValidate="txtCelP" ForeColor="#FF3300">
+                                      ValidationExpression  = "^([0-9]|- ){8,11}$" ControlToValidate="txtCelularP" ForeColor="#FF3300">
                                       </asp:RegularExpressionValidator>
                                    </div>
                                 
@@ -809,11 +812,11 @@
                        <div style="width: 12%; float: right; margin-bottom:5% ; margin-top:4% ">
                          <asp:Button ID="btnCancelarP" runat="server" Text="Cancelar" 
                          CssClass="boton ui-widget ui-state-default ui-corner-all ui-button-text-only" 
-                         OnClick="btnCancelarP_Click"  CausesValidation="false"/>
+                         onClick="btnCancelarP_Click"  CausesValidation="false"/>
                        </div>
 
                        <div style="width: 12%; float: right; margin-bottom:5% ; margin-top:4%;margin-right:10px">    
-                        <asp:Button ID="btnAceptarP" runat="server" Text="Aceptar" 
+                        <asp:Button ID="btnAceptarP" runat="server" Text="Aceptar"  onClick="btnAceptarP_Click"
                          CssClass="boton ui-widget ui-state-default ui-corner-all ui-button-text-only" />
                        </div>
                    </div> 
@@ -830,13 +833,13 @@
            <div style="width: 90%; padding: 0 2%; float: left; background: #D8D8BF; border-radius: 5px; margin-left:3%">
               
              
-             <asp:UpdatePanel runat="server" ID="UpdatePanelLenguaje">
+             <asp:UpdatePanel runat="server" ID="UpdatePanelPerfilParcial">
 
                 <Triggers>
                    
                 </Triggers>
                 <ContentTemplate>
-               
+                  
                 
              </ContentTemplate>
            </asp:UpdatePanel>

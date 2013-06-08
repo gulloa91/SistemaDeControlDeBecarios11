@@ -65,11 +65,11 @@ public class ControladoraBDBecario
             r = e.Number;
             if (r == 2627)
             {
-                returnValue = "Erro1";//"Ya existe un becario con la cedula digitada";
+                returnValue = "Error1";//"Ya existe un becario con la cedula digitada";
             }
             else
             {
-                returnValue ="Erro2";//"Se ha producido un error al modificar el becario";
+                returnValue ="Error2";//"Se ha producido un error al modificar el becario";
             }
         }
         return returnValue;
