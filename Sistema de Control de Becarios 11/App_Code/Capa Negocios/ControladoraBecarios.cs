@@ -12,10 +12,14 @@ public class ControladoraBecarios
 {
     private ControladoraBDBecario controladoraBDBecario;
     private CommonServices cs;
+    private ControladoraCuentas controladoraCuentas;
+
+    
     public ControladoraBecarios()
     {
         cs = new CommonServices(null);
         controladoraBDBecario = new ControladoraBDBecario();
+        controladoraCuentas = new ControladoraCuentas();
     }
 
     public String ejecutar(int accion, Object[] datos, Object[] datosViejos) //1 insertar 2 modificar 3 eliminar
@@ -114,6 +118,11 @@ public class ControladoraBecarios
     }
 
 
+    public String obtieneCedulaDeUsuario(String usuario) {
+
+      return controladoraCuentas.getCedulaByUsuario(usuario);
+  
+    }
 
     public String guardarPerfilBecario(List<String> listaLenguajesProg, List<String> listaIdiomas, List<String> listaIntereses, List<String> listaCualidades, String cedBecario)
     {
