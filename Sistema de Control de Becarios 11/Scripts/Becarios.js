@@ -81,6 +81,10 @@
         }
 
 
+        function seleccionarTabPerfilParcial() {
+            $('#tabsP a[href="#tabsP-2"]').click();
+        }
+
         function abrirPopUpEliminar() {
             $("#PopUpEliminar").dialog("open");
         }
