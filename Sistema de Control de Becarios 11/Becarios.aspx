@@ -615,6 +615,7 @@
 		      <li><a href="#tabsP-2">Perfil</a></li>
 	       </ul>
 
+            <!--Datos Personales-->
             <div id="tabsP-1" style= "width:96% ; min-height:500px" >
 
                     <div style="width: 12%; float: right; margin-bottom:5% ; margin-top:2% ">
@@ -822,9 +823,10 @@
                    </div> 
            </div>
      
+           <!--PERFIL DEL BECARIO : vista parcial-->
            <div id="tabsP-2" style= "width:96% ; min-height:600px" >
 
-             <div style="width: 12%; float: right; margin-bottom:2% ; margin-top:2%; margin-right:3%">
+              <div style="width: 12%; float: right; margin-bottom:2% ; margin-top:2%; margin-right:3%">
                  <asp:Button ID="btnModificarBecarioPerfilP" runat="server" Text="Modificar" 
                   CssClass="boton ui-widget ui-state-default ui-corner-all ui-button-text-only" 
                     onclick="btnModificarBecario_Click" />
@@ -832,15 +834,114 @@
 
            <div style="width: 90%; padding: 0 2%; float: left; background: #D8D8BF; border-radius: 5px; margin-left:3%">
               
-             
+             <p></p>
+             <p>Por favor completar los tablas segun sus conocimientos actuales</p>
+            
              <asp:UpdatePanel runat="server" ID="UpdatePanelPerfilParcial">
 
                 <Triggers>
                    
                 </Triggers>
                 <ContentTemplate>
-                  
                 
+                  <div class="wrap_row_becario">
+
+                     <!--Grid de lenguajes de Programación-->
+                     <div class="wrap_perfil">
+
+                        <span class="lblGrid1" style="margin-left: 15px">a)Lenguajes de programación:</span>
+
+                        <div style= "margin-top: 20px;margin-left: 20px;">
+
+                           <div class="botonMas">
+                            <asp:ImageButton ID="btnAgregaLenguajeP" runat="server"
+                            ImageUrl="~/Images/signoMas.png" OnClick="nuevoAtributoDePerfil_click" CausesValidation="False"  />
+                           </div>
+
+                            <asp:GridView ID="gridLenguajesProgP" runat="server" AutoGenerateColumns="False" ShowFooter="True"
+                              CellPadding ="7" onrowcommand="eliminaDatosPerfil_RowCommand"
+                              ForeColor="#333333" GridLines="Vertical">
+
+                             <AlternatingRowStyle BackColor="White" />
+                             <Columns>
+
+                              <asp:ButtonField CommandName="btnEliminaLenguajeP_Click" CausesValidation="false" ImageUrl="Images/signoMenos.png" ButtonType="Image" />
+
+                                 <asp:TemplateField HeaderText="Lenguaje de Programación" SortExpression="Lenguaje">
+                                   <ItemTemplate>
+                                     <asp:Label ID="lblLengP" runat="server" Text='<%# Bind("LenguajeProgramacion") %>'></asp:Label>
+                                   </ItemTemplate>
+                                   <FooterTemplate>
+                                     <asp:TextBox ID="txtNuevoLenguajeP" runat="server"></asp:TextBox>
+                                   </FooterTemplate>
+
+                                 </asp:TemplateField>
+                                 </Columns>
+                                 <EditRowStyle BackColor="#7C6F57" />
+                                 <FooterStyle BackColor="#1C5E55" Font-Bold="True" ForeColor="White" />
+                                 <HeaderStyle BackColor="#1C5E55" Font-Bold="True" ForeColor="White" />
+                                 <PagerStyle BackColor="#666666" ForeColor="White" HorizontalAlign="Center" />
+                                 <RowStyle BackColor="#E3EAEB" />
+                                 <SelectedRowStyle BackColor="#C5BBAF" Font-Bold="True" ForeColor="#333333" />
+                                 <SortedAscendingCellStyle BackColor="#F8FAFA" />
+                                 <SortedAscendingHeaderStyle BackColor="#246B61" />
+                                 <SortedDescendingCellStyle BackColor="#D4DFE1" />
+                                 <SortedDescendingHeaderStyle BackColor="#15524A" />
+                               </asp:GridView>
+                       </div>
+                     </div>
+ 
+                     <!--Grid Idiomas-->
+                     <div class="wrap_perfil">
+
+                       <span class="lblGrid2" style="margin-left: 15px">b) Idiomas:</span>
+
+                       <div style= "margin-top: 20px;margin-left: 20px;">
+                        
+                        <div class="botonMas">                       
+                          <asp:ImageButton ID="btnAgregaIdiomaParcial" runat="server" ImageUrl="~/Images/signoMas.png" 
+                           OnClick="nuevoAtributoDePerfil_click" CausesValidation="False" />
+                        </div>
+
+                         <asp:GridView ID="gridIdiomasParcial" runat="server" AutoGenerateColumns="False" ShowFooter="True"
+                           CellPadding="7"  onrowcommand="eliminaDatosPerfil_RowCommand"
+                           ForeColor="#333333" GridLines="Vertical">
+
+                          <AlternatingRowStyle BackColor="White" />
+                           <Columns>
+
+                              <asp:ButtonField CommandName="btnEliminaIdiomaP_Click" CausesValidation="false" ImageUrl="Images/signoMenos.png" ButtonType="Image" />
+
+                                <asp:TemplateField HeaderText="Idioma" SortExpression="Lenguaje">
+                                  <ItemTemplate>
+                                     <asp:Label ID="lblIdiomaParcial" runat="server" Text='<%# Bind("Idioma") %>'></asp:Label>
+                                  </ItemTemplate>
+                                  <FooterTemplate>
+                                     <asp:TextBox ID="txtNuevoIdiomaParcial" runat="server"></asp:TextBox>
+                                  </FooterTemplate>
+                                </asp:TemplateField>
+
+                             </Columns>
+                             <EditRowStyle BackColor="#7C6F57" />
+                             <FooterStyle BackColor="#1C5E55" Font-Bold="True" ForeColor="White" />
+                              <HeaderStyle BackColor="#1C5E55" Font-Bold="True" ForeColor="White" />
+                              <PagerStyle BackColor="#666666" ForeColor="White" HorizontalAlign="Center" />
+                              <RowStyle BackColor="#E3EAEB" />
+                              <SelectedRowStyle BackColor="#C5BBAF" Font-Bold="True" ForeColor="#333333" />
+                              <SortedAscendingCellStyle BackColor="#F8FAFA" />
+                              <SortedAscendingHeaderStyle BackColor="#246B61" />
+                              <SortedDescendingCellStyle BackColor="#D4DFE1" />
+                              <SortedDescendingHeaderStyle BackColor="#15524A" />
+                          </asp:GridView>
+                    
+                       </div>
+
+                     </div>   
+                     
+                 </div>
+
+
+
              </ContentTemplate>
            </asp:UpdatePanel>
           </div>

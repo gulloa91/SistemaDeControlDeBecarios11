@@ -18,7 +18,8 @@ public partial class Becarios : System.Web.UI.Page
     static int modoEjecucion=0;
     private List<Becario> listaBecarios;
     private static Object[] datosViejos;
-    private static int rowIndex; 
+    private static int rowIndex;
+    private static string cedulaBecarioActual;
     private static ControladoraBecarios controladoraBecarios = new ControladoraBecarios();
     private static ControladoraCuentas controladoraCuentas = new ControladoraCuentas();
 
@@ -81,12 +82,19 @@ public partial class Becarios : System.Web.UI.Page
                      {
                          MultiViewBecario.ActiveViewIndex = 1;
                          correrJavascript("crearTabsP();");
+                        
+                         if (!Page.IsPostBack)
+                         {
+                             cargarCamposBecarioLogueado();
+                             llenarListasPerfil(cedulaBecarioActual);
+                             llenarGridLenguajesParcial();
+                             llenarGridIdiomasParcial();
+                             this.btnAceptarP.Enabled = false;
+                             this.btnCancelarP.Enabled = false;
+                             
 
-                         cargarCamposBecarioLogueado();
 
-                         //habilitarCampos(false, 1);
-                         //this.btnAceptarP.Enabled = false;
-                         //this.btnCancelarP.Enabled = false;
+                         }
 
                      } break;
 
@@ -419,10 +427,10 @@ public partial class Becarios : System.Web.UI.Page
            commonService.mensajeJavascript("Se producido un error. Favor intentar más tarde", "Error");  
         }
 
-        //this.btnAceptarP.Enabled = false;
-        //this.btnCancelarP.Enabled = false;
+        this.btnAceptarP.Enabled = false;
+        this.btnCancelarP.Enabled = false;
 
-        //habilitarCampos(false,1);
+        habilitarCampos(false,1);
 
     }
 
@@ -731,7 +739,8 @@ public partial class Becarios : System.Web.UI.Page
                     rowIndex += (pageIndex * pageSize);
 
                     llenarGridBecarios(1);
-                    llenarPerfilBecario();
+                    llenarListasPerfil(listaBecarios[rowIndex].cedula);
+                    llenarGridsPerfil();
                     
                     mostrarBotonesPrincipales(true);
                     habilitarBotonesPrincipales(true);
@@ -803,17 +812,23 @@ public partial class Becarios : System.Web.UI.Page
      */
 
 
-    protected void llenarPerfilBecario()
+    protected void llenarListasPerfil(String cedBecario)
     {
 
-        string cedBecario = listaBecarios[rowIndex].cedula;
         listaLocalLenguajes = controladoraBecarios.consultarLenguajes(cedBecario);
-        llenarGridLenguajes();
-        listaLocalIdiomas = controladoraBecarios.consultarIdiomas(cedBecario);
-        llenarGridIdiomas();
-        listaLocalAreasInteres = controladoraBecarios.consultarAreasInteres(cedBecario);
-        llenarGridAreasInteres();
+        listaLocalIdiomas = controladoraBecarios.consultarIdiomas(cedBecario);     
+        listaLocalAreasInteres = controladoraBecarios.consultarAreasInteres(cedBecario);      
         listaLocalCualidades = controladoraBecarios.consultarCualidades(cedBecario);
+        
+    }
+
+
+    protected void llenarGridsPerfil()
+    {
+
+        llenarGridLenguajes();
+        llenarGridIdiomas();
+        llenarGridAreasInteres();
         llenarGridCualidades();
     }
 
@@ -1074,13 +1089,6 @@ public partial class Becarios : System.Web.UI.Page
     }
 
 
-    protected void gridIdiomas_RowCommand(object sender, GridViewCommandEventArgs e)
-    {
-
-        correrJavascript("crearTabs();");
-        correrJavascript("seleccionarTabs();");
-    }
-
 
     /**GRID DE AREAS DE INTERÉS**/
 
@@ -1143,14 +1151,6 @@ public partial class Becarios : System.Web.UI.Page
 
         gridAreasInteres.DataSource = dt;
         gridAreasInteres.DataBind();
-    }
-
-
-    protected void gridAreasInteres_RowCommand(object sender, GridViewCommandEventArgs e)
-    {
-
-        correrJavascript("crearTabs();");
-        correrJavascript("seleccionarTabs();");
     }
 
 
@@ -1218,13 +1218,6 @@ public partial class Becarios : System.Web.UI.Page
     }
 
 
-    protected void gridCualidades_RowCommand(object sender, GridViewCommandEventArgs e)
-    {
-
-        correrJavascript("crearTabs();");
-        correrJavascript("seleccionarTabs();");
-    }
-
 
     /*
      * -----------------------------------------------------------------------
@@ -1237,8 +1230,8 @@ public partial class Becarios : System.Web.UI.Page
     {
 
         string usuario = Session["Cuenta"].ToString();
-        string cedulaBecario = controladoraBecarios.obtieneCedulaDeUsuario(usuario);
-        Becario becarioActual = controladoraBecarios.obtenerBecarioPorCedula(cedulaBecario);
+        cedulaBecarioActual = controladoraBecarios.obtieneCedulaDeUsuario(usuario);
+        Becario becarioActual = controladoraBecarios.obtenerBecarioPorCedula(cedulaBecarioActual);
 
         txtCedulaP.Text = becarioActual.cedula;
         txtNombreP.Text = becarioActual.nombre;
@@ -1249,6 +1242,8 @@ public partial class Becarios : System.Web.UI.Page
         txtCelularP.Text = becarioActual.telefonoCelular;
         txtOtroTelP.Text = becarioActual.telefonoOtro;
         txtCorreoP.Text = becarioActual.correo;
+
+        habilitarCampos(false, 1);
 
     }
 
@@ -1288,7 +1283,117 @@ public partial class Becarios : System.Web.UI.Page
  */
 
 
+   
 
+    protected void nuevoAtributoDePerfil_click(object sender, EventArgs e)
+    {
+
+        correrJavascript("destruyeTabsP();");
+        correrJavascript("crearTabsP();");
+        correrJavascript("seleccionarTabPerfilParcial();");
+
+        TextInfo miTexto = CultureInfo.CurrentCulture.TextInfo;
+        TextBox txtBoxAux = new TextBox();
+
+        ImageButton aux = (ImageButton)sender;
+        Label lb =  new Label();
+        lb.Text = aux.ID;
+
+       
+
+        switch (lb.Text) {
+
+            case "btnAgregaLenguajeP":
+                {
+
+                  txtBoxAux = (TextBox)gridLenguajesProgP.FooterRow.Cells[0].FindControl("txtNuevoLenguajeP");
+                  listaLocalLenguajes.Add(miTexto.ToTitleCase(txtBoxAux.Text.ToLower()));
+                  llenarGridLenguajesParcial();
+
+                }break;
+            case "btnAgregaIdiomaParcial":
+                {
+                   txtBoxAux = (TextBox)gridIdiomasParcial.FooterRow.Cells[0].FindControl("txtNuevoIdiomaParcial");
+                   listaLocalIdiomas.Add(miTexto.ToTitleCase(txtBoxAux.Text.ToLower()));
+                   llenarGridIdiomasParcial();
+                }break;
+            
+        }
+
+    }
+
+
+    /**GRID DE LENGUAJES DE PROGRAMACION**/
+    protected void llenarGridLenguajesParcial()
+    {
+
+
+        DataTable dt = new DataTable();
+        DataColumn column = new DataColumn();
+        column.DataType = System.Type.GetType("System.String");
+        column.ColumnName = "LenguajeProgramacion";
+        dt.Columns.Add(column);
+
+        DataRow newRow;
+        if (listaLocalLenguajes.Count != 0)
+        {
+
+            for (int i = 0; i < listaLocalLenguajes.Count; ++i)
+            {
+                newRow = dt.NewRow();
+                newRow["LenguajeProgramacion"] = listaLocalLenguajes[i];
+                dt.Rows.InsertAt(newRow, i);
+
+            }
+        }
+        else
+        {
+
+            newRow = dt.NewRow();
+            newRow["LenguajeProgramacion"] = "--";
+            dt.Rows.InsertAt(newRow, 0);
+        }
+
+
+        gridLenguajesProgP.DataSource = dt;
+        gridLenguajesProgP.DataBind();
+    }
+
+
+
+    /**GRID DE IDIOMAS**/
+    protected void llenarGridIdiomasParcial()
+    {
+
+        DataTable dt = new DataTable();
+        DataColumn column = new DataColumn();
+        column.DataType = System.Type.GetType("System.String");
+        column.ColumnName = "Idioma";
+        dt.Columns.Add(column);
+
+        DataRow newRow;
+        if (listaLocalIdiomas.Count != 0)
+        {
+
+            for (int i = 0; i < listaLocalIdiomas.Count; ++i)
+            {
+                newRow = dt.NewRow();
+                newRow["Idioma"] = listaLocalIdiomas[i];
+                dt.Rows.InsertAt(newRow, i);
+
+            }
+        }
+        else
+        {
+
+            newRow = dt.NewRow();
+            newRow["Idioma"] = "--";
+            dt.Rows.InsertAt(newRow, 0);
+        }
+
+        gridIdiomasParcial.DataSource = dt;
+        gridIdiomasParcial.DataBind();
+    }
 
 
 }
