@@ -16,24 +16,7 @@ public partial class Asignaciones : System.Web.UI.Page
         List<int> permisos = new List<int>();
         permisos = Session["ListaPermisos"] as List<int>;
 
-        // Cuando perfiles esté actualizado con los permisos más recientes entonces vamos a poder
-        // mover estos campos a sus respectivos Loads, por el momento todos están juntos, aunque 
-        // eso no genera error.
-        MultiViewEncargado.ActiveViewIndex = 0;
-
-        if (!IsPostBack)
-        {
-            llenarGridAsignaciones();
-            ListItem noSelectedItem = new ListItem("No seleccionado", "");
-            this.DropDownBecariosPopUp.Items.Add(noSelectedItem);
-            this.DropDownEncargadosPopUp.Items.Add(noSelectedItem);
-            llenarGridaBecariosAsignadosVistaEncargado();
-            llenarCicloYAnioVistaEncargados();
-            llenarInfoVistaBecario();
-        }
-        // END TEMP
-
-        /*
+        
         if (permisos == null)
         {
             Session["Nombre"] = "";
@@ -42,46 +25,67 @@ public partial class Asignaciones : System.Web.UI.Page
         else
         {
             int permiso = 0; 
-            if (permisos.Contains(3))
+            if (permisos.Contains(8))
             {
-                permiso = 3;
+                permiso = 8;
             }
             else
             {
-                if (permisos.Contains(4))
+                if (permisos.Contains(9))
                 {
-                    permiso = 4;
+                    permiso = 9;
+                }
+                else
+                {
+                    if (permisos.Contains(10))
+                    {
+                        permiso = 10;
+                    }
                 }
             }
 
             switch (permiso)
             {
-                case 3: // Vista Completa
+                case 8: // Vista Completa
                     {
                         MultiViewEncargado.ActiveViewIndex = 0;
                         if (!IsPostBack)
                         {
-                            
+                            llenarGridAsignaciones();
+                            ListItem noSelectedItem = new ListItem("No seleccionado", "");
+                            this.DropDownBecariosPopUp.Items.Add(noSelectedItem);
+                            this.DropDownEncargadosPopUp.Items.Add(noSelectedItem);
                         }
                     } break;
 
-                case 4: // Vista Parcial
+                case 9: // Vista Parcial Encargado
                     {
                         MultiViewEncargado.ActiveViewIndex = 1;
                         if (!IsPostBack)
                         {
-                            
+                            llenarGridaBecariosAsignadosVistaEncargado();
+                            llenarCicloYAnioVistaEncargados();
+                        }
+
+                    } break;
+
+                case 10: // Vista Parcial Becario
+                    {
+                        MultiViewEncargado.ActiveViewIndex = 2;
+                        if (!IsPostBack)
+                        {
+                            llenarInfoVistaBecario();
                         }
 
                     } break;
 
                 default: // Vista sin permiso
                     {
-                        MultiViewEncargado.ActiveViewIndex = 2;
+                        MultiViewEncargado.ActiveViewIndex = 3;
                     } break;
             }
         }
-         */
+         
     }
 
     // Aceptar PopUp

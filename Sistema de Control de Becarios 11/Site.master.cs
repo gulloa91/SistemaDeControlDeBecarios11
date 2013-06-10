@@ -36,20 +36,8 @@ public partial class SiteMaster : System.Web.UI.MasterPage
                 NavigationMenu.Items.Add(InicioMenuItem);
 
                 // PLEASE REMOVE
-                MenuItem AsignacionesMenuItem = new MenuItem("Asignaciones", "m0", "", "~/Asignaciones.aspx");
-                NavigationMenu.Items.Add(AsignacionesMenuItem);
-
-                // PLEASE REMOVE
                 MenuItem ReportesMenuItem = new MenuItem("Reportes", "m0", "", "~/Reportes.aspx");
-                NavigationMenu.Items.Add(ReportesMenuItem);
-
-                // PLEASE REMOVE
-                MenuItem CtrlEncargadoMenuItem = new MenuItem("Control de Horas - Encargado", "m0", "", "~/ControlDeHorasEncargado.aspx");
-                NavigationMenu.Items.Add(CtrlEncargadoMenuItem);
-
-                // PLEASE REMOVE
-                MenuItem CtrlBecarioMenuItem = new MenuItem("Control de Horas - Becario", "m0", "", "~/ControlDeHorasBecario.aspx");
-                NavigationMenu.Items.Add(CtrlBecarioMenuItem);
+                NavigationMenu.Items.Add(ReportesMenuItem);       
 
                 foreach (int permiso in permisos)
                 {
@@ -79,16 +67,46 @@ public partial class SiteMaster : System.Web.UI.MasterPage
                                 NavigationMenu.Items.Add(EncargadosParcialMenuItem);
                             } break;
 
-                        case 10: // CC
+                        case 5: // Cont Becario
+                            {
+                                MenuItem CtrlBecarioMenuItem = new MenuItem("Reportar Horas", "m0", "", "~/ControlDeHorasBecario.aspx");
+                                NavigationMenu.Items.Add(CtrlBecarioMenuItem);
+                            } break;
+
+                        case 6: // Cont Encargado
+                            {
+                                int horasPendientesRevision = 3;
+                                MenuItem CtrlEncargadoMenuItem = new MenuItem("Revisar Horas (" + horasPendientesRevision.ToString() + ")", "m0", "", "~/ControlDeHorasEncargado.aspx");
+                                NavigationMenu.Items.Add(CtrlEncargadoMenuItem);
+                            } break;
+
+                        case 7: // Cont Admin
+                            {
+
+                            } break;
+
+                        case 8: // Asig. Comp
+                            {
+                                MenuItem AsignacionesMenuItem = new MenuItem("Asignaciones", "m0", "", "~/Asignaciones.aspx");
+                                NavigationMenu.Items.Add(AsignacionesMenuItem);
+                            } break;
+
+                        case 9: // Asig. Encargado
+                            {
+                                MenuItem AsignacionesMenuItem = new MenuItem("Becarios Asignados", "m0", "", "~/Asignaciones.aspx");
+                                NavigationMenu.Items.Add(AsignacionesMenuItem);
+                            } break;
+
+                        case 10: // Asig. Becario
+                            {
+                                MenuItem AsignacionesMenuItem = new MenuItem("Encargado Asignado", "m0", "", "~/Asignaciones.aspx");
+                                NavigationMenu.Items.Add(AsignacionesMenuItem);
+                            } break;
+
+                        case 11: // CC
                             {
                                 MenuItem CuentasCompletoMenuItem = new MenuItem("Cuentas", "m5", "", "~/Cuentas.aspx");
                                 NavigationMenu.Items.Add(CuentasCompletoMenuItem);
-                            } break;
-
-                        case 11: // P
-                            {
-                                MenuItem PerfilesMenuItem = new MenuItem("Perfiles", "m7", "", "~/Perfiles.aspx");
-                                NavigationMenu.Items.Add(PerfilesMenuItem);
                             } break;
 
                         case 12: // CP
@@ -96,6 +114,13 @@ public partial class SiteMaster : System.Web.UI.MasterPage
                                 MenuItem CuentasParcialMenuItem = new MenuItem("Información de Cuenta", "m6", "", "~/Cuentas.aspx");
                                 NavigationMenu.Items.Add(CuentasParcialMenuItem);
                             } break;
+
+                        case 13: // P
+                            {
+                                MenuItem PerfilesMenuItem = new MenuItem("Perfiles", "m7", "", "~/Perfiles.aspx");
+                                NavigationMenu.Items.Add(PerfilesMenuItem);
+                            } break;
+                        
                     }
                 }
             }
