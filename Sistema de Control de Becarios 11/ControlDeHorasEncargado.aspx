@@ -31,13 +31,15 @@
                         <span style="width: 100%; font-weight: bold; font-size: 16px; float: left; margin: 0px 0 5px 0; text-align:left;">Becarios con horas pendientes de revisar. Por favor seleccione uno para empezar a revisar sus horas.</span>
 
                         <!-- Grid con Becarios con horas pendientes de revisar -->
-                        <asp:GridView ID="GridBecariosConHorasPendientes" 
-                            CssClass="table_css centerText" runat="server" 
-                            onrowcommand="GridBecariosConHorasPendientes_RowCommand">
-                            <columns>
-                                <asp:ButtonField CommandName="btnSeleccionarTupla_Click" CausesValidation="false" ButtonType="Button" Visible="true" ImageUrl="~/Images/arrow-right.png" ItemStyle-HorizontalAlign="Center" Text="Revisar" ItemStyle-VerticalAlign="Middle"/> 
-                            </columns>
-                        </asp:GridView>
+                        <div style="float: left; width: 100%;">
+                            <asp:GridView ID="GridBecariosConHorasPendientes" 
+                                CssClass="table_css centerText" runat="server" 
+                                onrowcommand="GridBecariosConHorasPendientes_RowCommand">
+                                <columns>
+                                    <asp:ButtonField CommandName="btnSeleccionarTupla_Click" CausesValidation="false" ButtonType="Button" Visible="true" ImageUrl="~/Images/arrow-right.png" ItemStyle-HorizontalAlign="Center" Text="Revisar" ItemStyle-VerticalAlign="Middle"/> 
+                                </columns>
+                            </asp:GridView>
+                        </div>
                     </div>
 
                 </ContentTemplate>

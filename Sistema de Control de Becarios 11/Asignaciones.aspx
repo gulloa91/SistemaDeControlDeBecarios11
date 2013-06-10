@@ -88,15 +88,17 @@
                         </div>
 
                         <!-- Grid -->
-                        <asp:GridView ID="GridAsignaciones"  runat="server" CssClass="table_css" 
-                            GridLines="Both" AllowPaging="True" RowStyle-HorizontalAlign="Center" 
-                            RowStyle-VerticalAlign="Middle" PageSize="15" 
-                            PagerStyle-CssClass="pagerGlobal" 
-                            onrowcommand="GridAsignaciones_RowCommand">
-                               <columns>
-                                   <asp:ButtonField CommandName="btnSeleccionarTupla_Click" CausesValidation="false" ButtonType="Image" Visible="true" ImageUrl="~/Images/arrow-right.png" ItemStyle-HorizontalAlign="Center" ItemStyle-VerticalAlign="Middle"/> 
-                               </columns>
-                        </asp:GridView>
+                        <div style="float: left; width: 100%;">
+                            <asp:GridView ID="GridAsignaciones"  runat="server" CssClass="table_css" 
+                                GridLines="Both" AllowPaging="True" RowStyle-HorizontalAlign="Center" 
+                                RowStyle-VerticalAlign="Middle" PageSize="15" 
+                                PagerStyle-CssClass="pagerGlobal" 
+                                onrowcommand="GridAsignaciones_RowCommand">
+                                   <columns>
+                                       <asp:ButtonField CommandName="btnSeleccionarTupla_Click" CausesValidation="false" ButtonType="Image" Visible="true" ImageUrl="~/Images/arrow-right.png" ItemStyle-HorizontalAlign="Center" ItemStyle-VerticalAlign="Middle"/> 
+                                   </columns>
+                            </asp:GridView>
+                        </div>
                     </div>
                 </ContentTemplate>
             </asp:UpdatePanel>
