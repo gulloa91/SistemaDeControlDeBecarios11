@@ -69,12 +69,12 @@
                             <div style="width: 20%; float: right;">
                                 <asp:Button ID="btnEliminarEncargado" runat="server" Text="Eliminar" 
                                         CssClass="boton ui-widget ui-state-default ui-corner-all ui-button-text-only" 
-                                        onclick="btnEliminarEncargado_Click" />
+                                        onclick="btnEliminarEncargado_Click" CausesValidation="false" />
                             </div>
                             <div style="width: 20%; float: right; margin-right: 5px;">
                                 <asp:Button ID="btnModificarEncargado" runat="server" Text="Modificar" 
                                         CssClass="boton ui-widget ui-state-default ui-corner-all ui-button-text-only" 
-                                        onclick="btnModificarEncargado_Click" />
+                                        onclick="btnModificarEncargado_Click" CausesValidation="false" />
                             </div>
                         </div>
 

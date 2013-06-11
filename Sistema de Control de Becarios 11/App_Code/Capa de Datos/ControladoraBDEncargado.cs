@@ -37,7 +37,6 @@ public class ControladoraBDEncargado
         {
             try
             {
-
                 this.adapter.UpdateQuery(encargado.Cedula, encargado.Nombre, encargado.Apellido1, encargado.Apellido2, encargado.Correo, encargado.TelefonoFijo, encargado.TelefonoCelular, encargado.OtroTelefono, encargado.Puesto, true, encargado.Cedula);
             } 
             catch (SqlException ee)
@@ -58,8 +57,8 @@ public class ControladoraBDEncargado
         try
         {
 
-            this.adapter.Update(encargado.Cedula, encargado.Nombre, encargado.Apellido1, encargado.Apellido2, encargado.Correo, encargado.TelefonoFijo, encargado.TelefonoCelular, encargado.OtroTelefono, encargado.Puesto, encargado.Activo, encargadoOriginal.Cedula, encargadoOriginal.Nombre, encargadoOriginal.Apellido1, encargadoOriginal.Apellido2, encargadoOriginal.Correo, encargadoOriginal.TelefonoFijo, encargadoOriginal.TelefonoCelular, encargadoOriginal.OtroTelefono,encargadoOriginal.Activo);
-        } 
+            this.adapter.UpdateQuery(encargado.Cedula, encargado.Nombre, encargado.Apellido1, encargado.Apellido2, encargado.Correo, encargado.TelefonoFijo, encargado.TelefonoCelular, encargado.OtroTelefono, encargado.Puesto, encargado.Activo, encargadoOriginal.Cedula);
+       } 
         catch (SqlException e)
         {
             mensajeError = "Se ha producido un error al insertar el encargado";
@@ -77,7 +76,7 @@ public class ControladoraBDEncargado
 
         try
         {
-            this.adapter.Update(encargado.Cedula, encargado.Nombre, encargado.Apellido1, encargado.Apellido2, encargado.Correo, encargado.TelefonoFijo, encargado.TelefonoCelular, encargado.OtroTelefono, encargado.Puesto, false, encargado.Cedula, encargado.Nombre, encargado.Apellido1, encargado.Apellido2, encargado.Correo, encargado.TelefonoFijo, encargado.TelefonoCelular, encargado.OtroTelefono, encargado.Activo);
+            this.adapter.UpdateQuery(encargado.Cedula, encargado.Nombre, encargado.Apellido1, encargado.Apellido2, encargado.Correo, encargado.TelefonoFijo, encargado.TelefonoCelular, encargado.OtroTelefono, encargado.Puesto, false, encargado.Cedula);
         }
         catch (SqlException e)
         {
@@ -92,9 +91,9 @@ public class ControladoraBDEncargado
      ** MODIFICA: Nada **/
     public EncargadoDataSet.EncargadoDataTable consultarEncargados()
     {
-        EncargadoDataSet.EncargadoDataTable dt = new EncargadoDataSet.EncargadoDataTable();
+        EncargadoDataSet.EncargadoDataTable dt = this.adapter.GetData();
 
-        this.adapter.Fill(dt);
+        
 
         return dt;
     }

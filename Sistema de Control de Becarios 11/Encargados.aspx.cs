@@ -66,7 +66,7 @@ public partial class Encargados : System.Web.UI.Page
                         MultiViewEncargado.ActiveViewIndex = 0;
                         if (!IsPostBack)
                         {
-                            this.llenarGridEncargados(2);
+                            this.llenarGridEncargados(1);
                         }
                     } break;
 
@@ -151,7 +151,7 @@ public partial class Encargados : System.Web.UI.Page
     //Metodo que se ejecuta el eliminar un encargado desde el popUp
     protected void btnInvisible2_Click(object sender, EventArgs e)
     {
-        Object[] encargado = new Object[9];
+        Object[] encargado = new Object[10];
         encargado[0] = lsEncargados[rowIndex].Cedula;
         encargado[1] = lsEncargados[rowIndex].Nombre;
         encargado[2] = lsEncargados[rowIndex].Apellido1;
@@ -161,6 +161,7 @@ public partial class Encargados : System.Web.UI.Page
         encargado[6] = lsEncargados[rowIndex].TelefonoCelular;
         encargado[7] = lsEncargados[rowIndex].OtroTelefono;
         encargado[8] = lsEncargados[rowIndex].Puesto;
+        encargado[9] = lsEncargados[rowIndex].Activo;
 
         string mensajeResultado = controladora.ejecutar(modo, null, encargado);
         if (mensajeResultado == "Exito")
