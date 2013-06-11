@@ -181,12 +181,15 @@ public partial class Cuentas : System.Web.UI.Page
         controlarCampos(true);
         modo = 1;
         commonService.abrirPopUp("PopUp", "Insertar Nueva Cuenta");
+        commonService.mostrarPrimerBotonDePopUp("PopUp");
         mostrarBotonesPrincipales(false);
     }
 
     // MODIFICAR CLICK
     protected void btnModificarCuenta_Click(object sender, EventArgs e)
     {
+        commonService.mostrarPrimerBotonDePopUp("PopUp");
+
         datosOriginales[0] = this.txtUsuario.Text;
         datosOriginales[1] = this.cntUsuario.Text;
         datosOriginales[2] = this.txtFechaAux.Text;
@@ -381,6 +384,7 @@ public partial class Cuentas : System.Web.UI.Page
                    controlarCampos(false);
                    modo = 0;
                    commonService.abrirPopUp("PopUp", "Consultar cuenta");
+                   commonService.esconderPrimerBotonDePopUp("PopUp");
                 }
             }break;
         }

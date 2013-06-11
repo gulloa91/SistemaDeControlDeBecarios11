@@ -135,6 +135,7 @@ body
 
         border-radius: 5px 5px 0px 0px;
         background-color: #414141;
+        border-bottom: 1px solid #ddd;
     }
 
     #btnCerrarSesion {
