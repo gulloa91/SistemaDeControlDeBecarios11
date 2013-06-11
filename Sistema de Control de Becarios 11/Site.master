@@ -88,6 +88,14 @@
         </asp:MultiView>
     </div>
     <div id="popUpMensaje"></div>
+    <div id="popUpEspera">
+        <div id="espera_wrapper" style="width: 80%; padding: 10%; float: left;">
+            <div style="width: 30%; height: 32px; float: left">
+                <img src="Images/loading.gif" alt="cargando..." height="100%"/>
+            </div>
+            <div id="mensajePopUpEspera" style="width: 70%; float: left; text-align=center"></div>
+        </div>
+    </div>
     </form>
 </body>
 </html>

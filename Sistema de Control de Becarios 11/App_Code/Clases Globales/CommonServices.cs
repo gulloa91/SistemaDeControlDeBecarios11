@@ -55,4 +55,11 @@ public class CommonServices
     {
         this.correrJavascript("$('#" + popUpId + "').next().find('.ui-dialog-buttonset button:first').show();");
     }
+
+    public void mensajeEspera(String mensaje, String titulo)
+    {
+        correrJavascript("$('#mensajePopUpEspera').text('" + mensaje + "');");
+        correrJavascript("$('#popUpEspera').dialog({title: '" + titulo + "' });");
+        correrJavascript("$('#popUpEspera').dialog('open');");
+    }
 }
