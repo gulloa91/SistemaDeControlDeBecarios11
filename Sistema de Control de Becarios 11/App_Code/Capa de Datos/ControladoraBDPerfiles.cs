@@ -136,7 +136,7 @@ public class ControladoraPerfilesDB
 
         try
         {
-            pp.Delete(nombre, permiso);//elimina un permiso de la tabla Perfil_Permiso
+            pp.BorrarPermiso(nombre, permiso);//elimina un permiso de la tabla Perfil_Permiso
         }
         catch (SqlException e)
         {

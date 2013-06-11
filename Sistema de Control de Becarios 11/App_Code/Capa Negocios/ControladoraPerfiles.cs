@@ -69,7 +69,7 @@ public class ControladoraPerfiles
                 {//borrar los que no se necesitan
                     if (datos[i].Equals("0"))
                     {//el permiso i no se necesita
-                        p = new Perfil(datos[2].ToString(), datos[i].ToString(), datos[1].ToString());
+                        p = new Perfil(datos[2].ToString(), (i-2).ToString(), datos[1].ToString());
                         retorno = cp.modificaPerfil(2, p);
                     }
                 }
