@@ -185,7 +185,7 @@ public partial class Encargados : System.Web.UI.Page
     protected void btnInsertarEncargado_Click(object sender, EventArgs e)
     {
         modo = 1;
-        commonService.abrirPopUp("PopUpEncargado", "Insertar Nuevo Encargado");
+        commonService.abrirPopUp("PopUpEncargado", "Insertar Nuevo Encargado");        
         mostrarBotonesPrincipales(false);
         activarInputsPrincipales(true);
         borrarInputsPrincipales();
@@ -194,6 +194,8 @@ public partial class Encargados : System.Web.UI.Page
     // MODIFICAR CLICK
     protected void btnModificarEncargado_Click(object sender, EventArgs e)
     {
+        commonService.mostrarPrimerBotonDePopUp("PopUpEncargado"); 
+
         modo = 3;
 
         Object[] encargadoActual = new Object[9];
@@ -444,6 +446,7 @@ public partial class Encargados : System.Web.UI.Page
                     rowIndex += (pageIndex * pageSize);
 
                     commonService.abrirPopUp("PopUpEncargado", "Consultar Encargado");
+                    commonService.esconderPrimerBotonDePopUp("PopUpEncargado"); 
 
                     mostrarBotonesPrincipales(true);
                     activarInputsPrincipales(false);
@@ -463,7 +466,7 @@ public partial class Encargados : System.Web.UI.Page
     }
 
     protected void GridEncargados_SelectedIndexChanging(object sender, GridViewSelectEventArgs e)
-    {
+    {       
         this.GridEncargados.SelectedIndex = e.NewSelectedIndex;
         this.GridEncargados.DataBind();
     }
