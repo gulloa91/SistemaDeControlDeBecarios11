@@ -31,7 +31,7 @@
                         <div class="buscador">
                             <div style="width: 100%; float:left; font-weight: bold; font-size: 16px; border-bottom: 1px solid #fff; margin-bottom: 5px;">Buscar:</div>
                             <div style="width: 61%; float: left; margin-right: 4%;">
-                                <asp:TextBox ID="txtBuscarCuenta" CssClass="txtEncargado" runat="server"></asp:TextBox>
+                                <asp:TextBox ID="txtBuscarCuenta" onkeydown = "enterBuscar(event, 'MainContent_btnBuscar');" CssClass="txtEncargado" runat="server"></asp:TextBox>
                             </div>
                             <div style="width: 35%; float: right">
                                 <asp:Button ID="btnBuscar" runat="server" Text="Buscar" CssClass="boton ui-widget ui-state-default ui-corner-all ui-button-text-only" OnClick="btnBuscar_Click" CausesValidation="false"/>
