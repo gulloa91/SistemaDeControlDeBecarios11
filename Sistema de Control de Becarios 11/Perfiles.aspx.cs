@@ -88,8 +88,8 @@ public partial class Perfiles : System.Web.UI.Page
             datos[11] = (this.radioAsignacionEncargado.Checked) ? "9" : "0";
             datos[12] = (this.radioAsignacionBecario.Checked) ? "10" : "0";
             datos[13] = (this.radioCuentaCompleta.Checked) ? "11" : "0";
-            datos[15] = (this.radioCuentaParcial.Checked) ? "12" : "0";
-            datos[14] = (this.checkPerfiles.Checked) ? "13" : "0";
+            datos[14] = (this.radioCuentaParcial.Checked) ? "12" : "0";
+            datos[15] = (this.checkPerfiles.Checked) ? "13" : "0";
             //para saber el tipo de perfil revizo los radioButtons            
             
             String resultado = cp.ejecutar(modo, datos);//se realiza la accion y se retorna el resultado
@@ -105,8 +105,8 @@ public partial class Perfiles : System.Web.UI.Page
             habilitarBotones(false);//se desabilitan los botones que pueden estar habilitados
 
             commonService.cerrarPopUp("PopUp");
-            if (modo == 1) commonService.mensajeJavascript("Se ha ingresado el Perfil Satisfactoriamente", "Ingreso de Perfil");
-            else if (modo == 2) commonService.mensajeJavascript("Se ha modificado el perfil Staisfactoriamente", "Modificación de Perfil");
+            if (modo == 1) commonService.mensajeJavascript("Se ha ingresado el Perfil satisfactoriamente", "Ingreso de Perfil");
+            else if (modo == 2) commonService.mensajeJavascript("Se ha modificado el perfil satisfactoriamente", "Modificación de Perfil");
         }
     }
 
@@ -330,8 +330,8 @@ public partial class Perfiles : System.Web.UI.Page
         datos[11] = (this.radioAsignacionEncargado.Checked) ? "9" : "0";
         datos[12] = (this.radioAsignacionBecario.Checked) ? "10" : "0";
         datos[13] = (this.radioCuentaCompleta.Checked) ? "11" : "0";
-        datos[14] = (this.checkPerfiles.Checked) ? "12" : "0";
-        datos[15] = (this.radioCuentaParcial.Checked) ? "13" : "0";
+        datos[15] = (this.radioCuentaParcial.Checked) ? "12" : "0";
+        datos[14] = (this.checkPerfiles.Checked) ? "13" : "0";
         String result = cp.ejecutar(3, datos);//ejectuo la accion de eliminar el perfil
         if (result.Equals(""))
         {//mesaje de exito
@@ -427,11 +427,12 @@ public partial class Perfiles : System.Web.UI.Page
                 this.radioCuentaCompleta.Checked = true;
                 break;
             case 12:
-                this.checkPerfiles.Checked = true;
-                break;
-            case 13:{
                 this.radioSinCuenta.Checked = false;
                 this.radioCuentaParcial.Checked = true;
+                break;
+            case 13:
+                {
+                    this.checkPerfiles.Checked = true;
                 } break;
         }
     }

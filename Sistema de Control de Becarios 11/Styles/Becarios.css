@@ -46,6 +46,14 @@
     margin-top:15px;
 }
 
+
+.botonMasParcial
+{
+    width: 35%;
+    float: right;
+    margin-top:15px;
+}
+
 .txtBecario
 {
     float: left;

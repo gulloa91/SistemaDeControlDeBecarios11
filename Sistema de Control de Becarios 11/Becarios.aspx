@@ -840,7 +840,10 @@
              <asp:UpdatePanel runat="server" ID="UpdatePanelPerfilParcial">
 
                 <Triggers>
-                   
+                   <asp:AsyncPostBackTrigger ControlID="btnAgregaLenguajeParcial" EventName="Click" />
+                   <asp:AsyncPostBackTrigger ControlID="btnAgregaIdiomaParcial" EventName="Click" />
+                   <asp:AsyncPostBackTrigger ControlID="btnAgregaAreaInteresParcial" EventName="Click" />
+                   <asp:AsyncPostBackTrigger ControlID="btnAgregaCualidadParcial" EventName="Click" />
                 </Triggers>
                 <ContentTemplate>
                 
@@ -853,13 +856,13 @@
 
                         <div style= "margin-top: 20px;margin-left: 20px;">
 
-                           <div class="botonMas">
-                            <asp:ImageButton ID="btnAgregaLenguajeP" runat="server"
-                            ImageUrl="~/Images/signoMas.png" OnClick="nuevoAtributoDePerfil_click" CausesValidation="False"  />
+                           <div class="botonMasParcial">
+                            <asp:ImageButton ID="btnAgregaLenguajeParcial" runat="server"
+                            ImageUrl="~/Images/signoMas.png" OnClick="nuevoAtributoDePerfilParcial_click" CausesValidation="False"  />
                            </div>
 
                             <asp:GridView ID="gridLenguajesProgP" runat="server" AutoGenerateColumns="False" ShowFooter="True"
-                              CellPadding ="7" onrowcommand="eliminaDatosPerfil_RowCommand"
+                              CellPadding ="7" onrowcommand="eliminaDatosPerfilParcial_RowCommand"
                               ForeColor="#333333" GridLines="Vertical">
 
                              <AlternatingRowStyle BackColor="White" />
@@ -872,7 +875,7 @@
                                      <asp:Label ID="lblLengP" runat="server" Text='<%# Bind("LenguajeProgramacion") %>'></asp:Label>
                                    </ItemTemplate>
                                    <FooterTemplate>
-                                     <asp:TextBox ID="txtNuevoLenguajeP" runat="server"></asp:TextBox>
+                                     <asp:TextBox ID="txtNuevoLenguajeParcial" runat="server"></asp:TextBox>
                                    </FooterTemplate>
 
                                  </asp:TemplateField>
@@ -898,13 +901,13 @@
 
                        <div style= "margin-top: 20px;margin-left: 20px;">
                         
-                        <div class="botonMas">                       
+                        <div class="botonMasParcial">                       
                           <asp:ImageButton ID="btnAgregaIdiomaParcial" runat="server" ImageUrl="~/Images/signoMas.png" 
-                           OnClick="nuevoAtributoDePerfil_click" CausesValidation="False" />
+                           OnClick="nuevoAtributoDePerfilParcial_click" CausesValidation="False" />
                         </div>
 
                          <asp:GridView ID="gridIdiomasParcial" runat="server" AutoGenerateColumns="False" ShowFooter="True"
-                           CellPadding="7"  onrowcommand="eliminaDatosPerfil_RowCommand"
+                           CellPadding="7"  onrowcommand="eliminaDatosPerfilParcial_RowCommand"
                            ForeColor="#333333" GridLines="Vertical">
 
                           <AlternatingRowStyle BackColor="White" />
@@ -912,7 +915,7 @@
 
                               <asp:ButtonField CommandName="btnEliminaIdiomaP_Click" CausesValidation="false" ImageUrl="Images/signoMenos.png" ButtonType="Image" />
 
-                                <asp:TemplateField HeaderText="Idioma" SortExpression="Lenguaje">
+                                <asp:TemplateField HeaderText="Idioma" SortExpression="Idioma">
                                   <ItemTemplate>
                                      <asp:Label ID="lblIdiomaParcial" runat="server" Text='<%# Bind("Idioma") %>'></asp:Label>
                                   </ItemTemplate>
@@ -939,8 +942,101 @@
                      </div>   
                      
                  </div>
+                 
+                 <div class="wrap_row_becario">
 
+                    <!--Grid Áreas de Interés--> 
+                    <div class="wrap_perfil">
 
+                     <span class="lblGrid1" style="margin-left: 15px">a)Lenguajes de programación:</span>
+
+                       <div style= "margin-top: 20px;margin-left: 20px;">
+                      
+                          <div class="botonMasParcial">
+                            <asp:ImageButton ID="btnAgregaAreaInteresParcial" runat="server"
+                            ImageUrl="~/Images/signoMas.png" OnClick="nuevoAtributoDePerfilParcial_click" CausesValidation="False"  />
+                          </div>
+
+                          <asp:GridView ID="gridAreasInteresP" runat="server" AutoGenerateColumns="False" ShowFooter="True"
+                            CellPadding="7" onrowcommand="eliminaDatosPerfilParcial_RowCommand"
+                            ForeColor="#333333" GridLines="Vertical">
+
+                            <AlternatingRowStyle BackColor="White" />
+                            <Columns>
+
+                              <asp:ButtonField CommandName="btnEliminaInteres_Click" CausesValidation="false" ImageUrl="Images/signoMenos.png" ButtonType="Image" />
+
+                               <asp:TemplateField HeaderText="Área de Interés" SortExpression="Área">
+                                 <ItemTemplate>
+                                   <asp:Label ID="lbArea" runat="server" Text='<%# Bind("AreaInteres") %>'></asp:Label>
+                                 </ItemTemplate>
+                                 <FooterTemplate>
+                                   <asp:TextBox ID="txtNuevaAreaInteresParcial" runat="server"></asp:TextBox>
+                                 </FooterTemplate>
+                               </asp:TemplateField>
+                             </Columns>
+                             <EditRowStyle BackColor="#7C6F57" />
+                             <FooterStyle BackColor="#1C5E55" Font-Bold="True" ForeColor="White" />
+                             <HeaderStyle BackColor="#1C5E55" Font-Bold="True" ForeColor="White" />
+                             <PagerStyle BackColor="#666666" ForeColor="White" HorizontalAlign="Center" />
+                             <RowStyle BackColor="#E3EAEB" />
+                             <SelectedRowStyle BackColor="#C5BBAF" Font-Bold="True" ForeColor="#333333" />
+                             <SortedAscendingCellStyle BackColor="#F8FAFA" />
+                             <SortedAscendingHeaderStyle BackColor="#246B61" />
+                             <SortedDescendingCellStyle BackColor="#D4DFE1" />
+                             <SortedDescendingHeaderStyle BackColor="#15524A" />
+                          </asp:GridView>
+                        
+                       </div>
+
+                    </div>
+
+                    <!--Grid Cualidades--> 
+                    <div class="wrap_perfil">
+
+                      <span class="lblGrid1" style="margin-left: 15px">d)Cualidades Personales:</span>
+
+                      <div style= "margin-top: 20px;margin-left: 20px;">
+
+                         <div class="botonMasParcial">
+                           <asp:ImageButton ID="btnAgregaCualidadParcial" runat="server"
+                            ImageUrl ="~/Images/signoMas.png" OnClick="nuevoAtributoDePerfilParcial_click" CausesValidation="False"  />
+                         </div>
+
+                         <asp:GridView ID="gridCualidadesP" runat="server" AutoGenerateColumns="False" ShowFooter="True"
+                          CellPadding="7" onrowcommand="eliminaDatosPerfilParcial_RowCommand"
+                          ForeColor="#333333" GridLines="Vertical">
+
+                         <AlternatingRowStyle BackColor="White" />
+                         <Columns>
+
+                         <asp:ButtonField CommandName="btnEliminaCualidadParcial_Click" CausesValidation="false" ImageUrl="Images/signoMenos.png" ButtonType="Image" />
+
+                          <asp:TemplateField HeaderText="Cualidades Personales" SortExpression="Lenguaje">
+                            <ItemTemplate>
+                              <asp:Label ID="lbCualidad" runat="server" Text='<%# Bind("Cualidad") %>'></asp:Label>
+                            </ItemTemplate>
+                            <FooterTemplate>
+                              <asp:TextBox ID="txtNuevaCualidadParcial" runat="server"></asp:TextBox>
+                            </FooterTemplate>
+                          </asp:TemplateField>
+                          </Columns>
+                          <EditRowStyle BackColor="#7C6F57" />
+                          <FooterStyle BackColor="#1C5E55" Font-Bold="True" ForeColor="White" />
+                          <HeaderStyle BackColor="#1C5E55" Font-Bold="True" ForeColor="White" />
+                          <PagerStyle BackColor="#666666" ForeColor="White" HorizontalAlign="Center" />
+                          <RowStyle BackColor="#E3EAEB" />
+                          <SelectedRowStyle BackColor="#C5BBAF" Font-Bold="True" ForeColor="#333333" />
+                          <SortedAscendingCellStyle BackColor="#F8FAFA" />
+                          <SortedAscendingHeaderStyle BackColor="#246B61" />
+                          <SortedDescendingCellStyle BackColor="#D4DFE1" />
+                          <SortedDescendingHeaderStyle BackColor="#15524A" />
+                          </asp:GridView>
+                      </div>
+
+                    </div>
+
+                </div>
 
              </ContentTemplate>
            </asp:UpdatePanel>
