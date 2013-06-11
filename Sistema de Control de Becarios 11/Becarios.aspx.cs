@@ -89,6 +89,8 @@ public partial class Becarios : System.Web.UI.Page
                              llenarListasPerfil(cedulaBecarioActual);
                              llenarGridLenguajesParcial();
                              llenarGridIdiomasParcial();
+                             llenarGridAreasInteresParcial();
+                             llenarGridCualidadesParcial();
                              this.btnAceptarP.Enabled = false;
                              this.btnCancelarP.Enabled = false;
                              
@@ -1283,9 +1285,9 @@ public partial class Becarios : System.Web.UI.Page
  */
 
 
-   
 
-    protected void nuevoAtributoDePerfil_click(object sender, EventArgs e)
+
+    protected void nuevoAtributoDePerfilParcial_click(object sender, EventArgs e)
     {
 
         correrJavascript("destruyeTabsP();");
@@ -1303,10 +1305,10 @@ public partial class Becarios : System.Web.UI.Page
 
         switch (lb.Text) {
 
-            case "btnAgregaLenguajeP":
+            case "btnAgregaLenguajeParcial":
                 {
 
-                  txtBoxAux = (TextBox)gridLenguajesProgP.FooterRow.Cells[0].FindControl("txtNuevoLenguajeP");
+                  txtBoxAux = (TextBox)gridLenguajesProgP.FooterRow.Cells[0].FindControl("txtNuevoLenguajeParcial");
                   listaLocalLenguajes.Add(miTexto.ToTitleCase(txtBoxAux.Text.ToLower()));
                   llenarGridLenguajesParcial();
 
@@ -1317,6 +1319,18 @@ public partial class Becarios : System.Web.UI.Page
                    listaLocalIdiomas.Add(miTexto.ToTitleCase(txtBoxAux.Text.ToLower()));
                    llenarGridIdiomasParcial();
                 }break;
+            case "btnAgregaAreaInteresParcial":
+                {
+                    txtBoxAux = (TextBox)gridAreasInteresP.FooterRow.Cells[0].FindControl("txtNuevaAreaInteresParcial");
+                    listaLocalAreasInteres.Add(miTexto.ToTitleCase(txtBoxAux.Text.ToLower()));
+                    llenarGridAreasInteresParcial();
+                } break;
+            case "btnAgregaCualidadParcial":
+                {
+                    txtBoxAux = (TextBox)gridCualidadesP.FooterRow.Cells[0].FindControl("txtNuevaCualidadParcial");
+                    listaLocalCualidades.Add(miTexto.ToTitleCase(txtBoxAux.Text.ToLower()));
+                    llenarGridCualidadesParcial();
+                } break;
             
         }
 
@@ -1393,6 +1407,85 @@ public partial class Becarios : System.Web.UI.Page
 
         gridIdiomasParcial.DataSource = dt;
         gridIdiomasParcial.DataBind();
+    }
+
+
+    protected void llenarGridAreasInteresParcial() { 
+    
+        DataTable dt = new DataTable();
+        DataColumn column = new DataColumn();
+        column.DataType = System.Type.GetType("System.String");
+        column.ColumnName = "AreaInteres";
+        dt.Columns.Add(column);
+        
+        DataRow newRow;
+        if (listaLocalAreasInteres.Count != 0)
+        {
+
+            for (int i = 0; i < listaLocalAreasInteres.Count; ++i)
+            {
+                newRow = dt.NewRow();
+                newRow["AreaInteres"] = listaLocalAreasInteres[i];
+                dt.Rows.InsertAt(newRow, i);
+
+            }
+        }
+        else
+        {
+
+            newRow = dt.NewRow();
+            newRow["AreaInteres"] = "--";
+            dt.Rows.InsertAt(newRow, 0);
+        }
+
+        gridAreasInteresP.DataSource = dt;
+        gridAreasInteresP.DataBind(); 
+    }
+
+
+
+    protected void llenarGridCualidadesParcial(){
+
+
+        DataTable dt = new DataTable();
+        DataColumn column = new DataColumn();
+        column.DataType = System.Type.GetType("System.String");
+        column.ColumnName = "Cualidad";
+        dt.Columns.Add(column);
+        
+        DataRow newRow;
+        if (listaLocalCualidades.Count != 0)
+        {
+
+            for (int i = 0; i < listaLocalCualidades.Count; ++i)
+            {
+                newRow = dt.NewRow();
+                newRow["Cualidad"] = listaLocalCualidades[i];
+                dt.Rows.InsertAt(newRow, i);
+
+            }
+        }
+        else
+        {
+
+            newRow = dt.NewRow();
+            newRow["Cualidad"] = "--";
+            dt.Rows.InsertAt(newRow, 0);
+        }
+
+        gridCualidadesP.DataSource = dt;
+        gridCualidadesP.DataBind();    
+    
+    }
+
+
+    protected void eliminaDatosPerfilParcial_RowCommand(object sender, GridViewCommandEventArgs e)
+    {
+
+        correrJavascript("destruyeTabsP();");
+        correrJavascript("crearTabsP();");
+        correrJavascript("seleccionarTabPerfilParcial();");
+    
     }
 
 
