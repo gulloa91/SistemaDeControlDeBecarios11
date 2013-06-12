@@ -74,3 +74,18 @@ function abrirPopUp(popUpId, titulo) {
 function cerrarPopUp(popUpId) {
     $("#" + popUpId).dialog("close");
 }
+
+/** Mensaje de espera **/
+$(document).ready(function () {
+    $("#popUpEspera").dialog({
+        autoOpen: false,
+        modal: true,
+        width: 350,
+        open: function () {
+            $(".ui-widget-overlay.ui-front").css('z-index', '1099');
+        },
+        close: function () {
+            $(".ui-widget-overlay.ui-front").css('z-index', '150');
+        },
+    }).parent().css('z-index', '1100');
+});
