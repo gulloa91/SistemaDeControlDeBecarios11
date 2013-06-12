@@ -79,21 +79,38 @@ public partial class Reportes : System.Web.UI.Page
                     else
                     {
                         this.lblReporteActivo.Text = "Reporte de encargados con aprobaciones pendientes con más de un mes de atraso";
+                        this.lblCriterio1.Text = "Semestre";
+                        this.lblCriterio2.Text = "Año";
+                        this.lblCriterio3.Text = "Fecha Último Reporte";
+                        commonService.correrJavascript("$('#criterio4').css('display', 'none');");
+                        commonService.correrJavascript("$('#criterio5').css('display', 'none');");
+                        llenarGridReportes(4);
                     }
 
                 } break;
 
             // REPORTE 6
             case "Asignaciones de un Becario":
-
                 {
                     this.lblReporteActivo.Text = "Reporte de Historial de Asignaciones de un Becario";
+                    commonService.correrJavascript("$('#criterio1').css('display', 'none');");
+                    commonService.correrJavascript("$('#criterio2').css('display', 'none');");
+                    commonService.correrJavascript("$('#criterio3').css('display', 'none');");
+                    commonService.correrJavascript("$('#criterio4').css('display', 'none');");
+                    commonService.correrJavascript("$('#criterio5').css('display', 'none');");
+                    llenarGridReportes(5);
                 } break;
 
             // REPORTE 7
             case "Anotaciones de un Encargado":
                 {
                     this.lblReporteActivo.Text = "Reporte de Historial de Anotaciones que hace un Encargado";
+                    commonService.correrJavascript("$('#criterio1').css('display', 'none');");
+                    commonService.correrJavascript("$('#criterio2').css('display', 'none');");
+                    commonService.correrJavascript("$('#criterio3').css('display', 'none');");
+                    commonService.correrJavascript("$('#criterio4').css('display', 'none');");
+                    commonService.correrJavascript("$('#criterio5').css('display', 'none');");
+                    llenarGridReportes(6);
                 } break;
         }
     }
@@ -171,25 +188,68 @@ public partial class Reportes : System.Web.UI.Page
                     newRow["Nombre"] = "-";
                     newRow["Carné"] = "-";
                     newRow["Horas Asignadas"] = "-";
-                    newRow["Estado"] = "-";
+                    newRow["Horas Completadas"] = "-";
                     newRow["Encargado"] = "-";
 
                     tablaReporte.Rows.InsertAt(newRow, 0);
+
+                    this.GridViewReporte.DataSource = tablaReporte;
+                    this.GridViewReporte.DataBind();
+
                 } break;
             // Reporte 5
             case 4:
                 {
                     tablaReporte = crearTabla(4);
+
+                    // Ciclo para llenar tabla
+                    newRow = tablaReporte.NewRow();
+                    newRow["Nombre"] = "-";
+                    newRow["Cédula"] = "-";
+                    newRow["Cnt. Becarios Asignados"] = "-";
+                    newRow["Fecha de Última Actividad"] = "-";
+
+                    tablaReporte.Rows.InsertAt(newRow, 0);
+
+                    this.GridViewReporte.DataSource = tablaReporte;
+                    this.GridViewReporte.DataBind();
+                    
                 } break;
             // Reporte 6
             case 5:
                 {
                     tablaReporte = crearTabla(5);
+
+                    // Ciclo para llenar tabla
+                    newRow = tablaReporte.NewRow();
+                    newRow["Encargado"] = "-";
+                    newRow["Ciclo"] = "-";
+                    newRow["Año"] = "-";
+                    newRow["Estado"] = "-";
+
+                    tablaReporte.Rows.InsertAt(newRow, 0);
+
+                    this.GridViewReporte.DataSource = tablaReporte;
+                    this.GridViewReporte.DataBind();
+
                 } break;
             // Reporte 7
             case 6:
                 {
                     tablaReporte = crearTabla(6);
+                    
+                    // Ciclo para llenar tabla
+                    newRow = tablaReporte.NewRow();
+                    newRow["Becario"] = "-";
+                    newRow["Ciclo"] = "-";
+                    newRow["Año"] = "-";
+                    newRow["Estado"] = "-";
+
+                    tablaReporte.Rows.InsertAt(newRow, 0);
+
+                    this.GridViewReporte.DataSource = tablaReporte;
+                    this.GridViewReporte.DataBind();
+
                 } break;
         }
 
@@ -203,7 +263,7 @@ public partial class Reportes : System.Web.UI.Page
 
         switch (reporte)
         {
-            //Tabla horas finalizadas
+            //Tabla becarios horas finalizadas
             case 0:
                 {
                     column = new DataColumn();
@@ -237,7 +297,8 @@ public partial class Reportes : System.Web.UI.Page
                     dt.Columns.Add(column);
 
                 } break;
-
+           
+            //tabla becarios no asignados
             case 1:
                 {
                     column = new DataColumn();
@@ -267,6 +328,7 @@ public partial class Reportes : System.Web.UI.Page
 
                 } break;
 
+            //tabla becarios por unidad academica
             case 2:
                 {
                     column = new DataColumn();
@@ -295,6 +357,7 @@ public partial class Reportes : System.Web.UI.Page
                     dt.Columns.Add(column);
                 } break;
 
+            //tabla reporte de actividad becarios
             case 3:
                 {
                     column = new DataColumn();
@@ -314,13 +377,88 @@ public partial class Reportes : System.Web.UI.Page
 
                     column = new DataColumn();
                     column.DataType = System.Type.GetType("System.String");
-                    column.ColumnName = "Estado";
+                    column.ColumnName = "Horas Completadas";
                     dt.Columns.Add(column);
 
                     column = new DataColumn();
                     column.DataType = System.Type.GetType("System.String");
                     column.ColumnName = "Encargado";
                     dt.Columns.Add(column);
+                } break;
+
+            //tabla reporte de actividad encargados
+            case 4:
+                {
+                    column = new DataColumn();
+                    column.DataType = System.Type.GetType("System.String");
+                    column.ColumnName = "Nombre";
+                    dt.Columns.Add(column);
+
+                    column = new DataColumn();
+                    column.DataType = System.Type.GetType("System.String");
+                    column.ColumnName = "Cédula";
+                    dt.Columns.Add(column);
+
+                    column = new DataColumn();
+                    column.DataType = System.Type.GetType("System.String");
+                    column.ColumnName = "Cnt. Becarios Asignados";
+                    dt.Columns.Add(column);
+
+                    column = new DataColumn();
+                    column.DataType = System.Type.GetType("System.String");
+                    column.ColumnName = "Fecha de Última Actividad";
+                    dt.Columns.Add(column);
+
+                } break;
+
+            //tabla historial de asignaciones becario
+            case 5:
+                {
+                    column = new DataColumn();
+                    column.DataType = System.Type.GetType("System.String");
+                    column.ColumnName = "Encargado";
+                    dt.Columns.Add(column);
+
+                    column = new DataColumn();
+                    column.DataType = System.Type.GetType("System.String");
+                    column.ColumnName = "Ciclo";
+                    dt.Columns.Add(column);
+
+                    column = new DataColumn();
+                    column.DataType = System.Type.GetType("System.String");
+                    column.ColumnName = "Año";
+                    dt.Columns.Add(column);
+
+                    column = new DataColumn();
+                    column.DataType = System.Type.GetType("System.String");
+                    column.ColumnName = "Estado";
+                    dt.Columns.Add(column);
+
+                } break;
+
+            //tabla historial de asignaciones encargado
+            case 6:
+                {
+                    column = new DataColumn();
+                    column.DataType = System.Type.GetType("System.String");
+                    column.ColumnName = "Becario";
+                    dt.Columns.Add(column);
+
+                    column = new DataColumn();
+                    column.DataType = System.Type.GetType("System.String");
+                    column.ColumnName = "Ciclo";
+                    dt.Columns.Add(column);
+
+                    column = new DataColumn();
+                    column.DataType = System.Type.GetType("System.String");
+                    column.ColumnName = "Año";
+                    dt.Columns.Add(column);
+
+                    column = new DataColumn();
+                    column.DataType = System.Type.GetType("System.String");
+                    column.ColumnName = "Estado";
+                    dt.Columns.Add(column);
+
                 } break;
         }
 
