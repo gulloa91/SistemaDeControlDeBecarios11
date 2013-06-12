@@ -24,6 +24,7 @@
     {
         // Code that runs when a new session is started
         Session["Nombre"] = "";
+        Session["Cedula"] = "";
         Session["Apellido1"] = "";
         Session["ListaPermisos"] = "";
         Session["Cuenta"] = "";
