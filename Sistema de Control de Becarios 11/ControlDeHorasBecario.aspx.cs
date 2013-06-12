@@ -10,12 +10,13 @@ public partial class ControlDeHoras : System.Web.UI.Page
 {
 
     private static CommonServices commonService;
-
+    private DataTable infoActual;
+    private ControladoraControlBecario cb;
 	protected void Page_Load(object sender, EventArgs e)
 	{
         this.MultiViewBecario.ActiveViewIndex = 0;
         commonService = new CommonServices(UpdateInfo);
-
+        cb = new ControladoraControlBecario();
         // TEMP
         llenarGridHorasReportadas();
         // TEMP
@@ -74,62 +75,27 @@ public partial class ControlDeHoras : System.Web.UI.Page
     protected void llenarGridHorasReportadas()
     {
         DataTable tablaHorasReportadas = crearTablaHorasReportadas();
+        infoActual = cb.horasReportadas(Session["Cedula"].ToString());
         DataRow newRow;
-        /*
-        if (lsEncargados.Count > 0)
+        if (infoActual.Rows.Count > 0)
         {
-            for (int i = 0; i < lsEncargados.Count; ++i)
-            {
-                newRow = tablaAsignaciones.NewRow();
-                newRow["Nombre"] = lsEncargados[i].Nombre + " " + lsEncargados[i].Apellido1 + " " + lsEncargados[i].Apellido2;
-                newRow["Cedula"] = lsEncargados[i].Cedula;
-                newRow["Correo"] = lsEncargados[i].Correo;
-                newRow["Celular"] = lsEncargados[i].TelefonoCelular;
-                if (lsEncargados[i].TelefonoFijo != "")
-                {
-                    newRow["Telefono"] = lsEncargados[i].TelefonoFijo;
-                }
-                else
-                {
-                    if (lsEncargados[i].OtroTelefono != "")
-                    {
-                        newRow["Telefono"] = lsEncargados[i].OtroTelefono;
-                    }
-                }
-
-                tablaAsignaciones.Rows.InsertAt(newRow, i);
+            foreach (DataRow r in infoActual.Rows) {
+                newRow = tablaHorasReportadas.NewRow();
+                newRow["Fecha"] = r[3].ToString();
+                newRow["Cantidad Hora"] = r[2].ToString();
+                newRow["Estado"] = r[4].ToString();
+                tablaHorasReportadas.Rows.Add(newRow);
             }
+
+            /*SELECT        CedulaBecario, CedulaEncargado, CantidadHoras, Fecha, Estado, CuerpoComentario, NombreAutor, PrimerApellidoAutor, SegundoApellidoAutor, Timestamp
+FROM            ControlDeHoras
+WHERE        (CedulaBecario = @Cedula)*/
+
         }
-        else
-        {
-         */
-        newRow = tablaHorasReportadas.NewRow();
-        newRow["Fecha"] = "06/06/2013";
-        newRow["Estado"] = "Revisada";
-
-        tablaHorasReportadas.Rows.InsertAt(newRow, 0);
-
-        newRow = tablaHorasReportadas.NewRow();
-        newRow["Fecha"] = "04/06/2013";
-        newRow["Estado"] = "Revisada";
-
-        tablaHorasReportadas.Rows.InsertAt(newRow, 0);
-
-        newRow = tablaHorasReportadas.NewRow();
-        newRow["Fecha"] = "28/05/2013";
-        newRow["Estado"] = "Rechazada";
-
-        tablaHorasReportadas.Rows.InsertAt(newRow, 0);
-
-        newRow = tablaHorasReportadas.NewRow();
-        newRow["Fecha"] = "25/05/2013";
-        newRow["Estado"] = "En Revisión";
-
-        tablaHorasReportadas.Rows.InsertAt(newRow, 0);
-        //}
         this.gridControlHorasBecario.DataSource = tablaHorasReportadas;
         this.gridControlHorasBecario.DataBind();
         headersCorrectosHorasReportadas();
+        
     }
 
     protected DataTable crearTablaHorasReportadas()
@@ -140,6 +106,11 @@ public partial class ControlDeHoras : System.Web.UI.Page
         column = new DataColumn();
         column.DataType = System.Type.GetType("System.String");
         column.ColumnName = "Fecha";
+        dt.Columns.Add(column);
+
+        column = new DataColumn();
+        column.DataType = System.Type.GetType("System.String");
+        column.ColumnName = "Cantidad Horas";
         dt.Columns.Add(column);
 
         column = new DataColumn();
