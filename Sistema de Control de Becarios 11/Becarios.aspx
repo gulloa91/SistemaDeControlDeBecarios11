@@ -333,11 +333,11 @@
                             <div style="width: 20%; float: right;">
                                 <asp:Button ID="btnModificarBecarioPerfil" runat="server" Text="Modificar" 
                                  CssClass="boton ui-widget ui-state-default ui-corner-all ui-button-text-only" 
-                                 onclick="btnModificarPerfilBecario_Click" />
+                                 onclick="btnModificarBecario_Click" />
                             </div>
                         </div>                
 
-                     <div style="width: 96%; padding: 0 2%; float: left; background: #D8D8BF; border-radius: 5px;">
+                     <div style="width: 95%; padding: 0 2%; float: left; background: #D8D8BF; border-radius: 5px;">
 
                        <p></p>
                        <p>Por favor completar los tablas segun sus conocimientos actuales</p>
@@ -598,7 +598,7 @@
    <!-- ****VISTA PARCIAL **** -->
    <asp:View ID="VistaParcial" runat="server">
 
-      <div id="tabsP" style="width: 90%; margin-left:5% ; margin-top:2%" >
+      <div id="tabsP" style="width: 85%; margin-left:5% ; margin-top:2%" >
 
         <asp:UpdatePanel runat="server" ID="UpdatePanelParcial">
 
@@ -616,7 +616,7 @@
 	       </ul>
 
             <!--Datos Personales-->
-            <div id="tabsP-1" style= "width:96% ; min-height:500px" >
+            <div id="tabsP-1" style= "width:96% ; min-height:445px" >
 
                     <div style="width: 12%; float: right; margin-bottom:5% ; margin-top:2% ">
                     <asp:Button ID="btnModificarBecarioDatosP" runat="server" Text="Modificar" 
@@ -824,15 +824,15 @@
            </div>
      
            <!--PERFIL DEL BECARIO : vista parcial-->
-           <div id="tabsP-2" style= "width:96% ; min-height:600px" >
+           <div id="tabsP-2" style= "width:100% ; min-height:580px" >
 
-              <div style="width: 12%; float: right; margin-bottom:2% ; margin-top:2%; margin-right:3%">
+              <div style="width: 15%; float: right; margin-bottom:2% ; margin-top:2%; margin-right:8%">
                  <asp:Button ID="btnModificarBecarioPerfilP" runat="server" Text="Modificar" 
                   CssClass="boton ui-widget ui-state-default ui-corner-all ui-button-text-only" 
                     onclick="btnModificarBecario_Click" />
                </div>
 
-           <div style="width: 90%; padding: 0 2%; float: left; background: #D8D8BF; border-radius: 5px; margin-left:3%">
+           <div style="width: 86%; padding: 0 2%; float: left; background: #D8D8BF; border-radius: 5px; margin-left:3%">
               
              <p></p>
              <p>Por favor completar los tablas segun sus conocimientos actuales</p>
@@ -964,7 +964,7 @@
                             <AlternatingRowStyle BackColor="White" />
                             <Columns>
 
-                              <asp:ButtonField CommandName="btnEliminaInteres_Click" CausesValidation="false" ImageUrl="Images/signoMenos.png" ButtonType="Image" />
+                              <asp:ButtonField CommandName="btnEliminaInteresP_Click" CausesValidation="false" ImageUrl="Images/signoMenos.png" ButtonType="Image" />
 
                                <asp:TemplateField HeaderText="Área de Interés" SortExpression="Área">
                                  <ItemTemplate>
@@ -1010,7 +1010,7 @@
                          <AlternatingRowStyle BackColor="White" />
                          <Columns>
 
-                         <asp:ButtonField CommandName="btnEliminaCualidadParcial_Click" CausesValidation="false" ImageUrl="Images/signoMenos.png" ButtonType="Image" />
+                         <asp:ButtonField CommandName="btnEliminaCualidadP_Click" CausesValidation="false" ImageUrl="Images/signoMenos.png" ButtonType="Image" />
 
                           <asp:TemplateField HeaderText="Cualidades Personales" SortExpression="Lenguaje">
                             <ItemTemplate>
@@ -1041,6 +1041,21 @@
              </ContentTemplate>
            </asp:UpdatePanel>
           </div>
+
+            <div style="width: 90%; padding: 2%; float: left;" >
+                       
+               <div style="width: 12%; float: right; margin-bottom:5% ; margin-top:4% ">
+                 <asp:Button ID="btnCancelarPerfilParcial" runat="server" Text="Cancelar" 
+                  CssClass="boton ui-widget ui-state-default ui-corner-all ui-button-text-only" 
+                  onClick="btnCancelarP_Click"  CausesValidation="false"/>
+               </div>
+
+               <div style="width: 12%; float: right; margin-bottom:5% ; margin-top:4%;margin-right:10px">    
+                 <asp:Button ID="btnAceptarPerfilParcial" runat="server" Text="Aceptar"  onClick="btnAceptarP_Click"
+                 CssClass ="boton ui-widget ui-state-default ui-corner-all ui-button-text-only" />
+               </div>
+            </div>          
+
           </div>
 
         </ContentTemplate>

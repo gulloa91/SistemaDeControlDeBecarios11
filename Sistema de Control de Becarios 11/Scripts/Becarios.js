@@ -61,11 +61,13 @@
             $("#PopUp").dialog("open");
         }
 
-        function crearTabs() {
-            $("#tabs").tabs("destroy");
+        function crearTabsVistaCompleta() {
             $("#tabs").tabs();
         }
 
+        function destruirTabsVistaCompleta() {
+            $("#tabs").tabs("destroy");
+        }
 
         function seleccionarTabs() {
             $('#tabs a[href="#tabs-2"]').click();
