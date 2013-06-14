@@ -134,8 +134,12 @@ public partial class SiteMaster : System.Web.UI.MasterPage
         DateTime fecha = DateTime.Now;
         String aux = fecha.ToString("dd-MM-yyyy H:mm:ss");
         Session["UltimoAcceso"] = aux;
-        fecha = Convert.ToDateTime(aux);
-        
+        try
+        {
+            fecha = Convert.ToDateTime(aux);
+        }catch(Exception ex){
+            fecha = DateTime.Now;
+        }
 
 		if (usuarioValido)
 		{

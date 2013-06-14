@@ -3,4 +3,5 @@
     setPopUp("PopUpCtrlBecario", "btnInvisibleEnviarReporte");
     //setDeletePopUp("PopUpEliminarAsignacion", "btnInvisible2");
     $("#PopUpCtrlBecario").dialog("option", "width", 600);
+    $(".dateText").datepicker();
 });

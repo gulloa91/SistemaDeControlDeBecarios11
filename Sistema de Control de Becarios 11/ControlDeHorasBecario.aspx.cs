@@ -123,7 +123,19 @@ WHERE        (CedulaBecario = @Cedula)*/
 
     protected void headersCorrectosHorasReportadas()
     {
-        this.gridControlHorasBecario.HeaderRow.BackColor = System.Drawing.Color.FromArgb(4562432);
-        this.gridControlHorasBecario.HeaderRow.ForeColor = System.Drawing.Color.White;
+        try
+        {//para la primera ves que se inicie si no hay horas reportadas entonces no crea la tabla
+            this.gridControlHorasBecario.HeaderRow.BackColor = System.Drawing.Color.FromArgb(4562432);
+            this.gridControlHorasBecario.HeaderRow.ForeColor = System.Drawing.Color.White;
+        }catch(Exception ex){
+        
+        }
+    }
+
+    //cuando se ha aceptar para las horas que inserta el usuario
+    protected void btnInvisibleEnviarReporte_Click(object sender, EventArgs e)
+    {
+        String encargado = this.cb.getCedulaEncargado(Session["Cedula"].ToString());//recupera la cedula del encargado para el becario logueado en el sistema
+        
     }
 }

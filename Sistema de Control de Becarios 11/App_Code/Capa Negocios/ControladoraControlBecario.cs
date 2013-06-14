@@ -21,4 +21,9 @@ public class ControladoraControlBecario
     public DataTable horasReportadas(String becario) {
         return cb.horasReportadas(becario);
     }
+
+    //retorna la cedula del encargado para el becario en el periodo actual
+    public String getCedulaEncargado(String becario) {
+        return cb.getCedEncargado(becario);
+    }
 }
