@@ -621,7 +621,7 @@
                     <div style="width: 12%; float: right; margin-bottom:5% ; margin-top:2% ">
                     <asp:Button ID="btnModificarBecarioDatosP" runat="server" Text="Modificar" 
                             CssClass="boton ui-widget ui-state-default ui-corner-all ui-button-text-only" 
-                            onclick="btnModificarDatosBecarioP_Click" CausesValidation="false" />
+                            onclick="btnModificarBecarioParcial_Click" CausesValidation="false" />
                     </div>
 
 
@@ -829,7 +829,7 @@
               <div style="width: 15%; float: right; margin-bottom:2% ; margin-top:2%; margin-right:8%">
                  <asp:Button ID="btnModificarBecarioPerfilP" runat="server" Text="Modificar" 
                   CssClass="boton ui-widget ui-state-default ui-corner-all ui-button-text-only" 
-                    onclick="btnModificarBecario_Click" />
+                    onclick="btnModificarBecarioParcial_Click" />
                </div>
 
            <div style="width: 86%; padding: 0 2%; float: left; background: #D8D8BF; border-radius: 5px; margin-left:3%">
@@ -906,7 +906,7 @@
                            OnClick="nuevoAtributoDePerfilParcial_click" CausesValidation="False" />
                         </div>
 
-                         <asp:GridView ID="gridIdiomasParcial" runat="server" AutoGenerateColumns="False" ShowFooter="True"
+                         <asp:GridView ID="gridIdiomasP" runat="server" AutoGenerateColumns="False" ShowFooter="True"
                            CellPadding="7"  onrowcommand="eliminaDatosPerfilParcial_RowCommand"
                            ForeColor="#333333" GridLines="Vertical">
 
