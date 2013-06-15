@@ -303,7 +303,7 @@ public partial class Becarios : System.Web.UI.Page
 
 
 
-    // Método que se invoca al dar click al botón 'modificar'
+    // Método que se invoca al dar click al botón 'modificar' en la vista completa
     // Toma los datos actuales y luego habilita los campos para editarlos
     protected void btnModificarBecario_Click(object sender, EventArgs e)
     {
@@ -344,103 +344,7 @@ public partial class Becarios : System.Web.UI.Page
 
 
 
-    // Método que se invoca al dar click al botón 'modificar' en la vista parcial 
-    // Toma los datos actuales y luego habilita los campos para editarlos
-    protected void btnModificarBecarioParcial_Click(object sender, EventArgs e)
-    {
 
-        TextInfo miTexto = CultureInfo.CurrentCulture.TextInfo;
-
-        correrJavascript("destruyeTabsP();");
-        correrJavascript("crearTabsP();");
-
-
-        this.btnAceptarP.Visible = true;
-        this.btnCancelarP.Visible = true; 
-
-        guardarDatosActuales();
-
-        modoEjecucion = 2;
-
-        mostrarBotonesPrincipales(false);
-        habilitarCampos(true, 1);
-        habilitarEdicionPefil(true, 1);
-
-        Button aux = (Button)sender;
-        Label lb = new Label();
-        lb.Text = aux.ID;
-
-        if (lb.Text.Equals("btnModificarBecarioPerfilP"))
-        {
-         correrJavascript("seleccionarTabPerfilParcial();");
-        }
-
-    }
-
-
-    //Método que se invoca al dar click al botón 'CANCELAR' en la vista parcial 
-    //Vacia campos
-    protected void btnCancelarP_Click(object sender, EventArgs e) 
-    {
-
-        correrJavascript("destruyeTabsP();");
-        correrJavascript("crearTabsP();");
-        
-        cargarCamposBecario(1);
-        habilitarCampos(false, 1);
-        habilitarEdicionPefil(false, 1);
-
-        mostrarBotonesPrincipales(true);
-
-        this.btnAceptarP.Visible = false;
-        this.btnCancelarP.Visible = false; 
-        
-        
-    }
-
-
-    //Método que se invoca al dar click al botón 'ACEPTAR' en la vista parcial 
-    //Toma los datos ingresados y pide modificar la información del becario correspondiente
-    protected void btnAceptarP_Click(object sender, EventArgs e)
-    {
-
-        correrJavascript("destruyeTabsP();");
-        correrJavascript("crearTabsP();");
-
-        TextInfo miTexto = CultureInfo.CurrentCulture.TextInfo;
-
-        Object[] datos;
-
-        datos = new Object[10];
-        datos[0] = "";
-        datos[1] = miTexto.ToTitleCase(this.txtNombreP.Text.ToLower());
-        datos[2] = miTexto.ToTitleCase(this.txtApellido1P.Text.ToLower());
-        datos[3] = miTexto.ToTitleCase(this.txtApellido2P.Text.ToLower());
-        datos[4] = this.txtCarneP.Text;
-        datos[5] = this.txtCedulaP.Text;
-        datos[6] = this.txtTelFijoP.Text;
-        datos[7] = this.txtCelularP.Text;
-        datos[8] = this.txtOtroTelP.Text;
-        datos[9] = this.txtCorreoP.Text;
-
-        
-        String resultado = controladoraBecarios.ejecutar(2, datos, datosViejos);
-        if (resultado.Equals("Exito"))
-        {
-           commonService.mensajeJavascript("Se ha modificado correctamente la información", "Éxito");
-        }
-        else {
-           commonService.mensajeJavascript("Se producido un error. Favor intentar más tarde", "Error");  
-        }
-
-        this.btnAceptarP.Visible = false;
-        this.btnCancelarP.Visible = false;
-
-        habilitarCampos(false,1);
-        habilitarEdicionPefil(false, 1);
-        mostrarBotonesPrincipales(true);
-
-    }
 
 
     /*
@@ -866,9 +770,10 @@ public partial class Becarios : System.Web.UI.Page
 
     /*
      * -----------------------------------------------------------------------
-     * METODOS PARA PERFIL DE BECARIO VISTA COMPLETA
+     *  PERFIL DE BECARIO VISTA COMPLETA
      * -----------------------------------------------------------------------
      */
+
 
 
     protected void llenarListasPerfil(String cedBecario)
@@ -1319,11 +1224,129 @@ public partial class Becarios : System.Web.UI.Page
 
 
 
-    /*
-     * -----------------------------------------------------------------------
-     *              METODOS PARA VISTA PARCIAL DE BECARIO
-     * -----------------------------------------------------------------------
-     */
+
+
+   /*
+   * -----------------------------------------------------------------------
+   *              METODOS PARA VISTA PARCIAL DE BECARIO
+   * -----------------------------------------------------------------------
+   */
+
+
+
+/*
+* -----------------------------
+*    CLICKS
+* -----------------------------
+*/
+
+
+    // Método que se invoca al dar click al botón 'modificar' en la vista parcial 
+    // Toma los datos actuales y luego habilita los campos para editarlos
+    protected void btnModificarBecarioParcial_Click(object sender, EventArgs e)
+    {
+
+        TextInfo miTexto = CultureInfo.CurrentCulture.TextInfo;
+
+        correrJavascript("destruyeTabsP();");
+        correrJavascript("crearTabsP();");
+
+
+        this.btnAceptarP.Visible = true;
+        this.btnCancelarP.Visible = true;
+
+        guardarDatosActuales();
+
+        modoEjecucion = 2;
+
+        mostrarBotonesPrincipales(false);
+        habilitarCampos(true, 1);
+        habilitarEdicionPefil(true, 1);
+
+        Button aux = (Button)sender;
+        Label lb = new Label();
+        lb.Text = aux.ID;
+
+        if (lb.Text.Equals("btnModificarBecarioPerfilP"))
+        {
+            correrJavascript("seleccionarTabPerfilParcial();");
+        }
+
+    }
+
+
+    //Método que se invoca al dar click al botón 'CANCELAR' en la vista parcial 
+    //Vacia campos
+    protected void btnCancelarP_Click(object sender, EventArgs e)
+    {
+
+        correrJavascript("destruyeTabsP();");
+        correrJavascript("crearTabsP();");
+
+        cargarCamposBecario(1);
+        habilitarCampos(false, 1);
+        habilitarEdicionPefil(false, 1);
+
+        mostrarBotonesPrincipales(true);
+
+        this.btnAceptarP.Visible = false;
+        this.btnCancelarP.Visible = false;
+
+
+    }
+
+
+    //Método que se invoca al dar click al botón 'ACEPTAR' en la vista parcial 
+    //Toma los datos ingresados y pide modificar la información del becario correspondiente
+    protected void btnAceptarP_Click(object sender, EventArgs e)
+    {
+
+        correrJavascript("destruyeTabsP();");
+        correrJavascript("crearTabsP();");
+
+        TextInfo miTexto = CultureInfo.CurrentCulture.TextInfo;
+
+        Object[] datos;
+
+        datos = new Object[10];
+        datos[0] = "";
+        datos[1] = miTexto.ToTitleCase(this.txtNombreP.Text.ToLower());
+        datos[2] = miTexto.ToTitleCase(this.txtApellido1P.Text.ToLower());
+        datos[3] = miTexto.ToTitleCase(this.txtApellido2P.Text.ToLower());
+        datos[4] = this.txtCarneP.Text;
+        datos[5] = this.txtCedulaP.Text;
+        datos[6] = this.txtTelFijoP.Text;
+        datos[7] = this.txtCelularP.Text;
+        datos[8] = this.txtOtroTelP.Text;
+        datos[9] = this.txtCorreoP.Text;
+
+
+        String resultado = controladoraBecarios.ejecutar(2, datos, datosViejos);
+        if (resultado.Equals("Exito"))
+        {
+            commonService.mensajeJavascript("Se ha modificado correctamente la información", "Éxito");
+        }
+        else
+        {
+            commonService.mensajeJavascript("Se producido un error. Favor intentar más tarde", "Error");
+        }
+
+        this.btnAceptarP.Visible = false;
+        this.btnCancelarP.Visible = false;
+
+        habilitarCampos(false, 1);
+        habilitarEdicionPefil(false, 1);
+        mostrarBotonesPrincipales(true);
+
+    }
+
+
+
+/*
+* -----------------------------
+*   VARIOS
+* -----------------------------
+*/
 
 
     protected void consultarDatosBecarioLogueado()
@@ -1372,12 +1395,12 @@ public partial class Becarios : System.Web.UI.Page
     }
 
 
-  /*
- * -----------------------------------------------------------------------
- * METODOS PARA PERFIL DE BECARIO VISTA PARCIAL
- * -----------------------------------------------------------------------
- */
 
+  /*
+   * ---------------------------------
+   *   PERFIL BECARIO - vista parcial
+   * --------------------------------
+   */
 
 
     protected void nuevoAtributoDePerfilParcial_click(object sender, EventArgs e)
