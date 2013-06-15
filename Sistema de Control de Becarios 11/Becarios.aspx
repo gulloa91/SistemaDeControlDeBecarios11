@@ -80,13 +80,17 @@
        <!-- POP UP -->
       <div id="PopUp" style="min-height: 375px;">
         
-
-        <div id="tabs" style="min-height:610px">
+        <div id="tabs" style="width:96%; margin-left:1%">
 
            <asp:UpdatePanel runat="server" ID="UpdatePopUp">
              <Triggers>
+                <asp:AsyncPostBackTrigger ControlID="btnInvisible1" EventName="Click" />
                 <asp:AsyncPostBackTrigger ControlID="btnInvisible2" EventName="Click" />
-                 <asp:AsyncPostBackTrigger ControlID="btnInvisible3" EventName="Click" />
+                <asp:AsyncPostBackTrigger ControlID="btnInvisible3" EventName="Click" />
+                <asp:AsyncPostBackTrigger ControlID="btnAgregaLenguaje" EventName="Click" />
+                <asp:AsyncPostBackTrigger ControlID="btnAgregaIdioma" EventName="Click" />
+                <asp:AsyncPostBackTrigger ControlID="btnAgregaAreaInteres" EventName="Click" />
+                 <asp:AsyncPostBackTrigger ControlID="btnAgregaCualidad" EventName="Click" />
              </Triggers>
            <ContentTemplate>
 
@@ -96,7 +100,7 @@
 	            </ul>
 
                     <!-- DATOS PERSONALES -->
-                	<div id="tabs-1" style= "padding: 0 2%; width: 96%;" >
+                	<div id="tabs-1" style= "padding: 5px 2%; width: 96%; min-height:445px" >
 		                 
                          <div style="width: 96%; padding: 2%; float: left;" >
 
@@ -114,6 +118,11 @@
 
 
                           <div style="width: 96%; padding: 0 2%; float: left; background: #D8D8BF; border-radius: 5px;">
+
+                              <div style="font-family:Segoe UI,Verdana,Helvetica,Sans-Serif;font-size:15px;margin-top: 15px;margin-bottom: 15px">
+                                <asp:Label ID="lblInstTab1" runat="server"
+                                  Text="" Visible="false"></asp:Label>
+                             </div>
 
                              <div class="wrap_row_becario">
 
@@ -326,7 +335,7 @@
 	                </div>
 
                     <!--PERFIL DEL BECARIO-->
-	                <div id="tabs-2" style= "width:96%;">
+	                <div id="tabs-2" style= "width:96%; min-height:560px">
 
                        <div style="width: 96%; padding: 2%; float: left;" >
 
@@ -339,8 +348,10 @@
 
                      <div style="width: 95%; padding: 0 2%; float: left; background: #D8D8BF; border-radius: 5px;">
 
-                       <p></p>
-                       <p>Por favor completar los tablas segun sus conocimientos actuales</p>
+
+                       <div style="font-family:Segoe UI,Verdana,Helvetica,Sans-Serif;font-size:13px;margin-top: 15px;margin-bottom: 15px">
+                           <asp:Label ID="lblInstTab2" runat="server" Text="" Visible="false"> </asp:Label>
+                       </div>
               
                        <asp:UpdatePanel runat="server" ID="UpdatePanel1">
 
@@ -349,6 +360,8 @@
                              <asp:AsyncPostBackTrigger ControlID="btnAgregaIdioma" EventName="Click" />
                              <asp:AsyncPostBackTrigger ControlID="btnAgregaAreaInteres" EventName="Click" />
                              <asp:AsyncPostBackTrigger ControlID="btnAgregaCualidad" EventName="Click" />
+                             <asp:AsyncPostBackTrigger ControlID="btnInvisible3" EventName="Click" />
+                             <asp:AsyncPostBackTrigger ControlID="btnModificarBecarioPerfil" EventName="Click" />
                          </Triggers>
                            
                          <ContentTemplate>
@@ -358,13 +371,13 @@
                               <!--Grid Lenguajes Programación-->
                              <div class="wrap_perfil">
 
-                               <span class="lbl1" style="margin-left: 15px">a)Lenguajes de programación:</span>
+                               <span class="lbl1" style="margin-left: 15px;font-family:Segoe UI,Verdana,Helvetica,Sans-Serif">a) Lenguajes de programación:</span>
 
                                <div style= "margin-top: 20px;margin-left: 20px;">
 
                                 <div class="botonMas">
                                    <asp:ImageButton ID="btnAgregaLenguaje" runat="server"
-                                    ImageUrl="~/Images/signoMas.png" OnClick="btnNuevoLenguaje_click" CausesValidation="False" />
+                                    ImageUrl="~/Images/signoMas.png" OnClick="nuevoAtributoDePerfil_click" CausesValidation="False" />
                                 </div>
 
                                 <asp:GridView ID="gridLenguajesProg" runat="server" AutoGenerateColumns="False" ShowFooter="True"
@@ -397,12 +410,6 @@
                                    <SortedDescendingCellStyle BackColor="#D4DFE1" />
                                    <SortedDescendingHeaderStyle BackColor="#15524A" />
                                 </asp:GridView>
-
-                                <div style="color:red;font-size:12px;width:85%">
-                                  <asp:Label ID="lblInsercionLenguaje" runat="server"
-                                  Text="Debe proveer un nombre, apellido y una cédula antes de completar el perfil" 
-                                 Visible="false"></asp:Label>
-                                </div>
                                                                                               
                                </div>                                       
                             </div>
@@ -410,13 +417,13 @@
                              <!--Grid Idiomas-->
                             <div class="wrap_perfil">
 
-                               <span class="lbl1" style="margin-left: 15px">b) Idiomas:</span>
+                               <span class="lbl1" style="margin-left: 15px;font-family:Segoe UI,Verdana,Helvetica,Sans-Serif">b) Idiomas:</span>
 
                                  <div style= "margin-top: 20px;margin-left: 20px;">
                         
                                     <div class="botonMas">
                                        <asp:ImageButton ID="btnAgregaIdioma" runat="server" ImageUrl="~/Images/signoMas.png" 
-                                       OnClick="btnNuevoIdioma_click" CausesValidation="False" />
+                                       OnClick="nuevoAtributoDePerfil_click" CausesValidation="False" />
                                     </div>
 
                                     <asp:GridView ID="gridIdiomas" runat="server" AutoGenerateColumns="False" ShowFooter="True"
@@ -451,11 +458,6 @@
                                        <SortedDescendingCellStyle BackColor="#D4DFE1" />
                                        <SortedDescendingHeaderStyle BackColor="#15524A" />
                                     </asp:GridView>
-                                    <div style="color:red;font-size:12px;width:85%">
-                                      <asp:Label ID="lblInsercionIdioma" runat="server"
-                                      Text="Debe proveer un nombre, apellido y una cédula antes de completar el perfil" 
-                                      Visible="false"></asp:Label>
-                                    </div>
                     
                                  </div>
 
@@ -469,13 +471,13 @@
                             <!--Grid Áreas de Interés-->                        
                              <div class="wrap_perfil">
 
-                               <span class="lbl1" style="margin-left: 15px">c)Áreas de Interés:</span>
+                               <span class="lbl1" style="margin-left:15px; font-family:Segoe UI,Verdana,Helvetica,Sans-Serif">c) Áreas de Interés:</span>
 
                                <div style= "margin-top: 20px;margin-left: 20px;">
 
                                  <div class="botonMas">
                                    <asp:ImageButton ID="btnAgregaAreaInteres" runat="server" ImageUrl="~/Images/signoMas.png"
-                                   OnClick="btnNuevaAreaInteres_click" CausesValidation="False" />
+                                   OnClick="nuevoAtributoDePerfil_click" CausesValidation="False" />
                                  </div>
 
                                 <asp:GridView ID="gridAreasInteres" runat="server" AutoGenerateColumns="False" ShowFooter="True"
@@ -487,7 +489,7 @@
 
                                      <asp:ButtonField CommandName="btnEliminaInteres_Click" CausesValidation="false" ImageUrl="Images/signoMenos.png" ButtonType="Image" />
 
-                                     <asp:TemplateField HeaderText="Área de Interés" SortExpression="Lenguaje">
+                                     <asp:TemplateField HeaderText="Áreas de Interés" SortExpression="Lenguaje">
                                        <ItemTemplate>
                                          <asp:Label ID="lbArea" runat="server" Text='<%# Bind("AreaInteres") %>'></asp:Label>
                                        </ItemTemplate>
@@ -508,12 +510,6 @@
                                    <SortedDescendingCellStyle BackColor="#D4DFE1" />
                                    <SortedDescendingHeaderStyle BackColor="#15524A" />
                                  </asp:GridView>
-                                   
-                                 <div style="color:red;font-size:12px;width:85%">
-                                   <asp:Label ID="lblInsercionAreaInt" runat="server"
-                                   Text="Debe proveer un nombre, apellido y una cédula antes de completar el perfil"
-                                    Visible="false"></asp:Label>
-                                 </div>  
 
                                </div>
 
@@ -523,13 +519,13 @@
                             <!--Grid Cualidades-->
                              <div class="wrap_perfil">
 
-                               <span class="lbl1" style="margin-left: 15px">d)Cualidades Personales:</span>
+                               <span class="lbl1" style="margin-left: 15px;font-family:Segoe UI,Verdana,Helvetica,Sans-Serif">d) Aptitudes:</span>
 
                                <div style= "margin-top: 20px;margin-left: 20px;">
 
                                  <div class="botonMas">
                                    <asp:ImageButton ID="btnAgregaCualidad" runat="server" ImageUrl="~/Images/signoMas.png"
-                                   OnClick="btnNuevaCualidad_click" CausesValidation="False" />
+                                   OnClick="nuevoAtributoDePerfil_click" CausesValidation="False" />
                                  </div>
 
                                 <asp:GridView ID="gridCualidades" runat="server" AutoGenerateColumns="False" ShowFooter="True"
@@ -541,7 +537,7 @@
 
                                      <asp:ButtonField CommandName="btnEliminaCualidad_Click" CausesValidation="false" ImageUrl="Images/signoMenos.png" ButtonType="Image" />
 
-                                     <asp:TemplateField HeaderText="Cualidades Personales" SortExpression="Lenguaje">
+                                     <asp:TemplateField HeaderText="Aptitudes" SortExpression="Lenguaje">
                                        <ItemTemplate>
                                          <asp:Label ID="lblCualidad" runat="server" Text='<%# Bind("Cualidad") %>'></asp:Label>
                                        </ItemTemplate>
@@ -563,19 +559,20 @@
                                    <SortedDescendingHeaderStyle BackColor="#15524A" />
                                  </asp:GridView>
                                    
-                                 <div style="color:red;font-size:12px;width:85%">
-                                   <asp:Label ID="lblInsercionCualidad" runat="server"
-                                   Text="Debe proveer un nombre, apellido y una cédula antes de completar el perfil"
-                                   Visible="false"></asp:Label>
-                                 </div>  
-
                                </div>
 
-                            </div>
-                               
-
+                            </div>                            
 
                            </div>
+
+                             <div class="wrap_row_becario">
+                                <div style="color:red;font-size:12px;font-size:13px;font-weight:bold;margin-top:10px;margin-left:20px">
+                                  <asp:Label ID="lblAvisoPerfil" runat="server"
+                                  Text="*Debe proveer un nombre, apellido y una cédula antes de completar el perfil"
+                                  Visible="false"></asp:Label>
+                                </div>  
+                           </div>  
+
                         </ContentTemplate>
                        </asp:UpdatePanel>
                     </div>
@@ -626,6 +623,11 @@
 
 
                     <div style="width: 96%; padding: 0 2%; float: left; background: #D8D8BF; border-radius: 5px;">
+
+        
+              <div style="font-family:Segoe UI,Verdana,Helvetica,Sans-Serif;font-size:15px;margin-bottom:20px">
+                <p>Para editar su información personal debe presionar el botón modificar ubicado arriba.</p>
+              </div>                   
 
                              <div class="wrap_row_becario">
 
@@ -833,10 +835,15 @@
                </div>
 
            <div style="width: 86%; padding: 0 2%; float: left; background: #D8D8BF; border-radius: 5px; margin-left:3%">
-              
-             <p></p>
-             <p>Por favor completar los tablas segun sus conocimientos actuales</p>
-            
+   
+                          
+              <div style="font-family:Segoe UI,Verdana,Helvetica,Sans-Serif;font-size:14px">
+                <p>A continuación se le presentan unas tablas que resumen algunos aspectos
+                    de importancia para el proceso de becas. Se le solicita completar los datos de la forma más precisa posible.
+                    Para editar esta información debe presionar el botón modificar ubicado arriba.
+                  </p>
+              </div>    
+                     
              <asp:UpdatePanel runat="server" ID="UpdatePanelPerfilParcial">
 
                 <Triggers>
@@ -852,7 +859,7 @@
                      <!--Grid de lenguajes de Programación-->
                      <div class="wrap_perfil">
 
-                        <span class="lblGrid1" style="margin-left: 15px">a)Lenguajes de programación:</span>
+                        <span class="lblGrid1" style="margin-left: 15px">a) Lenguajes de programación:</span>
 
                         <div style= "margin-top: 20px;margin-left: 20px;">
 
@@ -948,7 +955,7 @@
                     <!--Grid Áreas de Interés--> 
                     <div class="wrap_perfil">
 
-                     <span class="lblGrid1" style="margin-left: 15px">a)Lenguajes de programación:</span>
+                     <span class="lblGrid1" style="margin-left: 15px">c) Áreas de Interés:</span>
 
                        <div style= "margin-top: 20px;margin-left: 20px;">
                       
@@ -994,7 +1001,7 @@
                     <!--Grid Cualidades--> 
                     <div class="wrap_perfil">
 
-                      <span class="lblGrid1" style="margin-left: 15px">d)Cualidades Personales:</span>
+                      <span class="lblGrid1" style="margin-left: 15px">d) Aptitudes:</span>
 
                       <div style= "margin-top: 20px;margin-left: 20px;">
 
@@ -1012,7 +1019,7 @@
 
                          <asp:ButtonField CommandName="btnEliminaCualidadP_Click" CausesValidation="false" ImageUrl="Images/signoMenos.png" ButtonType="Image" />
 
-                          <asp:TemplateField HeaderText="Cualidades Personales" SortExpression="Lenguaje">
+                          <asp:TemplateField HeaderText="Aptitudes" SortExpression="Lenguaje">
                             <ItemTemplate>
                               <asp:Label ID="lbCualidad" runat="server" Text='<%# Bind("Cualidad") %>'></asp:Label>
                             </ItemTemplate>

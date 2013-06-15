@@ -16,13 +16,14 @@ public partial class Becarios : System.Web.UI.Page
 
     int permiso = 0;
     static int modoEjecucion=0;
-    private static List<Becario> listaBecarios;
+
     private static Object[] datosViejos;
     private static int rowIndex;
     private static string cedulaBecarioActual;
     private static ControladoraBecarios controladoraBecarios = new ControladoraBecarios();
     private static ControladoraCuentas controladoraCuentas = new ControladoraCuentas();
 
+    private static List<Becario> listaBecarios = new List<Becario>();
     private static List<String> listaLocalLenguajes = new List<String>();
     private static List<String> listaLocalIdiomas = new List<String>();
     private static List<String> listaLocalAreasInteres = new List<String>();
@@ -72,12 +73,9 @@ public partial class Becarios : System.Web.UI.Page
                          llenarGridBecarios(1);
                          if (!Page.IsPostBack)
                          {
-                             llenarGridLenguajes();
-                             llenarGridIdiomas();
-                             llenarGridAreasInteres();
-                             llenarGridCualidades();
+                            
+                           llenarGridsPerfil();
                          }
-
                      } break;
 
                  case 2: // Vista Parcial
@@ -88,16 +86,13 @@ public partial class Becarios : System.Web.UI.Page
 
                          if (!Page.IsPostBack)
                          {
-                             listaBecarios = new List<Becario>();
                              consultarDatosBecarioLogueado();
+
                              llenarListasPerfil(cedulaBecarioActual);
-                             llenarGridLenguajesParcial();
-                             llenarGridIdiomasParcial();
-                             llenarGridAreasInteresParcial();
-                             llenarGridCualidadesParcial();
+                             llenarGridsPerfil_vistaParcial();
+                             
                              habilitarEdicionPefil(false,1);
-                             this.btnAceptarP.Visible = false;
-                             this.btnCancelarP.Visible = false;                     
+                             mostrarBotonesSecundariosP(false);
 
                          }
 
@@ -153,6 +148,8 @@ public partial class Becarios : System.Web.UI.Page
 
             string resultado = "";
             string resultadoPerfil = "";
+            string resultadoCreacionCuenta = "";
+
             switch (modoEjecucion)
             {
 
@@ -161,6 +158,8 @@ public partial class Becarios : System.Web.UI.Page
 
                         resultado = controladoraBecarios.ejecutar(modoEjecucion, datos, null);
                         resultadoPerfil = controladoraBecarios.guardarPerfilBecario(listaLocalLenguajes, listaLocalIdiomas, listaLocalAreasInteres, listaLocalCualidades, this.txtCedula.Text);
+                        resultadoCreacionCuenta = cearCuenta(this.txtCedula.Text, this.txtNombre.Text.ToLower(), this.txtApellido1.Text.ToLower(), this.txtApellido2.Text, this.txtCorreo.Text);
+
                     
                     } break;
                 case 2: //Modificar Datos Personales y Perfil
@@ -169,7 +168,7 @@ public partial class Becarios : System.Web.UI.Page
                         string mensaje = controladoraBecarios.eliminarPerfilBecario(this.txtCedula.Text);
                         if (mensaje.Equals("Exito"))
                         {
-                            resultadoPerfil = controladoraBecarios.guardarPerfilBecario(listaLocalLenguajes, listaLocalIdiomas, listaLocalAreasInteres, listaLocalCualidades, this.txtCedula.Text);
+                          resultadoPerfil = controladoraBecarios.guardarPerfilBecario(listaLocalLenguajes, listaLocalIdiomas, listaLocalAreasInteres, listaLocalCualidades, this.txtCedula.Text);
                         }
                     } break;
             }
@@ -181,10 +180,9 @@ public partial class Becarios : System.Web.UI.Page
                 case "Exito": 
                     {
 
-                        if (modoEjecucion == 1)
+                        if (modoEjecucion == 1) // un insertar
                         {
 
-                          string resultadoCreacionCuenta = cearCuenta(this.txtCedula.Text, this.txtNombre.Text.ToLower(), this.txtApellido1.Text.ToLower(), this.txtApellido2.Text, this.txtCorreo.Text);
                           if ((resultadoCreacionCuenta.Equals("Exito")) && ((resultadoPerfil.Equals("Exito")) || (resultadoPerfil.Equals("-1"))))
                           {                          
                               commonService.mensajeJavascript("El becario ha sido ingresado correctamente y su cuenta ha sido creada","Éxito");
@@ -199,7 +197,7 @@ public partial class Becarios : System.Web.UI.Page
                           }
                      
                         }
-                        else if (((resultadoPerfil.Equals("Exito")) || (resultadoPerfil.Equals("-1"))))
+                        else if (((resultadoPerfil.Equals("Exito")) || (resultadoPerfil.Equals("-1")))) // un modificar
                         {
                             commonService.mensajeJavascript("Se ha modificado correctamente la información solcitada", "Éxito");
                         }
@@ -211,22 +209,9 @@ public partial class Becarios : System.Web.UI.Page
                 case "Error1": 
                     {
                       commonService.mensajeJavascript("Ya existe un becario con la cédula digitada", "Error");           
-                    }break;
-                default:
-                    {
-                        if (modoEjecucion != 3)
-                        {
-                            commonService.mensajeJavascript("Se ha producido un error. Favor intentar más tarde", "Error");
-                        }
-                   } break;
-            
+                    }break;     
             }
 
-
-            if ((modoEjecucion == 3) && (resultadoPerfil.Equals("Exito"))) {
-                commonService.mensajeJavascript("Se ha modificado correctamente el perfil del becario.", "Éxito");         
-            }
-          
            
           llenarGridBecarios(1);
           habilitarBotonesPrincipales(true);
@@ -249,7 +234,15 @@ public partial class Becarios : System.Web.UI.Page
         this.gridBecarios.SelectedIndex = -1;
 
         correrJavascript("cerrarPopUp();");
-        commonService.mensajeJavascript(resultado, "Aviso");
+
+        if (resultado.Equals("Exito"))
+        {
+            commonService.mensajeJavascript("Se ha eliminado correctamente al becario", "Éxito");
+        }
+        else {
+           commonService.mensajeJavascript("No se ha podido al eliminar el becario", "Error");       
+        }
+       
         llenarGridBecarios(1);
 
     }
@@ -260,23 +253,8 @@ public partial class Becarios : System.Web.UI.Page
     {
 
         habilitarBotonesPrincipales(true);
+        cancelarEdicionPerfil();
 
-        listaLocalLenguajes.Clear();
-        llenarGridLenguajes();
-        lblInsercionLenguaje.Visible = false;
-
-        listaLocalIdiomas.Clear();
-        llenarGridIdiomas();
-        lblInsercionIdioma.Visible = false;
-
-        listaLocalAreasInteres.Clear();
-        llenarGridAreasInteres();
-        lblInsercionAreaInt.Visible = false;
-
-        listaLocalCualidades.Clear();
-        llenarGridCualidades();
-        lblInsercionCualidad.Visible = false;
-        
     }
 
 
@@ -285,10 +263,19 @@ public partial class Becarios : System.Web.UI.Page
     // Abre el popUp que permite ingresar el nuevo becario , limpia y habilita los campos
     protected void btnInsertarEncargado_Click(object sender, EventArgs e)
     {
+
+        lblInstTab1.Text = "Favor completar la información solicitada y presionar el botón aceptar para completar la operación.";
+        lblInstTab1.Visible=true;
+
+        lblInstTab2.Text = "A continuación se le presentan unas tablas que resumen algunos aspectos de importancia para el proceso de becas. Se le solicita completar los datos de la forma más precisa posible.";
+        lblInstTab2.Visible = true;
+
+
         correrJavascript("abrirPopUp();");
         mostrarBotonesPrincipales(false);
         vaciarCampos(0);
         habilitarCampos(true,0);
+        habilitarEdicionPefil(true, 0);
         modoEjecucion = 1;
     }
 
@@ -308,7 +295,7 @@ public partial class Becarios : System.Web.UI.Page
     protected void btnModificarBecario_Click(object sender, EventArgs e)
     {
 
-        
+      
         correrJavascript("destruirTabsVistaCompleta();");
         correrJavascript("crearTabsVistaCompleta();");
 
@@ -629,6 +616,7 @@ public partial class Becarios : System.Web.UI.Page
 
 
     //Carga los campos de texto con los datos de determinado becario
+   // Modo =  0 : campos de la vista completa , en cualquier otro caso campos de la vista parcial 
     protected void cargarCamposBecario(int modo) {
 
 
@@ -710,6 +698,13 @@ public partial class Becarios : System.Web.UI.Page
                     habilitarBotonesPrincipales(true);                   
                     habilitarCampos(false, 0);
                     habilitarEdicionPefil(false, 0);
+
+                    lblInstTab1.Text = "Para editar la información debe presionar el botón modificar y para completar la operación presionar aceptar.";
+                    lblInstTab1.Visible = true;
+
+                    lblInstTab2.Text = "A continuación se le presentan unas tablas que resumen algunos aspectos de importancia para el proceso de becas. Se le solicita completar los datos de la forma más precisa posible. Para editar esta información debe presionar el botón modificar ubicado arriba.";
+                    lblInstTab2.Visible = true;
+
                     correrJavascript("abrirPopUp();");
                     modoEjecucion = -1;
 
@@ -769,13 +764,25 @@ public partial class Becarios : System.Web.UI.Page
 
 
     /*
-     * -----------------------------------------------------------------------
+     * -------------------------------------------
      *  PERFIL DE BECARIO VISTA COMPLETA
-     * -----------------------------------------------------------------------
+     * -------------------------------------------
      */
 
 
+    //limpia las las lista locales para evitar conflictos y quita avisos
+    protected void cancelarEdicionPerfil()
+    {
 
+        listaLocalLenguajes.Clear();
+        listaLocalIdiomas.Clear();
+        listaLocalAreasInteres.Clear();
+        listaLocalCualidades.Clear();
+        lblAvisoPerfil.Visible = false;
+    }
+
+
+    //llena las listas locales donde se guarda la información del perfil del becario
     protected void llenarListasPerfil(String cedBecario)
     {
 
@@ -787,6 +794,7 @@ public partial class Becarios : System.Web.UI.Page
     }
 
 
+    //llena los grid del perfil del becario
     protected void llenarGridsPerfil()
     {
 
@@ -797,6 +805,7 @@ public partial class Becarios : System.Web.UI.Page
     }
 
 
+    //verifica si ya se insertaron los datos personales necesarios para poder ingresar información del perfil
     protected bool datosPersonalesVacios(){ 
     
        bool retorno = false;
@@ -811,6 +820,7 @@ public partial class Becarios : System.Web.UI.Page
     }
 
 
+    //habilita los campos de texto del los grids y los botones de agregar para editar el perfil
     protected void habilitarEdicionPefil(Boolean habilitar, int p)
     {
 
@@ -903,8 +913,6 @@ public partial class Becarios : System.Web.UI.Page
          if (modoEjecucion == 2)
          {
 
-            modoEjecucion = 2;
-
             int indiceFila;
             switch (e.CommandName)
             {
@@ -940,36 +948,78 @@ public partial class Becarios : System.Web.UI.Page
         }
     }
 
-    /**GRID DE LENGUAJES DE PROGRAMACION**/
 
-    protected void btnNuevoLenguaje_click(object sender, EventArgs e)
+    //controla la inserción de nuevos atributos a los grids del perfil
+    protected void nuevoAtributoDePerfil_click(object sender, EventArgs e)
     {
 
         correrJavascript("destruirTabsVistaCompleta();");
         correrJavascript("crearTabsVistaCompleta();");
         correrJavascript("seleccionarTabs();");
-        TextBox txtBoxAux = (TextBox)gridLenguajesProg.FooterRow.Cells[0].FindControl("txtNuevoLenguaje");
 
+        TextInfo miTexto = CultureInfo.CurrentCulture.TextInfo;
+        TextBox txtBoxAux = new TextBox();
 
-        if (datosPersonalesVacios()==false)
+        ImageButton aux = (ImageButton)sender;
+        Label lb = new Label();
+        lb.Text = aux.ID;
+
+        if (datosPersonalesVacios() == false)
         {
+            lblAvisoPerfil.Visible = false;
+            switch (lb.Text)
+            {
 
-            lblInsercionLenguaje.Visible = false;
-            TextInfo miTexto = CultureInfo.CurrentCulture.TextInfo;
-            listaLocalLenguajes.Add(miTexto.ToTitleCase(txtBoxAux.Text.ToLower()));
+                case "btnAgregaLenguaje":
+                    {
+                         
+                        txtBoxAux = (TextBox)gridLenguajesProg.FooterRow.Cells[0].FindControl("txtNuevoLenguaje");
+                        if (!(txtBoxAux.Text.Equals("")))
+                        {
+                            listaLocalLenguajes.Add(miTexto.ToTitleCase(txtBoxAux.Text.ToLower()));
+                            llenarGridLenguajes();
+                        }
 
+                    } break;
+                case "btnAgregaIdioma":
+                    {
+                        txtBoxAux = (TextBox)gridIdiomas.FooterRow.Cells[0].FindControl("txtNuevoIdioma");
+                        if (!(txtBoxAux.Text.Equals("")))
+                        {
+                            listaLocalIdiomas.Add(miTexto.ToTitleCase(txtBoxAux.Text.ToLower()));
+                            llenarGridIdiomas();
+                        }
+                    } break;
+                case "btnAgregaAreaInteres":
+                    {
+                        txtBoxAux = (TextBox)gridAreasInteres.FooterRow.Cells[0].FindControl("txtNuevaAreaInteres");
+                        if (!(txtBoxAux.Text.Equals("")))
+                        {
+                            listaLocalAreasInteres.Add(miTexto.ToTitleCase(txtBoxAux.Text.ToLower()));
+                            llenarGridAreasInteres();
+                        }
+                    } break;
+                case "btnAgregaCualidad":
+                    {
+                        txtBoxAux = (TextBox)gridCualidades.FooterRow.Cells[0].FindControl("txtNuevaCualidad");
+                        if (!(txtBoxAux.Text.Equals("")))
+                        {
+                            listaLocalCualidades.Add(miTexto.ToTitleCase(txtBoxAux.Text.ToLower()));
+                            llenarGridCualidades();
+                        }
+                    } break;
+
+            }
         }
-        else
-        {
-            lblInsercionLenguaje.Visible = true;
+        else {
+            lblAvisoPerfil.Visible = true; 
         }
-
-        llenarGridLenguajes();
 
     }
 
 
-    
+    /**GRID DE LENGUAJES DE PROGRAMACION**/
+  
     protected void llenarGridLenguajes()
     {
 
@@ -1021,37 +1071,10 @@ public partial class Becarios : System.Web.UI.Page
     }*/
 
 
+
     /**GRID DE IDIOMAS**/
 
-    protected void btnNuevoIdioma_click(object sender, EventArgs e)
-    {
 
-        correrJavascript("destruirTabsVistaCompleta();");
-        correrJavascript("crearTabsVistaCompleta();");
-        correrJavascript("seleccionarTabs();");
-        TextBox txtBoxAux = (TextBox)gridIdiomas.FooterRow.Cells[0].FindControl("txtNuevoIdioma");
-
-
-        if (datosPersonalesVacios() == false)
-        {
-
-            lblInsercionIdioma.Visible = false;
-            TextInfo miTexto = CultureInfo.CurrentCulture.TextInfo;
-            string texto = commonService.procesarStringDeUI(miTexto.ToTitleCase(txtBoxAux.Text.ToLower()));
-            listaLocalIdiomas.Add(texto);
-
-        }
-        else
-        {
-            lblInsercionIdioma.Visible = true;
-        }
-
-        llenarGridIdiomas();
-
-    }
-
-
-    //llena con la listatemporal
     protected void llenarGridIdiomas()
     {
 
@@ -1091,35 +1114,7 @@ public partial class Becarios : System.Web.UI.Page
 
     /**GRID DE AREAS DE INTERÉS**/
 
-    protected void btnNuevaAreaInteres_click(object sender, EventArgs e)
-    {
 
-        correrJavascript("destruirTabsVistaCompleta();");
-        correrJavascript("crearTabsVistaCompleta();");
-        correrJavascript("seleccionarTabs();");
-        TextBox txtBoxAux = (TextBox)gridAreasInteres.FooterRow.Cells[0].FindControl("txtNuevaAreaInteres");
-
-
-        if (datosPersonalesVacios() == false)
-        {
-
-            lblInsercionAreaInt.Visible = false;
-            TextInfo miTexto = CultureInfo.CurrentCulture.TextInfo;
-            string texto = commonService.procesarStringDeUI(miTexto.ToTitleCase(txtBoxAux.Text.ToLower()));
-            listaLocalAreasInteres.Add(texto);
-
-        }
-        else
-        {
-            lblInsercionAreaInt.Visible = true;
-        }
-
-        llenarGridAreasInteres();
-
-    }
-
-
-    //llena con la listatemporal
     protected void llenarGridAreasInteres()
     {
 
@@ -1158,35 +1153,6 @@ public partial class Becarios : System.Web.UI.Page
 
     /**GRID DE CUALIDADES PERSONALES**/
 
-    protected void btnNuevaCualidad_click(object sender, EventArgs e)
-    {
-
-        correrJavascript("destruirTabsVistaCompleta();");
-        correrJavascript("crearTabsVistaCompleta();");
-        correrJavascript("seleccionarTabs();");
-        TextBox txtBoxAux = (TextBox)gridCualidades.FooterRow.Cells[0].FindControl("txtNuevaCualidad");
-
-
-        if (datosPersonalesVacios() == false)
-        {
-
-            lblInsercionAreaInt.Visible = false;
-            TextInfo miTexto = CultureInfo.CurrentCulture.TextInfo;
-            string texto = commonService.procesarStringDeUI(miTexto.ToTitleCase(txtBoxAux.Text.ToLower()));
-            listaLocalCualidades.Add(texto);
-
-        }
-        else
-        {
-            lblInsercionCualidad.Visible = true;
-        }
-
-        llenarGridCualidades();
-
-    }
-
-
-    //llena con la listatemporal
     protected void llenarGridCualidades()
     {
 
@@ -1225,6 +1191,35 @@ public partial class Becarios : System.Web.UI.Page
 
 
 
+    protected void AsyncFileUpload1_UploadedComplete(object sender, AjaxControlToolkit.AsyncFileUploadEventArgs e)
+    {
+        System.Threading.Thread.Sleep(5000);
+        if (AsyncFileUpload1.HasFile)
+        {
+            string extension = getFileExtension(e.FileName);
+            //string strPath = MapPath("~/Images/Becarios/") + Session["Cuenta"] + "." +extension;//Path.GetFileName(e.FileName);
+            string strPath = MapPath("~/Images/Becarios/") + Path.GetFileName(e.FileName);
+            Session["ImgUsuario"] = strPath;
+            AsyncFileUpload1.SaveAs(strPath);
+        }
+    }
+
+    protected string getFileExtension(String fileName)
+    {
+        String extension = "";
+        for (int i = (fileName.Length - 1); i > 0; i--)
+        {
+            if (fileName[i] == '.')
+            {
+                break;
+            }
+            extension.Insert(extension.Length, fileName[i].ToString());
+        }
+        return extension;
+    }
+
+
+
 
    /*
    * -----------------------------------------------------------------------
@@ -1252,8 +1247,7 @@ public partial class Becarios : System.Web.UI.Page
         correrJavascript("crearTabsP();");
 
 
-        this.btnAceptarP.Visible = true;
-        this.btnCancelarP.Visible = true;
+        mostrarBotonesSecundariosP(true);
 
         guardarDatosActuales();
 
@@ -1284,14 +1278,24 @@ public partial class Becarios : System.Web.UI.Page
         correrJavascript("crearTabsP();");
 
         cargarCamposBecario(1);
+        
+        llenarListasPerfil(cedulaBecarioActual);
+        llenarGridsPerfil_vistaParcial();      
+
         habilitarCampos(false, 1);
         habilitarEdicionPefil(false, 1);
 
         mostrarBotonesPrincipales(true);
+        mostrarBotonesSecundariosP(false);
 
-        this.btnAceptarP.Visible = false;
-        this.btnCancelarP.Visible = false;
+        Button aux = (Button)sender;
+        Label lb = new Label();
+        lb.Text = aux.ID;
 
+        if (lb.Text.Equals("btnCancelarPerfilParcial"))
+        {
+            correrJavascript("seleccionarTabPerfilParcial();");
+        }
 
     }
 
@@ -1321,21 +1325,28 @@ public partial class Becarios : System.Web.UI.Page
         datos[9] = this.txtCorreoP.Text;
 
 
-        String resultado = controladoraBecarios.ejecutar(2, datos, datosViejos);
+
+        string resultado = controladoraBecarios.ejecutar(2, datos, datosViejos);
+        string resultadoPerfil="";
+
         if (resultado.Equals("Exito"))
         {
-            commonService.mensajeJavascript("Se ha modificado correctamente la información", "Éxito");
+            string mensaje = controladoraBecarios.eliminarPerfilBecario(cedulaBecarioActual);
+            resultadoPerfil = controladoraBecarios.guardarPerfilBecario(listaLocalLenguajes, listaLocalIdiomas, listaLocalAreasInteres, listaLocalCualidades, cedulaBecarioActual);              
         }
         else
         {
             commonService.mensajeJavascript("Se producido un error. Favor intentar más tarde", "Error");
         }
 
-        this.btnAceptarP.Visible = false;
-        this.btnCancelarP.Visible = false;
-
+        if (resultadoPerfil.Equals("Exito")){
+            commonService.mensajeJavascript("Se ha modificado correctamente la información", "Éxito");
+        }
+        
+      
         habilitarCampos(false, 1);
         habilitarEdicionPefil(false, 1);
+        mostrarBotonesSecundariosP(false);
         mostrarBotonesPrincipales(true);
 
     }
@@ -1349,6 +1360,26 @@ public partial class Becarios : System.Web.UI.Page
 */
 
 
+    protected void mostrarBotonesSecundariosP(Boolean mostrar){
+
+        if (mostrar)
+        {
+
+            this.btnAceptarP.Visible = true;
+            this.btnCancelarP.Visible = true;
+            this.btnAceptarPerfilParcial.Visible = true;
+            this.btnCancelarPerfilParcial.Visible = true;
+        }
+        else {
+
+            this.btnAceptarP.Visible = false;
+            this.btnCancelarP.Visible = false;
+            this.btnAceptarPerfilParcial.Visible = false;
+            this.btnCancelarPerfilParcial.Visible = false;    
+        }
+    }
+
+
     protected void consultarDatosBecarioLogueado()
     {
 
@@ -1357,7 +1388,7 @@ public partial class Becarios : System.Web.UI.Page
         Becario becarioActual = controladoraBecarios.obtenerBecarioPorCedula(cedulaBecarioActual);
 
         
-        //listaBecarios.Clear();
+        listaBecarios.Clear();
         listaBecarios.Add(becarioActual);
 
         cargarCamposBecario(1);
@@ -1367,40 +1398,23 @@ public partial class Becarios : System.Web.UI.Page
     }
 
 
-    protected void AsyncFileUpload1_UploadedComplete(object sender, AjaxControlToolkit.AsyncFileUploadEventArgs e)
-    {
-        System.Threading.Thread.Sleep(5000);
-        if (AsyncFileUpload1.HasFile)
-        {
-            string extension = getFileExtension(e.FileName);
-            //string strPath = MapPath("~/Images/Becarios/") + Session["Cuenta"] + "." +extension;//Path.GetFileName(e.FileName);
-            string strPath = MapPath("~/Images/Becarios/") + Path.GetFileName(e.FileName);
-            Session["ImgUsuario"] = strPath;
-            AsyncFileUpload1.SaveAs(strPath);
-        }
-    }
-
-    protected string getFileExtension(String fileName)
-    {
-        String extension = "";
-        for (int i = ( fileName.Length - 1); i > 0 ; i-- )
-        {
-            if (fileName[i] == '.')
-            {
-                break;
-            }
-            extension.Insert(extension.Length, fileName[i].ToString());
-        }
-        return extension;
-    }
-
-
 
   /*
    * ---------------------------------
    *   PERFIL BECARIO - vista parcial
    * --------------------------------
    */
+
+
+
+    protected void llenarGridsPerfil_vistaParcial()
+    {
+
+        llenarGridLenguajesParcial();
+        llenarGridIdiomasParcial();
+        llenarGridAreasInteresParcial();
+        llenarGridCualidadesParcial();
+    }
 
 
     protected void nuevoAtributoDePerfilParcial_click(object sender, EventArgs e)
@@ -1425,27 +1439,39 @@ public partial class Becarios : System.Web.UI.Page
                 {
 
                   txtBoxAux = (TextBox)gridLenguajesProgP.FooterRow.Cells[0].FindControl("txtNuevoLenguajeParcial");
-                  listaLocalLenguajes.Add(miTexto.ToTitleCase(txtBoxAux.Text.ToLower()));
-                  llenarGridLenguajesParcial();
+                  if (!(txtBoxAux.Text.Equals("")))
+                  {
+                      listaLocalLenguajes.Add(miTexto.ToTitleCase(txtBoxAux.Text.ToLower()));
+                      llenarGridLenguajesParcial();
+                  }
 
                 }break;
             case "btnAgregaIdiomaParcial":
                 {
                    txtBoxAux = (TextBox)gridIdiomasP.FooterRow.Cells[0].FindControl("txtNuevoIdiomaParcial");
-                   listaLocalIdiomas.Add(miTexto.ToTitleCase(txtBoxAux.Text.ToLower()));
-                   llenarGridIdiomasParcial();
+                   if (!(txtBoxAux.Text.Equals("")))
+                   {
+                       listaLocalIdiomas.Add(miTexto.ToTitleCase(txtBoxAux.Text.ToLower()));
+                       llenarGridIdiomasParcial();
+                   }
                 }break;
             case "btnAgregaAreaInteresParcial":
                 {
                     txtBoxAux = (TextBox)gridAreasInteresP.FooterRow.Cells[0].FindControl("txtNuevaAreaInteresParcial");
-                    listaLocalAreasInteres.Add(miTexto.ToTitleCase(txtBoxAux.Text.ToLower()));
-                    llenarGridAreasInteresParcial();
+                    if (!(txtBoxAux.Text.Equals("")))
+                    {
+                        listaLocalAreasInteres.Add(miTexto.ToTitleCase(txtBoxAux.Text.ToLower()));
+                        llenarGridAreasInteresParcial();
+                    }
                 } break;
             case "btnAgregaCualidadParcial":
                 {
                     txtBoxAux = (TextBox)gridCualidadesP.FooterRow.Cells[0].FindControl("txtNuevaCualidadParcial");
-                    listaLocalCualidades.Add(miTexto.ToTitleCase(txtBoxAux.Text.ToLower()));
-                    llenarGridCualidadesParcial();
+                    if (!(txtBoxAux.Text.Equals("")))
+                    {
+                        listaLocalCualidades.Add(miTexto.ToTitleCase(txtBoxAux.Text.ToLower()));
+                        llenarGridCualidadesParcial();
+                    }
                 } break;
             
         }
@@ -1460,7 +1486,7 @@ public partial class Becarios : System.Web.UI.Page
         correrJavascript("crearTabsP();");
         correrJavascript("seleccionarTabPerfilParcial();");
 
-        modoEjecucion = 3;
+        
 
         int indiceFila;
         switch (e.CommandName)
