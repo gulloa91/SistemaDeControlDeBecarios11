@@ -77,7 +77,7 @@ public class ControladoraBDBecario
 
     public String eliminarBecario(string cedula)
     {
-        string returnValue = "Se ha eliminado correctamente al becario";
+        string returnValue = "Exito";
 
         try
         {
@@ -85,7 +85,7 @@ public class ControladoraBDBecario
         }
         catch (SqlException e)
         {
-            returnValue = "Ha ocurrido un error al eliminar el becario";
+            returnValue = "Error";
 
         }
 
@@ -123,7 +123,7 @@ public class ControladoraBDBecario
 
     public String insertarLenguajeProg(String nuevoLenguaje,String cedBecario)
     {
-        String returnValue = "Exito";//"Se ha insertado correctamente al nuevo becario";
+        String returnValue = "Exito";
         int r;
         try
         {
@@ -131,15 +131,7 @@ public class ControladoraBDBecario
         }
         catch (SqlException e)
         {
-            r = e.Number;
-            if (r == 2627)
-            {
-                returnValue = "Error1";
-            }
-            else
-            {
-                returnValue = "Error2";
-            }
+          returnValue = "Error"; 
         }
         return returnValue;
     }
@@ -155,15 +147,7 @@ public class ControladoraBDBecario
         }
         catch (SqlException e)
         {
-            r = e.Number;
-            if (r == 2627)
-            {
-                returnValue = "Error1";
-            }
-            else
-            {
-                returnValue = "Error2";
-            }
+            returnValue = "Error";
         }
         return returnValue;
     }
@@ -179,15 +163,7 @@ public class ControladoraBDBecario
         }
         catch (SqlException e)
         {
-            r = e.Number;
-            if (r == 2627)
-            {
-                returnValue = "Error1";
-            }
-            else
-            {
-                returnValue = "Error2";
-            }
+            returnValue = "Error";
         }
         return returnValue;
     }
@@ -202,15 +178,7 @@ public class ControladoraBDBecario
         }
         catch (SqlException e)
         {
-            r = e.Number;
-            if (r == 2627)
-            {
-                returnValue = "Error1";
-            }
-            else
-            {
-                returnValue = "Error2";
-            }
+            returnValue = "Error";
         }
         return returnValue;
     }
