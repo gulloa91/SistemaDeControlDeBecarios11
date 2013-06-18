@@ -248,4 +248,8 @@ public partial class ControlDeHorasEncargado : System.Web.UI.Page
     {
         commonService.mensajeJavascript("Enviado","Atención");
     }
+
+    protected void llenarGridBecariosDeEncargado(String idEncargado,int tipo) { 
+    
+    }
 }
