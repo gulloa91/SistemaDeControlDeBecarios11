@@ -8,7 +8,10 @@ using System.Data;
 
 public partial class Asignaciones : System.Web.UI.Page
 {
+
+
     private static CommonServices commonService;
+    private static List<Asignacion> listaAsignaciones = new List<Asignacion>();
 
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -88,6 +91,22 @@ public partial class Asignaciones : System.Web.UI.Page
          
     }
 
+
+
+   /***************************************************************************
+   * 
+   *                       VISTA COMPLETA
+   * 
+   * **************************************************************************/
+
+
+ /*
+* ------------------------------
+*           CLICKS     
+* ------------------------------
+*/
+
+
     // Aceptar PopUp
     protected void btnInvisibleAceptarAsignacion_Click(object sender, EventArgs e)
     {
@@ -160,42 +179,15 @@ public partial class Asignaciones : System.Web.UI.Page
         llenarGridaBecariosAsigandosAEncargado();
     }
 
-    // Seleccionar tupla del grid con la flecha
-    protected void GridAsignaciones_RowCommand(object sender, GridViewCommandEventArgs e)
-    {
-        switch (e.CommandName)
-        {
-            // Consultar tupla
-            case "btnSeleccionarTupla_Click":
-                {
-                    commonService.abrirPopUp("PopUpAsignacion", "Consultar Asignación");
-                    mostrarBotonesPrincipales(true);
-                    habilitarContenidoAsignacion(false);
-                    commonService.esconderPrimerBotonDePopUp("PopUpAsignacion");
-                    int cantidadDeBecariosAsignados = 3; // Get cantidad de becarios asigandos a encargado
-                    this.lblCiclo.Text = "I";
-                    this.lblAnio.Text = "2013";
-                    this.btnCantidadBecariosDeEncargado.Text = "Becarios asignados: " + cantidadDeBecariosAsignados.ToString();
-                } break;
-        }
-    }
 
-    // Grid vista Encargados
-    protected void GridBecariosAsignadosVistaEncargado_RowCommand(object sender, GridViewCommandEventArgs e)
-    {
-        switch (e.CommandName)
-        {
-            // Abrir Pop Up aceptar/rechazar asignación vista encargado
-            case "btnSeleccionarTupla_Click":
-                {
-                    commonService.abrirPopUp("PopUpAsignacionEncargado", "Aceptar/Rechazar Asignación");
-                    this.lblNombreBecarioPopUpVistaEncargado.Text = "José Perez";
-                    this.lblCicloBecarioPopUpVistaEncargado.Text = "I";
-                    this.lblAnioBecarioPopUpVistaEncargado.Text = "2013";
-                    this.lblHorasBecarioPopUpVistaEncargado.Text = "73";
-                } break;
-        }
-    }
+
+
+ /*
+ * --------------------------------
+ *   AUXILIARES - MOSTRAR BOTONES
+ * --------------------------------
+ */
+
 
     //Define que botones se van a mostrar
     protected void mostrarBotonesPrincipales(Boolean mostrar)
@@ -241,37 +233,40 @@ public partial class Asignaciones : System.Web.UI.Page
         this.txtTotalHoras.Text = "";
     }
 
-    protected void llenarCicloYAnioVistaEncargados()
-    {
-        this.lblCicloPrincipalVistaEncargado.Text = "I";
-        this.lblAnioPrincipalVistaEncargado.Text = "2013";
-    }
+
+  /*
+   * ------------------------------
+   *       VARIOS
+   * ------------------------------
+   */
+
 
     // Llenar tabla con todas las asignaciones
-    protected void llenarGridAsignaciones() 
+    protected void llenarGridAsignaciones()
     {
-    
+
         DataTable tablaAsignaciones = crearTablaAsignaciones();
         DataRow newRow;
-        /*
-        if (lsEncargados.Count > 0)
+        
+        /*if (listaAsignaciones.Count > 0)
         {
-            for (int i = 0; i < lsEncargados.Count; ++i)
+            for (int i = 0; i < listaAsignaciones.Count; ++i)
             {
-                newRow = tablaAsignaciones.NewRow();
-                newRow["Nombre"] = lsEncargados[i].Nombre + " " + lsEncargados[i].Apellido1 + " " + lsEncargados[i].Apellido2;
-                newRow["Cedula"] = lsEncargados[i].Cedula;
-                newRow["Correo"] = lsEncargados[i].Correo;
-                newRow["Celular"] = lsEncargados[i].TelefonoCelular;
-                if (lsEncargados[i].TelefonoFijo != "")
+                //newRow = tablaAsignaciones.NewRow();
+                //newRow["Encargado"] = 
+                //newRow["Becario"] = 
+                //newRow["Ciclo"] = 
+                //newRow["Año"] = 
+                //newRow["Estado"] = "-";
+                if (listaAsignaciones[i].TelefonoFijo != "")
                 {
-                    newRow["Telefono"] = lsEncargados[i].TelefonoFijo;
+                    newRow["Telefono"] = listaAsignaciones[i].TelefonoFijo;
                 }
                 else
                 {
                     if (lsEncargados[i].OtroTelefono != "")
                     {
-                        newRow["Telefono"] = lsEncargados[i].OtroTelefono;
+                        newRow["Telefono"] = listaAsignaciones[i].OtroTelefono;
                     }
                 }
 
@@ -281,20 +276,107 @@ public partial class Asignaciones : System.Web.UI.Page
         else
         {
          */
-            newRow = tablaAsignaciones.NewRow();
-            newRow["Encargado"] = "-";
-            newRow["Becario"] = "-";
-            newRow["Ciclo"] = "-";
-            newRow["Año"] = "-";
-            newRow["Estado"] = "-";
+        newRow = tablaAsignaciones.NewRow();
+        newRow["Encargado"] = "-";
+        newRow["Becario"] = "-";
+        newRow["Ciclo"] = "-";
+        newRow["Año"] = "-";
+        newRow["Estado"] = "-";
 
-            tablaAsignaciones.Rows.InsertAt(newRow, 0);
+        tablaAsignaciones.Rows.InsertAt(newRow, 0);
         //}
         this.GridAsignaciones.DataSource = tablaAsignaciones;
         this.GridAsignaciones.DataBind();
         this.HeadersCorrectosAsignaciones();
     }
 
+
+
+    protected DataTable crearTablaAsignaciones()
+    {
+
+        DataTable dt = new DataTable();
+        DataColumn column;
+
+        column = new DataColumn();
+        column.DataType = System.Type.GetType("System.String");
+        column.ColumnName = "Encargado";
+        dt.Columns.Add(column);
+
+        column = new DataColumn();
+        column.DataType = System.Type.GetType("System.String");
+        column.ColumnName = "Becario";
+        dt.Columns.Add(column);
+
+        column = new DataColumn();
+        column.DataType = System.Type.GetType("System.String");
+        column.ColumnName = "Ciclo";
+        dt.Columns.Add(column);
+
+        column = new DataColumn();
+        column.DataType = System.Type.GetType("System.String");
+        column.ColumnName = "Año";
+        dt.Columns.Add(column);
+
+        column = new DataColumn();
+        column.DataType = System.Type.GetType("System.String");
+        column.ColumnName = "Estado";
+        dt.Columns.Add(column);
+
+        return dt;
+    }
+
+
+
+
+
+    // Seleccionar tupla del grid con la flecha
+    protected void GridAsignaciones_RowCommand(object sender, GridViewCommandEventArgs e)
+    {
+        switch (e.CommandName)
+        {
+            // Consultar tupla
+            case "btnSeleccionarTupla_Click":
+                {
+                    commonService.abrirPopUp("PopUpAsignacion", "Consultar Asignación");
+                    mostrarBotonesPrincipales(true);
+                    habilitarContenidoAsignacion(false);
+                    commonService.esconderPrimerBotonDePopUp("PopUpAsignacion");
+                    int cantidadDeBecariosAsignados = 3; // Get cantidad de becarios asigandos a encargado
+                    this.lblCiclo.Text = "I";
+                    this.lblAnio.Text = "2013";
+                    this.btnCantidadBecariosDeEncargado.Text = "Becarios asignados: " + cantidadDeBecariosAsignados.ToString();
+                } break;
+        }
+    }
+
+
+    // Grid vista Encargados
+    protected void GridBecariosAsignadosVistaEncargado_RowCommand(object sender, GridViewCommandEventArgs e)
+    {
+        switch (e.CommandName)
+        {
+            // Abrir Pop Up aceptar/rechazar asignación vista encargado
+            case "btnSeleccionarTupla_Click":
+                {
+                    commonService.abrirPopUp("PopUpAsignacionEncargado", "Aceptar/Rechazar Asignación");
+                    this.lblNombreBecarioPopUpVistaEncargado.Text = "José Perez";
+                    this.lblCicloBecarioPopUpVistaEncargado.Text = "I";
+                    this.lblAnioBecarioPopUpVistaEncargado.Text = "2013";
+                    this.lblHorasBecarioPopUpVistaEncargado.Text = "73";
+                } break;
+        }
+    }
+
+
+
+    protected void llenarCicloYAnioVistaEncargados()
+    {
+        this.lblCicloPrincipalVistaEncargado.Text = "I";
+        this.lblAnioPrincipalVistaEncargado.Text = "2013";
+    }
+
+   
     // Llenar tabla con todas las asignaciones
     protected void llenarGridaBecariosAsigandosAEncargado()
     {
@@ -393,40 +475,7 @@ public partial class Asignaciones : System.Web.UI.Page
     }
 
     // Le da formato a las columnas del Grid
-    protected DataTable crearTablaAsignaciones()
-    {
 
-        DataTable dt = new DataTable();
-        DataColumn column;
-
-        column = new DataColumn();
-        column.DataType = System.Type.GetType("System.String");
-        column.ColumnName = "Encargado";
-        dt.Columns.Add(column);
-
-        column = new DataColumn();
-        column.DataType = System.Type.GetType("System.String");
-        column.ColumnName = "Becario";
-        dt.Columns.Add(column);
-
-        column = new DataColumn();
-        column.DataType = System.Type.GetType("System.String");
-        column.ColumnName = "Ciclo";
-        dt.Columns.Add(column);
-
-        column = new DataColumn();
-        column.DataType = System.Type.GetType("System.String");
-        column.ColumnName = "Año";
-        dt.Columns.Add(column);
-
-        column = new DataColumn();
-        column.DataType = System.Type.GetType("System.String");
-        column.ColumnName = "Estado";
-        dt.Columns.Add(column);
-
-
-        return dt;
-    }
 
     // Le da formato a las columnas del Grid
     protected DataTable crearTablaBecariosAsigandosAEncargado()
@@ -527,11 +576,15 @@ public partial class Asignaciones : System.Web.UI.Page
         GridBecariosAsignadosVistaEncargado.HeaderRow.Cells[5].Text = "Estado";
     }
 
-    /**********************************************************************************************************
+
+
+
+    /***************************************************************************
      * 
-     *                                          VISTA BECARIO
+     *                       VISTA BECARIO
      * 
-     * ********************************************************************************************************/
+     * **************************************************************************/
+   
     protected void llenarInfoVistaBecario()
     {
         this.lblAnioVistaBecario.Text = "2013";
@@ -576,3 +629,12 @@ public partial class Asignaciones : System.Web.UI.Page
         }
     }
 }
+
+
+
+
+/***************************************************************************
+ * 
+ *                       VISTA ENCARGADO
+ * 
+ * **************************************************************************/
