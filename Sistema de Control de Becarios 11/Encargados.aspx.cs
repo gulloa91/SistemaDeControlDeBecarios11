@@ -167,13 +167,13 @@ public partial class Encargados : System.Web.UI.Page
         string mensajeResultado = controladora.ejecutar(modo, null, encargado);
         if (mensajeResultado == "Exito")
         {
-            commonService.mensajeJavascript("Encargado elimando!", "Confirmación");
+            commonService.mensajeJavascript("¡Encargado elimando!", "Confirmación");
             commonService.correrJavascript("$('#PopUpEncargado').dialog('close');");
             this.llenarGridEncargados(1);
         }
         else
         {
-            commonService.mensajeJavascript("No fue posible eliminar el encargado!", "ERROR");
+            commonService.mensajeJavascript("¡No fue posible eliminar el encargado!", "ERROR");
         }
     }
 
