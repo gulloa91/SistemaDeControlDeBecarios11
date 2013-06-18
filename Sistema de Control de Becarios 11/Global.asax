@@ -29,7 +29,7 @@
         Session["ListaPermisos"] = "";
         Session["Cuenta"] = "";
         Session["TipoPerfil"] = -1;
-        Session["ImgUsuario"] = "";
+        Session["ImageUrl"] = "";
     }
 
     void Session_End(object sender, EventArgs e) 

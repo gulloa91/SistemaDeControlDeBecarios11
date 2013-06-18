@@ -14,7 +14,6 @@ public partial class Becarios : System.Web.UI.Page
     private static CommonServices commonService;
     private static EmailServices servicioCorreo;
 
-    int permiso = 0;
     static int modoEjecucion=0;
 
     private static Object[] datosViejos;
@@ -28,13 +27,19 @@ public partial class Becarios : System.Web.UI.Page
     private static List<String> listaLocalIdiomas = new List<String>();
     private static List<String> listaLocalAreasInteres = new List<String>();
     private static List<String> listaLocalCualidades = new List<String>();
+
+    public string ImageUrl
+    {
+        get { return Session["ImageUrl"] as string; }
+        set { Session["ImageUrl"] = value; }
+    }
   
     protected void Page_Load(object sender, EventArgs e)
     {
 
         commonService = new CommonServices(UpdateInfo);
         servicioCorreo = new EmailServices();
-
+        imgBecario.ImageUrl = this.ImageUrl;
        
 
         List<int> permisos = new List<int>();
@@ -70,11 +75,24 @@ public partial class Becarios : System.Web.UI.Page
                  case 1: // Vista Completa
                      {
                          MultiViewBecario.ActiveViewIndex = 0;
-                         llenarGridBecarios(1);
+                         
                          if (!Page.IsPostBack)
                          {
-                            
+                           llenarGridBecarios(1);
                            llenarGridsPerfil();
+                           if (Request["__EVENTTARGET"] == UpdateImage.ClientID)
+                           {
+                               // Subir foto
+                               if (string.IsNullOrEmpty(this.ImageUrl))
+                               {
+                                   imgBecario.Visible = false;
+                               }
+                               else
+                               {
+                                   imgBecario.Visible = true;
+                               }
+                           }
+                           
                          }
                      } break;
 
@@ -93,6 +111,18 @@ public partial class Becarios : System.Web.UI.Page
                              
                              habilitarEdicionPefil(false,1);
                              mostrarBotonesSecundariosP(false);
+                             if (Request["__EVENTTARGET"] == UpdateImage.ClientID)
+                             {
+                                 // Subir foto
+                                 if (string.IsNullOrEmpty(this.ImageUrl))
+                                 {
+                                     imgBecario.Visible = false;
+                                 }
+                                 else
+                                 {
+                                     imgBecario.Visible = true;
+                                 }
+                             }
 
                          }
 
@@ -1193,14 +1223,24 @@ public partial class Becarios : System.Web.UI.Page
 
     protected void AsyncFileUpload1_UploadedComplete(object sender, AjaxControlToolkit.AsyncFileUploadEventArgs e)
     {
-        System.Threading.Thread.Sleep(5000);
+        //System.Threading.Thread.Sleep(5000);
         if (AsyncFileUpload1.HasFile)
         {
+            var scheme = Request.Url.Scheme; // will get http, https, etc.
+            var host = Request.Url.Host; // will get www.mywebsite.com
+            var port = Request.Url.Port; // will get the port
+            var path = Request.Url.AbsolutePath;
+            string picpath = scheme.ToString() + "://" + host.ToString() + ":" + port.ToString() + Request.ApplicationPath + "/" + "images/Becarios/";
+
             string extension = getFileExtension(e.FileName);
             //string strPath = MapPath("~/Images/Becarios/") + Session["Cuenta"] + "." +extension;//Path.GetFileName(e.FileName);
             string strPath = MapPath("~/Images/Becarios/") + Path.GetFileName(e.FileName);
-            Session["ImgUsuario"] = strPath;
+            string webPath = picpath + Path.GetFileName(e.FileName);
             AsyncFileUpload1.SaveAs(strPath);
+
+            //string filePath = "~/images/" + System.IO.Path.GetFileName(e.filename);
+            //AsyncFileUpload1.SaveAs(Server.MapPath(filePath));
+            ImageUrl = webPath;
         }
     }
 

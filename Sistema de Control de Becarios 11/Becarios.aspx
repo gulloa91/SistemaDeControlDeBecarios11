@@ -124,6 +124,37 @@
                                   Text="" Visible="false"></asp:Label>
                              </div>
 
+                             <div class="wrap_row_becario" style="border: 1px solid #414141;
+border-radius: 5px; background: #F9E5B1;">
+
+                                <div style="width: 20%; min-height: 80px; max-height: 100px; float: left; text-align: center; background: #FFF; border-radius: 5px; padding: 5px 0;">
+                                    <asp:UpdatePanel ID="UpdateImage" runat="server">
+                                        <ContentTemplate>
+                                            <div style="height:80px">
+                                            <asp:Image ID="imgBecario" ImageUrl="Images/avatar.png" runat="server" CssClass="img_becario" />
+                                            </div>
+                                        </ContentTemplate>
+                                    </asp:UpdatePanel>
+                                    
+
+                                    <div style="width: 100%; float: left;">
+                                        <asp:Label ID="Throbber" runat="server" Style="display: none; width: 100%;">
+                                            <img src="Images/indicator.gif" align="absmiddle" alt="loading" />
+                                        </asp:Label>
+                                    </div>
+                                </div>
+                                <div style="width: 75%; padding-left: 5%; float: right; text-align: right; margin-top: 55px; font-size: 13px;">
+                                    <ajaxToolkit:AsyncFileUpload ID="AsyncFileUpload1" Width="400px"  runat="server" 
+                                        OnClientUploadError="uploadError" OnClientUploadStarted="StartUpload" 
+                                        OnClientUploadComplete="UploadComplete" 
+                                        CompleteBackColor="Lime" UploaderStyle="Traditional" 
+                                        ErrorBackColor="Red" ThrobberID="Throbber" 
+                                        onuploadedcomplete="AsyncFileUpload1_UploadedComplete" 
+                                        UploadingBackColor="#66CCFF" />
+                                    <asp:Label ID="lblStatus" runat="server" Style="font-family: Arial; font-size: small;"></asp:Label>
+                                </div>
+                            </div>
+
                              <div class="wrap_row_becario">
 
                                 <div class="wrap_becario">
@@ -308,27 +339,7 @@
                                 <span style="color: Red; margin: 10px 0; float: left;">* Campos obligatorios</span>
                             </div>
 
-                            <div class="wrap_row_becario">
-
-                                <div style="width: 20%; height: 80px; float: left; text-align: center;">
-                                    
-                                    <asp:Image ID="imgBecario" runat="server" CssClass="img_becario" />
-                                </div>
-                                <div style="width: 75%; padding-left: 5%; float: left;">
-                                    <p>Foto:</p>
-                                    <ajaxToolkit:AsyncFileUpload ID="AsyncFileUpload1" Width="400px"  runat="server" 
-                                        OnClientUploadError="uploadError" OnClientUploadStarted="StartUpload" 
-                                        OnClientUploadComplete="UploadComplete" 
-                                        CompleteBackColor="Lime" UploaderStyle="Traditional" 
-                                        ErrorBackColor="Red" ThrobberID="Throbber" 
-                                        onuploadedcomplete="AsyncFileUpload1_UploadedComplete" 
-                                        UploadingBackColor="#66CCFF" />
-                                    <asp:Label ID="Throbber" runat="server" Style="display: none">
-                                        <img src="Images/indicator.gif" align="absmiddle" alt="loading" />
-                                    </asp:Label>
-                                    <asp:Label ID="lblStatus" runat="server" Style="font-family: Arial; font-size: small;"></asp:Label>
-                                </div>
-                            </div>
+                            
 
                           </div>
 

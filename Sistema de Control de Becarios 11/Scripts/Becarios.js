@@ -105,17 +105,10 @@
 
         function StartUpload(sender,args)
         {
-          document.getElementById('MainContent_lblStatus').innerText = 'Subiendo imagen.';
+          //document.getElementById('MainContent_lblStatus').innerText = 'Subiendo imagen.';
         }
 
         function UploadComplete(sender,args)
         {
-         var filename = args.get_fileName();
-         var contentType = args.get_contentType();
-         var text = "Tamaño de " + filename + " son " + args.get_length() + " bytes";
-         if (contentType.length > 0)
-         {
-          text += " es un tipo '" + contentType + "'.";
-          }
-          document.getElementById('MainContent_lblStatus').innerText = text;
+         //__doPostBack("UpdateImage", "");
         }
