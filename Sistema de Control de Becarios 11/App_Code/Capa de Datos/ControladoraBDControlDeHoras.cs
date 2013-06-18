@@ -24,4 +24,22 @@ public class ControladoraBDControlDeHoras
         dt = adapterControlDeHoras.consultarReportesHorasBecarios(cedulaBecario, cedulaEncargado, estado);
         return dt;
     }
+
+    //-----------------------------------------
+    //Inicia parte de Beto
+
+    public DataTable consultarReportesBecarios(string idEncargado, int tipo)
+    {
+        DataTable dt = new DataTable();
+        dt = adapterControlDeHoras.getDataByEncargadoAndTipo(idEncargado, tipo);
+        return dt;
+    }
+
+    public DataTable consultarReportesBecarios(string idEncargado, string idBecario, int tipo)
+    {
+        DataTable dt = new DataTable();
+        dt = adapterControlDeHoras.getDataByBecarioEncargadoEstado(idEncargado, idBecario, tipo);
+        return dt;
+    }
+
 }
