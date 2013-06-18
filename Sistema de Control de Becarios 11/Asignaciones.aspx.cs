@@ -12,6 +12,7 @@ public partial class Asignaciones : System.Web.UI.Page
 
     private static CommonServices commonService;
     private static List<Asignacion> listaAsignaciones = new List<Asignacion>();
+    private static ControladoraAsignaciones controladoraAsignaciones =  new ControladoraAsignaciones();
 
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -245,46 +246,40 @@ public partial class Asignaciones : System.Web.UI.Page
     protected void llenarGridAsignaciones()
     {
 
+
+        listaAsignaciones = controladoraAsignaciones.consultarTablaAsignacionesCompleta();
+
         DataTable tablaAsignaciones = crearTablaAsignaciones();
         DataRow newRow;
-        
-        /*if (listaAsignaciones.Count > 0)
+
+        if (listaAsignaciones.Count > 0)
         {
             for (int i = 0; i < listaAsignaciones.Count; ++i)
             {
-                //newRow = tablaAsignaciones.NewRow();
-                //newRow["Encargado"] = 
-                //newRow["Becario"] = 
-                //newRow["Ciclo"] = 
-                //newRow["Año"] = 
-                //newRow["Estado"] = "-";
-                if (listaAsignaciones[i].TelefonoFijo != "")
-                {
-                    newRow["Telefono"] = listaAsignaciones[i].TelefonoFijo;
-                }
-                else
-                {
-                    if (lsEncargados[i].OtroTelefono != "")
-                    {
-                        newRow["Telefono"] = listaAsignaciones[i].OtroTelefono;
-                    }
-                }
+
+                newRow = tablaAsignaciones.NewRow();
+                newRow["Encargado"] = controladoraAsignaciones.getNombreEncargado(listaAsignaciones[i].CedulaEncargado);
+                newRow["Becario"] = controladoraAsignaciones.getNombreBecario(listaAsignaciones[i].CedulaBecario);
+                newRow["Ciclo"] = listaAsignaciones[i].Periodo;
+                newRow["Año"] = listaAsignaciones[i].Año;
+                newRow["Estado"] = listaAsignaciones[i].Estado;
 
                 tablaAsignaciones.Rows.InsertAt(newRow, i);
             }
         }
         else
         {
-         */
-        newRow = tablaAsignaciones.NewRow();
-        newRow["Encargado"] = "-";
-        newRow["Becario"] = "-";
-        newRow["Ciclo"] = "-";
-        newRow["Año"] = "-";
-        newRow["Estado"] = "-";
+
+            newRow = tablaAsignaciones.NewRow();
+            newRow["Encargado"] = "-";
+            newRow["Becario"] = "-";
+            newRow["Ciclo"] = "-";
+            newRow["Año"] = "-";
+            newRow["Estado"] = "-";
+       }
 
         tablaAsignaciones.Rows.InsertAt(newRow, 0);
-        //}
+       
         this.GridAsignaciones.DataSource = tablaAsignaciones;
         this.GridAsignaciones.DataBind();
         this.HeadersCorrectosAsignaciones();

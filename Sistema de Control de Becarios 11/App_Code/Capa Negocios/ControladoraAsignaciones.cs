@@ -64,19 +64,16 @@ public class ControladoraAsignaciones
 
             Asignacion asignacion = new Asignacion();
 
-            /*asignacion.CedulaBecario = controladoraBDAsignaciones.
+            asignacion.CedulaBecario = cs.procesarStringDeUI(r["CedulaBecario"].ToString());
+            asignacion.CedulaEncargado = cs.procesarStringDeUI(r["CedulaEncargado"].ToString());
+            asignacion.Periodo = cs.procesarStringDeUI(r["Periodo"].ToString());
+            asignacion.Año = cs.procesarStringDeUI(r["Año"].ToString());
+            asignacion.TotalHoras = cs.procesarStringDeUI(r["TotalHoras"].ToString());
+            asignacion.SiglasUA = cs.procesarStringDeUI(r["SiglasUA"].ToString());
+            asignacion.InfoUbicacion = cs.procesarStringDeUI(r["InfoUbicacion"].ToString());
+            asignacion.Estado = cs.procesarStringDeUI(r["Estado"].ToString());
 
-            becario.foto = cs.procesarStringDeUI(r["Foto"].ToString());
-            becario.nombre = cs.procesarStringDeUI(r["Nombre"].ToString());
-            becario.apellido1 = cs.procesarStringDeUI(r["Apellido1"].ToString());
-            becario.apellido2 = cs.procesarStringDeUI(r["Apellido2"].ToString());
-            becario.carne = cs.procesarStringDeUI(r["Carne"].ToString());
-            becario.cedula = cs.procesarStringDeUI(r["Cedula"].ToString());
-            becario.telefonoFijo = cs.procesarStringDeUI(r["Telefono"].ToString());
-            becario.telefonoCelular = cs.procesarStringDeUI(r["Celular"].ToString());
-            becario.telefonoOtro = cs.procesarStringDeUI(r["OtroTel"].ToString());
-            becario.correo = cs.procesarStringDeUI(r["Correo"].ToString());
-            listaB.Add(becario);*/
+            listaAs.Add(asignacion);
         }
          
  
