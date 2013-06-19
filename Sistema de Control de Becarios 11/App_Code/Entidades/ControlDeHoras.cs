@@ -12,7 +12,7 @@ public class ControlDeHoras
     private string CedulaBecario;
     private int Estado;
     private int CantidadHoras;
-    private Nullable<DateTime> Fecha; 
+    private DateTime Fecha; 
     private string ComentarioEncargado;
     private string ComentarioBecario;
 
@@ -53,7 +53,7 @@ public class ControlDeHoras
         get { return CantidadHoras; }
     }
 
-    public Nullable<DateTime> fecha {
+    public DateTime fecha {
         set { Fecha = value; }
         get { return Fecha; }
     }

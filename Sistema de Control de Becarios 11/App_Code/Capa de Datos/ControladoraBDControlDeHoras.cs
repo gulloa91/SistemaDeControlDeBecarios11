@@ -28,10 +28,24 @@ public class ControladoraBDControlDeHoras
         return resultado;
     }
 
+    public String modificarReporte(ControlDeHoras controlDeHorasViejo, ControlDeHoras controlDeHorasNuevo)
+    {
+        String resultado = "";
+        try
+        {
+            adapterControlDeHoras.Update(controlDeHorasNuevo.cedulaBecario, controlDeHorasNuevo.cedulaEncargado, controlDeHorasNuevo.cantidadHoras, controlDeHorasNuevo.fecha, controlDeHorasNuevo.estado, controlDeHorasNuevo.comentarioBecario, controlDeHorasNuevo.comentarioEncargado, controlDeHorasViejo.cedulaBecario, controlDeHorasViejo.cedulaEncargado, controlDeHorasViejo.fecha);
+        }
+        catch (SqlException e)
+        {
+            resultado = "Error al modificar el control de horas";
+        }
+        return resultado;
+    }
+
     public DataTable consultarReportesBecarios(string idEncargado, int tipo)
     {
         DataTable dt = new DataTable();
-        dt = adapterControlDeHoras.getDataByEncargadoAndTipo(idEncargado, tipo);
+        dt = adapterControlDeHoras.getBecariosPorEncargadoAndTipo(idEncargado, tipo);
         return dt;
     }
 

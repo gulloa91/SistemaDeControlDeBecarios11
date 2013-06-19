@@ -9,6 +9,7 @@ using System.Data;
 public partial class ControlDeHorasEncargado : System.Web.UI.Page
 {
 
+    private ControladoraControlEncargado controladora = new ControladoraControlEncargado();
     private static CommonServices commonService;
 
     protected void Page_Load(object sender, EventArgs e)
@@ -86,56 +87,22 @@ public partial class ControlDeHorasEncargado : System.Web.UI.Page
     protected void llenarGridBecariosConHorasPorRevisar()
     {
         DataTable tablaBecariosConHorasPorRevisar = crearTablaBecariosConHorasPorRevisar();
-        DataRow newRow;
-        /*
-        if (lsEncargados.Count > 0)
-        {
-            for (int i = 0; i < lsEncargados.Count; ++i)
-            {
-                newRow = tablaAsignaciones.NewRow();
-                newRow["Nombre"] = lsEncargados[i].Nombre + " " + lsEncargados[i].Apellido1 + " " + lsEncargados[i].Apellido2;
-                newRow["Cedula"] = lsEncargados[i].Cedula;
-                newRow["Correo"] = lsEncargados[i].Correo;
-                newRow["Celular"] = lsEncargados[i].TelefonoCelular;
-                if (lsEncargados[i].TelefonoFijo != "")
-                {
-                    newRow["Telefono"] = lsEncargados[i].TelefonoFijo;
-                }
-                else
-                {
-                    if (lsEncargados[i].OtroTelefono != "")
-                    {
-                        newRow["Telefono"] = lsEncargados[i].OtroTelefono;
-                    }
-                }
+        DataTable dt = controladora.consultarReportesBecarios(Session["Cedula"].ToString(), 0);
 
-                tablaAsignaciones.Rows.InsertAt(newRow, i);
+        if (dt.Rows.Count > 0)
+        {
+            Object[] datos = new Object[2];    
+            foreach(DataRow r in tablaBecariosConHorasPorRevisar.Rows){
+                datos[0] = r[0].ToString();
+                datos[1] = r[1].ToString();
             }
         }
-        else
-        {
-         */
-        newRow = tablaBecariosConHorasPorRevisar.NewRow();
-        newRow["Nombre"] = "Constantino Bolaños Araya";
-        newRow["Carné"] = "B04512";
-        newRow["Horas por Revisar"] = "13";
-
-        tablaBecariosConHorasPorRevisar.Rows.InsertAt(newRow, 0);
-
-        newRow = tablaBecariosConHorasPorRevisar.NewRow();
-        newRow["Nombre"] = "Christopher Sánchez Coto";
-        newRow["Carné"] = "B01239";
-        newRow["Horas por Revisar"] = "14";
-
-        tablaBecariosConHorasPorRevisar.Rows.InsertAt(newRow, 0);
-
-        newRow = tablaBecariosConHorasPorRevisar.NewRow();
-        newRow["Nombre"] = "Heriberto Ureña Madrigal";
-        newRow["Carné"] = "B08888";
-        newRow["Horas por Revisar"] = "17";
-
-        tablaBecariosConHorasPorRevisar.Rows.InsertAt(newRow, 0);
-        //}
+        else { 
+            Object [] datos = new Object[2];    
+            datos[0] = "-";
+            datos[1] = "-";
+            tablaBecariosConHorasPorRevisar.Rows.Add(datos);
+        }
         this.GridBecariosConHorasPendientes.DataSource = tablaBecariosConHorasPorRevisar;
         this.GridBecariosConHorasPendientes.DataBind();
         headersCorrectosBecariosConHorasPendientes();

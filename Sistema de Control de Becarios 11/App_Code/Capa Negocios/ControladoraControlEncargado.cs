@@ -12,6 +12,9 @@ public class ControladoraControlEncargado
         controladoraBDEncargado = new ControladoraBDControlDeHoras();
 	}
 
+    //-----------------------------------------
+    //Inicia parte de Beto
+
     public DataTable consultarReportesBecarios(string idEncargado, int tipo) {
         return controladoraBDEncargado.consultarReportesBecarios(idEncargado, tipo);
     }
