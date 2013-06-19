@@ -24,81 +24,22 @@ public partial class ControlDeHorasEncargado : System.Web.UI.Page
     /* Crear tabla */
     protected void llenarGridViewHoraYFechaBecario()
     {
-        DataTable tablaHoraYFechaBecario = crearTablaHoraYFechaBecario();
-        DataRow newRow;
-        /*
-        if (lsEncargados.Count > 0)
-        {
-            for (int i = 0; i < lsEncargados.Count; ++i)
-            {
-                newRow = tablaAsignaciones.NewRow();
-                newRow["Nombre"] = lsEncargados[i].Nombre + " " + lsEncargados[i].Apellido1 + " " + lsEncargados[i].Apellido2;
-                newRow["Cedula"] = lsEncargados[i].Cedula;
-                newRow["Correo"] = lsEncargados[i].Correo;
-                newRow["Celular"] = lsEncargados[i].TelefonoCelular;
-                if (lsEncargados[i].TelefonoFijo != "")
-                {
-                    newRow["Telefono"] = lsEncargados[i].TelefonoFijo;
-                }
-                else
-                {
-                    if (lsEncargados[i].OtroTelefono != "")
-                    {
-                        newRow["Telefono"] = lsEncargados[i].OtroTelefono;
-                    }
-                }
+        DataTable tablaBecariosConHorasPorRevisar = crearTablaHoraYFechaBecario();
+        DataTable dt = controladora.consultarReportesBecarios((string)(Session["Cedula"]), 0);
 
-                tablaAsignaciones.Rows.InsertAt(newRow, i);
+        if (dt.Rows.Count > 0)
+        {
+            Object[] datos = new Object[2];
+            foreach (DataRow r in tablaBecariosConHorasPorRevisar.Rows)
+            {
+                datos[0] = r[0].ToString();
+                datos[1] = r[1].ToString();
+                tablaBecariosConHorasPorRevisar.Rows.Add(datos);
             }
         }
         else
         {
-         */
-        newRow = tablaHoraYFechaBecario.NewRow();
-        newRow["Fecha"] = "06/06/2013";
-        newRow["Cnt. de Horas"] = "2";
-
-        tablaHoraYFechaBecario.Rows.InsertAt(newRow, 0);
-
-        newRow = tablaHoraYFechaBecario.NewRow();
-        newRow["Fecha"] = "04/06/2013";
-        newRow["Cnt. de Horas"] = "4";
-
-        tablaHoraYFechaBecario.Rows.InsertAt(newRow, 0);
-
-        newRow = tablaHoraYFechaBecario.NewRow();
-        newRow["Fecha"] = "28/05/2013";
-        newRow["Cnt. de Horas"] = "6";
-
-        tablaHoraYFechaBecario.Rows.InsertAt(newRow, 0);
-
-        newRow = tablaHoraYFechaBecario.NewRow();
-        newRow["Fecha"] = "25/05/2013";
-        newRow["Cnt. de Horas"] = "5";
-
-        tablaHoraYFechaBecario.Rows.InsertAt(newRow, 0);
-        //}
-        this.GridViewHoraYFechaBecario.DataSource = tablaHoraYFechaBecario;
-        this.GridViewHoraYFechaBecario.DataBind();
-        headersCorrectosHoraYFechaBecario();
-    }
-
-    /* Crear tabla */
-    protected void llenarGridBecariosConHorasPorRevisar()
-    {
-        DataTable tablaBecariosConHorasPorRevisar = crearTablaBecariosConHorasPorRevisar();
-        DataTable dt = controladora.consultarReportesBecarios(Session["Cedula"].ToString(), 0);
-
-        if (dt.Rows.Count > 0)
-        {
-            Object[] datos = new Object[2];    
-            foreach(DataRow r in tablaBecariosConHorasPorRevisar.Rows){
-                datos[0] = r[0].ToString();
-                datos[1] = r[1].ToString();
-            }
-        }
-        else { 
-            Object [] datos = new Object[2];    
+            Object[] datos = new Object[2];
             datos[0] = "-";
             datos[1] = "-";
             tablaBecariosConHorasPorRevisar.Rows.Add(datos);
@@ -106,6 +47,12 @@ public partial class ControlDeHorasEncargado : System.Web.UI.Page
         this.GridBecariosConHorasPendientes.DataSource = tablaBecariosConHorasPorRevisar;
         this.GridBecariosConHorasPendientes.DataBind();
         headersCorrectosBecariosConHorasPendientes();
+    }
+
+    /* Crear tabla */
+    protected void llenarGridBecariosConHorasPorRevisar()
+    {
+
     }
 
     protected DataTable crearTablaBecariosConHorasPorRevisar()
