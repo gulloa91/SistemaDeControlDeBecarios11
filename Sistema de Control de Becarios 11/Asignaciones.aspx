@@ -80,7 +80,7 @@
 
                         <!-- Insertar -->
                         <div class="insertar" style="margin-bottom: 20px;">
-                            <div style="width: 100%; float:left; font-weight: bold; font-size: 16px; border-bottom: 1px solid #fff; margin-bottom: 5px;">Nuevo encargado</div>
+                            <div style="width: 100%; float:left; font-weight: bold; font-size: 16px; border-bottom: 1px solid #fff; margin-bottom: 5px;">Nueva Asignación</div>
                             <span style="float:left; width:100%;">&nbsp;</span>
                             <asp:Button ID="btnInsertarAsignacion" runat="server" Text="Nuevo" 
                                 CssClass="boton ui-widget ui-state-default ui-corner-all ui-button-text-only" 
@@ -156,13 +156,13 @@
                                             CssClass="BtnCntBecarios ui-state-default ui-button" 
                                             Text="" onclick="btnCantidadBecariosDeEncargado_Click" CausesValidation="false" />
                                     </div>
-                                    <asp:DropDownList ID="DropDownEncargadosPopUp" CssClass="txtAsignacion" runat="server">
+                                    <asp:DropDownList ID="dropDownEncargadosPopUp" CssClass="txtAsignacion" runat="server">
                                     </asp:DropDownList>
                                     <asp:RequiredFieldValidator ID="RequiredFieldValidatorEncargadosPopUp" ControlToValidate="DropDownEncargadosPopUp" Display="Dynamic" runat="server" ErrorMessage="Por favor seleccione un encargado" CssClass="txtAsignacion"  ForeColor="#FF3300"></asp:RequiredFieldValidator>
                                 </div>
                                 <div style="width: 50%; float: left;">
                                     <span style="width:100%; float: right; font-weight: bold;">Becario:<span style="color:red">*</span></span>
-                                    <asp:DropDownList ID="DropDownBecariosPopUp" CssClass="txtAsignacion" runat="server">
+                                    <asp:DropDownList ID="dropDownBecariosPopUp" CssClass="txtAsignacion" runat="server">
                                     </asp:DropDownList>
                                     <asp:RequiredFieldValidator ID="RequiredFieldValidatorBecarioPopUp" ControlToValidate="DropDownEncargadosPopUp" Display="Dynamic" runat="server" ErrorMessage="Por favor seleccione un becario" CssClass="txtAsignacion" ForeColor="#FF3300"></asp:RequiredFieldValidator>
                                 </div>

@@ -102,4 +102,12 @@ public class ControladoraAsignaciones
         return nombre;
     }
 
+
+
+    public AsignacionesDataSet.AsignadoADataTable consultaBecariosSinAsignacion(int periodo, int año)
+    {
+        return controladoraBDAsignaciones.consultarBecariosSinAsignacion(periodo, año);
+   }
+
+
 }

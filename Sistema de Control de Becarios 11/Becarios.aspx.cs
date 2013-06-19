@@ -75,10 +75,11 @@ public partial class Becarios : System.Web.UI.Page
                  case 1: // Vista Completa
                      {
                          MultiViewBecario.ActiveViewIndex = 0;
-                         
+                         llenarGridBecarios(1);
+
                          if (!Page.IsPostBack)
                          {
-                           llenarGridBecarios(1);
+                           
                            llenarGridsPerfil();
                            if (Request["__EVENTTARGET"] == UpdateImage.ClientID)
                            {

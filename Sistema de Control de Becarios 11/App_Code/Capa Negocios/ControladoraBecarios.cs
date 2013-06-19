@@ -49,6 +49,7 @@ public class ControladoraBecarios
     }
 
    
+    //consulta todos los becarios existentes y devuelve una lista
     public List<Becario> consultarTablaBecario()
     {
         BecariosDataSet.BecarioDataTable tabla = controladoraBDBecario.consultarBecarios();
