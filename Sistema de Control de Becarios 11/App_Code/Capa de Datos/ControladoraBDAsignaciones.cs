@@ -46,5 +46,12 @@ public class ControladoraBDAsignaciones
     }
 
 
+    public int contarBecariosAsignados(string ced, int año, int perido)
+    {
+
+       int i = Convert.ToInt32(this.adapterAsignaciones.contarBecariosAsignados(ced, año, perido) );
+       return i;
+    }
+
 
 }

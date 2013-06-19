@@ -9,13 +9,25 @@ using System.Data;
 public partial class Asignaciones : System.Web.UI.Page
 {
 
+    /*Estados de la Asignación :
+     * 
+     * 1 : Aceptada
+     * 2 : Pendiente (esperando la confirmación del becario o encargado)
+     * 3 : Rechazada por el becario.
+     * 4 : Rechazada por el encargado.
+     * */
 
     private static CommonServices commonService;
     private static List<Asignacion> listaAsignaciones = new List<Asignacion>();
     private static ControladoraAsignaciones controladoraAsignaciones =  new ControladoraAsignaciones();
 
+    private static int añoActual;
+    private static int periodoActual;
+
     protected void Page_Load(object sender, EventArgs e)
     {
+
+        determinaSemestreActual();
         commonService = new CommonServices(UpdateInfo);
         List<int> permisos = new List<int>();
         permisos = Session["ListaPermisos"] as List<int>;
@@ -56,9 +68,6 @@ public partial class Asignaciones : System.Web.UI.Page
                         if (!IsPostBack)
                         {
                             llenarGridAsignaciones();
-                            ListItem noSelectedItem = new ListItem("No seleccionado", "");
-                           // this.dropDownBecariosPopUp.Items.Add(noSelectedItem);
-                            this.dropDownEncargadosPopUp.Items.Add(noSelectedItem);
                         }
                     } break;
 
@@ -120,16 +129,16 @@ public partial class Asignaciones : System.Web.UI.Page
         commonService.mostrarPrimerBotonDePopUp("PopUpAsignacion");
 
         cargarDropDownBecarios();
+        cargarDropDownEncargados();
+        this.btnCantidadBecariosDeEncargado.Text = "Becarios asignados: -- ";
+        this.btnCantidadBecariosDeEncargado.Enabled = false;
 
-        //cargarDropDownBecarios();
-        //cargarDropDownEncargados();
+        
+        //determinaSemestreActual();
 
-       
-        int cantidadDeBecariosAsignados = 3; // Get cantidad de becarios asigandos a encargado
-        this.lblCiclo.Text = "I";
-        this.lblAnio.Text = "2013";
-        this.btnCantidadBecariosDeEncargado.Text = "Becarios asignados: " + cantidadDeBecariosAsignados.ToString();
-      
+        this.lblCiclo.Text = "I"; // OJO ARREGLAR ESTO
+        this.lblAnio.Text = "2013"; // OJO ARREGLAR ESTO
+            
           
     }
 
@@ -242,11 +251,73 @@ public partial class Asignaciones : System.Web.UI.Page
 
     protected void limpiarContenidoAsignacion()
     {
-        this.dropDownBecariosPopUp.Text = "";
-        this.dropDownEncargadosPopUp.Text = "";
+
+        this.dropDownBecariosPopUp.Items.Clear();
+        this.dropDownEncargadosPopUp.Items.Clear();
         this.txtUnidAcademica.Text = "";
         this.txtInfoDeUbicacion.Text = "";
         this.txtTotalHoras.Text = "";
+    }
+
+
+    protected string convertirANumeroRomano(int num){
+
+        string retorno = "";
+
+        if (num == 1) {
+            retorno = "I";
+        }
+        if (num == 2) {
+            retorno = "II";
+        }
+        if (num == 3) {
+            retorno = "III";
+        }
+
+
+        return retorno;
+    }
+
+
+/*Estados de la Asignación :
+ * 
+ * 1 : Aceptada
+ * 2 : Pendiente (esperando la confirmación del becario o encargado)
+ * 3 : Rechazada por el becario.
+ * 4 : Rechazada por el encargado.
+ * */
+
+    protected String interpretaEstado(int estado){
+
+        string respuesta = "";
+
+        switch (estado) {
+
+            case 1:
+                {
+                    respuesta = "Aceptada";
+                }break;
+            case 2:
+                {
+                    respuesta = "Pendiente";
+                }break;
+            case 3:
+                {
+                    respuesta = "Rechazada por becario";
+                }break;
+            case 4: {
+                respuesta = "Rechazada por encargado";
+            }break;
+
+            default: //desconocido
+                {
+                    respuesta = "Desconocido";
+                } break;
+        
+        }
+
+        return respuesta;
+    
     }
 
 
@@ -255,6 +326,32 @@ public partial class Asignaciones : System.Web.UI.Page
    *       VARIOS
    * ------------------------------
    */
+
+
+    protected void determinaSemestreActual() {
+
+        DateTime fecha = DateTime.Now;
+        añoActual = fecha.Year;
+        int mes = fecha.Month;
+
+        periodoActual = -1;
+
+        if ((mes >= 3) && (mes <= 6))
+        {
+            periodoActual = 1;
+        }
+        else {
+
+            if ((mes >= 7) && (mes <= 12))
+            {
+                periodoActual = 2;
+            }
+            else {
+                periodoActual = 3;
+            }
+        }
+    
+    }
 
 
     // Llenar tabla con todas las asignaciones
@@ -274,10 +371,10 @@ public partial class Asignaciones : System.Web.UI.Page
 
                 newRow = tablaAsignaciones.NewRow();
                 newRow["Encargado"] = controladoraAsignaciones.getNombreEncargado(listaAsignaciones[i].CedulaEncargado);
-                newRow["Becario"] = controladoraAsignaciones.getNombreBecario(listaAsignaciones[i].CedulaBecario);
-                newRow["Ciclo"] = listaAsignaciones[i].Periodo;
+                newRow["Becario"] = controladoraAsignaciones.getNombreBecario(listaAsignaciones[i].CedulaBecario);            
+                newRow["Ciclo"] =  convertirANumeroRomano(listaAsignaciones[i].Periodo);
                 newRow["Año"] = listaAsignaciones[i].Año;
-                newRow["Estado"] = listaAsignaciones[i].Estado;
+                newRow["Estado"] = interpretaEstado(listaAsignaciones[i].Estado);
                 tablaAsignaciones.Rows.InsertAt(newRow, i);
             }
         }
@@ -336,35 +433,12 @@ public partial class Asignaciones : System.Web.UI.Page
     }
 
 
-
-    // Seleccionar tupla del grid con la flecha
-    protected void GridAsignaciones_RowCommand(object sender, GridViewCommandEventArgs e)
-    {
-        switch (e.CommandName)
-        {
-            // Consultar tupla
-            case "btnSeleccionarTupla_Click":
-                {
-                    commonService.abrirPopUp("PopUpAsignacion", "Consultar Asignación");
-                    mostrarBotonesPrincipales(true);
-                    habilitarContenidoAsignacion(false);
-                    commonService.esconderPrimerBotonDePopUp("PopUpAsignacion");
-                    int cantidadDeBecariosAsignados = 3; // Get cantidad de becarios asigandos a encargado
-                    this.lblCiclo.Text = "I";
-                    this.lblAnio.Text = "2013";
-                    this.btnCantidadBecariosDeEncargado.Text = "Becarios asignados: " + cantidadDeBecariosAsignados.ToString();
-                } break;
-        }
-    }
-
-
-
-
+    //carga el dropdown con los becarios que estan pendientes de asignacion en el ciclo lectivo actual
     protected void cargarDropDownBecarios() {
 
 
-        int periodo = 1;
-        int año = 2013;
+        int periodo = 1; // OJO FALTA PONER ESTO BIEN
+        int año = 2013;  // OJO FALTA PONER ESTO BIEN
 
         AsignacionesDataSet.AsignadoADataTable tablaBecarios = controladoraAsignaciones.consultaBecariosSinAsignacion(periodo, año);
         ListItem item;
@@ -389,6 +463,76 @@ public partial class Asignaciones : System.Web.UI.Page
     }
 
 
+    //carga el dropdown de encargados con todos los encargados existentes
+    protected void cargarDropDownEncargados()
+    {
+
+
+        EncargadoDataSet.EncargadoDataTable tablaEncargados = controladoraAsignaciones.obtenerEncargadosCompletos();
+        ListItem item;
+
+        this.dropDownEncargadosPopUp.SelectedIndex = -1;
+        this.dropDownEncargadosPopUp.SelectedValue = null;
+
+        item = new ListItem("No seleccionado", "-1");
+        this.dropDownEncargadosPopUp.Items.Add(item);
+
+        foreach (DataRow r in tablaEncargados.Rows)
+        {
+
+            string nombre = commonService.procesarStringDeUI(r["Nombre"].ToString()) + " " + commonService.procesarStringDeUI(r["Apellido1"].ToString()) + " " + commonService.procesarStringDeUI(r["Apellido2"].ToString());
+            item = new ListItem(nombre, commonService.procesarStringDeUI(r["Cedula"].ToString()));
+            this.dropDownEncargadosPopUp.Items.Add(item);
+        }
+
+        this.dropDownEncargadosPopUp.DataBind();
+        this.dropDownEncargadosPopUp.SelectedIndex = 0;
+
+    }
+
+
+    protected void seleccionaEncargado(object sender, EventArgs e)
+    {
+
+        string cedEncargadoSeleccionado = dropDownEncargadosPopUp.SelectedValue;
+
+        int periodo = 1; // OJO FALTA PONER ESTO BIEN
+        int año = 2013;  // OJO FALTA PONER ESTO BIEN
+
+        int cantidadBecariosAsignados = controladoraAsignaciones.contarBecariosAsignados(cedEncargadoSeleccionado, año, periodo);
+
+        this.btnCantidadBecariosDeEncargado.Text = "Becarios asignados : " + cantidadBecariosAsignados;
+        this.btnCantidadBecariosDeEncargado.Enabled = true;
+
+
+    }
+
+
+
+    // Seleccionar tupla del grid con la flecha
+    protected void GridAsignaciones_RowCommand(object sender, GridViewCommandEventArgs e)
+    {
+        switch (e.CommandName)
+        {
+            // Consultar tupla
+            case "btnSeleccionarTupla_Click":
+                {
+                    commonService.abrirPopUp("PopUpAsignacion", "Consultar Asignación");
+                    mostrarBotonesPrincipales(true);
+                    habilitarContenidoAsignacion(false);
+                    commonService.esconderPrimerBotonDePopUp("PopUpAsignacion");
+                    int cantidadDeBecariosAsignados = 3; // Get cantidad de becarios asigandos a encargado
+                    this.lblCiclo.Text = "I";
+                    this.lblAnio.Text = "2013";
+                    this.btnCantidadBecariosDeEncargado.Text = "Becarios asignados: " + cantidadDeBecariosAsignados.ToString();
+                } break;
+        }
+    }
+
+
+
+
+    ///////******//////
 
 
     // Grid vista Encargados

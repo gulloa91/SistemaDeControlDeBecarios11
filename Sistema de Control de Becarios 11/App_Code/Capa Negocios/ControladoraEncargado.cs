@@ -141,4 +141,10 @@ public class ControladoraEncargado
          encargado.OtroTelefono = tabla.Rows[0]["OtroTel"].ToString();
          return encargado;
     }
+
+
+    public EncargadoDataSet.EncargadoDataTable obtenerEncargadosCompletos(){
+        return controladoraBDEncargado.consultarEncargados();
+    }
+
 }

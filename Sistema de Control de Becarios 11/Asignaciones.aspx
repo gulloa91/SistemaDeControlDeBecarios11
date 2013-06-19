@@ -156,7 +156,7 @@
                                             CssClass="BtnCntBecarios ui-state-default ui-button" 
                                             Text="" onclick="btnCantidadBecariosDeEncargado_Click" CausesValidation="false" />
                                     </div>
-                                    <asp:DropDownList ID="dropDownEncargadosPopUp" CssClass="txtAsignacion" runat="server">
+                                    <asp:DropDownList ID="dropDownEncargadosPopUp" CssClass="txtAsignacion" runat="server" AutoPostBack="true" OnSelectedIndexChanged ="seleccionaEncargado">                          
                                     </asp:DropDownList>
                                     <asp:RequiredFieldValidator ID="RequiredFieldValidatorEncargadosPopUp" ControlToValidate="DropDownEncargadosPopUp" Display="Dynamic" runat="server" ErrorMessage="Por favor seleccione un encargado" CssClass="txtAsignacion"  ForeColor="#FF3300"></asp:RequiredFieldValidator>
                                 </div>

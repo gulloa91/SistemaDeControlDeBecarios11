@@ -91,9 +91,7 @@ public class ControladoraBDEncargado
      ** MODIFICA: Nada **/
     public EncargadoDataSet.EncargadoDataTable consultarEncargados()
     {
-        EncargadoDataSet.EncargadoDataTable dt = this.adapter.GetData();
-
-        
+        EncargadoDataSet.EncargadoDataTable dt = this.adapter.GetData();  
 
         return dt;
     }

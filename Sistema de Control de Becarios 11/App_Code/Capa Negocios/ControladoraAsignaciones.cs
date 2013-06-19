@@ -66,12 +66,12 @@ public class ControladoraAsignaciones
 
             asignacion.CedulaBecario = cs.procesarStringDeUI(r["CedulaBecario"].ToString());
             asignacion.CedulaEncargado = cs.procesarStringDeUI(r["CedulaEncargado"].ToString());
-            asignacion.Periodo = cs.procesarStringDeUI(r["Periodo"].ToString());
-            asignacion.Año = cs.procesarStringDeUI(r["Año"].ToString());
-            asignacion.TotalHoras = cs.procesarStringDeUI(r["TotalHoras"].ToString());
+            asignacion.Periodo = Convert.ToInt32(r["Periodo"]);
+            asignacion.Año = Convert.ToInt32(r["Año"]);
+            asignacion.TotalHoras = Convert.ToInt32(r["TotalHoras"]);
             asignacion.SiglasUA = cs.procesarStringDeUI(r["SiglasUA"].ToString());
             asignacion.InfoUbicacion = cs.procesarStringDeUI(r["InfoUbicacion"].ToString());
-            asignacion.Estado = cs.procesarStringDeUI(r["Estado"].ToString());
+            asignacion.Estado = Convert.ToInt32(r["Estado"]);
 
             listaAs.Add(asignacion);
         }
@@ -108,6 +108,18 @@ public class ControladoraAsignaciones
     {
         return controladoraBDAsignaciones.consultarBecariosSinAsignacion(periodo, año);
    }
+
+
+    public EncargadoDataSet.EncargadoDataTable obtenerEncargadosCompletos() {
+        return controladoraEncargado.obtenerEncargadosCompletos();
+    }
+
+
+    public int contarBecariosAsignados(string ced, int año, int perido )
+    { 
+      return controladoraBDAsignaciones.contarBecariosAsignados(ced,año,perido);
+    }
+
 
 
 }
