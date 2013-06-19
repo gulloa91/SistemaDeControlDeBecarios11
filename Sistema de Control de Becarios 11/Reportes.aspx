@@ -74,35 +74,35 @@
                                                 </div>
 
                                                 <!-- DRP Criterio 1 -->
-                                                <div id="criterio1" style="float: left; margin-right: 10px; width: 120px;">
+                                                <div id="criterio1" style="float: left; margin-right: 10px; width: 180px;">
                                                     <asp:Label ID="lblCriterio1" CssClass="inputElement" runat="server" Text=""></asp:Label>
                                                     <asp:DropDownList CssClass="inputElement" ID="DropDownListCriterio1" runat="server">
                                                     </asp:DropDownList>
                                                 </div>
 
                                                 <!-- DRP Criterio 2 -->
-                                                <div id="criterio2" style="float: left; margin-right: 10px; width: 120px;">
+                                                <div id="criterio2" style="float: left; margin-right: 10px; width: 180px;">
                                                     <asp:Label ID="lblCriterio2" CssClass="inputElement" runat="server" Text=""></asp:Label>
                                                     <asp:DropDownList CssClass="inputElement" ID="DropDownListCriterio2" runat="server">
                                                     </asp:DropDownList>
                                                 </div>
 
                                                 <!-- DRP Criterio 3 -->
-                                                <div id="criterio3" style="float: left; margin-right: 10px; width: 120px;">
+                                                <div id="criterio3" style="float: left; margin-right: 10px; width: 180px;">
                                                     <asp:Label ID="lblCriterio3" CssClass="inputElement" runat="server" Text=""></asp:Label>
                                                     <asp:DropDownList CssClass="inputElement" ID="DropDownListCriterio3" runat="server">
                                                     </asp:DropDownList>
                                                 </div>
 
                                                 <!-- DRP Criterio 4 -->
-                                                <div id="criterio4" style="float: left; margin-right: 10px; width: 120px;">
+                                                <div id="criterio4" style="float: left; margin-right: 10px; width: 180px;">
                                                     <asp:Label ID="lblCriterio4" CssClass="inputElement" runat="server" Text=""></asp:Label>
                                                     <asp:DropDownList CssClass="inputElement" ID="DropDownListCriterio4" runat="server">
                                                     </asp:DropDownList>
                                                 </div>
 
                                                  <!-- DRP Criterio 5 -->
-                                                <div id="criterio5" style="float: left; margin-right: 10px; width: 120px;">
+                                                <div id="criterio5" style="float: left; margin-right: 10px; width: 180px;">
                                                     <asp:Label ID="lblCriterio5" CssClass="inputElement" runat="server" Text=""></asp:Label>
                                                     <asp:DropDownList CssClass="inputElement" ID="DropDownListCriterio5" runat="server">
                                                     </asp:DropDownList>

@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Data;
+using System.Collections;
 
 public partial class Reportes : System.Web.UI.Page
 {
@@ -22,6 +23,12 @@ public partial class Reportes : System.Web.UI.Page
     {
         // Mostrar Grid:
         commonService.correrJavascript("$('#wrapperDeLaInfo').fadeIn();");
+
+        this.DropDownListCriterio1.Items.Clear();
+        this.DropDownListCriterio2.Items.Clear();
+        this.DropDownListCriterio3.Items.Clear();
+        this.DropDownListCriterio4.Items.Clear();
+        this.DropDownListCriterio5.Items.Clear();
         switch (e.Item.Text)
         {
             // REPORTE 1
@@ -34,6 +41,41 @@ public partial class Reportes : System.Web.UI.Page
                     commonService.correrJavascript("$('#criterio4').css('display', 'none');"); // Esconder el segundo criterio
                     commonService.correrJavascript("$('#criterio5').css('display', 'none');");
                     llenarGridReportes(0);
+
+                    //llenar criterio de selección 1
+                    Hashtable estado = new Hashtable();
+                    estado.Add(0, "Pendiente de Horas");
+                    estado.Add(1, "Horas Finalizadas");                    
+                    this.DropDownListCriterio1.DataTextField = "Value";
+                    this.DropDownListCriterio1.DataValueField = "Key";
+                    this.DropDownListCriterio1.DataSource = estado;
+                    this.DropDownListCriterio1.DataBind(); 
+
+                    //llenar criterio de selección 2
+                    Hashtable semestre = new Hashtable();
+                    semestre.Add(0, "III - Semestre");
+                    semestre.Add(1, "II  - Semestre");
+                    semestre.Add(2, "I   - Semestre");
+                    this.DropDownListCriterio2.DataTextField = "Value";
+                    this.DropDownListCriterio2.DataValueField = "Key";
+                    this.DropDownListCriterio2.DataSource = semestre;
+                    this.DropDownListCriterio2.DataBind(); 
+
+                    //llenar criterio de selección 3
+                    Hashtable año = new Hashtable();
+
+                    DateTime today = DateTime.Today;
+                    año.Add(0, (today.Year) + 6); año.Add(1, (today.Year) + 5); año.Add(2, (today.Year) + 4);
+                    año.Add(3, (today.Year) + 3); año.Add(4, (today.Year) + 2); año.Add(5, (today.Year) + 1);
+                    año.Add(6, today.Year);
+                    año.Add(7, (today.Year) - 1); año.Add(8, (today.Year) - 2); año.Add(9, (today.Year) - 3);
+                    año.Add(10, (today.Year) - 4); año.Add(11, (today.Year) - 5); año.Add(12, (today.Year) - 6);
+                    this.DropDownListCriterio3.DataTextField = "Value";
+                    this.DropDownListCriterio3.DataValueField = "Key";
+                    this.DropDownListCriterio3.DataSource = año;
+                    this.DropDownListCriterio3.DataBind();
+                    DropDownListCriterio3.SelectedIndex = 6;
+
                 } break;
 
             // REPORTE 2
@@ -46,6 +88,33 @@ public partial class Reportes : System.Web.UI.Page
                     commonService.correrJavascript("$('#criterio4').css('display', 'none');"); 
                     commonService.correrJavascript("$('#criterio5').css('display', 'none');");
                     llenarGridReportes(1);
+
+
+                    //llenar criterio de selección 1
+                    Hashtable semestre = new Hashtable();
+                    semestre.Add(0, "III - Semestre");
+                    semestre.Add(1, "II  - Semestre");
+                    semestre.Add(2, "I   - Semestre");
+                    this.DropDownListCriterio1.DataTextField = "Value";
+                    this.DropDownListCriterio1.DataValueField = "Key";
+                    this.DropDownListCriterio1.DataSource = semestre;
+                    this.DropDownListCriterio1.DataBind();
+
+                    //llenar criterio de selección 2
+                    Hashtable año = new Hashtable();
+
+                    DateTime today = DateTime.Today;
+                    año.Add(0, (today.Year) + 6); año.Add(1, (today.Year) + 5); año.Add(2, (today.Year) + 4);
+                    año.Add(3, (today.Year) + 3); año.Add(4, (today.Year) + 2); año.Add(5, (today.Year) + 1);
+                    año.Add(6, today.Year);
+                    año.Add(7, (today.Year) - 1); año.Add(8, (today.Year) - 2); año.Add(9, (today.Year) - 3);
+                    año.Add(10, (today.Year) - 4); año.Add(11, (today.Year) - 5); año.Add(12, (today.Year) - 6);
+                    this.DropDownListCriterio2.DataTextField = "Value";
+                    this.DropDownListCriterio2.DataValueField = "Key";
+                    this.DropDownListCriterio2.DataSource = año;
+                    this.DropDownListCriterio2.DataBind();
+                    DropDownListCriterio2.SelectedIndex = 6;
+
                 } break;
 
             // REPORTE 3
@@ -59,6 +128,32 @@ public partial class Reportes : System.Web.UI.Page
                     commonService.correrJavascript("$('#criterio4').css('display', 'none');");
                     commonService.correrJavascript("$('#criterio5').css('display', 'none');");
                     llenarGridReportes(2);
+
+                    //llenar criterio de selección 1
+                    Hashtable semestre = new Hashtable();
+                    semestre.Add(0, "III - Semestre");
+                    semestre.Add(1, "II  - Semestre");
+                    semestre.Add(2, "I   - Semestre");
+                    this.DropDownListCriterio1.DataTextField = "Value";
+                    this.DropDownListCriterio1.DataValueField = "Key";
+                    this.DropDownListCriterio1.DataSource = semestre;
+                    this.DropDownListCriterio1.DataBind();
+
+                    //llenar criterio de selección 2
+                    Hashtable año = new Hashtable();
+
+                    DateTime today = DateTime.Today;
+                    año.Add(0, (today.Year) + 6); año.Add(1, (today.Year) + 5); año.Add(2, (today.Year) + 4);
+                    año.Add(3, (today.Year) + 3); año.Add(4, (today.Year) + 2); año.Add(5, (today.Year) + 1);
+                    año.Add(6, today.Year);
+                    año.Add(7, (today.Year) - 1); año.Add(8, (today.Year) - 2); año.Add(9, (today.Year) - 3);
+                    año.Add(10, (today.Year) - 4); año.Add(11, (today.Year) - 5); año.Add(12, (today.Year) - 6);
+                    this.DropDownListCriterio2.DataTextField = "Value";
+                    this.DropDownListCriterio2.DataValueField = "Key";
+                    this.DropDownListCriterio2.DataSource = año;
+                    this.DropDownListCriterio2.DataBind();
+                    DropDownListCriterio2.SelectedIndex = 6;
+
                 } break;
 
             // REPORTE 4 Y 5
@@ -74,6 +169,31 @@ public partial class Reportes : System.Web.UI.Page
                         commonService.correrJavascript("$('#criterio4').css('display', 'none');");
                         commonService.correrJavascript("$('#criterio5').css('display', 'none');");
                         llenarGridReportes(3);
+
+                        //llenar criterio de selección 1
+                        Hashtable semestre = new Hashtable();
+                        semestre.Add(0, "III - Semestre");
+                        semestre.Add(1, "II  - Semestre");
+                        semestre.Add(2, "I   - Semestre");
+                        this.DropDownListCriterio1.DataTextField = "Value";
+                        this.DropDownListCriterio1.DataValueField = "Key";
+                        this.DropDownListCriterio1.DataSource = semestre;
+                        this.DropDownListCriterio1.DataBind();
+
+                        //llenar criterio de selección 2
+                        Hashtable año = new Hashtable();
+
+                        DateTime today = DateTime.Today;
+                        año.Add(0, (today.Year) + 6); año.Add(1, (today.Year) + 5); año.Add(2, (today.Year) + 4);
+                        año.Add(3, (today.Year) + 3); año.Add(4, (today.Year) + 2); año.Add(5, (today.Year) + 1);
+                        año.Add(6, today.Year);
+                        año.Add(7, (today.Year) - 1); año.Add(8, (today.Year) - 2); año.Add(9, (today.Year) - 3);
+                        año.Add(10, (today.Year) - 4); año.Add(11, (today.Year) - 5); año.Add(12, (today.Year) - 6);
+                        this.DropDownListCriterio2.DataTextField = "Value";
+                        this.DropDownListCriterio2.DataValueField = "Key";
+                        this.DropDownListCriterio2.DataSource = año;
+                        this.DropDownListCriterio2.DataBind();
+                        DropDownListCriterio2.SelectedIndex = 6;
                     }
                     // Reporte de Actividad de ENCARGADO
                     else
@@ -85,6 +205,31 @@ public partial class Reportes : System.Web.UI.Page
                         commonService.correrJavascript("$('#criterio4').css('display', 'none');");
                         commonService.correrJavascript("$('#criterio5').css('display', 'none');");
                         llenarGridReportes(4);
+
+                        //llenar criterio de selección 1
+                        Hashtable semestre = new Hashtable();
+                        semestre.Add(0, "III - Semestre");
+                        semestre.Add(1, "II  - Semestre");
+                        semestre.Add(2, "I   - Semestre");
+                        this.DropDownListCriterio1.DataTextField = "Value";
+                        this.DropDownListCriterio1.DataValueField = "Key";
+                        this.DropDownListCriterio1.DataSource = semestre;
+                        this.DropDownListCriterio1.DataBind();
+
+                        //llenar criterio de selección 2
+                        Hashtable año = new Hashtable();
+
+                        DateTime today = DateTime.Today;
+                        año.Add(0, (today.Year) + 6); año.Add(1, (today.Year) + 5); año.Add(2, (today.Year) + 4);
+                        año.Add(3, (today.Year) + 3); año.Add(4, (today.Year) + 2); año.Add(5, (today.Year) + 1);
+                        año.Add(6, today.Year);
+                        año.Add(7, (today.Year) - 1); año.Add(8, (today.Year) - 2); año.Add(9, (today.Year) - 3);
+                        año.Add(10, (today.Year) - 4); año.Add(11, (today.Year) - 5); año.Add(12, (today.Year) - 6);
+                        this.DropDownListCriterio2.DataTextField = "Value";
+                        this.DropDownListCriterio2.DataValueField = "Key";
+                        this.DropDownListCriterio2.DataSource = año;
+                        this.DropDownListCriterio2.DataBind();
+                        DropDownListCriterio2.SelectedIndex = 6;
                     }
 
                 } break;
