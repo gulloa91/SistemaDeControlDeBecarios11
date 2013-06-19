@@ -11,12 +11,12 @@ public class Asignacion
 
     private String cedulaBecario;
     private String cedulaEncargado;
-    private String periodo;
-    private String año;  
-    private String totalHoras;
+    private int periodo;
+    private int año;  
+    private int totalHoras;
     private String siglasUA;
     private String infoUbicacion;
-    private String estado;
+    private int estado;
 
 
     public Asignacion()
@@ -29,12 +29,12 @@ public class Asignacion
 
         this.cedulaBecario = datos[0].ToString();
         this.cedulaEncargado = datos[1].ToString();
-        this.periodo = datos[2].ToString();
-        this.año = datos[3].ToString();
-        this.totalHoras = datos[4].ToString();
+        this.periodo = Convert.ToInt32( datos[2]);
+        this.año = Convert.ToInt32(datos[3]);
+        this.totalHoras = Convert.ToInt32(datos[4]);
         this.siglasUA = datos[5].ToString();
         this.infoUbicacion = datos[6].ToString();
-        this.estado = datos[7].ToString();
+        this.estado = Convert.ToInt32(datos[7]);
 	}
 
 
@@ -51,20 +51,20 @@ public class Asignacion
         set { cedulaEncargado = value; }
     }
 
-    public String Periodo
+    public int Periodo
     {
         get { return periodo; }
         set { periodo = value; }
     }
 
-    public String Año
+    public int Año
     {
         get { return año; }
         set { año = value; }
     }
 
 
-    public String TotalHoras
+    public int TotalHoras
     {
         get { return totalHoras; }
         set { totalHoras = value; }
@@ -83,7 +83,7 @@ public class Asignacion
         set { infoUbicacion = value; }
     }
 
-    public String Estado
+    public int Estado
     {
         get { return estado; }
         set { estado = value; }
