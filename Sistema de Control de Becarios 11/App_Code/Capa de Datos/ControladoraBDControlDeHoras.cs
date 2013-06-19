@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using ControlDeHorasDataSetTableAdapters;
 using System.Data;
+using System.Data.SqlClient;
 
 public class ControladoraBDControlDeHoras
 {
@@ -13,20 +14,19 @@ public class ControladoraBDControlDeHoras
         adapterControlDeHoras = new ControlDeHorasTableAdapter();
 	}
 
-    public DataTable consultarReportesBecarios(String cedulaEncargado, int estado){
-        DataTable dt = new DataTable();
-        dt = adapterControlDeHoras.consultarReportesBecarios(cedulaEncargado, estado);
-        return dt;
-    }
-
-    public DataTable consultarReportesHorasBecarios(String cedulaEncargado, String cedulaBecario, int estado) {
-        DataTable dt = new DataTable();
-        dt = adapterControlDeHoras.consultarReportesHorasBecarios(cedulaBecario, cedulaEncargado, estado);
-        return dt;
-    }
-
     //-----------------------------------------
     //Inicia parte de Beto
+
+    public String insertarReporte(ControlDeHoras controlDeHoras) {
+        String resultado = "";
+        try {
+            adapterControlDeHoras.Insert(controlDeHoras.cedulaBecario, controlDeHoras.cedulaEncargado, controlDeHoras.cantidadHoras, controlDeHoras.fecha, controlDeHoras.estado, controlDeHoras.comentarioBecario, controlDeHoras.comentarioEncargado);
+        }
+        catch (SqlException e) {
+            resultado = "Error al insertar el control de horas";
+        }
+        return resultado;
+    }
 
     public DataTable consultarReportesBecarios(string idEncargado, int tipo)
     {
@@ -35,7 +35,7 @@ public class ControladoraBDControlDeHoras
         return dt;
     }
 
-    public DataTable consultarReportesBecarios(string idEncargado, string idBecario, int tipo)
+    public DataTable consultarReportesHorasBecarios(string idEncargado, string idBecario, int tipo)
     {
         DataTable dt = new DataTable();
         dt = adapterControlDeHoras.getDataByBecarioEncargadoEstado(idEncargado, idBecario, tipo);
