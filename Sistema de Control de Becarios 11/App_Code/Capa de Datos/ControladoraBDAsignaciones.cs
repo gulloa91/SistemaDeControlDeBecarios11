@@ -34,15 +34,29 @@ public class ControladoraBDAsignaciones
     public AsignacionesDataSet.AsignadoADataTable consultarBecariosSinAsignacion(int periodo, int año)
     {
 
-        /*AsignacionesDataSet dataSet = new AsignacionesDataSet();
+      
 
-        dataSet.AsignadoADataTable.Clear();
+         AsignacionesDataSet.AsignadoADataTable dt = new AsignacionesDataSet.AsignadoADataTable();
 
-        dataSet.EnforceConstraints = false;*/
+         //AsignacionesDataSet.BecariosSinAsignarDataTable nueva;
 
-        AsignacionesDataSet.AsignadoADataTable dt = new AsignacionesDataSet.AsignadoADataTable();
-        this.adapterAsignaciones.consultarBecariosSinAsignacion(dt,año,periodo);
-        return dt;
+         dt.Clear();
+
+         this.adapterAsignaciones.consultarBecariosSinAsignacion(dt, periodo, año);
+ 
+         //AsignacionesDataSet dataSetA = new AsignacionesDataSet();
+
+         //dataSetA.EnforceConstraints = false;
+
+         //dt.Constraints.Clear();
+
+         //dataSetA.Tables["AsignadoA"];
+
+         //dt.Constraints.Clear();
+         //dataSetA.EnforceConstraints = false;
+
+         return dt;
+
     }
 
 
