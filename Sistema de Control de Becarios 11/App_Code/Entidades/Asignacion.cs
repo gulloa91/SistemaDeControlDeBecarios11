@@ -26,7 +26,7 @@ public class Asignacion
 
 	public Asignacion(Object[] datos)
 	{
-
+        
         this.cedulaBecario = datos[0].ToString();
         this.cedulaEncargado = datos[1].ToString();
         this.periodo = Convert.ToInt32( datos[2]);
