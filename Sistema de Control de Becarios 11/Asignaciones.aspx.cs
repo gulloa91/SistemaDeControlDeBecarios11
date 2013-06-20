@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Data;
+using System.Globalization;
 
 public partial class Asignaciones : System.Web.UI.Page
 {
@@ -23,6 +24,8 @@ public partial class Asignaciones : System.Web.UI.Page
 
     private static int añoActual;
     private static int periodoActual;
+    static int modoEjecucion = 0;
+    static int rowIndex;
 
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -122,70 +125,79 @@ public partial class Asignaciones : System.Web.UI.Page
     protected void btnInsertarAsignacion_Click(object sender, EventArgs e)
     {
 
-        commonService.abrirPopUp("PopUpAsignacion", "Insertar Nueva Asignación");
+        
         mostrarBotonesPrincipales(false);
         habilitarContenidoAsignacion(true);
         limpiarContenidoAsignacion();
-        commonService.mostrarPrimerBotonDePopUp("PopUpAsignacion");
-
+        
         cargarDropDownBecarios();
         cargarDropDownEncargados();
         this.btnCantidadBecariosDeEncargado.Text = "Becarios asignados: -- ";
         this.btnCantidadBecariosDeEncargado.Enabled = false;
-
         
-        //determinaSemestreActual();
+        determinaSemestreActual();
 
-        this.lblCiclo.Text = "I"; // OJO ARREGLAR ESTO
-        this.lblAnio.Text = "2013"; // OJO ARREGLAR ESTO
-            
-          
+        this.lblCiclo.Text = convertirANumeroRomano(periodoActual); 
+        this.lblAnio.Text = añoActual.ToString();
+
+        commonService.abrirPopUp("PopUpAsignacion", "Insertar Nueva Asignación");
+        commonService.mostrarPrimerBotonDePopUp("PopUpAsignacion");
+
+
     }
-
 
 
     // Aceptar PopUp
     protected void btnInvisibleAceptarAsignacion_Click(object sender, EventArgs e)
     {
-        commonService.cerrarPopUp("PopUpAsignacion");
 
-        commonService.mensajeJavascript("La asignación se insertó correctamente", "Insertada");
-    }
-
-    // Eliminar
-    protected void btnInvisibleEliminarAsignacion_Click(object sender, EventArgs e)
-    {
-        commonService.cerrarPopUp("PopUpAsignacion");
-        commonService.mensajeJavascript("La asignación se eliminó correctamente", "Eliminado"); // Obviamente se tiene que cambiar con el resultado de vd
-    }
-
-    // Aceptar Asignación Vista Encargado
-    protected void btnInvisibleAceptarAsignacionEncargado_Click(object sender, EventArgs e)
-    {
-        commonService.cerrarPopUp("PopUpAsignacionEncargado");
-        commonService.mensajeJavascript("Se ha aceptado la asignación. Un mensaje se enviará la dirección de la ECCI.", "Aceptada"); // Obviamente se tiene que cambiar con el resultado de vd
-    }
-
-    // Rechazar Asignación Vista Encargado
-    protected void btnInvisibleRechazarAsignacionEncargado_Click(object sender, EventArgs e)
-    {
-        commonService.cerrarPopUp("PopUpAsignacionEncargado");
-        commonService.mensajeJavascript("Se ha rechazado la asignación. Un mensaje se enviará la dirección de la ECCI.", "Rechazada"); // Obviamente se tiene que cambiar con el resultado de vd
-    }
-
-    // BUSCAR CLICK
-    protected void btnBuscar_Click(object sender, EventArgs e)
-    {
        
+        TextInfo miTexto = CultureInfo.CurrentCulture.TextInfo;
+
+        Object[] datos = new Object[10];
+
+        datos[0] = dropDownBecariosPopUp.SelectedValue;
+        datos[1] = dropDownEncargadosPopUp.SelectedValue;
+        datos[2] = periodoActual;
+        datos[3] = añoActual;
+        datos[4] = txtTotalHoras.Text;
+        datos[5] = txtUnidAcademica.Text;
+        datos[6] = txtInfoDeUbicacion.Text;
+        datos[7] = 2;
+
+        string mensajeResultado = controladoraAsignaciones.ejecutar(1, datos, null);
+       
+        commonService.cerrarPopUp("PopUpAsignacion");
+
+        if (mensajeResultado.Equals("Exito"))
+        {
+            commonService.mensajeJavascript("La asignación se insertó correctamente", "Éxito");
+        }
+        else {
+            commonService.mensajeJavascript("No se pudo crear la inserción", "Error");        
+        }
+
+        llenarGridAsignaciones();
+
     }
 
-    
 
     // Abrir PopUp Eliminar
     protected void btnEliminarAsignacion_Click(object sender, EventArgs e)
     {
         commonService.abrirPopUp("PopUpEliminarAsignacion", "Eliminar Asignación");
     }
+
+
+
+    // Eliminar
+    protected void btnInvisibleEliminarAsignacion_Click(object sender, EventArgs e)
+    {
+
+        commonService.cerrarPopUp("PopUpAsignacion");
+        commonService.mensajeJavascript("La asignación se eliminó correctamente", "Eliminado"); // Obviamente se tiene que cambiar con el resultado de vd
+    }
+
 
     // Seleccionar Modificar en el PopUp
     protected void btnModificarAsignacion_Click(object sender, EventArgs e)
@@ -207,10 +219,20 @@ public partial class Asignaciones : System.Web.UI.Page
 
 
 
+
+
+    // BUSCAR CLICK
+    protected void btnBuscar_Click(object sender, EventArgs e)
+    {
+       
+    }
+
+    
+
  /*
- * --------------------------------
- *   AUXILIARES - MOSTRAR BOTONES
- * --------------------------------
+ * ----------------------------------------
+ *   AUXILIARES - MOSTRAR BOTONES Y OTROS
+ * ----------------------------------------
  */
 
 
@@ -299,7 +321,7 @@ public partial class Asignaciones : System.Web.UI.Page
                 }break;
             case 2:
                 {
-                    respuesta = "Pendiente";
+                    respuesta = "Pendiente de confirmación";
                 }break;
             case 3:
                 {
@@ -318,6 +340,17 @@ public partial class Asignaciones : System.Web.UI.Page
 
         return respuesta;
     
+    }
+
+
+
+    //busca en base a la cedula el becario correspondiente es la lista de asignaciones
+    private String buscarNombreBecario( string ced) {
+
+        string nombre = "";
+
+       
+        return nombre;
     }
 
 
@@ -437,17 +470,17 @@ public partial class Asignaciones : System.Web.UI.Page
     protected void cargarDropDownBecarios() {
 
 
-        int periodo = 1; // OJO FALTA PONER ESTO BIEN
-        int año = 2013;  // OJO FALTA PONER ESTO BIEN
+        //int periodo = 1;
+        //int año = 2013;  
 
-        AsignacionesDataSet.AsignadoADataTable tablaBecarios = controladoraAsignaciones.consultaBecariosSinAsignacion(periodo, año);
+        AsignacionesDataSet.BecarioSinAsignacionDataTable tablaBecarios = controladoraAsignaciones.consultaBecariosSinAsignacion(periodoActual, añoActual);
         ListItem item;
 
 
         this.dropDownBecariosPopUp.SelectedIndex = -1;
         this.dropDownBecariosPopUp.SelectedValue = null;
 
-        item = new ListItem("No seleccionado", "-1");
+        item = new ListItem("Seleccionar un becario", "0");
         this.dropDownBecariosPopUp.Items.Add(item);
 
         foreach(DataRow r in tablaBecarios.Rows){
@@ -458,7 +491,6 @@ public partial class Asignaciones : System.Web.UI.Page
         }
 
         this.dropDownBecariosPopUp.DataBind();
-        this.dropDownBecariosPopUp.SelectedIndex = 0;
        
     }
 
@@ -474,7 +506,7 @@ public partial class Asignaciones : System.Web.UI.Page
         this.dropDownEncargadosPopUp.SelectedIndex = -1;
         this.dropDownEncargadosPopUp.SelectedValue = null;
 
-        item = new ListItem("No seleccionado", "-1");
+        item = new ListItem("Seleccionar un encargado", "0");
         this.dropDownEncargadosPopUp.Items.Add(item);
 
         foreach (DataRow r in tablaEncargados.Rows)
@@ -486,27 +518,27 @@ public partial class Asignaciones : System.Web.UI.Page
         }
 
         this.dropDownEncargadosPopUp.DataBind();
-        this.dropDownEncargadosPopUp.SelectedIndex = 0;
+        
 
     }
 
 
+    //metodo q actualiza el botón de cantidad de becarios cuando se selecciona un encargado
     protected void seleccionaEncargado(object sender, EventArgs e)
     {
 
         string cedEncargadoSeleccionado = dropDownEncargadosPopUp.SelectedValue;
 
-        int periodo = 1; // OJO FALTA PONER ESTO BIEN
-        int año = 2013;  // OJO FALTA PONER ESTO BIEN
+        //int periodo = 1; 
+        //int año = 2013; 
 
-        int cantidadBecariosAsignados = controladoraAsignaciones.contarBecariosAsignados(cedEncargadoSeleccionado, año, periodo);
+        int cantidadBecariosAsignados = controladoraAsignaciones.contarBecariosAsignados(cedEncargadoSeleccionado, añoActual, periodoActual);
 
         this.btnCantidadBecariosDeEncargado.Text = "Becarios asignados : " + cantidadBecariosAsignados;
         this.btnCantidadBecariosDeEncargado.Enabled = true;
 
 
     }
-
 
 
     // Seleccionar tupla del grid con la flecha
@@ -517,19 +549,61 @@ public partial class Asignaciones : System.Web.UI.Page
             // Consultar tupla
             case "btnSeleccionarTupla_Click":
                 {
-                    commonService.abrirPopUp("PopUpAsignacion", "Consultar Asignación");
+
+                    rowIndex = Convert.ToInt32(e.CommandArgument);
+                    int pageIndex = this.GridAsignaciones.PageIndex;
+                    int pageSize = this.GridAsignaciones.PageSize;
+                    rowIndex += (pageIndex * pageSize);
+
+                    limpiarContenidoAsignacion();
+                    cargarCamposAsignacion();
+
+                    
                     mostrarBotonesPrincipales(true);
                     habilitarContenidoAsignacion(false);
-                    commonService.esconderPrimerBotonDePopUp("PopUpAsignacion");
-                    int cantidadDeBecariosAsignados = 3; // Get cantidad de becarios asigandos a encargado
-                    this.lblCiclo.Text = "I";
-                    this.lblAnio.Text = "2013";
-                    this.btnCantidadBecariosDeEncargado.Text = "Becarios asignados: " + cantidadDeBecariosAsignados.ToString();
+
+                    commonService.abrirPopUp("PopUpAsignacion", "Consultar Asignación");
+                    commonService.esconderPrimerBotonDePopUp("PopUpAsignacion");               
+                   
                 } break;
         }
     }
 
 
+
+    protected void cargarCamposAsignacion(){
+
+
+        this.lblCiclo.Text = convertirANumeroRomano( listaAsignaciones[rowIndex].Periodo);
+        this.lblAnio.Text = listaAsignaciones[rowIndex].Año.ToString();  
+
+        this.txtTotalHoras.Text = listaAsignaciones[rowIndex].TotalHoras.ToString();
+        this.txtUnidAcademica.Text = commonService.procesarStringDeUI(listaAsignaciones[rowIndex].SiglasUA);
+        this.txtInfoDeUbicacion.Text = commonService.procesarStringDeUI(listaAsignaciones[rowIndex].InfoUbicacion);
+
+        cargarDropDownEncargados();
+        string cedEncargado = listaAsignaciones[rowIndex].CedulaEncargado;
+        dropDownEncargadosPopUp.SelectedValue = cedEncargado;
+
+        cargarDropDownBecarios();
+
+        string cedBecario = listaAsignaciones[rowIndex].CedulaBecario;
+        string becarioSeleccionado = controladoraAsignaciones.buscarNombreBecario(cedBecario);
+
+        ListItem item = new ListItem(becarioSeleccionado, cedBecario);
+        this.dropDownBecariosPopUp.Items.Add(item);
+        this.dropDownBecariosPopUp.DataBind();
+       
+        dropDownBecariosPopUp.SelectedValue = cedBecario;
+       
+        
+        int cantidadBecariosAsignados = controladoraAsignaciones.contarBecariosAsignados(cedEncargado, añoActual, periodoActual);
+
+        this.btnCantidadBecariosDeEncargado.Text = "Becarios asignados : " + cantidadBecariosAsignados;
+        this.btnCantidadBecariosDeEncargado.Enabled = false;
+
+
+    }
 
 
     ///////******//////
@@ -812,13 +886,42 @@ public partial class Asignaciones : System.Web.UI.Page
             this.btnCancelarAsignacionBecario.Visible = true;
         }
     }
+
+
+
+
+
+
+
+    /***************************************************************************
+     * 
+     *                       VISTA ENCARGADO
+     * 
+     * **************************************************************************/
+
+
+    // Aceptar Asignación Vista Encargado
+    protected void btnInvisibleAceptarAsignacionEncargado_Click(object sender, EventArgs e)
+    {
+        commonService.cerrarPopUp("PopUpAsignacionEncargado");
+        commonService.mensajeJavascript("Se ha aceptado la asignación. Un mensaje se enviará la dirección de la ECCI.", "Aceptada"); // Obviamente se tiene que cambiar con el resultado de vd
+    }
+
+    // Rechazar Asignación Vista Encargado
+    protected void btnInvisibleRechazarAsignacionEncargado_Click(object sender, EventArgs e)
+    {
+        commonService.cerrarPopUp("PopUpAsignacionEncargado");
+        commonService.mensajeJavascript("Se ha rechazado la asignación. Un mensaje se enviará la dirección de la ECCI.", "Rechazada"); // Obviamente se tiene que cambiar con el resultado de vd
+    }
+
+
+
+
+
+
 }
 
 
 
 
-/***************************************************************************
- * 
- *                       VISTA ENCARGADO
- * 
- * **************************************************************************/
+

@@ -158,13 +158,15 @@
                                     </div>
                                     <asp:DropDownList ID="dropDownEncargadosPopUp" CssClass="txtAsignacion" runat="server" AutoPostBack="true" OnSelectedIndexChanged ="seleccionaEncargado">                          
                                     </asp:DropDownList>
-                                    <asp:RequiredFieldValidator ID="RequiredFieldValidatorEncargadosPopUp" ControlToValidate="DropDownEncargadosPopUp" Display="Dynamic" runat="server" ErrorMessage="Por favor seleccione un encargado" CssClass="txtAsignacion"  ForeColor="#FF3300"></asp:RequiredFieldValidator>
+                                    <asp:RequiredFieldValidator ID="RequiredFieldValidatorEncargadosPopUp" ControlToValidate="dropDownEncargadosPopUp"
+                                    Display="Dynamic" runat="server" ErrorMessage="Por favor seleccione un encargado" CssClass="txtAsignacion"  ForeColor="#FF3300" InitialValue="0"></asp:RequiredFieldValidator>
                                 </div>
                                 <div style="width: 50%; float: left;">
-                                    <span style="width:100%; float: right; font-weight: bold;">Becario:<span style="color:red">*</span></span>
+                                    <span style="width:100%; float: right; font-weight: bold;">Becarios sin asignación:<span style="color:red">*</span></span>
                                     <asp:DropDownList ID="dropDownBecariosPopUp" CssClass="txtAsignacion" runat="server">
                                     </asp:DropDownList>
-                                    <asp:RequiredFieldValidator ID="RequiredFieldValidatorBecarioPopUp" ControlToValidate="DropDownEncargadosPopUp" Display="Dynamic" runat="server" ErrorMessage="Por favor seleccione un becario" CssClass="txtAsignacion" ForeColor="#FF3300"></asp:RequiredFieldValidator>
+                                    <asp:RequiredFieldValidator ID="RequiredFieldValidatorBecarioPopUp" ControlToValidate="dropDownBecariosPopUp" Display="Dynamic" 
+                                      runat="server" ErrorMessage="Por favor seleccione un becario" CssClass="txtAsignacion" ForeColor="#FF3300" InitialValue="0" ></asp:RequiredFieldValidator>
                                 </div>
                             </div>
 

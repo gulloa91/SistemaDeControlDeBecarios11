@@ -32,11 +32,12 @@ public class ControladoraAsignaciones
         string mensajeResultado = "-1";
         
         
-        /*switch (accion)
+        switch (accion)
         {
             case 1: //Insertar 
                 {
-                    
+                    Asignacion asignacionNueva = new Asignacion(datos);
+                    mensajeResultado = controladoraBDAsignaciones.insertarAsignacion(asignacionNueva);
                 } break;
             case 2: //Modificar
                 {
@@ -46,7 +47,7 @@ public class ControladoraAsignaciones
                 {
                     
                 } break;
-        }*/
+        }
 
         return mensajeResultado;
     }
@@ -104,7 +105,7 @@ public class ControladoraAsignaciones
 
 
 
-    public AsignacionesDataSet.AsignadoADataTable consultaBecariosSinAsignacion(int periodo, int año)
+    public AsignacionesDataSet.BecarioSinAsignacionDataTable consultaBecariosSinAsignacion(int periodo, int año)
     {
         return controladoraBDAsignaciones.consultarBecariosSinAsignacion(periodo, año);
    }
@@ -118,6 +119,14 @@ public class ControladoraAsignaciones
     public int contarBecariosAsignados(string ced, int año, int perido )
     { 
       return controladoraBDAsignaciones.contarBecariosAsignados(ced,año,perido);
+    }
+
+
+    public String buscarNombreBecario(string ced){
+
+        Becario bec = controladoraBecario.obtenerBecarioPorCedula(ced);
+        string nombre = bec.nombre + " " + bec.apellido1 + " " + bec.apellido2;
+        return nombre;
     }
 
 

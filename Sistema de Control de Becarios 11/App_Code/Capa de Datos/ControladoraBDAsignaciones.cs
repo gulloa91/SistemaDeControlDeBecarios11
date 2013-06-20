@@ -13,13 +13,38 @@ public class ControladoraBDAsignaciones
 {
 
     AsignadoATableAdapter adapterAsignaciones;
-
+    BecarioSinAsignacionTableAdapter adapterBecarioSinAsignacion;
 
 	public ControladoraBDAsignaciones()
 	{
         adapterAsignaciones = new AsignadoATableAdapter();
+        adapterBecarioSinAsignacion = new BecarioSinAsignacionTableAdapter();
 	}
 
+
+
+    public String insertarAsignacion( Asignacion asignacion){
+
+        String returnValue = "Exito";
+        int r;
+        try
+        {
+            this.adapterAsignaciones.Insert(asignacion.CedulaBecario, asignacion.Periodo, asignacion.Año, asignacion.CedulaEncargado, asignacion.TotalHoras, asignacion.SiglasUA, asignacion.InfoUbicacion, asignacion.Estado);
+        }
+        catch (SqlException e)
+        {
+            r = e.Number;
+            if (r == 2627)
+            {
+                returnValue = "Error1"; //"Ya existe asignación";
+            }
+            else
+            {
+                returnValue = "Error2";
+            }
+        }
+        return returnValue;
+    }
 
 
     public AsignacionesDataSet.AsignadoADataTable consultarAsignaciones()
@@ -31,31 +56,15 @@ public class ControladoraBDAsignaciones
     }
 
 
-    public AsignacionesDataSet.AsignadoADataTable consultarBecariosSinAsignacion(int periodo, int año)
+    public AsignacionesDataSet.BecarioSinAsignacionDataTable consultarBecariosSinAsignacion(int periodo, int año)
     {
 
-      
 
-         AsignacionesDataSet.AsignadoADataTable dt = new AsignacionesDataSet.AsignadoADataTable();
+        AsignacionesDataSet.BecarioSinAsignacionDataTable dt = new AsignacionesDataSet.BecarioSinAsignacionDataTable();
 
-         //AsignacionesDataSet.BecariosSinAsignarDataTable nueva;
+        this.adapterBecarioSinAsignacion.Fill(dt, periodo, año);
 
-         dt.Clear();
-
-         this.adapterAsignaciones.consultarBecariosSinAsignacion(dt, periodo, año);
- 
-         //AsignacionesDataSet dataSetA = new AsignacionesDataSet();
-
-         //dataSetA.EnforceConstraints = false;
-
-         //dt.Constraints.Clear();
-
-         //dataSetA.Tables["AsignadoA"];
-
-         //dt.Constraints.Clear();
-         //dataSetA.EnforceConstraints = false;
-
-         return dt;
+        return dt;
 
     }
 
