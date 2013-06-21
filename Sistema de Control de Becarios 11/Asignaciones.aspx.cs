@@ -13,14 +13,18 @@ public partial class Asignaciones : System.Web.UI.Page
     /*Estados de la Asignación :
      * 
      * 1 : Aceptada
-     * 2 : Pendiente (esperando la confirmación del becario o encargado)
-     * 3 : Rechazada por el becario.
-     * 4 : Rechazada por el encargado.
+     * 2 : Pendiente de confirmación
+     * 3 : Esperando confirmación de becario
+     * 4 : Esperando confirmación de encargado
+     * 5 : Rechazada por el becario.
+     * 6 : Rechazada por el encargado.
+     * 7 :  Finalizada
      * */
 
     private static CommonServices commonService;
     private static List<Asignacion> listaAsignaciones = new List<Asignacion>();
     private static ControladoraAsignaciones controladoraAsignaciones =  new ControladoraAsignaciones();
+    private static Object[] datosViejos;
 
     private static int añoActual;
     private static int periodoActual;
@@ -140,6 +144,8 @@ public partial class Asignaciones : System.Web.UI.Page
         this.lblCiclo.Text = convertirANumeroRomano(periodoActual); 
         this.lblAnio.Text = añoActual.ToString();
 
+        modoEjecucion = 1;
+
         commonService.abrirPopUp("PopUpAsignacion", "Insertar Nueva Asignación");
         commonService.mostrarPrimerBotonDePopUp("PopUpAsignacion");
 
@@ -163,15 +169,35 @@ public partial class Asignaciones : System.Web.UI.Page
         datos[4] = txtTotalHoras.Text;
         datos[5] = txtUnidAcademica.Text;
         datos[6] = txtInfoDeUbicacion.Text;
-        datos[7] = 2;
+        
+        
+        if (modoEjecucion == 1)
+        {
+          datos[7] = 2; // estado es pendiente cuando se acaba de insetar
+        }
+        else
+        { //es una modificación
 
-        string mensajeResultado = controladoraAsignaciones.ejecutar(1, datos, null);
+            // si la asignación habia sido rechazada por el becario ahora se modificó para asignarle 
+           // un nuevo encargado y por lo tanto queda pendiente de confirmación por este
+            if (Convert.ToInt32(datosViejos[7]) == 5)
+            {
+                datos[7] = 3;
+            }
+            else {
+                datos[7] = 4; // si la asignación habia sido rechazada por el encargado (estado 6) ahora se modificó para asignarle 
+                              // un nuevo becario y por lo tanto queda pendiente de confirmación por este
+            } 
+        }
+
+
+        string mensajeResultado = controladoraAsignaciones.ejecutar(modoEjecucion, datos, null);
        
         commonService.cerrarPopUp("PopUpAsignacion");
 
         if (mensajeResultado.Equals("Exito"))
         {
-            commonService.mensajeJavascript("La asignación se insertó correctamente", "Éxito");
+            commonService.mensajeJavascript("Se ha creado correctamente una nueva asignación", "Éxito");
         }
         else {
             commonService.mensajeJavascript("No se pudo crear la inserción", "Error");        
@@ -202,10 +228,35 @@ public partial class Asignaciones : System.Web.UI.Page
     // Seleccionar Modificar en el PopUp
     protected void btnModificarAsignacion_Click(object sender, EventArgs e)
     {
-        habilitarContenidoAsignacion(true);
-        this.dropDownBecariosPopUp.Enabled = false; // Tenemos que deshabilitarlo a pata
-        commonService.correrJavascript("$('#PopUpAsignacion').dialog('option', 'title', 'Modificar Asignación');");
-        commonService.mostrarPrimerBotonDePopUp("PopUpAsignacion");
+        
+
+        //solo si la asignación esta rechazada por el becario o el encargado entonces se puede modificar
+        if ((listaAsignaciones[rowIndex].Estado == 5) || (listaAsignaciones[rowIndex].Estado == 6))
+        {
+
+            habilitarContenidoAsignacion(true);
+
+            // la asignación fue rechazada por el becario entonces solo se habilita el dropdown de becarios
+            if (listaAsignaciones[rowIndex].Estado == 5)
+            {
+                this.dropDownEncargadosPopUp.Enabled = false;
+            }
+            else {
+                this.dropDownBecariosPopUp.Enabled = false;   // la asignación fue rechazada por el encargado entonces solo se habilita el dropdown de encargados
+            }
+
+
+            guardarDatosActuales();
+            modoEjecucion = 1;
+
+            commonService.correrJavascript("$('#PopUpAsignacion').dialog('option', 'title', 'Modificar Asignación');");
+            commonService.mostrarPrimerBotonDePopUp("PopUpAsignacion");
+        }
+        else {
+            commonService.mensajeJavascript("Solo se puede modificar una asignacón cuando esta ha sido rechazada por el becario o el encargado", "Aviso"); 
+        }
+
+
     }
 
     // Seleccionar el de ver becarios asignados a un encargado
@@ -215,8 +266,6 @@ public partial class Asignaciones : System.Web.UI.Page
         commonService.abrirPopUp("PopUpVerBecariosAsignados", nombreDeEncargado);
         llenarGridaBecariosAsigandosAEncargado();
     }
-
-
 
 
 
@@ -282,6 +331,24 @@ public partial class Asignaciones : System.Web.UI.Page
     }
 
 
+
+    protected void guardarDatosActuales() {
+
+
+        datosViejos = new Object[8];
+
+        datosViejos[0] = dropDownBecariosPopUp.SelectedValue;
+        datosViejos[1] = dropDownEncargadosPopUp.SelectedValue;
+        datosViejos[2] = periodoActual;
+        datosViejos[3] = añoActual;
+        datosViejos[4] = txtTotalHoras.Text;
+        datosViejos[5] = txtUnidAcademica.Text;
+        datosViejos[6] = txtInfoDeUbicacion.Text;
+        datosViejos[7] = 2; // estado es pendiente cuando se acaba de insetar*/
+    }
+
+
+
     protected string convertirANumeroRomano(int num){
 
         string retorno = "";
@@ -301,14 +368,16 @@ public partial class Asignaciones : System.Web.UI.Page
     }
 
 
-/*Estados de la Asignación :
- * 
- * 1 : Aceptada
- * 2 : Pendiente (esperando la confirmación del becario o encargado)
- * 3 : Rechazada por el becario.
- * 4 : Rechazada por el encargado.
- * */
-
+    /*Estados de la Asignación :
+     * 
+     * 1 : Aceptada
+     * 2 : Pendiente de confirmación
+     * 3 : Esperando confirmación de becario
+     * 4 : Esperando confirmación de encargado
+     * 5 : Rechazada por el becario.
+     * 6 : Rechazada por el encargado.
+     * 7 : Finalizada
+     * */
     protected String interpretaEstado(int estado){
 
         string respuesta = "";
@@ -325,11 +394,24 @@ public partial class Asignaciones : System.Web.UI.Page
                 }break;
             case 3:
                 {
-                    respuesta = "Rechazada por becario";
+                    respuesta = "Esperando confirmación de becario";
                 }break;
-            case 4: {
-                respuesta = "Rechazada por encargado";
-            }break;
+            case 4:
+                {
+                    respuesta = "Esperando confirmación de encargado";
+                } break;
+            case 5:
+                {
+                    respuesta = "Rechazada por el becario";
+                } break;
+            case 6:
+                {
+                    respuesta = "Rechazada por encargado";
+                } break;
+            case 7:
+                {
+                    respuesta = "Finalizada";
+                } break;
 
             default: //desconocido
                 {

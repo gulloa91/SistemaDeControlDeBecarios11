@@ -39,11 +39,7 @@ public class ControladoraAsignaciones
                     Asignacion asignacionNueva = new Asignacion(datos);
                     mensajeResultado = controladoraBDAsignaciones.insertarAsignacion(asignacionNueva);
                 } break;
-            case 2: //Modificar
-                {
-                   
-                } break;
-            case 3: //Eliminar
+            case 2: //Eliminar
                 {
                     
                 } break;
