@@ -10,23 +10,23 @@ using ControlDeHorasDataSetTableAdapters;
 /// </summary>
 public class ControladoraControlBecarioBD
 {
-    ControlDeHorasTableAdapter cb;
+    ControlDeHorasTableAdapter ch;
     AsignadoATableAdapter a;
 	public ControladoraControlBecarioBD()
 	{
 		//
 		// TODO: Add constructor logic here
 		//
-        cb = new ControlDeHorasTableAdapter();
+        ch = new ControlDeHorasTableAdapter();
         a = new AsignadoATableAdapter();
 	}
 
-    public DataTable horasReportadas(String becario)
+    public DataTable horasReportadas(String becario,String encargado)
     {
         DataTable retorno;
         try
         {
-            retorno = cb.getReportesByBecario(becario) ;
+            retorno = ch.getReportesByBecario(becario,encargado) ;
         }
         catch (Exception e)
         {
@@ -40,10 +40,38 @@ public class ControladoraControlBecarioBD
         String resultado = "";
         try
         {
-            resultado = a.getEncargadoByBecario(becario,1,2013);
+            resultado = a.getEncargadoByBecario(becario,1,DateTime.Now.Year).ToString();
         }catch(Exception ex){
             resultado = "";
         }
         return resultado;
     }
+
+    public String enviarReporte(ControlDeHoras c)
+    {
+        String resultado = "Envío Exitoso";
+        try
+        {
+            int result = ch.Insert(c.cedulaBecario, c.cedulaEncargado, c.cantidadHoras, c.fecha, c.estado, c.comentarioBecario, c.comentarioEncargado);
+        }
+        catch (Exception ex)
+        {
+            resultado = "Envío Fallido";
+        }
+        return resultado;
+    }
+
+    public int modificarReporte(ControlDeHoras c) { 
+        int resultado = -1;
+        try
+        {
+            resultado = ch.updateReporte(c.cantidadHoras, c.estado, c.comentarioBecario, c.cedulaBecario, c.cedulaEncargado, c.fecha);
+        }
+        catch (Exception ex)
+        {
+            resultado = 0;
+        }
+        return 1;
+    }
+
 }
