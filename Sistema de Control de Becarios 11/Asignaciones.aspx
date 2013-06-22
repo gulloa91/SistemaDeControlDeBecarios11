@@ -198,7 +198,7 @@
                 <asp:UpdatePanel ID="UpdatePanelListaDeAsignados" runat="server">
                     <Triggers></Triggers>
                     <ContentTemplate>
-                        <asp:GridView ID="GridBecariosAsignadosAEncargado" CssClass="table_css centerText" runat="server">
+                        <asp:GridView ID="gridBecariosAsignadosAEncargado" CssClass="table_css centerText" runat="server">
                         </asp:GridView>
                     </ContentTemplate>
                 </asp:UpdatePanel>
@@ -246,7 +246,7 @@
                     </div>
 
                     <!-- Grid con Becarios asignados y por asignar -->
-                    <asp:GridView ID="GridBecariosAsignadosVistaEncargado" CssClass="table_css centerText" runat="server" 
+                    <asp:GridView ID="gridBecariosAsignadosVistaEncargado" CssClass="table_css centerText" runat="server" 
                         onrowcommand="GridBecariosAsignadosVistaEncargado_RowCommand">
                         <columns>
                             <asp:ButtonField CommandName="btnSeleccionarTupla_Click" CausesValidation="false" ButtonType="Button" Visible="true" ImageUrl="~/Images/arrow-right.png" ItemStyle-HorizontalAlign="Center" Text="Aceptar/Rechazar" ItemStyle-VerticalAlign="Middle"/> 
@@ -294,17 +294,26 @@
                         onclick="btnInvisibleConfirmarRechazo_Click" />
 
                     <div style="width: 40%; float: left; border: 2px solid #414141; margin: 5% 20%; padding: 10%; border-radius: 5px; background-color: #D8D8BF;">
-                        <div style="width: 100%; float: left; text-align: center; font-weight: bold; font-size: 1.2em;">
+                        
+                        <div style="width: 100%; float: left; text-align: center; font-weight: bold; font-size: 1.2em;margin-bottom:30px">
                             <span style="width: 100%; float: left;">Asignación de Encargado</span>
                             <asp:Label ID="lblCicloVistaBecario" runat="server" Text=""></asp:Label> - 
                             <asp:Label ID="lblAnioVistaBecario" runat="server" Text=""></asp:Label>
                         </div>
                         <div style="width: 100%; float: left; font-size: 1em; padding: 10px 0;">
-                            <p> La persona encargada del control de las horas de su beca es: 
+                            <b><asp:Label ID="lblTituloEncargadoVistaBecario" runat="server" Text="La persona encargada del control de las horas de su beca es:" Font-Bold="false"></asp:Label></b></p> 
+                            <div style="text-align:center">
                             <b><asp:Label ID="lblEncargadoVistaBecario" runat="server" Text=""></asp:Label></b></p>
-                            <p> Total de horas a cumplir este semestre:  
+                            </div>
+                            <p><asp:Label ID="lblTituloHorasVistaBecario" runat="server" Text="Total de horas a cumplir este semestre :" Font-Bold="false"></asp:Label>                              
                             <b><asp:Label ID="lblHorasVistaBecario" runat="server" Text=""></asp:Label></b></p>
                         </div>
+
+                         <div style="width:100%; text-align:center;margin-top:210px" >
+                            <b><asp:Label ID="lblEstadoAsignacionVistaBecario" runat="server" Text="" Visible="false" ></asp:Label></b></p>
+                        </div>
+
+
                         <div style="width: 100%; float: left; padding: 10px 0;">
                             <asp:Button ID="btnAceptarAsignacionBecario" runat="server" 
                                 Text="Aceptar Asignación" CausesValidation="false" 

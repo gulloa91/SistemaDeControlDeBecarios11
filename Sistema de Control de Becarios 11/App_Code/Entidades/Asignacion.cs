@@ -17,6 +17,7 @@ public class Asignacion
     private String siglasUA;
     private String infoUbicacion;
     private int estado;
+    private bool activo;
 
 
     public Asignacion()
@@ -35,6 +36,7 @@ public class Asignacion
         this.siglasUA = datos[5].ToString();
         this.infoUbicacion = datos[6].ToString();
         this.estado = Convert.ToInt32(datos[7]);
+        this.activo = Convert.ToBoolean(datos[8]);
 	}
 
 
@@ -90,4 +92,10 @@ public class Asignacion
     }
 
 
+    public bool Activo
+    {
+        get { return activo; }
+        set { activo = value; }
+    }
+    //
 }
