@@ -41,7 +41,8 @@ public class ControladoraAsignaciones
                 } break;
             case 2: //Eliminar
                 {
-                    
+                    Asignacion asignacion = new Asignacion(datos);
+                    mensajeResultado = controladoraBDAsignaciones.eliminarAsignacion(asignacion);
                 } break;
         }
 
@@ -69,6 +70,7 @@ public class ControladoraAsignaciones
             asignacion.SiglasUA = cs.procesarStringDeUI(r["SiglasUA"].ToString());
             asignacion.InfoUbicacion = cs.procesarStringDeUI(r["InfoUbicacion"].ToString());
             asignacion.Estado = Convert.ToInt32(r["Estado"]);
+            asignacion.Activo = Convert.ToBoolean(r["Activo"]);
 
             listaAs.Add(asignacion);
         }
@@ -87,6 +89,7 @@ public class ControladoraAsignaciones
         return nombre;
     
     }
+
 
 
     public String getNombreEncargado(String ced)
@@ -118,13 +121,34 @@ public class ControladoraAsignaciones
     }
 
 
-    public String buscarNombreBecario(string ced){
+    public List<Becario> consultarBecariosAsignadosAEncargado(string cedEncargado, int año, int perido){
 
-        Becario bec = controladoraBecario.obtenerBecarioPorCedula(ced);
-        string nombre = bec.nombre + " " + bec.apellido1 + " " + bec.apellido2;
-        return nombre;
+
+        List<Becario> listaB = new List<Becario>();
+        AsignacionesDataSet.BecariosAsignadosAEncargadoDataTable tabla = controladoraBDAsignaciones.consultarBecariosAsignadosAEncargado(cedEncargado, año, perido);
+
+        foreach (DataRow r in tabla.Rows)
+        {
+
+            Becario becario = new Becario();
+
+            becario.nombre = cs.procesarStringDeUI(r["Nombre"].ToString());
+            becario.apellido1 = cs.procesarStringDeUI(r["Apellido1"].ToString());
+            becario.apellido2 = cs.procesarStringDeUI(r["Apellido2"].ToString());
+            becario.carne = cs.procesarStringDeUI(r["Carne"].ToString());
+            becario.correo = cs.procesarStringDeUI(r["Correo"].ToString());
+            becario.telefonoCelular = cs.procesarStringDeUI(r["Celular"].ToString());
+
+            listaB.Add(becario);
+        }
+
+        return listaB;
     }
 
 
+    public void dejarAsignacionInactiva(string cedBecario, string cedEncargado, int año, int periodo)
+    {
+        controladoraBDAsignaciones.dejarAsignacionInactiva(cedBecario, cedEncargado, año, periodo);
+    }
 
 }

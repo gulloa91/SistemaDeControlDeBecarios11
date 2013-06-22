@@ -198,7 +198,7 @@
                 <asp:UpdatePanel ID="UpdatePanelListaDeAsignados" runat="server">
                     <Triggers></Triggers>
                     <ContentTemplate>
-                        <asp:GridView ID="GridBecariosAsignadosAEncargado" CssClass="table_css centerText" runat="server">
+                        <asp:GridView ID="gridBecariosAsignadosAEncargado" CssClass="table_css centerText" runat="server">
                         </asp:GridView>
                     </ContentTemplate>
                 </asp:UpdatePanel>

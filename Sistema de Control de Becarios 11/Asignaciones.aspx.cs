@@ -18,7 +18,7 @@ public partial class Asignaciones : System.Web.UI.Page
      * 4 : Esperando confirmación de encargado
      * 5 : Rechazada por el becario.
      * 6 : Rechazada por el encargado.
-     * 7 :  Finalizada
+     * 7 : Finalizada
      * */
 
     private static CommonServices commonService;
@@ -120,12 +120,12 @@ public partial class Asignaciones : System.Web.UI.Page
 
 /*
 * ------------------------------
-*           CLICKS     
+*     CLICKS DE BOTONES
 * ------------------------------
 */
 
 
-    // Abrir PopUp Insertar Asignacion
+    // Click del botón Insertar Asignacion
     protected void btnInsertarAsignacion_Click(object sender, EventArgs e)
     {
 
@@ -153,14 +153,14 @@ public partial class Asignaciones : System.Web.UI.Page
     }
 
 
-    // Aceptar PopUp
+    //Click del botón aceptar del popUp
     protected void btnInvisibleAceptarAsignacion_Click(object sender, EventArgs e)
     {
 
        
         TextInfo miTexto = CultureInfo.CurrentCulture.TextInfo;
 
-        Object[] datos = new Object[10];
+        Object[] datos = new Object[9];
 
         datos[0] = dropDownBecariosPopUp.SelectedValue;
         datos[1] = dropDownEncargadosPopUp.SelectedValue;
@@ -169,29 +169,18 @@ public partial class Asignaciones : System.Web.UI.Page
         datos[4] = txtTotalHoras.Text;
         datos[5] = txtUnidAcademica.Text;
         datos[6] = txtInfoDeUbicacion.Text;
+        datos[7] = 2;
+        datos[8] = true;
         
-        
-        if (modoEjecucion == 1)
+        if (modoEjecucion == 2) // es una modificación
         {
-          datos[7] = 2; // estado es pendiente cuando se acaba de insetar
+ 
+            //cuando se modifica una asignación en realidad se debe crear una nueva ya que la asignacion actual se debe mantener almacenada
+            //para posibles consultas históricas. Sin embargo, a nivel de BD se realiza la distinción usando el atributo "Activo"
+            controladoraAsignaciones.dejarAsignacionInactiva(datosViejos[0].ToString(), datosViejos[1].ToString(), añoActual, periodoActual);
         }
-        else
-        { //es una modificación
-
-            // si la asignación habia sido rechazada por el becario ahora se modificó para asignarle 
-           // un nuevo encargado y por lo tanto queda pendiente de confirmación por este
-            if (Convert.ToInt32(datosViejos[7]) == 5)
-            {
-                datos[7] = 3;
-            }
-            else {
-                datos[7] = 4; // si la asignación habia sido rechazada por el encargado (estado 6) ahora se modificó para asignarle 
-                              // un nuevo becario y por lo tanto queda pendiente de confirmación por este
-            } 
-        }
-
-
-        string mensajeResultado = controladoraAsignaciones.ejecutar(modoEjecucion, datos, null);
+        
+        string mensajeResultado = controladoraAsignaciones.ejecutar(1, datos, null);
        
         commonService.cerrarPopUp("PopUpAsignacion");
 
@@ -208,63 +197,95 @@ public partial class Asignaciones : System.Web.UI.Page
     }
 
 
-    // Abrir PopUp Eliminar
+    // Click del botón eliminar asignación
     protected void btnEliminarAsignacion_Click(object sender, EventArgs e)
     {
+
+        datosViejos = new Object[9];
+
+        datosViejos[0] = dropDownBecariosPopUp.SelectedValue;
+        datosViejos[1] = dropDownEncargadosPopUp.SelectedValue;
+        datosViejos[2] = periodoActual;
+        datosViejos[3] = añoActual;
+        datosViejos[4] = txtTotalHoras.Text;
+        datosViejos[5] = txtUnidAcademica.Text;
+        datosViejos[6] = txtInfoDeUbicacion.Text;
+        datosViejos[7] = listaAsignaciones[rowIndex].Estado;
+        datosViejos[8] = listaAsignaciones[rowIndex].Activo;
         commonService.abrirPopUp("PopUpEliminarAsignacion", "Eliminar Asignación");
     }
 
 
 
-    // Eliminar
+    // Click de confirmación de la eliminación ( botón invisible)
     protected void btnInvisibleEliminarAsignacion_Click(object sender, EventArgs e)
     {
 
+        string resultado = controladoraAsignaciones.ejecutar(2, datosViejos, null);
         commonService.cerrarPopUp("PopUpAsignacion");
-        commonService.mensajeJavascript("La asignación se eliminó correctamente", "Eliminado"); // Obviamente se tiene que cambiar con el resultado de vd
-    }
 
-
-    // Seleccionar Modificar en el PopUp
-    protected void btnModificarAsignacion_Click(object sender, EventArgs e)
-    {
-        
-
-        //solo si la asignación esta rechazada por el becario o el encargado entonces se puede modificar
-        if ((listaAsignaciones[rowIndex].Estado == 5) || (listaAsignaciones[rowIndex].Estado == 6))
+        if (resultado.Equals("Exito"))
         {
-
-            habilitarContenidoAsignacion(true);
-
-            // la asignación fue rechazada por el becario entonces solo se habilita el dropdown de becarios
-            if (listaAsignaciones[rowIndex].Estado == 5)
-            {
-                this.dropDownEncargadosPopUp.Enabled = false;
-            }
-            else {
-                this.dropDownBecariosPopUp.Enabled = false;   // la asignación fue rechazada por el encargado entonces solo se habilita el dropdown de encargados
-            }
-
-
-            guardarDatosActuales();
-            modoEjecucion = 1;
-
-            commonService.correrJavascript("$('#PopUpAsignacion').dialog('option', 'title', 'Modificar Asignación');");
-            commonService.mostrarPrimerBotonDePopUp("PopUpAsignacion");
+            commonService.mensajeJavascript("La asignación se eliminó correctamente", "Eliminado"); // Obviamente se tiene que cambiar con el resultado de vd
         }
         else {
-            commonService.mensajeJavascript("Solo se puede modificar una asignacón cuando esta ha sido rechazada por el becario o el encargado", "Aviso"); 
+            commonService.mensajeJavascript("Se ha producido un error en la eliminación", "Error"); // Obviamente se tiene que cambiar con el resultado de vd
         }
-
-
+        llenarGridAsignaciones();
     }
 
-    // Seleccionar el de ver becarios asignados a un encargado
+
+
+    // Click del botón modificar asignación
+    protected void btnModificarAsignacion_Click(object sender, EventArgs e)
+    {
+
+        if (listaAsignaciones[rowIndex].Activo == true)
+        {
+            //solo si la asignación esta rechazada por el becario o el encargado entonces se puede modificar
+            if ((listaAsignaciones[rowIndex].Estado == 5) || (listaAsignaciones[rowIndex].Estado == 6))
+            {
+
+                habilitarContenidoAsignacion(true);
+
+                // la asignación fue rechazada por el becario entonces solo se habilita el dropdown de becarios
+                if (listaAsignaciones[rowIndex].Estado == 5)
+                {
+                    this.dropDownEncargadosPopUp.Enabled = false;
+                }
+                else
+                {
+                    this.dropDownBecariosPopUp.Enabled = false;   // la asignación fue rechazada por el encargado entonces solo se habilita el dropdown de encargados
+                }
+
+                datosViejos = new Object[3];
+                datosViejos[0] = dropDownBecariosPopUp.SelectedValue;
+                datosViejos[1] = dropDownEncargadosPopUp.SelectedValue;
+                datosViejos[2] = listaAsignaciones[rowIndex].Estado;
+
+                modoEjecucion = 2;
+
+                commonService.correrJavascript("$('#PopUpAsignacion').dialog('option', 'title', 'Modificar Asignación');");
+                commonService.mostrarPrimerBotonDePopUp("PopUpAsignacion");
+            }
+            else
+            {
+                commonService.mensajeJavascript("Solo se puede modificar una asignacón cuando esta ha sido rechazada por el becario o el encargado", "Aviso");
+            }
+        }
+        else {
+          commonService.mensajeJavascript("La asignación que quiere modificar ya fue reemplazada por otra por lo tanto no se puede modificar", "Aviso");
+        }
+
+        mostrarBotonesPrincipales(false);
+    }
+
+    // Click del botón para ver los becarios asignados a determinado encargado
     protected void btnCantidadBecariosDeEncargado_Click(object sender, EventArgs e)
     {
-        String nombreDeEncargado = "Becarios asignados a: Gabriel Ulloa Murillo"; // Get nombre de encargado
-        commonService.abrirPopUp("PopUpVerBecariosAsignados", nombreDeEncargado);
-        llenarGridaBecariosAsigandosAEncargado();
+        llenarGridBecariosAsigandosAEncargado();
+        String nombreDeEncargado = "Becarios asignados a: " + controladoraAsignaciones.getNombreEncargado(dropDownEncargadosPopUp.SelectedValue) ;  // Get nombre de encargado
+        commonService.abrirPopUp("PopUpVerBecariosAsignados", nombreDeEncargado);        
     }
 
 
@@ -330,22 +351,6 @@ public partial class Asignaciones : System.Web.UI.Page
         this.txtTotalHoras.Text = "";
     }
 
-
-
-    protected void guardarDatosActuales() {
-
-
-        datosViejos = new Object[8];
-
-        datosViejos[0] = dropDownBecariosPopUp.SelectedValue;
-        datosViejos[1] = dropDownEncargadosPopUp.SelectedValue;
-        datosViejos[2] = periodoActual;
-        datosViejos[3] = añoActual;
-        datosViejos[4] = txtTotalHoras.Text;
-        datosViejos[5] = txtUnidAcademica.Text;
-        datosViejos[6] = txtInfoDeUbicacion.Text;
-        datosViejos[7] = 2; // estado es pendiente cuando se acaba de insetar*/
-    }
 
 
 
@@ -425,17 +430,6 @@ public partial class Asignaciones : System.Web.UI.Page
     }
 
 
-
-    //busca en base a la cedula el becario correspondiente es la lista de asignaciones
-    private String buscarNombreBecario( string ced) {
-
-        string nombre = "";
-
-       
-        return nombre;
-    }
-
-
   /*
    * ------------------------------
    *       VARIOS
@@ -469,7 +463,7 @@ public partial class Asignaciones : System.Web.UI.Page
     }
 
 
-    // Llenar tabla con todas las asignaciones
+    // Llenar tabla con todas las asignaciones existentes
     protected void llenarGridAsignaciones()
     {
 
@@ -623,7 +617,7 @@ public partial class Asignaciones : System.Web.UI.Page
     }
 
 
-    // Seleccionar tupla del grid con la flecha
+    // Seleccionar tupla del grid de asignaciones con la flecha
     protected void GridAsignaciones_RowCommand(object sender, GridViewCommandEventArgs e)
     {
         switch (e.CommandName)
@@ -653,6 +647,7 @@ public partial class Asignaciones : System.Web.UI.Page
 
 
 
+    //Carga los campos correspondientes de una asignación seleccionada por el usuario
     protected void cargarCamposAsignacion(){
 
 
@@ -670,7 +665,7 @@ public partial class Asignaciones : System.Web.UI.Page
         cargarDropDownBecarios();
 
         string cedBecario = listaAsignaciones[rowIndex].CedulaBecario;
-        string becarioSeleccionado = controladoraAsignaciones.buscarNombreBecario(cedBecario);
+        string becarioSeleccionado = controladoraAsignaciones.getNombreBecario(cedBecario);
 
         ListItem item = new ListItem(becarioSeleccionado, cedBecario);
         this.dropDownBecariosPopUp.Items.Add(item);
@@ -688,8 +683,82 @@ public partial class Asignaciones : System.Web.UI.Page
     }
 
 
-    ///////******//////
 
+    // Llenar el grid que muestra los becarios asignados actualmente a determinado encargado
+    protected void llenarGridBecariosAsigandosAEncargado()
+    {
+
+        string cedEncargado = dropDownEncargadosPopUp.SelectedValue;
+        List<Becario> listaBecarios = controladoraAsignaciones.consultarBecariosAsignadosAEncargado(cedEncargado, añoActual, periodoActual);
+
+        DataTable tablaBecariosAsigandosAEncargado = crearTablaBecariosAsigandosAEncargado();
+        DataRow newRow;
+
+        if (listaBecarios.Count > 0)
+        {
+            for (int i = 0; i < listaBecarios.Count; ++i)
+            {
+                newRow = tablaBecariosAsigandosAEncargado.NewRow();
+                newRow["Nombre"] = listaBecarios[i].nombre + " " + listaBecarios[i].apellido1 + " " + listaBecarios[i].apellido2;
+                newRow["Carné"] = listaBecarios[i].carne;
+                newRow["Correo"] = listaBecarios[i].correo;
+                newRow["Celular"] = listaBecarios[i].telefonoCelular;
+                tablaBecariosAsigandosAEncargado.Rows.InsertAt(newRow, i);
+            }
+        }
+        else
+        {
+         
+            newRow = tablaBecariosAsigandosAEncargado.NewRow();
+            newRow["Nombre"] = "-";
+            newRow["Carné"] = "-";
+            newRow["Correo"] = "-";
+            newRow["Celular"] = "-";
+
+            tablaBecariosAsigandosAEncargado.Rows.InsertAt(newRow, 0);
+
+        }
+
+       
+        gridBecariosAsignadosAEncargado.DataSource = tablaBecariosAsigandosAEncargado;
+        gridBecariosAsignadosAEncargado.DataBind();
+        this.HeadersCorrectosBecariosAsigandosAEncargado();
+    }
+
+
+
+    // Le da formato a las columnas del grid que muestra los becarios asignados actualmente a determinado encargado
+    protected DataTable crearTablaBecariosAsigandosAEncargado()
+    {
+
+        DataTable dt = new DataTable();
+        DataColumn column;
+
+        column = new DataColumn();
+        column.DataType = System.Type.GetType("System.String");
+        column.ColumnName = "Nombre";
+        dt.Columns.Add(column);
+
+        column = new DataColumn();
+        column.DataType = System.Type.GetType("System.String");
+        column.ColumnName = "Carné";
+        dt.Columns.Add(column);
+
+        column = new DataColumn();
+        column.DataType = System.Type.GetType("System.String");
+        column.ColumnName = "Correo";
+        dt.Columns.Add(column);
+
+        column = new DataColumn();
+        column.DataType = System.Type.GetType("System.String");
+        column.ColumnName = "Celular";
+        dt.Columns.Add(column);
+
+        return dt;
+    }
+
+
+    //////////**********//////
 
     // Grid vista Encargados
     protected void GridBecariosAsignadosVistaEncargado_RowCommand(object sender, GridViewCommandEventArgs e)
@@ -717,53 +786,7 @@ public partial class Asignaciones : System.Web.UI.Page
     }
 
    
-    // Llenar tabla con todas las asignaciones
-    protected void llenarGridaBecariosAsigandosAEncargado()
-    {
-
-        DataTable tablaBecariosAsigandosAEncargado = crearTablaBecariosAsigandosAEncargado();
-        DataRow newRow;
-        /*
-        if (lsEncargados.Count > 0)
-        {
-            for (int i = 0; i < lsEncargados.Count; ++i)
-            {
-                newRow = tablaAsignaciones.NewRow();
-                newRow["Nombre"] = lsEncargados[i].Nombre + " " + lsEncargados[i].Apellido1 + " " + lsEncargados[i].Apellido2;
-                newRow["Cedula"] = lsEncargados[i].Cedula;
-                newRow["Correo"] = lsEncargados[i].Correo;
-                newRow["Celular"] = lsEncargados[i].TelefonoCelular;
-                if (lsEncargados[i].TelefonoFijo != "")
-                {
-                    newRow["Telefono"] = lsEncargados[i].TelefonoFijo;
-                }
-                else
-                {
-                    if (lsEncargados[i].OtroTelefono != "")
-                    {
-                        newRow["Telefono"] = lsEncargados[i].OtroTelefono;
-                    }
-                }
-
-                tablaAsignaciones.Rows.InsertAt(newRow, i);
-            }
-        }
-        else
-        {
-         */
-        newRow = tablaBecariosAsigandosAEncargado.NewRow();
-        newRow["Nombre"] = "-";
-        newRow["Carné"] = "-";
-        newRow["Correo"] = "-";
-        newRow["Celular"] = "-";
-
-        tablaBecariosAsigandosAEncargado.Rows.InsertAt(newRow, 0);
-
-        //}
-        GridBecariosAsignadosAEncargado.DataSource = tablaBecariosAsigandosAEncargado;
-        GridBecariosAsignadosAEncargado.DataBind();
-        this.HeadersCorrectosBecariosAsigandosAEncargado();
-    }
+ 
 
     // Llenar tabla con todas las asignaciones
     protected void llenarGridaBecariosAsignadosVistaEncargado()
@@ -817,35 +840,7 @@ public partial class Asignaciones : System.Web.UI.Page
     // Le da formato a las columnas del Grid
 
 
-    // Le da formato a las columnas del Grid
-    protected DataTable crearTablaBecariosAsigandosAEncargado()
-    {
-
-        DataTable dt = new DataTable();
-        DataColumn column;
-
-        column = new DataColumn();
-        column.DataType = System.Type.GetType("System.String");
-        column.ColumnName = "Nombre";
-        dt.Columns.Add(column);
-
-        column = new DataColumn();
-        column.DataType = System.Type.GetType("System.String");
-        column.ColumnName = "Carné";
-        dt.Columns.Add(column);
-
-        column = new DataColumn();
-        column.DataType = System.Type.GetType("System.String");
-        column.ColumnName = "Correo";
-        dt.Columns.Add(column);
-
-        column = new DataColumn();
-        column.DataType = System.Type.GetType("System.String");
-        column.ColumnName = "Celular";
-        dt.Columns.Add(column);
-
-        return dt;
-    }
+  
 
     // Le da formato a las columnas del Grid
     protected DataTable crearTablaBecariosAsignadosVistaEncargado()
@@ -896,12 +891,12 @@ public partial class Asignaciones : System.Web.UI.Page
     // Aplica nombre a las columnas así como color
     private void HeadersCorrectosBecariosAsigandosAEncargado()
     {
-        GridBecariosAsignadosAEncargado.HeaderRow.BackColor = System.Drawing.Color.FromArgb(4562432);
-        GridBecariosAsignadosAEncargado.HeaderRow.ForeColor = System.Drawing.Color.White;
-        GridBecariosAsignadosAEncargado.HeaderRow.Cells[0].Text = "Nombre";
-        GridBecariosAsignadosAEncargado.HeaderRow.Cells[1].Text = "Carné";
-        GridBecariosAsignadosAEncargado.HeaderRow.Cells[2].Text = "Correo";
-        GridBecariosAsignadosAEncargado.HeaderRow.Cells[3].Text = "Celular";
+        gridBecariosAsignadosAEncargado.HeaderRow.BackColor = System.Drawing.Color.FromArgb(4562432);
+        gridBecariosAsignadosAEncargado.HeaderRow.ForeColor = System.Drawing.Color.White;
+        gridBecariosAsignadosAEncargado.HeaderRow.Cells[0].Text = "Nombre";
+        gridBecariosAsignadosAEncargado.HeaderRow.Cells[1].Text = "Carné";
+        gridBecariosAsignadosAEncargado.HeaderRow.Cells[2].Text = "Correo";
+        gridBecariosAsignadosAEncargado.HeaderRow.Cells[3].Text = "Celular";
     }
 
     // Aplica nombre a las columnas así como color
