@@ -807,59 +807,163 @@ public partial class Asignaciones : System.Web.UI.Page
     }
 
 
+    protected void actualizarEstadoAsignacionVistaBecario(int estadoAsignacion)
+    {
+       
+        string mensajeAMostrar = "";
+
+        switch (estadoAsignacion) {
+
+            case 4: 
+                {
+                   mensajeAMostrar = "La asignación aún no esta completa ya que falta la confirmación del encargado.";          
+                }break;
+            case 5:
+                {
+                    mensajeAMostrar = "Usted ha rechazado esta asignación. Su decisión fue notificada a dirección y pronto se le asignará un nuevo encargado";  
+                }break;
+            case 6:
+                {
+                   mensajeAMostrar =  "El encargado ha rechazado esta asignación. Debe esperar a que la dirección le asigne un nuevo encargado";
+                }break;
+        
+        }
+
+        if (!(mensajeAMostrar.Equals(""))) {
+            lblEstadoAsignacionVistaBecario.Text = mensajeAMostrar;
+            lblEstadoAsignacionVistaBecario.Visible = true;
+        }
+
+
+    }
+
     protected void llenarInfoVistaBecario()
     {
+
         this.lblAnioVistaBecario.Text = añoActual.ToString();
         this.lblCicloVistaBecario.Text = convertirANumeroRomano(periodoActual);
 
-        this.lblEncargadoVistaBecario.Text = datosDeAsignacionDeBecario[0][0].ToString() + " " + datosDeAsignacionDeBecario[0][1].ToString() + " " + datosDeAsignacionDeBecario[0][2].ToString();
-        this.lblHorasVistaBecario.Text = datosDeAsignacionDeBecario[0][4].ToString();
-    }
-
-
-    // Aceptar asignación
-    protected void btnAceptarAsignacionBecario_Click(object sender, EventArgs e)
-    {
-        commonService.mensajeJavascript("Usted ha aceptado la asignación satisfactoriamente", "Aceptado");
-        esconderBotonesVistaBecario(true);
-    }
-
-    // Abrir confirmación de rechazo de asignación
-    protected void btnCancelarAsignacionBecario_Click(object sender, EventArgs e)
-    {
-        commonService.abrirPopUp("PopUpConfirmarRechazoBecario", "Rechazar Asignación");
-    }
-
-    // Confirmar rechazo
-    protected void btnInvisibleConfirmarRechazo_Click(object sender, EventArgs e)
-    {
-        commonService.cerrarPopUp("PopUpConfirmarRechazoBecario");
-        commonService.mensajeJavascript("¡Su rechazo ha sido procesado satisfactoriamente!","Rechazo procesado");
-        esconderBotonesVistaBecario(true);
-    }
-
-    protected void esconderBotonesVistaBecario(Boolean esconder)
-    {
-        if (esconder)
+        if (datosDeAsignacionDeBecario.Count != 0)
         {
-            this.btnAceptarAsignacionBecario.Visible = false;
-            this.btnCancelarAsignacionBecario.Visible = false;
+
+            this.lblEncargadoVistaBecario.Text = datosDeAsignacionDeBecario[0][0].ToString() + " " + datosDeAsignacionDeBecario[0][1].ToString() + " " + datosDeAsignacionDeBecario[0][2].ToString();
+            this.lblHorasVistaBecario.Text = datosDeAsignacionDeBecario[0][4].ToString();
+           
+            int estadoAsignacion = Convert.ToInt32(datosDeAsignacionDeBecario[0][3]);
+
+            if (estadoAsignacion != 2 && estadoAsignacion != 3)
+            {
+                esconderBotonesVistaBecario(true);
+            }
+
+            actualizarEstadoAsignacionVistaBecario(estadoAsignacion);
         }
-        else
-        {
-            this.btnAceptarAsignacionBecario.Visible = true;
-            this.btnCancelarAsignacionBecario.Visible = true;
+        else {
+
+            this.lblEncargadoVistaBecario.Visible=false;
+            this.lblHorasVistaBecario.Visible = false;
+            this.lblTituloEncargadoVistaBecario.Visible = false;
+            this.lblTituloHorasVistaBecario.Visible = false;
+
+            lblEstadoAsignacionVistaBecario.Text = "Usted aún no tiene ningún encargado asignado.";
+            lblEstadoAsignacionVistaBecario.Visible = true;
+            esconderBotonesVistaBecario(true);
         }
+
     }
 
 
+   // Aceptar asignación
+   protected void btnAceptarAsignacionBecario_Click(object sender, EventArgs e)
+   {
 
 
-    /***************************************************************************
-     * 
-     *                       VISTA ENCARGADO
-     * 
-     * **************************************************************************/
+       int estadoActual = Convert.ToInt32(datosDeAsignacionDeBecario[0][3]);
+       int nuevoEstado;
+       if (estadoActual == 2)
+       {
+           nuevoEstado = 4;
+       }
+       else
+       {
+           nuevoEstado = 1;
+       }
+
+       string mensajeResultado = controladoraAsignaciones.actualizarEstadoDeAsignacion(nuevoEstado, datosDeAsignacionDeBecario[0][5].ToString(), datosDeAsignacionDeBecario[0][6].ToString() , periodoActual, añoActual);
+
+       if (mensajeResultado.Equals("Exito"))
+       {
+           if (nuevoEstado == 1)
+           {
+               commonService.mensajeJavascript("Usted ha aceptado la asignación satisfactoriamente.La asignación ha quedado completa por lo que ya puede empezar a realizar sus horas ", "Aviso");
+               
+           }
+           else {
+               commonService.mensajeJavascript("Usted ha aceptado la asignación satisfactoriamente. Sin embargo la asignación no ha quedado completada ya que debe esperar la confirmación del encargado", "Aviso");
+           }
+
+       }
+       else
+       {
+           commonService.mensajeJavascript("No se pudo completar la operación. Debe intentarlo de nuevo", "Error");
+       }
+
+       actualizarEstadoAsignacionVistaBecario(nuevoEstado);
+       esconderBotonesVistaBecario(true);
+   }
+
+   // Abrir confirmación de rechazo de asignación
+   protected void btnCancelarAsignacionBecario_Click(object sender, EventArgs e)
+   {
+       commonService.abrirPopUp("PopUpConfirmarRechazoBecario", "Rechazar Asignación");
+   }
+
+
+   // Click de rechazar asignación para el becario
+   protected void btnInvisibleConfirmarRechazo_Click(object sender, EventArgs e)
+   {
+       commonService.cerrarPopUp("PopUpConfirmarRechazoBecario");
+
+       int nuevoEstado = 5; //rechazado por becario
+
+       string mensajeResultado = controladoraAsignaciones.actualizarEstadoDeAsignacion(nuevoEstado, datosDeAsignacionDeBecario[0][5].ToString(), datosDeAsignacionDeBecario[0][6].ToString(), periodoActual, añoActual);
+
+       if (mensajeResultado.Equals("Exito"))
+       {
+          commonService.mensajeJavascript("¡Su rechazo ha sido procesado satisfactoriamente!", "Rechazo procesado");
+       }
+       else
+       {
+           commonService.mensajeJavascript("No se pudo completar la operación. Debe intentarlo de nuevo", "Error");
+       }
+
+       actualizarEstadoAsignacionVistaBecario(nuevoEstado);
+       esconderBotonesVistaBecario(true);
+
+   }
+
+   protected void esconderBotonesVistaBecario(Boolean esconder)
+   {
+       if (esconder)
+       {
+           this.btnAceptarAsignacionBecario.Visible = false;
+           this.btnCancelarAsignacionBecario.Visible = false;
+       }
+       else
+       {
+           this.btnAceptarAsignacionBecario.Visible = true;
+           this.btnCancelarAsignacionBecario.Visible = true;
+       }
+   }
+
+
+
+
+   /***************************************************************************
+    * 
+    *                       VISTA ENCARGADO
+    * 
+    * **************************************************************************/
 
 
      /*

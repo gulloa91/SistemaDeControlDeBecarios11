@@ -168,17 +168,19 @@ public class ControladoraAsignaciones
 
         AsignacionesDataSet.EncargadoDeBecarioDataTable tabla = controladoraBDAsignaciones.buscarEncargadoDeBecario(cedBecario, año, perido);
 
-        //becario.foto = cs.procesarStringDeUI(tabla.Rows[0]["Foto"].ToString());
-       
-         Object[] objeto = new Object[7];
-         objeto[0] = cs.procesarStringDeUI( tabla.Rows[0]["Nombre"].ToString());
-         objeto[1] = cs.procesarStringDeUI(tabla.Rows[0]["Apellido1"].ToString());
-         objeto[2] = cs.procesarStringDeUI(tabla.Rows[0]["Apellido2"].ToString());
-         objeto[3] = tabla.Rows[0]["Estado"].ToString();
-         objeto[4] = tabla.Rows[0]["TotalHoras"].ToString();
-         objeto[5] = tabla.Rows[0]["CedulaBecario"].ToString();
-         objeto[6] = tabla.Rows[0]["CedulaEncargado"].ToString();
-         retorno.Add(objeto);
+        if (tabla.Rows.Count != 0)
+        {
+
+            Object[] objeto = new Object[7];
+            objeto[0] = cs.procesarStringDeUI(tabla.Rows[0]["Nombre"].ToString());
+            objeto[1] = cs.procesarStringDeUI(tabla.Rows[0]["Apellido1"].ToString());
+            objeto[2] = cs.procesarStringDeUI(tabla.Rows[0]["Apellido2"].ToString());
+            objeto[3] = tabla.Rows[0]["Estado"].ToString();
+            objeto[4] = tabla.Rows[0]["TotalHoras"].ToString();
+            objeto[5] = tabla.Rows[0]["CedulaBecario"].ToString();
+            objeto[6] = tabla.Rows[0]["CedulaEncargado"].ToString();
+            retorno.Add(objeto);
+        }
 
          return retorno;
     }
