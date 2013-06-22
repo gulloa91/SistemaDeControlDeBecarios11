@@ -246,7 +246,7 @@
                     </div>
 
                     <!-- Grid con Becarios asignados y por asignar -->
-                    <asp:GridView ID="GridBecariosAsignadosVistaEncargado" CssClass="table_css centerText" runat="server" 
+                    <asp:GridView ID="gridBecariosAsignadosVistaEncargado" CssClass="table_css centerText" runat="server" 
                         onrowcommand="GridBecariosAsignadosVistaEncargado_RowCommand">
                         <columns>
                             <asp:ButtonField CommandName="btnSeleccionarTupla_Click" CausesValidation="false" ButtonType="Button" Visible="true" ImageUrl="~/Images/arrow-right.png" ItemStyle-HorizontalAlign="Center" Text="Aceptar/Rechazar" ItemStyle-VerticalAlign="Middle"/> 

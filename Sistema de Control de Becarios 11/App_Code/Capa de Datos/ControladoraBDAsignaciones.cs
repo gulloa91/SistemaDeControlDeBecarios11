@@ -15,12 +15,14 @@ public class ControladoraBDAsignaciones
     AsignadoATableAdapter adapterAsignaciones;
     BecarioSinAsignacionTableAdapter adapterBecarioSinAsignacion;
     BecariosAsignadosAEncargadoTableAdapter adapterBecariosAsignadosEncargado;
+    EncargadoDeBecarioTableAdapter adapterEncargadoDeBecario;
 
 	public ControladoraBDAsignaciones()
 	{
         adapterAsignaciones = new AsignadoATableAdapter();
         adapterBecarioSinAsignacion = new BecarioSinAsignacionTableAdapter();
         adapterBecariosAsignadosEncargado = new BecariosAsignadosAEncargadoTableAdapter();
+        adapterEncargadoDeBecario = new EncargadoDeBecarioTableAdapter();
 	}
 
 
@@ -69,6 +71,24 @@ public class ControladoraBDAsignaciones
 
 
 
+    public String actualizarEstadoDeAsignacion(int nuevoEstado, String cedBecario, String cedEncargado, int periodo, int año)
+    {
+        string returnValue = "Exito";
+
+        try
+        {
+            this.adapterAsignaciones.actualizarEstado(nuevoEstado, cedBecario, periodo, año, cedEncargado);
+        }
+        catch (SqlException e)
+        {
+            returnValue = "Error";
+
+        }
+
+        return returnValue;
+    }
+
+
     public AsignacionesDataSet.AsignadoADataTable consultarAsignaciones()
     {
 
@@ -113,6 +133,17 @@ public class ControladoraBDAsignaciones
     {
 
        adapterAsignaciones.asignacionActiva(false, cedBecario, periodo, año, cedEncargado);
+    }
+
+
+    public AsignacionesDataSet.EncargadoDeBecarioDataTable buscarEncargadoDeBecario(string cedBecario, int año, int periodo)
+    {
+
+        AsignacionesDataSet.EncargadoDeBecarioDataTable dt = new AsignacionesDataSet.EncargadoDeBecarioDataTable();
+        adapterEncargadoDeBecario.Fill(dt, cedBecario, periodo, año);
+
+        return dt;
+    
     }
 
 
