@@ -33,7 +33,7 @@ public class ControladoraBDAsignaciones
         int r;
         try
         {
-            this.adapterAsignaciones.Insert(asignacion.CedulaBecario, asignacion.Periodo, asignacion.Año, asignacion.CedulaEncargado, asignacion.TotalHoras, asignacion.SiglasUA, asignacion.InfoUbicacion, asignacion.Estado,asignacion.Activo);
+            this.adapterAsignaciones.Insert(asignacion.CedulaBecario, asignacion.Periodo, asignacion.Año, asignacion.CedulaEncargado, asignacion.TotalHoras, asignacion.SiglasUA, asignacion.InfoUbicacion, asignacion.Estado,asignacion.Activo,asignacion.ComentarioBecario,asignacion.ComentarioEncargado,asignacion.ComentarioDireccion);
         }
         catch (SqlException e)
         {
@@ -58,7 +58,7 @@ public class ControladoraBDAsignaciones
 
         try
         {
-            this.adapterAsignaciones.Delete(asig.CedulaBecario, asig.Periodo, asig.Año, asig.CedulaEncargado, asig.TotalHoras, asig.SiglasUA, asig.InfoUbicacion, asig.Estado, asig.Activo);
+            this.adapterAsignaciones.Delete(asig.CedulaBecario, asig.Periodo, asig.Año, asig.CedulaEncargado, asig.TotalHoras, asig.SiglasUA, asig.InfoUbicacion, asig.Estado, asig.Activo,asig.ComentarioBecario,asig.ComentarioEncargado, asig.ComentarioDireccion);
         }
         catch (SqlException e)
         {
@@ -78,6 +78,25 @@ public class ControladoraBDAsignaciones
         try
         {
             this.adapterAsignaciones.actualizarEstado(nuevoEstado, cedBecario, periodo, año, cedEncargado);
+        }
+        catch (SqlException e)
+        {
+            returnValue = "Error";
+
+        }
+
+        return returnValue;
+    }
+
+
+
+    public String insertarComentarioDireccion(String comentario, Asignacion asignacion)
+    {
+        string returnValue = "Exito";
+
+        try
+        {
+          this.adapterAsignaciones.insertarComentarioDireccion(comentario, asignacion.CedulaBecario, asignacion.Periodo, asignacion.Año, asignacion.CedulaEncargado, asignacion.TotalHoras, 0, asignacion.SiglasUA, 0, asignacion.InfoUbicacion, 0, asignacion.Estado, asignacion.Activo, 0, asignacion.ComentarioBecario, 0, asignacion.ComentarioEncargado, 0, asignacion.ComentarioDireccion);
         }
         catch (SqlException e)
         {

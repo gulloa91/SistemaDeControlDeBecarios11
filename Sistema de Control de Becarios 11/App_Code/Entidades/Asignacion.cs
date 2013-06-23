@@ -18,6 +18,9 @@ public class Asignacion
     private String infoUbicacion;
     private int estado;
     private bool activo;
+    private String comentarioBecario;
+    private String comentarioEncargado;
+    private String comentarioDireccion;
 
 
     public Asignacion()
@@ -37,6 +40,9 @@ public class Asignacion
         this.infoUbicacion = datos[6].ToString();
         this.estado = Convert.ToInt32(datos[7]);
         this.activo = Convert.ToBoolean(datos[8]);
+        this.comentarioBecario=datos[9].ToString();
+        this.comentarioEncargado=datos[10].ToString();
+        this.comentarioDireccion=datos[11].ToString();
 	}
 
 
@@ -97,5 +103,26 @@ public class Asignacion
         get { return activo; }
         set { activo = value; }
     }
-    //
+
+    public String ComentarioBecario 
+    {
+        get { return comentarioBecario; }
+        set { comentarioBecario = value; }
+    }
+
+
+    public String ComentarioEncargado
+    {
+        get { return comentarioEncargado; }
+        set { comentarioEncargado = value; }
+    }
+
+
+    public String ComentarioDireccion
+    {
+        get { return comentarioDireccion; }
+        set { comentarioDireccion = value; }
+    }
+
+
 }

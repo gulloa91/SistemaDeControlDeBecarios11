@@ -46,28 +46,28 @@
                             <!-- DRP Año -->
                             <div style="width: 15.66%; float: left; margin-right: 1%;">
                                 <span style="float:left; width:100%;">Año:</span>
-                                <asp:DropDownList ID="DropDownAnio" CssClass="txtAsignacion" runat="server"> 
+                                <asp:DropDownList ID="dropDownAnio" CssClass="txtAsignacion" runat="server" OnSelectedIndexChanged ="seleccionaAnio_busqueda"> 
                                 </asp:DropDownList>
                             </div>
 
                             <!-- DRP Ciclo -->
                             <div style="width: 15.66%; float: left; margin-right: 1%;">
                                 <span style="float:left; width:100%;">Ciclo:</span>
-                                <asp:DropDownList ID="DropDownCiclo" CssClass="txtAsignacion" runat="server">
+                                <asp:DropDownList ID="dropDownCiclo" CssClass="txtAsignacion" runat="server">
                                 </asp:DropDownList>
                             </div>
 
                             <!-- DRP Estado -->
                             <div style="width: 15.66%; float: left; margin-right: 1%;">
                                 <span style="float:left; width:100%;">Estado:</span>
-                                <asp:DropDownList ID="DropDownEstado" CssClass="txtAsignacion" runat="server">
+                                <asp:DropDownList ID="dropDownEstado" CssClass="txtAsignacion" runat="server">
                                 </asp:DropDownList>
                             </div>
 
                             <!-- DRP Encargado -->
                             <div style="width: 15.66%; float: left; margin-right: 1%;">
                                 <span style="float:left; width:100%;">Encargado:</span>
-                                <asp:DropDownList ID="DropDownList1" CssClass="txtAsignacion" runat="server">
+                                <asp:DropDownList ID="dropDownBusquedaEncargado" CssClass="txtAsignacion" runat="server">
                                 </asp:DropDownList>
                             </div>
 
@@ -109,23 +109,30 @@
                 <asp:UpdatePanel runat="server" ID="UpdatePopUp">
                     <Triggers>
                         <asp:AsyncPostBackTrigger ControlID="btnInvisibleEliminarAsignacion" EventName="Click" />
+                        <asp:AsyncPostBackTrigger ControlID="dropDownEncargadosPopUp" EventName="SelectedIndexChanged" />
+                        <asp:AsyncPostBackTrigger ControlID="dropDownBecariosPopUp" EventName="SelectedIndexChanged" />
                     </Triggers>
 
                     <ContentTemplate>
                         <!-- Botones Modificar y Eliminar -->
                         <div style="width: 96%; padding: 2%; float: left;" >
                             <div style="width: 20%; float: right;">
-                                <asp:Button ID="btnEliminarAsignacion" CausesValidation="false" runat="server" Text="Eliminar" 
-                                        
+                                <asp:Button ID="btnEliminarAsignacion" CausesValidation="false" runat="server" Text="Eliminar"                                         
                                     CssClass="boton ui-widget ui-state-default ui-corner-all ui-button-text-only" 
                                     onclick="btnEliminarAsignacion_Click" />
                             </div>
-                            <div style="width: 20%; float: right; margin-right: 5px;">
-                                <asp:Button ID="btnModificarAsignacion" CausesValidation="false" runat="server" Text="Modificar" 
-                                        
+                            <div style="width: 30%; float: right; margin-right: 5px;">
+                                <asp:Button ID="btnModificarAsignacion" CausesValidation="false" runat="server" Text="Cambiar Asignación"     
                                     CssClass="boton ui-widget ui-state-default ui-corner-all ui-button-text-only" 
-                                    onclick="btnModificarAsignacion_Click" />
+                                    onclick="btnModificarAsignacion_Click" ToolTip="Al cambiar una asignación se creará una nueva" />
                             </div>
+
+                             <div style="width: 30%; float: right; margin-right: 5px;">
+                                <asp:Button ID="btnComentario" CausesValidation="false" runat="server" Text="Realizar comentario"     
+                                    CssClass="boton ui-widget ui-state-default ui-corner-all ui-button-text-only" 
+                                    onclick="btnComentarioDireccion_click" ToolTip="El comentario es para la asignación actual" />
+                            </div>
+
                         </div>
 
                         <!-- Contenido Pop Up -->
@@ -156,7 +163,7 @@
                                             CssClass="BtnCntBecarios ui-state-default ui-button" 
                                             Text="" onclick="btnCantidadBecariosDeEncargado_Click" CausesValidation="false" />
                                     </div>
-                                    <asp:DropDownList ID="dropDownEncargadosPopUp" CssClass="txtAsignacion" runat="server" AutoPostBack="true" OnSelectedIndexChanged ="seleccionaEncargado">                          
+                                    <asp:DropDownList ID="dropDownEncargadosPopUp" CssClass="txtAsignacion" runat="server" AutoPostBack="true" OnSelectedIndexChanged ="seleccionaEncargado_dropDownPopUp">                          
                                     </asp:DropDownList>
                                     <asp:RequiredFieldValidator ID="RequiredFieldValidatorEncargadosPopUp" ControlToValidate="dropDownEncargadosPopUp"
                                     Display="Dynamic" runat="server" ErrorMessage="Por favor seleccione un encargado" CssClass="txtAsignacion"  ForeColor="#FF3300" InitialValue="0"></asp:RequiredFieldValidator>

@@ -29,7 +29,7 @@ public class ControladoraAsignaciones
 
 
 
-    public String ejecutar(int accion, Object[] datos, Object[] datosViejos) //1 insertar 2 modificar 3 eliminar
+    public String ejecutar(int accion, Object[] datos, String otrosDatos) //1 insertar 2 eliminar 3 insertarComentarioDireccion (a una asignacion existente)
     {
         
         string mensajeResultado = "-1";
@@ -47,6 +47,11 @@ public class ControladoraAsignaciones
                     Asignacion asignacion = new Asignacion(datos);
                     mensajeResultado = controladoraBDAsignaciones.eliminarAsignacion(asignacion);
                 } break;
+            case 3: //insertarComentarioDireccion (a una asignacion existente)
+               {
+                   Asignacion asignacion = new Asignacion(datos);
+                   mensajeResultado = controladoraBDAsignaciones.insertarComentarioDireccion(otrosDatos, asignacion);
+               }break;
         }
 
         return mensajeResultado;
@@ -74,6 +79,9 @@ public class ControladoraAsignaciones
             asignacion.InfoUbicacion = cs.procesarStringDeUI(r["InfoUbicacion"].ToString());
             asignacion.Estado = Convert.ToInt32(r["Estado"]);
             asignacion.Activo = Convert.ToBoolean(r["Activo"]);
+            asignacion.ComentarioBecario = cs.procesarStringDeUI(r["ComentarioDeBecario"].ToString());
+            asignacion.ComentarioEncargado = cs.procesarStringDeUI(r["ComentarioDeEncargado"].ToString());
+            asignacion.ComentarioDireccion = cs.procesarStringDeUI(r["ComentarioDeDireccion"].ToString());
 
             listaAs.Add(asignacion);
         }
@@ -199,6 +207,6 @@ public class ControladoraAsignaciones
       return controladoraBDAsignaciones.actualizarEstadoDeAsignacion(nuevoEstado,cedBecario,cedEncargado,periodo,año);
     }
 
-
+    
 
 }
