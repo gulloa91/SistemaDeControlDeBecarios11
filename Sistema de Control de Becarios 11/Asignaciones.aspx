@@ -180,6 +180,25 @@
                                     <span style="width:100%; float: left; font-weight: bold;">Info. De Ubicación:</span>
                                     <asp:TextBox ID="txtInfoDeUbicacion" CssClass="txtAsignacion" TextMode="MultiLine" runat="server"></asp:TextBox>
                                 </div>
+                                
+                            </div>
+
+                            <!-- Comentario de Dirección -->
+                            <div style="width: 100%; float: left; margin-top: 0px; margin-bottom: 10px;">
+                                <span style="width:100%; float: left; font-weight: bold;">Comentario de la Dirección:</span>
+                                <asp:TextBox ID="txtComentarioDireccion" Width="95%" CssClass="txtAsignacion" TextMode="MultiLine" runat="server"></asp:TextBox>
+                            </div>
+
+                            <!-- Comentario de Beacario y Comentario de Encargado -->
+                            <div id="container_comentarios_encargadoybecario" style="width: 100%; float: left; margin-top: 0px; margin-bottom: 10px;">
+                                <div style="width: 50%; float: left;">
+                                    <span style="width:100%; float: left; font-weight: bold;">Comentario del Encargado:</span>
+                                    <asp:TextBox ID="txtComentarioEncargado" Enabled="false" CssClass="txtAsignacion" TextMode="MultiLine" runat="server"></asp:TextBox>
+                                </div>
+                                <div style="width: 50%; float: left;">
+                                    <span style="width:100%; float: left; font-weight: bold;">Comentario del Becario:</span>
+                                    <asp:TextBox ID="txtComentarioBecario" Enabled="false" CssClass="txtAsignacion" TextMode="MultiLine" runat="server"></asp:TextBox>
+                                </div>
                                 <span style="width:100%; float: left; color: Red; margin-top: 10px; font-size: 12px;">* Campos obligatorios</span>
                             </div>
 

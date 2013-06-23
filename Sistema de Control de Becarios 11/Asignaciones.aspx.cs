@@ -139,6 +139,9 @@ public partial class Asignaciones : System.Web.UI.Page
         mostrarBotonesPrincipales(false);
         habilitarContenidoAsignacion(true);
         limpiarContenidoAsignacion();
+
+        /** Comentarios **/
+        commonService.correrJavascript("$('#container_comentarios_encargadoybecario').css('display','none');");
         
         cargarDropDownBecarios();
         cargarDropDownEncargados();
@@ -336,6 +339,7 @@ public partial class Asignaciones : System.Web.UI.Page
             this.txtUnidAcademica.Enabled = true;
             this.txtInfoDeUbicacion.Enabled = true;
             this.txtTotalHoras.Enabled = true;
+            this.txtComentarioDireccion.Enabled = true;
         }
         else
         {
@@ -344,6 +348,7 @@ public partial class Asignaciones : System.Web.UI.Page
             this.txtUnidAcademica.Enabled = false;
             this.txtInfoDeUbicacion.Enabled = false;
             this.txtTotalHoras.Enabled = false;
+            this.txtComentarioDireccion.Enabled = false;
         }
     }
 
@@ -355,6 +360,9 @@ public partial class Asignaciones : System.Web.UI.Page
         this.txtUnidAcademica.Text = "";
         this.txtInfoDeUbicacion.Text = "";
         this.txtTotalHoras.Text = "";
+        this.txtComentarioDireccion.Text = "";
+        this.txtComentarioBecario.Text = "";
+        this.txtComentarioEncargado.Text = "";
     }
 
 
@@ -643,6 +651,9 @@ public partial class Asignaciones : System.Web.UI.Page
                     
                     mostrarBotonesPrincipales(true);
                     habilitarContenidoAsignacion(false);
+
+                    /** Comentarios **/
+                    commonService.correrJavascript("$('#container_comentarios_encargadoybecario').css('display','block');");
 
                     commonService.abrirPopUp("PopUpAsignacion", "Consultar Asignación");
                     commonService.esconderPrimerBotonDePopUp("PopUpAsignacion");               
