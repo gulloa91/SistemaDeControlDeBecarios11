@@ -36,10 +36,6 @@ public partial class SiteMaster : System.Web.UI.MasterPage
                 MenuItem InicioMenuItem = new MenuItem("Inicio", "m0", "", "~/Default.aspx");
                 NavigationMenu.Items.Add(InicioMenuItem);
 
-                // PLEASE REMOVE
-                MenuItem ReportesMenuItem = new MenuItem("Reportes", "m0", "", "~/Reportes.aspx");
-                NavigationMenu.Items.Add(ReportesMenuItem);       
-
                 foreach (int permiso in permisos)
                 {
                     switch( permiso )
@@ -77,13 +73,14 @@ public partial class SiteMaster : System.Web.UI.MasterPage
                         case 6: // Cont Encargado
                             {
                                 int horasPendientesRevision = controladoraControlEncargado.totalBecarios((string)(Session["Cedula"]),0);
-                                MenuItem CtrlEncargadoMenuItem = new MenuItem("Revisar Horas (" + horasPendientesRevision.ToString() + ")", "m0", "", "~/ControlDeHorasEncargado.aspx");
+                                MenuItem CtrlEncargadoMenuItem = new MenuItem("Revisar Horas (" + horasPendientesRevision.ToString() + ")", "revisarHorasBecario", "", "~/ControlDeHorasEncargado.aspx");
                                 NavigationMenu.Items.Add(CtrlEncargadoMenuItem);
                             } break;
 
-                        case 7: // Cont Admin
+                        case 7: // Reportes
                             {
-
+                                MenuItem ReportesMenuItem = new MenuItem("Reportes", "m0", "", "~/Reportes.aspx");
+                                NavigationMenu.Items.Add(ReportesMenuItem); 
                             } break;
 
                         case 8: // Asig. Comp
