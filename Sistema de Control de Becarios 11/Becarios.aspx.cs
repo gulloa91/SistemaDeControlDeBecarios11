@@ -345,6 +345,7 @@ public partial class Becarios : System.Web.UI.Page
         habilitarCampos(true,0);
         habilitarEdicionPefil(true, 0);
         modoEjecucion = 1;
+        commonService.mostrarPrimerBotonDePopUp("PopUp");
     }
 
 
@@ -386,7 +387,7 @@ public partial class Becarios : System.Web.UI.Page
             correrJavascript("seleccionarTabs();");
         }
 
-
+        commonService.mostrarPrimerBotonDePopUp("PopUp");
     }
 
 
@@ -420,6 +421,7 @@ public partial class Becarios : System.Web.UI.Page
 
             this.btnModificarBecarioDatosP.Visible = true;
             this.btnModificarBecarioPerfilP.Visible = true;
+
         }
         else
         {
@@ -775,6 +777,8 @@ public partial class Becarios : System.Web.UI.Page
 
                     correrJavascript("abrirPopUp();");
                     modoEjecucion = -1;
+
+                    commonService.esconderPrimerBotonDePopUp("PopUp");
 
                 } break;
         }
