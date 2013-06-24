@@ -62,7 +62,7 @@ public class EmailServices
             mail.Subject = asunto;
 
             //Aquí ponemos el mensaje que incluirá el correo
-            mail.Body = mensaje;
+            mail.Body = mail.Body = "<html><body><div style='width: 80%; margin:0 10%; border-radius: 5px; border: 2px solid #414141; font-size: 16px; background: #2F4F2F;'> <div style='margin: 5%; width: 90%;background: #FFF; border-radius: 5px;'> <div style='padding: 5px 5%; width: 90%; text-align: center;'> <img src='http://www.ecci.ucr.ac.cr/files/bluebreeze_logo.png' /> <p style='font-size: 18px; font-weight: bold;'>Sistema de Control de Becarios 11</p> <p style='font-size: 16px; font-style: italic;'>Un proyecto de estudiantes para estudiantes de la Escuela de Ciencias de la Computación e Informática.</p> </div> <div style='padding: 5px 5%; width: 90%;'> <p> </p> " + mensaje + " </div> <div style='padding: 5px 5%; width: 90%; text-align: center;'> <p style='font-size: 16px; font-style: italic;'>Proyecto de Ingeniería de Software II | Grupo 2 | 2013</p> </div> </div> </div></body></html>";
 
             // Activar el uso de html para decorar el correo
             mail.IsBodyHtml = true;

@@ -22,6 +22,9 @@ public partial class Asignaciones : System.Web.UI.Page
      * */
 
     private static CommonServices commonService;
+    private static EmailServices servicioCorreo;
+
+
     private static List<Asignacion> listaAsignaciones = new List<Asignacion>();
     private static List<Object[]> lstBecariosAsignadosEncargado = new List<Object[]>();
 
@@ -34,10 +37,10 @@ public partial class Asignaciones : System.Web.UI.Page
     EncargadoDataSet.EncargadoDataTable tablaEncargados; //para guardar la lista de encargados existentes
 
     //listas para búsquedas
-    List<Asignacion> listaBusquedaAño = new List<Asignacion>();
-    List<Asignacion> listaBusquedaCiclo = new List<Asignacion>();
-    List<Asignacion> listaBusquedaEstado = new List<Asignacion>();
-    List<Asignacion> listaBusquedaEncargado = new List<Asignacion>();
+    private static List<Asignacion> listaBusquedaAño = new List<Asignacion>();
+    private static List<Asignacion> listaBusquedaCiclo = new List<Asignacion>();
+    private static List<Asignacion> listaBusquedaEstado = new List<Asignacion>();
+    private static List<Asignacion> listaBusquedaEncargado = new List<Asignacion>();
 
     private static int añoActual;
     private static int periodoActual;
@@ -51,6 +54,8 @@ public partial class Asignaciones : System.Web.UI.Page
         llenarTablaEncargados();
 
         commonService = new CommonServices(UpdateInfo);
+        servicioCorreo = new EmailServices();
+
         List<int> permisos = new List<int>();
         permisos = Session["ListaPermisos"] as List<int>;
 
@@ -100,7 +105,8 @@ public partial class Asignaciones : System.Web.UI.Page
                         MultiViewEncargado.ActiveViewIndex = 1;
                         if (!IsPostBack)
                         {
-                            llenarGridaBecariosAsignadosVistaEncargado();
+                            llenarListaBecariosAsignados();
+                            llenarGridaBecariosAsignadosVistaEncargado(lstBecariosAsignadosEncargado);
                             llenarCicloYAnioVistaEncargados();
                         }
 
@@ -367,6 +373,13 @@ public partial class Asignaciones : System.Web.UI.Page
     }
 
 
+    /*
+    * ------------------------------
+    *    BÚSQUEDAS
+    * ------------------------------
+    */
+
+
     // BUSCAR CLICK
     protected void btnBuscar_Click(object sender, EventArgs e)
     {
@@ -410,6 +423,9 @@ public partial class Asignaciones : System.Web.UI.Page
     }
 
 
+
+
+
     protected void cargarDropDownsBusquedas(){
 
 
@@ -422,15 +438,19 @@ public partial class Asignaciones : System.Web.UI.Page
            item = new ListItem(i.ToString(), i.ToString());
            this.dropDownAnio.Items.Add(item);       
         }
+        dropDownAnio.DataBind();
 
 
         //dropdown ciclo
         item = new ListItem("Seleccionar ciclo", "0");
         this.dropDownCiclo.Items.Add(item);
-        item = new ListItem("I", "0");
-        this.dropDownCiclo.Items.Add(item);
-        item = new ListItem("II", "0");
-        this.dropDownCiclo.Items.Add(item);
+        for (int i = 1; i <= 3; ++i)
+        {
+            item = new ListItem( convertirANumeroRomano(i), i.ToString() );
+            this.dropDownCiclo.Items.Add(item);
+        }
+        this.dropDownCiclo.DataBind();
+
 
         //dropdown estado
         item = new ListItem("Seleccionar estado", "0");
@@ -440,6 +460,7 @@ public partial class Asignaciones : System.Web.UI.Page
           item = new ListItem(estado, i.ToString());
           this.dropDownEstado.Items.Add(item);
         }
+        dropDownEstado.DataBind();
 
 
         //dropdown encargados
@@ -449,22 +470,464 @@ public partial class Asignaciones : System.Web.UI.Page
     }
 
 
-    //
-    protected void seleccionaAnio_busqueda(object sender, EventArgs e)
+    //Método que se invoca a al seleccionar un año para las búsuqedas
+    protected void dropDownAnio_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        busquedaPorAño();
+    }
+
+    
+    //buscador de año 
+    protected void busquedaPorAño()
     {
 
-        /*int añoSeleccionado = Convert.ToInt32(dropDownAnio.SelectedValue);
-        List<Asignacion> listaBusquedaAño = new List<Asignacion>();
-        for (int i = 0; i < listaAsignaciones.Count; i++)
+        List<Asignacion> asignacionesParaRemover = new List<Asignacion>();
+        listaBusquedaAño.Clear();
+
+        int añoSeleccionado = Convert.ToInt32(dropDownAnio.SelectedValue);
+        int periodoSeleccionado = Convert.ToInt32(dropDownCiclo.SelectedValue);
+        int estadoSeleccionado = Convert.ToInt32(dropDownEstado.SelectedValue);
+        string encargadoSeleccionado = dropDownBusquedaEncargado.SelectedValue;
+
+
+        if (añoSeleccionado != 0)
         {
-            if (listaAsignaciones[i].Año == añoSeleccionado) {
-                listaBusquedaAño.Add(listaAsignaciones[i]);
+         
+            for (int i = 0; i < listaAsignaciones.Count; i++)
+            {
+                if (listaAsignaciones[i].Año == añoSeleccionado)
+                {
+                    listaBusquedaAño.Add(listaAsignaciones[i]);
+                }
             }
-        }*/
+
+            asignacionesParaRemover.Clear();
+            if (periodoSeleccionado != 0)
+            {
+
+                for (int i = 0; i < listaBusquedaAño.Count; ++i)
+                {
+                    if (!(listaBusquedaAño[i].Periodo == periodoSeleccionado))
+                    {
+                        asignacionesParaRemover.Add(listaBusquedaAño[i]);
+                    }
+                }
+
+                for (int i = 0; i < asignacionesParaRemover.Count; ++i)
+                {
+                    listaBusquedaAño.Remove(asignacionesParaRemover[i]);
+                }
+            }
+
+            asignacionesParaRemover.Clear();
+            if (estadoSeleccionado != 0)
+            {
+               
+                for (int i = 0; i < listaBusquedaAño.Count; ++i)
+                {
+                    if (!(listaBusquedaAño[i].Estado == estadoSeleccionado))
+                    {
+                        asignacionesParaRemover.Add(listaBusquedaAño[i]);
+                    }
+                }
+
+                for (int i = 0; i < asignacionesParaRemover.Count; ++i)
+                {
+                    listaBusquedaAño.Remove(asignacionesParaRemover[i]);
+                }
+            }
+
+
+            asignacionesParaRemover.Clear();
+            if ( !(encargadoSeleccionado.Equals("0"))  )
+            {
+
+                for (int i = 0; i < listaBusquedaAño.Count; ++i)
+                {
+                    if (!(listaBusquedaAño[i].CedulaEncargado.Equals(encargadoSeleccionado)))
+                    {
+                       asignacionesParaRemover.Add(listaBusquedaAño[i]);
+                    }
+                }
+
+                for (int i = 0; i < asignacionesParaRemover.Count; ++i)
+                {
+                    listaBusquedaAño.Remove(asignacionesParaRemover[i]);
+                }
+            }
+
+
+            llenarGridAsignaciones(listaBusquedaAño);
+        }
+        else {
+
+            if ((periodoSeleccionado == 0) && (estadoSeleccionado == 0) && (encargadoSeleccionado.Equals("0")))
+            {
+                llenarGridAsignaciones(listaAsignaciones);
+            }
+            else
+            {
+                if (periodoSeleccionado != 0)
+                {
+                    busquedaPorCiclo();
+                }
+                if (estadoSeleccionado != 0)
+                {
+                    busquedaPorEstado();
+                }
+                if (!(encargadoSeleccionado.Equals("0")))
+                {
+                    busquedaPorEncargado();
+                }
+            }           
+        }
 
     }
 
 
+    //Método que se invoca a al seleccionar un ciclo para las búsuqedas
+    protected void dropDownCiclo_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        busquedaPorCiclo();
+    }
+
+    //buscador de ciclo
+    protected void busquedaPorCiclo()
+    {
+
+        List<Asignacion> asignacionesParaRemover = new List<Asignacion>();
+        listaBusquedaCiclo.Clear();
+
+        int cicloSeleccinado = Convert.ToInt32( dropDownCiclo.SelectedValue );
+        int añoSeleccionado = Convert.ToInt32(dropDownAnio.SelectedValue);
+        int estadoSeleccionado = Convert.ToInt32(dropDownEstado.SelectedValue);
+        string encargadoSeleccionado = dropDownBusquedaEncargado.SelectedValue;
+
+        if (cicloSeleccinado != 0)
+        {
+        
+            for (int i = 0; i < listaAsignaciones.Count; i++)
+            {
+                if (listaAsignaciones[i].Periodo == cicloSeleccinado)
+                {
+                    listaBusquedaCiclo.Add(listaAsignaciones[i]);
+                }
+            }
+
+
+            if (añoSeleccionado != 0)
+            {
+                asignacionesParaRemover.Clear();
+                for (int i = 0; i < listaBusquedaCiclo.Count; ++i)
+                {
+                    if (!(listaBusquedaCiclo[i].Año == añoSeleccionado))
+                    {
+                        asignacionesParaRemover.Add(listaBusquedaCiclo[i]);
+                    }
+                }
+
+                for (int i = 0; i < asignacionesParaRemover.Count; ++i)
+                {
+                    listaBusquedaCiclo.Remove(asignacionesParaRemover[i]);
+                }
+            }
+
+
+            if (estadoSeleccionado != 0)
+            {
+                asignacionesParaRemover.Clear();
+                for (int i = 0; i < listaBusquedaCiclo.Count; ++i)
+                {
+                    if (!(listaBusquedaCiclo[i].Estado == estadoSeleccionado))
+                    {
+                        asignacionesParaRemover.Add(listaBusquedaCiclo[i]);
+                    }
+                }
+
+                for (int i = 0; i < asignacionesParaRemover.Count; ++i)
+                {
+                    listaBusquedaCiclo.Remove(asignacionesParaRemover[i]);
+                }
+            }
+
+
+            if (!(encargadoSeleccionado.Equals("0")))
+            {
+
+                asignacionesParaRemover.Clear();
+                for (int i = 0; i < listaBusquedaCiclo.Count; ++i)
+                {
+                    if (!(listaBusquedaCiclo[i].CedulaEncargado.Equals(encargadoSeleccionado)))
+                    {
+                        asignacionesParaRemover.Add(listaBusquedaCiclo[i]);
+                    }
+                }
+
+                for (int i = 0; i < asignacionesParaRemover.Count; ++i)
+                {
+                    listaBusquedaCiclo.Remove(asignacionesParaRemover[i]);
+                }
+            }
+
+
+            llenarGridAsignaciones(listaBusquedaCiclo);
+        }
+        else
+        {
+
+            if ((añoSeleccionado == 0) && (estadoSeleccionado == 0) && (encargadoSeleccionado.Equals("0")))
+            {
+                llenarGridAsignaciones(listaAsignaciones);
+            }
+            else
+            {
+                if (añoSeleccionado != 0)
+                {
+                    busquedaPorAño();
+                }
+                if (estadoSeleccionado != 0)
+                {
+                    busquedaPorEstado();
+                }
+
+                if (!(encargadoSeleccionado.Equals("0")))
+                {
+                    busquedaPorEncargado();
+                }
+            }
+        }
+
+    }
+
+
+    //Método que se invoca a al seleccionar un estado para las búsuqedas
+    protected void dropDownEstado_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        busquedaPorEstado();
+    }
+    
+
+    //buscador de estado
+    protected void busquedaPorEstado()
+    {
+
+        List<Asignacion> asignacionesParaRemover = new List<Asignacion>();
+        listaBusquedaEstado.Clear();
+
+        int estadoSeleccionado = Convert.ToInt32(dropDownEstado.SelectedValue);
+        int periodoSeleccionado = Convert.ToInt32(dropDownCiclo.SelectedValue);
+        int añoSeleccionado = Convert.ToInt32(dropDownAnio.SelectedValue);
+        string encargadoSeleccionado = dropDownBusquedaEncargado.SelectedValue;
+
+        if (estadoSeleccionado != 0)
+        {
+
+            for (int i = 0; i < listaAsignaciones.Count; i++)
+            {
+                if (listaAsignaciones[i].Estado == estadoSeleccionado)
+                {
+                    listaBusquedaEstado.Add(listaAsignaciones[i]);
+                }
+            }
+
+
+            if (periodoSeleccionado != 0)
+            {
+                asignacionesParaRemover.Clear();
+                for (int i = 0; i < listaBusquedaEstado.Count; ++i)
+                {
+                    if (!(listaBusquedaEstado[i].Periodo == periodoSeleccionado))
+                    {
+                      asignacionesParaRemover.Add(listaBusquedaEstado[i]);
+                    }
+                }
+
+                for (int i = 0; i < asignacionesParaRemover.Count; ++i)
+                {
+                    listaBusquedaEstado.Remove(asignacionesParaRemover[i]);
+                }
+            }
+
+
+            if (añoSeleccionado != 0)
+            {
+                asignacionesParaRemover.Clear();
+                for (int i = 0; i < listaBusquedaEstado.Count; ++i)
+                {
+                    if (!(listaBusquedaEstado[i].Año == añoSeleccionado))
+                    {
+                        asignacionesParaRemover.Add(listaBusquedaEstado[i]);                     
+                    }
+                }
+
+                for (int i = 0; i < asignacionesParaRemover.Count; ++i)
+                {
+                    listaBusquedaEstado.Remove(asignacionesParaRemover[i]);
+                }
+            }
+
+
+            if (!(encargadoSeleccionado.Equals("0")))
+            {
+
+                asignacionesParaRemover.Clear();
+                for (int i = 0; i < listaBusquedaEstado.Count; ++i)
+                {
+                    if (!(listaBusquedaEstado[i].CedulaEncargado.Equals(encargadoSeleccionado)))
+                    {
+                        asignacionesParaRemover.Add(listaBusquedaEstado[i]);
+                    }
+                }
+
+                for (int i = 0; i < asignacionesParaRemover.Count; ++i)
+                {
+                    listaBusquedaEstado.Remove(asignacionesParaRemover[i]);
+                }
+            }
+
+
+            llenarGridAsignaciones(listaBusquedaEstado);
+        }
+        else
+        {
+
+            if ((añoSeleccionado == 0) && (periodoSeleccionado == 0) && (encargadoSeleccionado.Equals("0")))
+            {
+                llenarGridAsignaciones(listaAsignaciones);
+            }
+            else
+            {
+                if (añoSeleccionado != 0)
+                {
+                    busquedaPorAño();
+                }
+                if (periodoSeleccionado != 0)
+                {
+                    busquedaPorCiclo();
+                }
+                if (!(encargadoSeleccionado.Equals("0")))
+                {
+                    busquedaPorEncargado();
+                }
+            }
+        }
+
+    }
+
+
+
+    protected void dropDownBusquedaEncargado_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        busquedaPorEncargado();
+    }
+
+
+    //buscador de encargado
+    protected void busquedaPorEncargado() {
+
+        List<Asignacion> asignacionesParaRemover = new List<Asignacion>();
+     
+        listaBusquedaEncargado.Clear();
+
+        int estadoSeleccionado = Convert.ToInt32(dropDownEstado.SelectedValue);
+        int periodoSeleccionado = Convert.ToInt32(dropDownCiclo.SelectedValue);
+        int añoSeleccionado = Convert.ToInt32(dropDownAnio.SelectedValue);
+        string encargadoSeleccionado = dropDownBusquedaEncargado.SelectedValue;
+
+        if ( !(encargadoSeleccionado.Equals("0")))
+        {
+
+            for (int i = 0; i < listaAsignaciones.Count; i++)
+            {
+                if (listaAsignaciones[i].CedulaEncargado.Equals(encargadoSeleccionado))
+                {
+                    listaBusquedaEncargado.Add(listaAsignaciones[i]);
+                }
+            }
+
+
+            if (añoSeleccionado != 0)
+            {
+                asignacionesParaRemover.Clear();
+                for (int i = 0; i < listaBusquedaEncargado.Count; ++i)
+                {
+                    if (!(listaBusquedaEncargado[i].Año == añoSeleccionado))
+                    {
+                        asignacionesParaRemover.Add(listaBusquedaEncargado[i]);
+                    }
+                }
+
+                for (int i = 0; i < asignacionesParaRemover.Count; ++i)
+                {
+                    listaBusquedaEncargado.Remove(asignacionesParaRemover[i]);
+                }
+            }
+
+
+            if (periodoSeleccionado != 0)
+            {
+                asignacionesParaRemover.Clear();
+                for (int i = 0; i < listaBusquedaEncargado.Count; ++i)
+                {
+                    if (!(listaBusquedaEncargado[i].Periodo == periodoSeleccionado))
+                    {
+                        asignacionesParaRemover.Add(listaBusquedaEncargado[i]);
+                    }
+                }
+
+                for (int i = 0; i < asignacionesParaRemover.Count; ++i)
+                {
+                    listaBusquedaEncargado.Remove(asignacionesParaRemover[i]);
+                }
+            }
+
+
+            if (estadoSeleccionado != 0)
+            {
+                asignacionesParaRemover.Clear();
+                for (int i = 0; i < listaBusquedaEncargado.Count; ++i)
+                {
+                    if (!(listaBusquedaEncargado[i].Estado == estadoSeleccionado))
+                    {
+                        asignacionesParaRemover.Add(listaBusquedaEncargado[i]);
+                    }
+                }
+
+                for (int i = 0; i < asignacionesParaRemover.Count; ++i)
+                {
+                    listaBusquedaEncargado.Remove(asignacionesParaRemover[i]);
+                }
+            }
+
+
+            llenarGridAsignaciones(listaBusquedaEncargado);
+        }
+        else
+        {
+
+            if ((añoSeleccionado == 0) && (periodoSeleccionado == 0) && (estadoSeleccionado == 0))
+            {
+                llenarGridAsignaciones(listaAsignaciones);
+            }
+            else
+            {
+                if (añoSeleccionado != 0)
+                {
+                    busquedaPorAño();
+                }
+                if (periodoSeleccionado != 0)
+                {
+                    busquedaPorCiclo();
+                }
+
+                if (estadoSeleccionado != 0)
+                {
+                    busquedaPorEstado();
+                }
+            }
+        }
+
+    }
 
 
     //metodo q actualiza el botón de cantidad de becarios cuando se selecciona un encargado
@@ -991,7 +1454,13 @@ public partial class Asignaciones : System.Web.UI.Page
         gridBecariosAsignadosAEncargado.HeaderRow.Cells[3].Text = "Celular";
     }
 
-
+    //Controla la paginación del grid
+    protected void gridAsignaciones_PageIndexChanging(object sender, GridViewPageEventArgs e)
+    {
+        this.GridAsignaciones.PageIndex = e.NewPageIndex;
+        this.GridAsignaciones.DataBind();
+        this.HeadersCorrectosAsignaciones();
+    }
 
 
     /***************************************************************************
@@ -1080,16 +1549,15 @@ public partial class Asignaciones : System.Web.UI.Page
    protected void btnAceptarAsignacionBecario_Click(object sender, EventArgs e)
    {
 
-
        int estadoActual = Convert.ToInt32(datosDeAsignacionDeBecario[0][3]);
        int nuevoEstado;
-       if (estadoActual == 2)
+       if (estadoActual == 2)  // si ninguno había confirmado 
        {
-           nuevoEstado = 4;
+           nuevoEstado = 4;    // pasa a estado de " esperando confirmación encargado "
        }
-       else
+       else // si ya el encargado habia aceptado y solo faltaba el becario
        {
-           nuevoEstado = 1;
+           nuevoEstado = 1; //pasa a estado aceptado
        }
 
        string mensajeResultado = controladoraAsignaciones.actualizarEstadoDeAsignacion(nuevoEstado, datosDeAsignacionDeBecario[0][5].ToString(), datosDeAsignacionDeBecario[0][6].ToString() , periodoActual, añoActual);
@@ -1098,8 +1566,14 @@ public partial class Asignaciones : System.Web.UI.Page
        {
            if (nuevoEstado == 1)
            {
-               commonService.mensajeJavascript("Usted ha aceptado la asignación satisfactoriamente.La asignación ha quedado completa por lo que ya puede empezar a realizar sus horas ", "Aviso");
-               
+               commonService.mensajeJavascript("Usted ha aceptado la asignación satisfactoriamente y su encargado ha sido notficado. La asignación ha quedado completa por lo que ya puede empezar a realizar sus horas.", "Aviso");
+             
+             //CORREO A ENCARGADO !!
+             string correoEncargado = datosDeAsignacionDeBecario[0][7].ToString();
+             string nombreBecario = Session["Nombre"].ToString() + " " + Session["Apellido1"].ToString();
+             string mensaje = "Se le informa que el estudiante " + nombreBecario + " acaba de aceptar una asignación con usted para el presente semestre. A partir de este momento el estudiante queda bajo su tutela para el control de las horas beca.";
+             servicioCorreo.enviarCorreo(correoEncargado, "Mensaje del Sistema de Control de Becarios 11", mensaje);
+  
            }
            else {
                commonService.mensajeJavascript("Usted ha aceptado la asignación satisfactoriamente. Sin embargo la asignación no ha quedado completada ya que debe esperar la confirmación del encargado", "Aviso");
@@ -1186,24 +1660,37 @@ public partial class Asignaciones : System.Web.UI.Page
 
         int estadoActual = Convert.ToInt32(lstBecariosAsignadosEncargado[rowIndex][6]);
         int nuevoEstado;
-        if(estadoActual==2){
-          nuevoEstado=3;
+        if(estadoActual==2){ // si ninguno habia confirmado 
+          nuevoEstado=3;     // la asignación queda en estado "pendiente de confirmacíon becario"
         }else{
-          nuevoEstado=1;        
+          nuevoEstado=1;     //de lo contrario queda aceptada
         }
 
         string mensajeResultado = controladoraAsignaciones.actualizarEstadoDeAsignacion(nuevoEstado,cedBecario,cedEncargado,periodoActual,añoActual);
        
         if(mensajeResultado.Equals("Exito") ){
-           commonService.mensajeJavascript("Se ha aceptado la asignación.", "Aviso"); // Obviamente se tiene que cambiar con el resultado de vd
-            //si nuevoEstado es 1 : manda correo a encargado y becario
+
+            if (nuevoEstado == 3)
+            {
+              commonService.mensajeJavascript("Usted ha aceptado la asignación.Sin embargo aún hay que esperar la confirmación del becario.", "Aviso");
+            }
+            else {
+
+                //CORREO AL BECARIO  !!!
+              commonService.mensajeJavascript("Se ha aceptado la asignación y esta ya quedó en firme. El becario ha sido notificado", "Aviso");
+              string correoBecario = lstBecariosAsignadosEncargado[rowIndex][4].ToString();
+              string mensaje = "Se le informa que se acaba de confimar su asignación para el presente semetre. Ya puede empezar a reportar sus horas con la aplicación.";
+              servicioCorreo.enviarCorreo(correoBecario, "Mensaje del Sistema de Control de Becarios 11", mensaje);
+            }
+          
         }else{
            commonService.mensajeJavascript("La asignación no ha quedado aceptada porque se produjo error. Debe intentarlo de nuevo", "Error");
         }
 
         commonService.cerrarPopUp("PopUpAsignacionEncargado");
-       
-        llenarGridaBecariosAsignadosVistaEncargado();
+
+        llenarListaBecariosAsignados();
+        llenarGridaBecariosAsignadosVistaEncargado(lstBecariosAsignadosEncargado);
         
     }
 
@@ -1223,9 +1710,14 @@ public partial class Asignaciones : System.Web.UI.Page
 
         if (mensajeResultado.Equals("Exito"))
         {
-           commonService.mensajeJavascript("Se ha rechazado la asignación.", "Aviso"); 
-           //manda correo a dirección
-     
+           commonService.mensajeJavascript("Se ha rechazado la asignación y su decisión ha sido notifcada a la dirección.", "Aviso");
+
+           //CORREO A DIRECCIÓN !!!
+
+           string correo = "hugo.villalta@ucr.ac.cr";
+           string nombreEncargado = Session["Nombre"].ToString() + " " + Session["Apellido1"].ToString() ;
+           string mensaje = "Se le informa que el encargado " + nombreEncargado + " acaba de rechazar una asignación. Dirígase al menú de asignaciones para cambiar esta asignación.";
+           servicioCorreo.enviarCorreo(correo, "Mensaje del Sistema de Control de Becarios 11", mensaje); 
         }
         else
         {
@@ -1234,10 +1726,50 @@ public partial class Asignaciones : System.Web.UI.Page
 
         commonService.cerrarPopUp("PopUpAsignacionEncargado");
 
-        llenarGridaBecariosAsignadosVistaEncargado();
+        llenarListaBecariosAsignados();
+        llenarGridaBecariosAsignadosVistaEncargado(lstBecariosAsignadosEncargado);
 
         commonService.cerrarPopUp("PopUpAsignacionEncargado");
-        commonService.mensajeJavascript("Se ha rechazado la asignación. Un mensaje se enviará la dirección de la ECCI.", "Rechazada"); // Obviamente se tiene que cambiar con el resultado de vd
+       
+    }
+
+
+    // Botón de buscar
+    protected void btnBuscarVistaEncargado_Click(object sender, EventArgs e)
+    {
+
+        TextInfo miTexto = CultureInfo.CurrentCulture.TextInfo;
+        string criterioDeBusqueda = miTexto.ToTitleCase(this.txtBuscarVistaEncargado.Text);
+
+        if (!(txtBuscarVistaEncargado.Text.Equals("")))
+        {
+
+            List<Object[]> listaAux = new List<Object[]>();
+            if (lstBecariosAsignadosEncargado.Count > 0)
+            {
+                for (int i = 0; i < lstBecariosAsignadosEncargado.Count; ++i)
+                {
+
+                    string nombre = lstBecariosAsignadosEncargado[i][0].ToString();
+                    string apellido1 = lstBecariosAsignadosEncargado[i][1].ToString();
+                    string apellido2 = lstBecariosAsignadosEncargado[i][2].ToString();
+                    string carne = lstBecariosAsignadosEncargado[i][3].ToString();
+                    if ((nombre.Equals(criterioDeBusqueda)) || (apellido1.Equals(criterioDeBusqueda)) || (apellido2.Equals(criterioDeBusqueda)) || (carne.Equals(criterioDeBusqueda)))
+                    {
+                        listaAux.Add(lstBecariosAsignadosEncargado[i]);
+                    }
+                }
+            }
+
+            if (listaAux.Count != 0)
+            {
+                llenarGridaBecariosAsignadosVistaEncargado(listaAux);
+            }
+        }
+        else {
+            
+            llenarGridaBecariosAsignadosVistaEncargado(lstBecariosAsignadosEncargado);
+        }
     }
 
 
@@ -1256,8 +1788,8 @@ public partial class Asignaciones : System.Web.UI.Page
     }
 
 
-    // Llenar tabla con todas las asignaciones del encargado logueado actualmente
-    protected void llenarGridaBecariosAsignadosVistaEncargado()
+
+    protected void llenarListaBecariosAsignados()
     {
 
         string usuario = Session["Cuenta"].ToString();
@@ -1265,21 +1797,28 @@ public partial class Asignaciones : System.Web.UI.Page
 
         lstBecariosAsignadosEncargado = controladoraAsignaciones.consultarBecariosAsignadosAEncargado(cedEncargado, añoActual, periodoActual);
 
+    }
+
+
+    // Llenar tabla con todas las asignaciones del encargado logueado actualmente
+    protected void llenarGridaBecariosAsignadosVistaEncargado(List<Object[]> listaDatos)
+    {
+
 
         DataTable tablaBecariosAsigandosAEncargado = crearTablaBecariosAsignadosVistaEncargado();
-        DataRow newRow; 
+        DataRow newRow;
 
-        if (lstBecariosAsignadosEncargado.Count > 0)
+        if (listaDatos.Count > 0)
         {
-            for (int i = 0; i < lstBecariosAsignadosEncargado.Count; ++i)
+            for (int i = 0; i < listaDatos.Count; ++i)
             {
 
                 newRow = tablaBecariosAsigandosAEncargado.NewRow();
-                newRow["Nombre"] = lstBecariosAsignadosEncargado[i][0].ToString() + " " + lstBecariosAsignadosEncargado[i][1].ToString() + " " + lstBecariosAsignadosEncargado[i][2].ToString();
-                newRow["Carné"] = lstBecariosAsignadosEncargado[i][3].ToString();
-                newRow["Correo"] = lstBecariosAsignadosEncargado[i][4].ToString();
-                newRow["Celular"] = lstBecariosAsignadosEncargado[i][5].ToString();
-                newRow["Estado"] =  interpretaEstado( Convert.ToInt32(lstBecariosAsignadosEncargado[i][6]),true);
+                newRow["Nombre"] = listaDatos[i][0].ToString() + " " + listaDatos[i][1].ToString() + " " + listaDatos[i][2].ToString();
+                newRow["Carné"] = listaDatos[i][3].ToString();
+                newRow["Correo"] = listaDatos[i][4].ToString();
+                newRow["Celular"] = listaDatos[i][5].ToString();
+                newRow["Estado"] = interpretaEstado(Convert.ToInt32(listaDatos[i][6]),true);
                 tablaBecariosAsigandosAEncargado.Rows.InsertAt(newRow, i);
             }
         }
@@ -1302,9 +1841,7 @@ public partial class Asignaciones : System.Web.UI.Page
         this.headersCorrectosBecariosAsignadosVistaEncargado();
     }
 
-    // Le da formato a las columnas del Grid
-
-
+   
 
 
     // Le da formato a las columnas del Grid

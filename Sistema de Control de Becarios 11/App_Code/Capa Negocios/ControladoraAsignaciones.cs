@@ -179,7 +179,7 @@ public class ControladoraAsignaciones
         if (tabla.Rows.Count != 0)
         {
 
-            Object[] objeto = new Object[7];
+            Object[] objeto = new Object[8];
             objeto[0] = cs.procesarStringDeUI(tabla.Rows[0]["Nombre"].ToString());
             objeto[1] = cs.procesarStringDeUI(tabla.Rows[0]["Apellido1"].ToString());
             objeto[2] = cs.procesarStringDeUI(tabla.Rows[0]["Apellido2"].ToString());
@@ -187,6 +187,7 @@ public class ControladoraAsignaciones
             objeto[4] = tabla.Rows[0]["TotalHoras"].ToString();
             objeto[5] = tabla.Rows[0]["CedulaBecario"].ToString();
             objeto[6] = tabla.Rows[0]["CedulaEncargado"].ToString();
+            objeto[7] = tabla.Rows[0]["Correo"].ToString();
             retorno.Add(objeto);
         }
 

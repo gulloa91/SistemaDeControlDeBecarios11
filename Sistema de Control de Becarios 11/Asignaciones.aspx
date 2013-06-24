@@ -15,6 +15,10 @@
             <asp:UpdatePanel ID="UpdateInfo" runat="server">
                 <Triggers>
                     <asp:AsyncPostBackTrigger ControlID="btnInvisibleAceptarAsignacion" EventName="Click" />
+                    <asp:AsyncPostBackTrigger ControlID="dropDownAnio" EventName="SelectedIndexChanged" />
+                    <asp:AsyncPostBackTrigger ControlID="dropDownCiclo" EventName="SelectedIndexChanged" />
+                    <asp:AsyncPostBackTrigger ControlID="dropDownEstado" EventName="SelectedIndexChanged" />
+                    <asp:AsyncPostBackTrigger ControlID="dropDownBusquedaEncargado" EventName="SelectedIndexChanged" />
                 </Triggers>
 
                 <ContentTemplate>
@@ -46,28 +50,32 @@
                             <!-- DRP Año -->
                             <div style="width: 15.66%; float: left; margin-right: 1%;">
                                 <span style="float:left; width:100%;">Año:</span>
-                                <asp:DropDownList ID="dropDownAnio" CssClass="txtAsignacion" runat="server" OnSelectedIndexChanged ="seleccionaAnio_busqueda"> 
+                                <asp:DropDownList ID="dropDownAnio" CssClass="txtAsignacion" runat="server"
+                                  AutoPostBack="true" OnSelectedIndexChanged ="dropDownAnio_SelectedIndexChanged"> 
                                 </asp:DropDownList>
                             </div>
 
                             <!-- DRP Ciclo -->
                             <div style="width: 15.66%; float: left; margin-right: 1%;">
                                 <span style="float:left; width:100%;">Ciclo:</span>
-                                <asp:DropDownList ID="dropDownCiclo" CssClass="txtAsignacion" runat="server">
+                                <asp:DropDownList ID="dropDownCiclo" CssClass="txtAsignacion" runat="server"
+                                  AutoPostBack="true" OnSelectedIndexChanged ="dropDownCiclo_SelectedIndexChanged" >
                                 </asp:DropDownList>
                             </div>
 
                             <!-- DRP Estado -->
                             <div style="width: 15.66%; float: left; margin-right: 1%;">
                                 <span style="float:left; width:100%;">Estado:</span>
-                                <asp:DropDownList ID="dropDownEstado" CssClass="txtAsignacion" runat="server">
+                                <asp:DropDownList ID="dropDownEstado" CssClass="txtAsignacion" runat="server"  
+                                 AutoPostBack="true" OnSelectedIndexChanged ="dropDownEstado_SelectedIndexChanged" >
                                 </asp:DropDownList>
                             </div>
 
                             <!-- DRP Encargado -->
                             <div style="width: 15.66%; float: left; margin-right: 1%;">
                                 <span style="float:left; width:100%;">Encargado:</span>
-                                <asp:DropDownList ID="dropDownBusquedaEncargado" CssClass="txtAsignacion" runat="server">
+                                <asp:DropDownList ID="dropDownBusquedaEncargado" CssClass="txtAsignacion" runat="server" 
+                                AutoPostBack="true" OnSelectedIndexChanged ="dropDownBusquedaEncargado_SelectedIndexChanged">                       
                                 </asp:DropDownList>
                             </div>
 
@@ -92,7 +100,7 @@
                             <asp:GridView ID="GridAsignaciones"  runat="server" CssClass="table_css" 
                                 GridLines="Both" AllowPaging="True" RowStyle-HorizontalAlign="Center" 
                                 RowStyle-VerticalAlign="Middle" PageSize="15" 
-                                PagerStyle-CssClass="pagerGlobal" 
+                                PagerStyle-CssClass="pagerGlobal" onpageindexchanging="gridAsignaciones_PageIndexChanging"
                                 onrowcommand="GridAsignaciones_RowCommand">
                                    <columns>
                                        <asp:ButtonField CommandName="btnSeleccionarTupla_Click" CausesValidation="false" ButtonType="Image" Visible="true" ImageUrl="~/Images/arrow-right.png" ItemStyle-HorizontalAlign="Center" ItemStyle-VerticalAlign="Middle"/> 
@@ -254,12 +262,13 @@
                         <div style="width: 100%; float:left; font-weight: bold; font-size: 16px; border-bottom: 1px solid #fff; margin-bottom: 5px;">Buscar:</div>
                         <!-- TXT Buscar -->
                         <div style="width: 59%; float: left; margin-right: 1%;">
-                            <asp:TextBox ID="txtBuscarVistaEncargado"  onkeydown = "enterBuscar(event, 'MainContent_txtBuscarVistaEncargado');" CssClass="txtAsignacion" runat="server"></asp:TextBox>
+                            <asp:TextBox ID="txtBuscarVistaEncargado"  onkeydown = "enterBuscar(event, 'MainContent_btnBuscarVistaEncargado');" CssClass="txtAsignacion" runat="server"></asp:TextBox>
                         </div>
 
                         <!-- BTN Buscar -->
                         <div style="width: 39%; float: left; margin-right: 1%;">
-                            <asp:Button ID="btnBuscarVistaEncargado" runat="server" Text="Buscar" CausesValidation="false" CssClass="boton ui-widget ui-state-default ui-corner-all ui-button-text-only" />
+                            <asp:Button ID="btnBuscarVistaEncargado" runat="server" Text="Buscar" CausesValidation="false" 
+                             CssClass="boton ui-widget ui-state-default ui-corner-all ui-button-text-only" OnClick="btnBuscarVistaEncargado_Click" />
                         </div>
                     </div>
 
