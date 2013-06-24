@@ -14,7 +14,7 @@ public class ControladoraBecarios
     private CommonServices cs;
     private ControladoraCuentas controladoraCuentas;
 
-    
+
     public ControladoraBecarios()
     {
         cs = new CommonServices(null);
@@ -48,7 +48,7 @@ public class ControladoraBecarios
         return mensajeResultado;
     }
 
-   
+
     //consulta todos los becarios existentes y devuelve una lista
     public List<Becario> consultarTablaBecario()
     {
@@ -58,7 +58,7 @@ public class ControladoraBecarios
         {
 
             Becario becario = new Becario();
-            
+
             becario.foto = cs.procesarStringDeUI(r["Foto"].ToString());
             becario.nombre = cs.procesarStringDeUI(r["Nombre"].ToString());
             becario.apellido1 = cs.procesarStringDeUI(r["Apellido1"].ToString());
@@ -119,10 +119,11 @@ public class ControladoraBecarios
     }
 
 
-    public String obtieneCedulaDeUsuario(String usuario) {
+    public String obtieneCedulaDeUsuario(String usuario)
+    {
 
-      return controladoraCuentas.getCedulaByUsuario(usuario);
-  
+        return controladoraCuentas.getCedulaByUsuario(usuario);
+
     }
 
 
@@ -132,20 +133,20 @@ public class ControladoraBecarios
 
         string mensajeResultado = "-1";
 
-        for (int i = 0; (i < listaLenguajesProg.Count)&&( !(mensajeResultado.Equals("Error")) ); i++)
+        for (int i = 0; (i < listaLenguajesProg.Count) && (!(mensajeResultado.Equals("Error"))); i++)
         {
             mensajeResultado = controladoraBDBecario.insertarLenguajeProg(listaLenguajesProg[i], cedBecario);
         }
 
         for (int i = 0; (i < listaIdiomas.Count) && (!(mensajeResultado.Equals("Error"))); i++)
         {
-           mensajeResultado = controladoraBDBecario.insertarIdioma(listaIdiomas[i], cedBecario);
+            mensajeResultado = controladoraBDBecario.insertarIdioma(listaIdiomas[i], cedBecario);
         }
 
 
         for (int i = 0; (i < listaIntereses.Count) && (!(mensajeResultado.Equals("Error"))); i++)
         {
-           mensajeResultado = controladoraBDBecario.insertarAreaInteres(listaIntereses[i], cedBecario);
+            mensajeResultado = controladoraBDBecario.insertarAreaInteres(listaIntereses[i], cedBecario);
         }
 
 
@@ -153,7 +154,7 @@ public class ControladoraBecarios
         {
             mensajeResultado = controladoraBDBecario.insertarCualidad(listaCualidades[i], cedBecario);
         }
-       
+
         return mensajeResultado;
     }
 
@@ -167,38 +168,39 @@ public class ControladoraBecarios
         mensajeResultado = controladoraBDBecario.eliminaPerfilBecario(cedBecario);
 
         return mensajeResultado;
-    
+
     }
 
 
-    public List<String> consultarLenguajes(string ced){
+    public List<String> consultarLenguajes(string ced)
+    {
 
-       BecariosDataSet.LenguajesProgDataTable tabla = controladoraBDBecario.consultarLenguajes(ced);
-       List<String> listaLeng = new List<String>();
+        BecariosDataSet.LenguajesProgDataTable tabla = controladoraBDBecario.consultarLenguajes(ced);
+        List<String> listaLeng = new List<String>();
 
-       foreach (DataRow r in tabla.Rows)
-       {
+        foreach (DataRow r in tabla.Rows)
+        {
 
-           string texto = cs.procesarStringDeUI(r["Lenguaje"].ToString());
-           listaLeng.Add(texto);
-       }
-       return listaLeng;
-   }
+            string texto = cs.procesarStringDeUI(r["Lenguaje"].ToString());
+            listaLeng.Add(texto);
+        }
+        return listaLeng;
+    }
 
 
     public List<String> consultarIdiomas(string ced)
     {
 
         BecariosDataSet.IdiomasDataTable tabla = controladoraBDBecario.consultarIdiomas(ced);
-       List<String> listaIdiomas = new List<String>();
+        List<String> listaIdiomas = new List<String>();
 
-       foreach (DataRow r in tabla.Rows)
-       {
+        foreach (DataRow r in tabla.Rows)
+        {
 
             string texto = cs.procesarStringDeUI(r["Idioma"].ToString());
             listaIdiomas.Add(texto);
         }
-       return listaIdiomas;
+        return listaIdiomas;
     }
 
 
@@ -234,6 +236,18 @@ public class ControladoraBecarios
         return listaCualidades;
     }
 
+    //-----Agrego Beto------
+    public String consultarCedulaByCarne(String carne)
+    {
+        String resultado = "";
+        DataTable dt = controladoraBDBecario.consultarCedulaByCarne(carne);
+        resultado = dt.Rows[0][0].ToString();
+        return resultado;
+    }
 
+    public String obtenerNombrePorCedula(String cedula)
+    {
+        return controladoraBDBecario.obtenerNombrePorCedula(cedula);
+    }
 
 }

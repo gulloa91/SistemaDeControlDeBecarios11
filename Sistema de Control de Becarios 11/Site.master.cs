@@ -13,6 +13,7 @@ public partial class SiteMaster : System.Web.UI.MasterPage
 	private ControladoraPerfiles controladoraPerfiles = new ControladoraPerfiles();
     private ControladoraBecarios controladoraBecarios = new ControladoraBecarios();
     private ControladoraEncargado controladoraEncargados = new ControladoraEncargado();
+    private ControladoraControlEncargado controladoraControlEncargado = new ControladoraControlEncargado();
 
 	protected void Page_Load(object sender, EventArgs e)
 	{
@@ -75,7 +76,7 @@ public partial class SiteMaster : System.Web.UI.MasterPage
 
                         case 6: // Cont Encargado
                             {
-                                int horasPendientesRevision = 3;
+                                int horasPendientesRevision = controladoraControlEncargado.totalBecarios((string)(Session["Cedula"]),0);
                                 MenuItem CtrlEncargadoMenuItem = new MenuItem("Revisar Horas (" + horasPendientesRevision.ToString() + ")", "m0", "", "~/ControlDeHorasEncargado.aspx");
                                 NavigationMenu.Items.Add(CtrlEncargadoMenuItem);
                             } break;

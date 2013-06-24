@@ -16,6 +16,7 @@ public class ControladoraBDBecario
     private IdiomasTableAdapter adapterIdiomas;
     private AreasInteresTableAdapter adapterAreas;
     private CualidadesPersonalesTableAdapter adapterCualidades;
+    private Becario1TableAdapter adapterAux;
 
     public ControladoraBDBecario()
     {
@@ -24,6 +25,7 @@ public class ControladoraBDBecario
         adapterIdiomas = new IdiomasTableAdapter();
         adapterAreas = new AreasInteresTableAdapter();
         adapterCualidades = new CualidadesPersonalesTableAdapter();
+        adapterAux = new Becario1TableAdapter();
     }
 
     public String insertarBecario(Becario becario)
@@ -33,8 +35,8 @@ public class ControladoraBDBecario
         try
         {
 
-           this.adapterBecarios.Insert(becario.cedula, becario.nombre, becario.apellido1, becario.apellido2, becario.correo, becario.carne, becario.telefonoFijo, becario.telefonoCelular, becario.telefonoOtro, "", becario.activo);
-    
+            this.adapterBecarios.Insert(becario.cedula, becario.nombre, becario.apellido1, becario.apellido2, becario.correo, becario.carne, becario.telefonoFijo, becario.telefonoCelular, becario.telefonoOtro, "", becario.activo);
+
         }
         catch (SqlException e)
         {
@@ -69,7 +71,7 @@ public class ControladoraBDBecario
             }
             else
             {
-                returnValue ="Error2";//"Se ha producido un error al modificar el becario";
+                returnValue = "Error2";//"Se ha producido un error al modificar el becario";
             }
         }
         return returnValue;
@@ -121,17 +123,17 @@ public class ControladoraBDBecario
     /***METODOS PARA MENEJO DE PERFIL DE BECARIO **/
 
 
-    public String insertarLenguajeProg(String nuevoLenguaje,String cedBecario)
+    public String insertarLenguajeProg(String nuevoLenguaje, String cedBecario)
     {
         String returnValue = "Exito";
         int r;
         try
         {
-           this.adapterLenguajes.insertarLenguaje(cedBecario,nuevoLenguaje);
+            this.adapterLenguajes.insertarLenguaje(cedBecario, nuevoLenguaje);
         }
         catch (SqlException e)
         {
-          returnValue = "Error"; 
+            returnValue = "Error";
         }
         return returnValue;
     }
@@ -183,13 +185,14 @@ public class ControladoraBDBecario
         return returnValue;
     }
 
-    
-    public BecariosDataSet.LenguajesProgDataTable consultarLenguajes(String cedula){
 
-       BecariosDataSet.LenguajesProgDataTable dt = new BecariosDataSet.LenguajesProgDataTable();
-       this.adapterLenguajes.consultarLenguajes(dt, cedula);
-       return dt;
-   }
+    public BecariosDataSet.LenguajesProgDataTable consultarLenguajes(String cedula)
+    {
+
+        BecariosDataSet.LenguajesProgDataTable dt = new BecariosDataSet.LenguajesProgDataTable();
+        this.adapterLenguajes.consultarLenguajes(dt, cedula);
+        return dt;
+    }
 
     public BecariosDataSet.IdiomasDataTable consultarIdiomas(String cedula)
     {
@@ -217,7 +220,8 @@ public class ControladoraBDBecario
     }
 
 
-    public String eliminaPerfilBecario(String cedBecario){
+    public String eliminaPerfilBecario(String cedBecario)
+    {
 
         string mensaje = "Exito";
 
@@ -237,5 +241,26 @@ public class ControladoraBDBecario
         return mensaje;
     }
 
+    //-----Agrego Beto------
+    public DataTable consultarCedulaByCarne(String carne)
+    {
+        DataTable dt = new DataTable();
+        dt = adapterAux.getCedulaByCarne(carne);
+        return dt;
+    }
+
+    public String obtenerNombrePorCedula(String cedula)
+    {
+        String resultado = "-1";
+        try
+        {
+            resultado = (String)(adapterAux.obtenerNombrePorCedula(cedula));
+        }
+        catch (SqlException e)
+        {
+
+        }
+        return resultado;
+    }
 
 }

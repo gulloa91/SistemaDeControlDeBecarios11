@@ -30,6 +30,34 @@
         Session["Cuenta"] = "";
         Session["TipoPerfil"] = -1;
         Session["ImageUrl"] = "";
+        int mes = DateTime.Now.Month;
+        switch(mes){
+            case 1: Session["Periodo"] = "3";
+                break;
+            case 2: Session["Periodo"] = "3";
+                break;
+            case 3: Session["Periodo"] = "1";
+                break;
+            case 4: Session["Periodo"] = "1";
+                break;
+            case 5: Session["Periodo"] = "1";
+                break;
+            case 6: Session["Periodo"] = "1";
+                break;
+            case 7: Session["Periodo"] = "1";
+                break;
+            case 8: Session["Periodo"] = "2";
+                break;
+            case 9: Session["Periodo"] = "2";
+                break;
+            case 10: Session["Periodo"] = "2";
+                break;
+            case 11: Session["Periodo"] = "2";
+                break;
+            case 12: Session["Periodo"] = "2";
+                break;
+            default: break;
+        }
     }
 
     void Session_End(object sender, EventArgs e) 

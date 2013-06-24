@@ -134,8 +134,6 @@
                                 <asp:RadioButton ID="radioControlEncargado" Text="Control Horas Encargado" Enabled="False" CssClass="perfil_radio" runat="server" GroupName="ControlHoras"/>
                                 <span class="perfil_mensaje">Permite al encargado revisar las horas de los becarios
                                     asignados a él</span>
-                                <asp:RadioButton ID="radioControlAdmin"  Text="Administrador" CssClass="perfil_radio" GroupName="ControlHoras" runat="server" />
-                                <span class="perfil_mensaje">Permite la vista de administrador para control de horas.</span>
                                 <asp:RadioButton ID="noControlHoras" Text="Sin Acceso Control de Horas" CssClass="perfil_radio" GroupName="ControlHoras" runat="server" />
                             
                             </div>
@@ -166,6 +164,10 @@
                                 <span class="perfil_mensaje">Muestra la información de la cuenta de sólo el usuario que está utilizando el sistema.</span>
                                 <asp:RadioButton ID="radioSinCuenta" CssClass="perfil_radio" runat="server"
                                     GroupName="Cuentas" Text="Sin acceso a Cuenta" Enabled="False" />
+                            </div>
+                            <div id="reportes" class="borde_perfil">
+                                <asp:CheckBox ID="checkReportes" Text="Reportes" runat="server" />
+                                <span class="perfil_mensaje">Muestra el módulo de Reportes</span>
                             </div>
                         </div>
                     </div>

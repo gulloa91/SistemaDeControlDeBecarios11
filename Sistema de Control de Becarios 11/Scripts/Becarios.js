@@ -13,13 +13,13 @@
                 },
                 buttons: {
                     "Aceptar": function () {
-                        $(this).dialog("close");
+                        //$(this).dialog("close");
                         $(".btnInvisible1").click();
                     },
 
                     "Cancelar": function () {
                         $(this).dialog("close");
-                        $(".btnInvisible3").click();
+                        //$(".btnInvisible3").click();
                     }
 
                 },

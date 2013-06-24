@@ -83,7 +83,7 @@ public partial class Perfiles : System.Web.UI.Page
             datos[6] = (this.radioEncargadoParcial.Checked) ? "4" : "0";
             datos[7] = (this.radioControlBecario.Checked) ? "5" : "0";
             datos[8] = (this.radioControlEncargado.Checked) ? "6" : "0";
-            datos[9] = (this.radioControlAdmin.Checked) ? "7" : "0";
+            datos[9] = (this.checkReportes.Checked) ? "7" : "0";
             datos[10] = (this.radioAsignacionCompleta.Checked) ? "8" : "0";
             datos[11] = (this.radioAsignacionEncargado.Checked) ? "9" : "0";
             datos[12] = (this.radioAsignacionBecario.Checked) ? "10" : "0";
@@ -211,7 +211,7 @@ public partial class Perfiles : System.Web.UI.Page
             this.radioEncargadoParcial.Enabled = true;
             this.radioControlBecario.Enabled = true;
             this.radioControlEncargado.Enabled = true;
-            this.radioControlAdmin.Enabled = true;
+            this.checkReportes.Enabled = true;
             this.radioAsignacionCompleta.Enabled = true;
             this.radioAsignacionEncargado.Enabled = true;
             this.radioAsignacionBecario.Enabled = true;
@@ -234,7 +234,7 @@ public partial class Perfiles : System.Web.UI.Page
             this.radioEncargadoParcial.Enabled = false;
             this.radioControlBecario.Enabled = false;
             this.radioControlEncargado.Enabled = false;
-            this.radioControlAdmin.Enabled = false;
+            this.checkReportes.Enabled = false;
             this.radioAsignacionCompleta.Enabled = false;
             this.radioAsignacionEncargado.Enabled = false;
             this.radioAsignacionBecario.Enabled = false;
@@ -260,7 +260,7 @@ public partial class Perfiles : System.Web.UI.Page
         this.radioEncargadoParcial.Checked = false;
         this.radioControlBecario.Checked = false;
         this.radioControlEncargado.Checked = false;
-        this.radioControlAdmin.Checked = false;
+        this.checkReportes.Checked = false;
         this.radioAsignacionCompleta.Checked = false;
         this.radioAsignacionEncargado.Checked = false;
         this.radioAsignacionBecario.Checked = false;
@@ -325,7 +325,7 @@ public partial class Perfiles : System.Web.UI.Page
         datos[6] =  (this.radioEncargadoParcial.Checked) ? "4" : "0";
         datos[7] = (this.radioControlBecario.Checked) ? "5" : "0";
         datos[8] = (this.radioControlEncargado.Checked) ? "6" : "0";
-        datos[9] = (this.radioControlAdmin.Checked) ? "7" : "0";
+        datos[9] = (this.checkReportes.Checked) ? "7" : "0";
         datos[10] = (this.radioAsignacionCompleta.Checked) ? "8" : "0";
         datos[11] = (this.radioAsignacionEncargado.Checked) ? "9" : "0";
         datos[12] = (this.radioAsignacionBecario.Checked) ? "10" : "0";
@@ -411,7 +411,7 @@ public partial class Perfiles : System.Web.UI.Page
                 this.radioControlEncargado.Checked = true;
                 break;
             case 7:
-                this.radioControlAdmin.Checked = true;
+                this.checkReportes.Checked = true;
                 break;
             case 8:
                 this.radioAsignacionCompleta.Checked = true;
