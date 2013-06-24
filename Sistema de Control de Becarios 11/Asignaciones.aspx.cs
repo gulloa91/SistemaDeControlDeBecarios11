@@ -1454,7 +1454,13 @@ public partial class Asignaciones : System.Web.UI.Page
         gridBecariosAsignadosAEncargado.HeaderRow.Cells[3].Text = "Celular";
     }
 
-
+    //Controla la paginación del grid
+    protected void gridAsignaciones_PageIndexChanging(object sender, GridViewPageEventArgs e)
+    {
+        this.GridAsignaciones.PageIndex = e.NewPageIndex;
+        this.GridAsignaciones.DataBind();
+        this.HeadersCorrectosAsignaciones();
+    }
 
 
     /***************************************************************************
