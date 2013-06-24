@@ -15,7 +15,8 @@
         <asp:View ID="VistaControlHorasEncargado" runat="server">
             <asp:UpdatePanel ID="UpdateInfo" runat="server">
                 <Triggers>
-            
+                        <asp:AsyncPostBackTrigger ControlID="GridBecariosConHorasPendientes" EventName ="PageIndexChanging" />
+                        <asp:AsyncPostBackTrigger ControlID="GridViewHoraYFechaBecario" EventName ="PageIndexChanging" />
                 </Triggers>
 
                 <ContentTemplate>
@@ -50,7 +51,8 @@
                         <div style="float: left; width: 100%;">
                             <asp:GridView ID="GridBecariosConHorasPendientes" 
                                 CssClass="table_css centerText" runat="server" 
-                                onrowcommand="GridBecariosConHorasPendientes_RowCommand">
+                                onrowcommand="GridBecariosConHorasPendientes_RowCommand"
+                                AllowPaging="true" PageSize="15" PagerStyle-CssClass="pagerGlobal" OnPageIndexChanging="GridBecariosConHorasPendientes_PageIndexChanging">
                                 <columns>
                                     <asp:ButtonField CommandName="btnSeleccionarTupla_Click" CausesValidation="false" ButtonType="Button" Visible="true" ImageUrl="~/Images/arrow-right.png" ItemStyle-HorizontalAlign="Center" Text="Revisar" ItemStyle-VerticalAlign="Middle"/> 
                                 </columns>
@@ -67,7 +69,8 @@
             <div id="PopUpControlDeHorasEncargado">
                 <asp:UpdatePanel ID="UpdatePanel1" runat="server">
                     <Triggers>
-
+                        <asp:AsyncPostBackTrigger ControlID="GridBecariosConHorasPendientes" EventName ="PageIndexChanging" />
+                        <asp:AsyncPostBackTrigger ControlID="GridViewHoraYFechaBecario" EventName ="PageIndexChanging" />
                     </Triggers>
 
                     <ContentTemplate>
@@ -77,7 +80,7 @@
 
                         <!-- Grid con Horas de becario -->
                         <asp:GridView ID="GridViewHoraYFechaBecario" 
-                            CssClass="table_css centerText" runat="server" OnRowCommand="GridViewHoraYFechaBecario_RowCommand">
+                            CssClass="table_css centerText" runat="server" OnRowCommand="GridViewHoraYFechaBecario_RowCommand" AllowPaging="true" PageSize="15" PagerStyle-CssClass="pagerGlobal" OnPageIndexChanging="GridViewHoraYFechaBecario_PageIndexChanging">
                             <columns>
                                 <asp:ButtonField CommandName="btnSeleccionarTupla_Click" CausesValidation="false" ButtonType="Image" Visible="true" ImageUrl="~/Images/arrow-right.png" ItemStyle-HorizontalAlign="Center" Text="Revisar" ItemStyle-VerticalAlign="Middle"/> 
                             </columns>
@@ -108,7 +111,7 @@
             <div id="popUpConfirmar">
                 <asp:UpdatePanel ID="updatePopUpConf" runat="server">
                     <Triggers>
-
+                        
                     </Triggers>
                     <ContentTemplate>
                         <asp:Label ID="lblTexto" Text="" runat="server" style="width: 100%; font-weight: bold; font-size: 24px; float: left; margin: 20px 0 5px 0; text-align:center;"></asp:Label>

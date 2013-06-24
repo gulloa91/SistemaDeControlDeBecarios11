@@ -453,4 +453,20 @@ public partial class ControlDeHorasEncargado : System.Web.UI.Page
     {
         llenarGridViewHoraYFechaBecario(this.drpDownOpc.SelectedIndex);
     }
+
+    protected void GridBecariosConHorasPendientes_PageIndexChanging(object sender, GridViewPageEventArgs e)
+    {
+        this.GridBecariosConHorasPendientes.PageIndex = e.NewPageIndex;
+        this.GridBecariosConHorasPendientes.DataBind();
+        headersCorrectosHoraYFechaBecario();
+        llenarGridViewHoraYFechaBecario(this.drpDownOpc.SelectedIndex);
+    }
+
+    protected void GridViewHoraYFechaBecario_PageIndexChanging(object sender, GridViewPageEventArgs e)
+    {
+        this.GridViewHoraYFechaBecario.PageIndex = e.NewPageIndex;
+        this.GridViewHoraYFechaBecario.DataBind();
+        headersCorrectosBecariosConHorasPendientes();
+        llenarGridBecariosConHorasPorRevisar(controlHorasViejo[1].ToString(), this.drpDownOpc.SelectedIndex);
+    }
 }
