@@ -260,7 +260,7 @@ border-radius: 5px; background: #F9E5B1;">
                                     
                                        <asp:RegularExpressionValidator ID="fomato_cedula" runat="server" 
                                        ErrorMessage ="Se ha escrito caracteres inválidos"  Display="Dynamic"
-                                       ValidationExpression = "^([0-9]|- ){0,15}$" ControlToValidate="txtCedula" ForeColor="#FF3300">
+                                       ValidationExpression = "^([0-9]){0,15}$" ControlToValidate="txtCedula" ForeColor="#FF3300">
                                        </asp:RegularExpressionValidator>
                                     </div>    
 
@@ -279,7 +279,7 @@ border-radius: 5px; background: #F9E5B1;">
                                     
                                        <asp:RegularExpressionValidator ID="formato_correo" runat="server" 
                                        ErrorMessage ="Formato de correo inválido"  Display="Dynamic"
-                                       ValidationExpression = "[a-zA-Z0-9-_\.]+@[a-zA-Z]+\.[a-z]+" ControlToValidate="txtCorreo" ForeColor="#FF3300">
+                                       ValidationExpression = "^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,3})$" ControlToValidate="txtCorreo" ForeColor="#FF3300">
                                        </asp:RegularExpressionValidator>
                                     </div>   
                                  
@@ -300,7 +300,7 @@ border-radius: 5px; background: #F9E5B1;">
                                     <div style="width: 89%; font-size:12px">       
                                      <asp:RegularExpressionValidator ID="formato_telFijo" runat="server" 
                                       ErrorMessage ="Formato de teléfono inválido"  Display="Dynamic"
-                                      ValidationExpression = "^([0-9]|- ){8,11}$" ControlToValidate="txtTelFijo" ForeColor="#FF3300">
+                                      ValidationExpression = "^([0-9]|-){8,11}$" ControlToValidate="txtTelFijo" ForeColor="#FF3300">
                                      </asp:RegularExpressionValidator>
                                    </div>
 
@@ -317,7 +317,7 @@ border-radius: 5px; background: #F9E5B1;">
                                     <div style="width: 89%; font-size:12px">
                                       <asp:RegularExpressionValidator ID="formato_cel" runat="server" 
                                        ErrorMessage ="Formato de teléfono inválido"  Display="Dynamic"
-                                      ValidationExpression  = "^([0-9]|- ){8,11}$" ControlToValidate="txtCel" ForeColor="#FF3300">
+                                      ValidationExpression  = "^([0-9]|-){8,11}$" ControlToValidate="txtCel" ForeColor="#FF3300">
                                       </asp:RegularExpressionValidator>
                                    </div>
                                 
@@ -334,7 +334,7 @@ border-radius: 5px; background: #F9E5B1;">
                                     <div style="width: 89%; font-size:12px">       
                                       <asp:RegularExpressionValidator ID="formato_otroTel" runat="server" 
                                        ErrorMessage ="Formato de teléfono inválido"  Display="Dynamic"
-                                      ValidationExpression  = "^([0-9]|- ){8,11}$" ControlToValidate="txtOtroTel" ForeColor="#FF3300">
+                                      ValidationExpression  = "^([0-9]|-){8,11}$" ControlToValidate="txtOtroTel" ForeColor="#FF3300">
                                       </asp:RegularExpressionValidator>
                                     </div>
 

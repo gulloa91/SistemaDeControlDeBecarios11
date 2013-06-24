@@ -159,7 +159,7 @@
                                     </div>
                                     <div>
                                         <asp:RegularExpressionValidator ID="RegularExpressionValidator1" CssClass="error"  runat="server" ErrorMessage="**Se han escrito caracteres inválidos. Ingrese únicamente caracteres numéricos"
-                                                                ValidationExpression="^([0-9]{4})-([0-9]{4})$" ControlToValidate="txtTelFijo" ForeColor="#FF3300" Display="Dynamic" font-size="Small"></asp:RegularExpressionValidator>
+                                                                ValidationExpression="^([0-9]|-){8,11}$" ControlToValidate="txtTelFijo" ForeColor="#FF3300" Display="Dynamic" font-size="Small"></asp:RegularExpressionValidator>
                                     </div>
                                 </div>
                             </div>
@@ -174,7 +174,7 @@
                                     </div>
                                     <div>
                                         <asp:RegularExpressionValidator ID="RegularExpressionValidator2" runat="server" ErrorMessage="**Se han escrito caracteres inválidos. Ingrese únicamente caracteres numéricos"
-                                                                ValidationExpression="^([0-9]{4})-([0-9]{4})$" CssClass="error"  ControlToValidate="txtCel" ForeColor="#FF3300" Display="Dynamic" font-size="Small"></asp:RegularExpressionValidator>
+                                                                ValidationExpression="^([0-9]|-){8,11}$" CssClass="error"  ControlToValidate="txtCel" ForeColor="#FF3300" Display="Dynamic" font-size="Small"></asp:RegularExpressionValidator>
                                     </div>
                                 </div>
 
@@ -188,7 +188,7 @@
                                     </div>
                                     <div>
                                         <asp:RegularExpressionValidator ID="RegularExpressionValidator3" CssClass="error"  runat="server" ErrorMessage="**Se han escrito caracteres inválidos. Ingrese únicamente caracteres numéricos"
-                                                                ValidationExpression="^([0-9]{4})-([0-9]{4})$$" ControlToValidate="txtOtroTel" ForeColor="#FF3300" Display="Dynamic" font-size="Small"></asp:RegularExpressionValidator>
+                                                                ValidationExpression="^([0-9]|-){8,11}$" ControlToValidate="txtOtroTel" ForeColor="#FF3300" Display="Dynamic" font-size="Small"></asp:RegularExpressionValidator>
                                     </div>
                                 </div>
                             </div>
