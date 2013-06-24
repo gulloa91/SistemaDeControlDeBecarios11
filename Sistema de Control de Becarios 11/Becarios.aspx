@@ -105,17 +105,18 @@
                 	<div id="tabs-1" style= "padding: 5px 2%; width: 96%; min-height:445px" >
 		                 
                          <div style="width: 96%; padding: 2%; float: left;" >
+                             <div style="width: 20%; float: right; margin-left: 10px;">
+                                   <asp:Button ID="btnEliminarBecarioDatos" runat="server" Text="Eliminar" 
+                                    CssClass="boton ui-widget ui-state-default ui-corner-all ui-button-text-only" 
+                                    onclick="btnEliminarBecario_Click" />
+                              </div>
 
                               <div style="width: 20%; float: right;">
                                    <asp:Button ID="btnModificarBecarioDatos" runat="server" Text="Modificar" 
                                      CssClass="boton ui-widget ui-state-default ui-corner-all ui-button-text-only" 
                                     onclick="btnModificarBecario_Click" />
                               </div>
-                              <div style="width: 20%; float: right;">
-                                   <asp:Button ID="btnEliminarBecarioDatos" runat="server" Text="Eliminar" 
-                                    CssClass="boton ui-widget ui-state-default ui-corner-all ui-button-text-only" 
-                                    onclick="btnEliminarBecario_Click" />
-                              </div>
+                              
                          </div>
 
 
