@@ -17,6 +17,7 @@ public partial class ControlDeHorasEncargado : System.Web.UI.Page
     private static int auxiliar = -1;
     private static Object[] controlHorasViejo = new Object[9];
     private static Object[] controlHorasNuevo = new Object[9];
+    private ControladoraControlEncargado controladoraControlEncargado = new ControladoraControlEncargado();
 
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -29,6 +30,12 @@ public partial class ControlDeHorasEncargado : System.Web.UI.Page
         commonService = new CommonServices(UpdateInfo);
 
         this.MultiViewControlHorasEncargado.ActiveViewIndex = 0;
+
+        // Actualizar botón del menu
+        int horasPendientesRevision = controladoraControlEncargado.totalBecarios((string)(Session["Cedula"]), 0);
+        string jscript = "$('a[href*=\"ControlDeHorasEncargado.aspx\"]').text(\"Revisar Horas (" + horasPendientesRevision.ToString() + ")\");";
+        // " + horasPendientesRevision.ToString() + "
+        commonService.correrJavascript(jscript);
     }
 
     /* Crear tabla */

@@ -119,7 +119,7 @@
                     </Triggers>
                     <ContentTemplate>
                         <!-- Campos PopUp -->
-                        <div id="popUpContent" style="width: 84%; padding: 8%; float: left; background: #D8D8BF; border-radius: 5px;">
+                        <div id="popUpContent" style="width: 84%; padding: 2% 8%; float: left; background: #D8D8BF; border-radius: 5px;">
                             <!-- Cantidad de Horas -->
                             <div style="width: 92%; float: left; margin-bottom: 10px; padding-left: 8%;">
                                 <div style="width: 40%; float: left; margin-bottom: 0px;">
@@ -164,7 +164,7 @@
                                         Rows="5" runat="server"></asp:TextBox>
                                 </div>
                                 <div id="validadorComentario" style="width: 100%; float: left">
-                                    <asp:RequiredFieldValidator ValidationGroup="NuevoReporte" ID="RequiredFieldValidator2" ForeColor="Red" runat="server" ControlToValidate="txtComentario" ErrorMessage="Comentario Requerido"></asp:RequiredFieldValidator>
+                                    <asp:RequiredFieldValidator ValidationGroup="NuevoReporte" Display="Dynamic" ID="RequiredFieldValidator2" ForeColor="Red" runat="server" ControlToValidate="txtComentario" ErrorMessage="Comentario Requerido"></asp:RequiredFieldValidator>
                                 </div>
                             </div>
                         </div>

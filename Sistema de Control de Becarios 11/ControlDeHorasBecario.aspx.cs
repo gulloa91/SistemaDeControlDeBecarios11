@@ -15,7 +15,6 @@ public partial class ControlDeHoras : System.Web.UI.Page
     public static int modo = 0;
     public static int indice = 0;
 
-
     protected void Page_Load(object sender, EventArgs e)
     {
         cb = new ControladoraControlBecario();
@@ -40,6 +39,7 @@ public partial class ControlDeHoras : System.Web.UI.Page
             }
             //no se muestra nada pues no hay asignacion activa
         }
+
     }
 
     protected void btnReportarHoras_Click(object sender, EventArgs e)
@@ -72,12 +72,14 @@ public partial class ControlDeHoras : System.Web.UI.Page
                     {//reporte aceptado
                         habilitarModificacion(true);
                         modo = 1;
+                        commonService.abrirPopUp("PopUpCtrlBecario", "Su reporte ha sido rechazado, por favor reenvíelo.");
                     }
                     else {//reporte rechazado 
                         habilitarModificacion(false);
                         modo = -1;//no se hace nada en esta
+                        commonService.abrirPopUp("PopUpCtrlBecario", "Consulta de Reporte.");
                     }
-                    commonService.abrirPopUp("PopUpCtrlBecario", "Nuevo Reporte de Horas");
+            
                     commonService.correrJavascript("$('#comentarioDeEncargado').show();");
                     
                 } break;
