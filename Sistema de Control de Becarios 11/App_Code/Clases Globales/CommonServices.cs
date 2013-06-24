@@ -62,4 +62,9 @@ public class CommonServices
         correrJavascript("$('#popUpEspera').dialog({title: '" + titulo + "' });");
         correrJavascript("$('#popUpEspera').dialog('open');");
     }
+
+    public void cerrarMensajeEspera()
+    {
+        correrJavascript("$('#popUpEspera').dialog('close');");
+    }
 }

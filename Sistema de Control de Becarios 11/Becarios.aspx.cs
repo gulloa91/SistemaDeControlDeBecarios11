@@ -181,6 +181,20 @@ public partial class Becarios : System.Web.UI.Page
             string resultadoPerfil = "";
             string resultadoCreacionCuenta = "";
 
+            CultureInfo currentCulture = System.Threading.Thread.CurrentThread.CurrentCulture;
+            TextInfo currentInfo = currentCulture.TextInfo;
+            string cedula = this.txtCedula.Text;
+            string nombre = this.txtNombre.Text.ToLower();
+            string apellido = this.txtApellido1.Text.ToLower();
+            string apellido2 = this.txtApellido2.Text;
+            string correo = this.txtCorreo.Text;
+
+            int lg = cedula.Length - 3;
+            string ced = cedula.Substring(lg, 3);
+            string usuario = nombre + "." + apellido + ced;
+            string pass = nombre.Substring(0, 2) + apellido.Substring(0, 2) + ced;
+            string nombreCompleto = (currentInfo.ToTitleCase(nombre) + " " + currentInfo.ToTitleCase(apellido) + " " + currentInfo.ToTitleCase(apellido2)).Trim();
+
             switch (modoEjecucion)
             {
 
@@ -189,7 +203,7 @@ public partial class Becarios : System.Web.UI.Page
 
                         resultado = controladoraBecarios.ejecutar(modoEjecucion, datos, null);
                         resultadoPerfil = controladoraBecarios.guardarPerfilBecario(listaLocalLenguajes, listaLocalIdiomas, listaLocalAreasInteres, listaLocalCualidades, this.txtCedula.Text);
-                        resultadoCreacionCuenta = cearCuenta(this.txtCedula.Text, this.txtNombre.Text.ToLower(), this.txtApellido1.Text.ToLower(), this.txtApellido2.Text, this.txtCorreo.Text);
+                        resultadoCreacionCuenta = crearCuenta(cedula, ced, nombre, apellido, correo, usuario, pass, nombreCompleto);
 
                     
                     } break;
@@ -244,13 +258,36 @@ public partial class Becarios : System.Web.UI.Page
             }
 
            
-          llenarGridBecarios(1);
-          habilitarBotonesPrincipales(true);
-        
-
+        llenarGridBecarios(1);
+        habilitarBotonesPrincipales(true);
         correrJavascript("cerrarPopUp();");
+
+        if (resultado == "Exito")
+        {
+
+            // Abrir mensaje de mandar correo
+            commonService.mensajeEspera("Enviando correo de confirmación al becari@", "Enviando correo");
+             
+            this.btnInvisibleEnviarCorreo.CommandArgument = correo + "," + nombreCompleto + "," + pass + "," + usuario;
+            commonService.correrJavascript("$('.btnInvisibleEnviarCorreo').click();");
+        }
     }
 
+    //Enviar correo
+    protected void btnInvisibleEnviarCorreo_Click(object sender, EventArgs e)
+    {
+        Button btn = (Button)sender;
+        string[] parametros = (btn.CommandArgument.ToString()).Split(',');
+        string correo = parametros[0];
+        string nombreCompleto = parametros[1];
+        string pass = parametros[2];
+        string usuario = parametros[3];
+        if (servicioCorreo.enviarCorreoCuentaCreada(correo, nombreCompleto, pass, usuario))
+        {
+
+        }
+        commonService.cerrarMensajeEspera();
+    }
 
     //Método que se invoca al confirmar la eliminación de un becario
     protected void btnInvisible2_Click(object sender, EventArgs e)
@@ -746,17 +783,9 @@ public partial class Becarios : System.Web.UI.Page
 
     
     //Pide crear una cuenta para un becario 
-    protected string cearCuenta( string cedula,string nombre,string apellido, string apellido2, string correo){
+    protected string crearCuenta( string cedula, string ced, string nombre, string apellido, string correo, string usuario, string pass, string nombreCompleto){
 
         string resultado = "Exito";
-        CultureInfo currentCulture = System.Threading.Thread.CurrentThread.CurrentCulture; 
-        TextInfo currentInfo = currentCulture.TextInfo; 
-
-        int lg = cedula.Length-3;
-        string ced = cedula.Substring(lg,3);
-        string usuario = nombre + "." + apellido + ced;
-        string pass = nombre.Substring(0, 2) + apellido.Substring(0, 2) + ced;
-        string nombreCompleto = (currentInfo.ToTitleCase(nombre) + " " + currentInfo.ToTitleCase(apellido) + " " + currentInfo.ToTitleCase(apellido2)).Trim();
 
         Object[] datos = new Object[4];
         datos[0] = usuario;//this.txtUsuario.Text;
@@ -783,11 +812,6 @@ public partial class Becarios : System.Web.UI.Page
           resultado="error";
         }
 
-        if (resultado != "error" && servicioCorreo.enviarCorreoCuentaCreada(correo, nombreCompleto, pass, usuario))
-        {
-            String mensaje = "Se le ha enviado un correo a: \b Nombre: " + nombreCompleto + "\b Usuario: " + usuario + "\b Contraseña: " + pass + "\b Al correo: " + correo;
-            commonService.mensajeJavascript(mensaje, "Mensaje enviado");
-        }
         return resultado;
 
     }

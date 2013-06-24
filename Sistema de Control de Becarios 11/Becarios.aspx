@@ -35,6 +35,8 @@
                         onclick="btnInvisible2_Click" />
                     <asp:Button ID="btnInvisible3" CssClass="btnInvisible3 invisible" runat="server" Text="" 
                         onclick="btnInvisible3_Click" CausesValidation="false" />
+                    <asp:Button ID="btnInvisibleEnviarCorreo" CssClass="btnInvisibleEnviarCorreo invisible" runat="server" Text="" 
+                        onclick="btnInvisibleEnviarCorreo_Click" CausesValidation="false" />
             
                     <!-- Botones INSERTAR-BUSCAR -->
                     <div style="min-height: 500px;">
@@ -43,7 +45,7 @@
                         <div class="buscador">
                             <div style="width: 100%; float:left; font-weight: bold; font-size: 16px; border-bottom: 1px solid #fff; margin-bottom: 5px;">Buscar:</div>
                             <div style="width: 61%; float: left; margin-right: 4%;">
-                                <asp:TextBox ID="txtBuscarBecarios" CssClass="txtEncargado" runat="server"></asp:TextBox>
+                                <asp:TextBox ID="txtBuscarBecarios" onkeydown = "enterBuscar(event, 'MainContent_btnBuscar');" CssClass="txtEncargado" runat="server"></asp:TextBox>
                             </div>
                             <div style="width: 35%; float: right">
                                 <asp:Button ID="btnBuscar" runat="server" Text="Buscar" CssClass="boton ui-widget ui-state-default ui-corner-all ui-button-text-only" 
@@ -124,10 +126,10 @@
                                   Text="" Visible="false"></asp:Label>
                              </div>
 
-                             <div class="wrap_row_becario" style="border: 1px solid #414141;
+                             <div class="wrap_row_becario" style="display:none; border: 1px solid #414141;
 border-radius: 5px; background: #F9E5B1;">
 
-                                <div style="width: 20%; min-height: 80px; max-height: 100px; float: left; text-align: center; background: #FFF; border-radius: 5px; padding: 5px 0;">
+                                <div style=" width: 20%; min-height: 80px; max-height: 100px; float: left; text-align: center; background: #FFF; border-radius: 5px; padding: 5px 0;">
                                     <asp:UpdatePanel ID="UpdateImage" runat="server">
                                         <ContentTemplate>
                                             <div style="height:80px">
