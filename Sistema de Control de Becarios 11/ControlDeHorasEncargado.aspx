@@ -1,9 +1,11 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.master" AutoEventWireup="true" CodeFile="ControlDeHorasEncargado.aspx.cs" Inherits="ControlDeHorasEncargado" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.master" AutoEventWireup="true" 
+    CodeFile="ControlDeHorasEncargado.aspx.cs" Inherits="ControlDeHorasEncargado" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" Runat="Server">
     <script src="Scripts/ControlDeHorasEncargado.js" type="text/javascript"></script>
     <link href="Styles/ControlDeHorasEncargado.css" rel="stylesheet" type="text/css" />
 </asp:Content>
+
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" Runat="Server">
     <asp:ScriptManager ID="ScriptManager" runat="server">
     </asp:ScriptManager>

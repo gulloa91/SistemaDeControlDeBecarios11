@@ -4,9 +4,8 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="Server">
     <link href="Styles/ControlDeHorasBecario.css" rel="stylesheet" type="text/css" />
     <script src="Scripts/ControlDeHorasBecario.js" type="text/javascript"></script>
-
-
 </asp:Content>
+
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="Server">
     <asp:ScriptManager ID="ScriptManager" runat="server">
     </asp:ScriptManager>
@@ -168,6 +167,7 @@
                                     <asp:RequiredFieldValidator ValidationGroup="NuevoReporte" ID="RequiredFieldValidator2" ForeColor="Red" runat="server" ControlToValidate="txtComentario" ErrorMessage="Comentario Requerido"></asp:RequiredFieldValidator>
                                 </div>
                             </div>
+                        </div>
                     </ContentTemplate>
                 </asp:UpdatePanel>
             </div>
