@@ -15,6 +15,7 @@ public partial class ControlDeHoras : System.Web.UI.Page
     public static int modo = 0;
     public static int indice = 0;
 
+
     protected void Page_Load(object sender, EventArgs e)
     {
         cb = new ControladoraControlBecario();
@@ -39,7 +40,6 @@ public partial class ControlDeHoras : System.Web.UI.Page
             }
             //no se muestra nada pues no hay asignacion activa
         }
-
     }
 
     protected void btnReportarHoras_Click(object sender, EventArgs e)
@@ -62,24 +62,22 @@ public partial class ControlDeHoras : System.Web.UI.Page
             case "btnSeleccionarTupla_Click":
                 {
                     vaciarCampos();//vacio los campos
-                    this.txtCantidadHoras.Text = infoActual.Rows[Convert.ToInt32(e.CommandArgument)].ItemArray[2].ToString();
-                    this.txtFecha.Text = infoActual.Rows[Convert.ToInt32(e.CommandArgument)].ItemArray[3].ToString();
-                    this.txtComentario.Text = infoActual.Rows[Convert.ToInt32(e.CommandArgument)].ItemArray[5].ToString();
-                    this.txtComentarioEncargado.Text = infoActual.Rows[Convert.ToInt32(e.CommandArgument)].ItemArray[6].ToString();
-                    this.txtComentarioEncargado.Enabled = false;
                     indice = Convert.ToInt32(e.CommandArgument);
-                    if (Convert.ToInt32(infoActual.Rows[Convert.ToInt32(e.CommandArgument)].ItemArray[4].ToString()) == 1)
+                    this.txtCantidadHoras.Text = infoActual.Rows[indice + gridControlHorasBecario.PageIndex * gridControlHorasBecario.PageSize].ItemArray[2].ToString();
+                    this.txtFecha.Text = infoActual.Rows[indice + gridControlHorasBecario.PageIndex * gridControlHorasBecario.PageSize].ItemArray[3].ToString();
+                    this.txtComentario.Text = infoActual.Rows[indice + gridControlHorasBecario.PageIndex * gridControlHorasBecario.PageSize].ItemArray[5].ToString();
+                    this.txtComentarioEncargado.Text = infoActual.Rows[indice + gridControlHorasBecario.PageIndex * gridControlHorasBecario.PageSize].ItemArray[6].ToString();
+                    this.txtComentarioEncargado.Enabled = false;
+                    if (Convert.ToInt32(infoActual.Rows[indice + gridControlHorasBecario.PageIndex * gridControlHorasBecario.PageSize].ItemArray[4].ToString()) == 1)
                     {//reporte aceptado
                         habilitarModificacion(true);
                         modo = 1;
-                        commonService.abrirPopUp("PopUpCtrlBecario", "Su reporte ha sido rechazado, por favor reenvíelo.");
                     }
                     else {//reporte rechazado 
                         habilitarModificacion(false);
                         modo = -1;//no se hace nada en esta
-                        commonService.abrirPopUp("PopUpCtrlBecario", "Consulta de Reporte.");
                     }
-            
+                    commonService.abrirPopUp("PopUpCtrlBecario", "Nuevo Reporte de Horas");
                     commonService.correrJavascript("$('#comentarioDeEncargado').show();");
                     
                 } break;
@@ -115,7 +113,7 @@ public partial class ControlDeHoras : System.Web.UI.Page
 
     protected void gridControlHorasBecario_PageIndexChanging(object sender, EventArgs e)
     {
-
+        
     }
 
     // BUSCAR CLICK
@@ -312,5 +310,43 @@ public partial class ControlDeHoras : System.Web.UI.Page
                 } break;
         }
         return resultado;
+    }
+
+    protected void gridControlHorasBecario_PageIndexChanging(object sender, GridViewPageEventArgs e)
+    {
+        DataTable tablaHorasReportadas = crearTablaHorasReportadas();
+        String cedEncargado = this.cb.getCedulaEncargado(Session["Cedula"].ToString(), Convert.ToInt32(Session["Periodo"].ToString()));
+        infoActual = cb.horasReportadas(Session["Cedula"].ToString(), cedEncargado);
+        DataRow newRow;
+        int cantidadHoras = this.cb.getHoras(Session["Cedula"].ToString(), this.cb.getCedulaEncargado(Session["Cedula"].ToString(), Convert.ToInt32(Session["Periodo"].ToString())), Convert.ToInt32(Session["Periodo"].ToString()));
+        if (infoActual.Rows.Count > 0)
+        {
+            foreach (DataRow r in infoActual.Rows)
+            {
+                newRow = tablaHorasReportadas.NewRow();
+                newRow["Fecha"] = r[3].ToString();
+                newRow["Cantidad Horas"] = r[2].ToString();
+                switch (Convert.ToInt32(r[4].ToString()))
+                {
+                    case 0: newRow["Estado"] = "Pendiente";
+                        break;
+                    case 1: newRow["Estado"] = "Rechazada";
+                        break;
+                    case 2: newRow["Estado"] = "Aceptada";
+                        break;
+                }
+
+                if (r[4].ToString().Equals("2"))
+                { //horas aceptadas
+                    cantidadHoras -= Convert.ToInt32(r[2].ToString());
+                }
+                tablaHorasReportadas.Rows.Add(newRow);
+            }
+        }
+        this.gridControlHorasBecario.DataSource = tablaHorasReportadas;
+        this.gridControlHorasBecario.PageIndex = e.NewPageIndex;//siguiente pagina del grid
+        this.gridControlHorasBecario.DataBind();
+        this.lblHorasRestantes.Text = cantidadHoras.ToString();
+        headersCorrectosHorasReportadas();
     }
 }
