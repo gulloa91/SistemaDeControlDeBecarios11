@@ -17,7 +17,7 @@
                 </Triggers>
 
                 <ContentTemplate>
-                    <!-- Botones Invisibles -->
+                    <!-- Botones Invisibles --> 
                     <asp:Button ID="btnInvisible1" 
                         CssClass="btnInvisible1 invisible" runat="server" Text="" />
 
@@ -44,7 +44,7 @@
                                     </asp:MenuItem>
                                     <asp:MenuItem Text="Historiales">
                                         <asp:MenuItem Text="Asignaciones de un Becario" ToolTip="Reporte de Historial de Asignaciones de un Becario"></asp:MenuItem>
-                                        <asp:MenuItem Text="Anotaciones de un Encargado" ToolTip="Reporte de Historial de Anotaciones que hace un Encargado"></asp:MenuItem>
+                                        <asp:MenuItem Text="Asignaciones de un Encargado" ToolTip="Reporte de Historial de Asiganciones de un Encargado"></asp:MenuItem>
                                     </asp:MenuItem>
                                 </Items>
                             </asp:Menu>
@@ -108,11 +108,11 @@
                                                     </asp:DropDownList>
                                                 </div>
                                                 <!-- Se puede hasta Criterio 5 más o menos ... -->
-
+                                                
                                                 <!-- BTN Buscar -->
                                                 <div style="float: left; margin-right: 1%;">
                                                     <br />
-                                                    <asp:Button ID="btnBuscar" runat="server" Text="Buscar" CausesValidation="false" CssClass="boton ui-widget ui-state-default ui-corner-all ui-button-text-only" />
+                                                    <asp:Button ID="btnBuscar" runat="server" Text="Buscar" OnClick="btnBuscar_Click" CausesValidation="false" CssClass="boton ui-widget ui-state-default ui-corner-all ui-button-text-only" />
                                                 </div>
 
                                             </div>
@@ -121,13 +121,10 @@
                                         <!-- Grid -->
                                         <div style="float: left; width: 96%; margin: 0 2%;">
                                             <asp:GridView ID="GridViewReporte" CssClass="table_css" 
-                                                GridLines="Both" AllowPaging="True" RowStyle-HorizontalAlign="Center" 
+                                                GridLines="Both" AllowPaging="True" RowStyle-HorizontalAlign="Center" onpageindexchanging="GridReportes_PageIndexChanging"
                                                 RowStyle-VerticalAlign="Middle" PageSize="15" 
                                                 PagerStyle-CssClass="pagerGlobal"  runat="server">
 
-                                                <columns>
-                                                    <asp:ButtonField CommandName="btnSeleccionarTupla_Click" CausesValidation="false" ButtonType="Image" Visible="true" ImageUrl="~/Images/arrow-right.png" ItemStyle-HorizontalAlign="Center" ItemStyle-VerticalAlign="Middle"/> 
-                                                </columns>
                                             </asp:GridView>
                                         </div>
                                     </div>
