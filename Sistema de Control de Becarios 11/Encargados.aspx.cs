@@ -9,13 +9,6 @@ using System.Text.RegularExpressions;
 using System.Data;
 
 
-//using System.Collections;
-//using System.Web.Security;
-//using System.Web.UI.WebControls.WebParts;
-//using System.Web.UI.HtmlControls;
-//using System.IO;
-//using System.Xml.Linq;
-
 public partial class Encargados : System.Web.UI.Page
 {
     private static CommonServices commonService;
@@ -147,6 +140,30 @@ public partial class Encargados : System.Web.UI.Page
         }
         modo = 0;
         commonService.cerrarPopUp("PopUpEncargado");
+
+        if (mensajeResultado == "Exito")
+        {
+            //correo, nombreCompleto, pass, usuario
+            // Abrir mensaje de mandar correo
+            commonService.mensajeEspera("Enviando correo de confirmación al/la encargad@", "Enviando correo");
+            commonService.correrJavascript("$('.btnInvisibleEnviarCorreo').click();");
+        }
+    }
+
+    //Enviar correo
+    protected void btnInvisibleEnviarCorreo_Click(object sender, EventArgs e)
+    {
+        Button btn = (Button)sender;
+        string[] parametros = (btn.CommandArgument.ToString()).Split(',');
+        string correo = parametros[0];
+        string nombreCompleto = parametros[1];
+        string pass = parametros[2];
+        string usuario = parametros[3];
+        if (servicioCorreo.enviarCorreoCuentaCreada(correo, nombreCompleto, pass, usuario))
+        {
+
+        }
+        commonService.cerrarMensajeEspera();
     }
 
     //Metodo que se ejecuta el eliminar un encargado desde el popUp
@@ -598,10 +615,11 @@ public partial class Encargados : System.Web.UI.Page
             resultado = "error";
         }
 
-        if (resultado != "error" && servicioCorreo.enviarCorreoCuentaCreada(correo, nombreCompleto, pass, usuario))
+        if (resultado != "error")
         {
-            String mensaje = "Se le ha enviado un correo a: \b Nombre: " + nombreCompleto + "\b Usuario: " + usuario + "\b Contraseña: " + pass + "\b Al correo: " + correo;
-            commonService.mensajeJavascript(mensaje, "Mensaje enviado");
+            
+            this.btnInvisibleEnviarCorreo.CommandArgument = correo + "," + nombreCompleto + "," + pass + "," + usuario;
+            
         }
         return resultado;
 

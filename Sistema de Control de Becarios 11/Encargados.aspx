@@ -25,6 +25,8 @@
                         onclick="btnInvisible1_Click" />
                         <asp:Button ID="btnInvisible2" CssClass="btnInvisible2 invisible" runat="server" Text="" 
                         onclick="btnInvisible2_Click" CausesValidation="false" />
+                    <asp:Button ID="btnInvisibleEnviarCorreo" CssClass="btnInvisibleEnviarCorreo invisible" runat="server" Text="" 
+                        onclick="btnInvisibleEnviarCorreo_Click" CausesValidation="false" />
             
                     <!-- Cuerpo con la tabla -->
                     <div style="min-height: 500px;">

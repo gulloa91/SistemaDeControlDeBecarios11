@@ -82,10 +82,10 @@ $(document).ready(function () {
         modal: true,
         width: 350,
         open: function () {
-            $(".ui-widget-overlay.ui-front").css('z-index', '1099');
+            $(".ui-widget-overlay.ui-front").css('z-index', '1499');
         },
         close: function () {
             $(".ui-widget-overlay.ui-front").css('z-index', '150');
         },
-    }).parent().css('z-index', '1100');
+    }).parent().css('z-index', '1500');
 });
