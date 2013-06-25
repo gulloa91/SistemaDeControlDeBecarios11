@@ -70,7 +70,7 @@
                                                 <!-- TXT Buscar -->
                                                 <div style="float: left; margin-right: 10px; width: 120px;">
                                                     <br />
-                                                    <asp:TextBox ID="txtBuscarGeneral" onkeydown = "enterBuscar(event, 'MainContent_txtBuscarGeneral');" CssClass="inputElement" runat="server"></asp:TextBox>
+                                                    <asp:TextBox ID="txtBuscarGeneral" onkeydown = "enterBuscar(event, 'MainContent_btnBuscar');" CssClass="inputElement" runat="server"></asp:TextBox>
                                                 </div>
 
                                                 <!-- DRP Criterio 1 -->
