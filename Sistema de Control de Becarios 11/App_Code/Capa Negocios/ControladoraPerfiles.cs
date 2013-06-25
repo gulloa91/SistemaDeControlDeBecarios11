@@ -41,7 +41,12 @@ public class ControladoraPerfiles
         {
             case 1: //insertar
                 //agrego un perfil en la tabla Perfiles
-                cp.agregarPerfil(datos[0].ToString(), Convert.ToInt32(datos[1].ToString()));
+                String ret = cp.agregarPerfil(datos[0].ToString(), Convert.ToInt32(datos[1].ToString()));
+                if (ret == "Ya existe un perfil con el nombre digitado" || ret == "Se ha producido un error al modificar el perfil")
+                {//error
+                    retorno = ret;
+                    break;//salgo
+                }
                 //recorro los permisos
                 for (int i = 3; i < datos.Length; ++i)
                 {

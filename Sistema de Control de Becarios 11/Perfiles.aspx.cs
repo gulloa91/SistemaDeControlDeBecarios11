@@ -95,7 +95,8 @@ public partial class Perfiles : System.Web.UI.Page
             String resultado = cp.ejecutar(modo, datos);//se realiza la accion y se retorna el resultado
             if (resultado.Equals(""))
             {//exito al realizar la accion, mensaje de exito
-                commonService.mensajeJavascript("Se ha ingresado el perfil exitosamente", "Perfil");
+                if (modo == 1) commonService.mensajeJavascript("Se ha ingresado el Perfil satisfactoriamente", "Ingreso de Perfil");
+                else if (modo == 2) commonService.mensajeJavascript("Se ha modificado el perfil satisfactoriamente", "Modificación de Perfil");
             }
             else
             {//ocurrio un problema, se muestra al usuario cual fue el problema
@@ -103,10 +104,7 @@ public partial class Perfiles : System.Web.UI.Page
             }
             llenarGridPerfiles();//se llena nuevamente el grid con los perfiles
             habilitarBotones(false);//se desabilitan los botones que pueden estar habilitados
-
             commonService.cerrarPopUp("PopUp");
-            if (modo == 1) commonService.mensajeJavascript("Se ha ingresado el Perfil satisfactoriamente", "Ingreso de Perfil");
-            else if (modo == 2) commonService.mensajeJavascript("Se ha modificado el perfil satisfactoriamente", "Modificación de Perfil");
         }
     }
 
@@ -126,6 +124,7 @@ public partial class Perfiles : System.Web.UI.Page
     {
         modo = 1;//insertar
         vaciarCampos();//se vacian los campos para insertar un nuevo perfil
+        this.radioAdministrador.Checked = true;
         habilitarCampos(true);
         commonService.abrirPopUp("PopUp", "Insertar Nuevo Perfil");
     }
@@ -174,7 +173,10 @@ public partial class Perfiles : System.Web.UI.Page
             }
             tablaPerfilesAMostrar.Rows.Add(fila);
         }
-        
+        if(tablaPerfiles.Rows.Count == 0){
+            DataRow fila = tablaPerfilesAMostrar.NewRow();
+            fila["Tipo"] = "-"; fila["Nombre de Perfil"] = "-";
+        }
         return tablaPerfilesAMostrar;
     }
 
@@ -287,31 +289,48 @@ public partial class Perfiles : System.Web.UI.Page
         }
     }
 
-    public void cargarCamposPerfil(DataTable dt, Object tipo)
+    public void cargarCamposPerfil(DataTable dt, Object tipo,int indice)
     {//carga los datos del perfil cuando se selecciona una tupla del grid
-        for (int i = 0; i < dt.Rows.Count; ++i)
-        {//recorro el data Table
-            marcarRadio(Convert.ToInt32(dt.Rows[i].ItemArray[1]));//mando a marcar los permisos para dicho perfil
+        if (dt.Rows.Count > 0)
+        {
+            for (int i = 0; i < dt.Rows.Count; ++i)
+            {//recorro el data Table
+                marcarRadio(Convert.ToInt32(dt.Rows[i].ItemArray[1]));//mando a marcar los permisos para dicho perfil
+            }
+            //marco el radio con el tipo de perfil que se tenga
+            if (Convert.ToInt32(tipo.ToString()) == 0)
+            {
+                this.radioAdministrador.Checked = true;
+            }
+            else if (Convert.ToInt32(tipo.ToString()) == 1)
+            {
+                this.radioEncargado.Checked = true;
+            }
+            else if (Convert.ToInt32(tipo.ToString()) == 2)
+            {
+                this.radioBecario.Checked = true;
+            }
+            else
+            {
+                //no hay ninguno seleccionado entonces se deja asi
+            }
         }
-        this.txtNombrePerfil.Text = dt.Rows[0].ItemArray[0].ToString();//guardo el nombre del perfil
+        else { 
+            //marco el tipo
+            if(this.gridPerfiles.Rows[indice + gridPerfiles.PageIndex * gridPerfiles.PageSize].Cells[2].Text.Equals("Administrador")){
+                this.radioAdministrador.Checked = true;
+            }
+            else if (this.gridPerfiles.Rows[indice + gridPerfiles.PageIndex * gridPerfiles.PageSize].Cells[2].Text.Equals("Becario"))
+            {
+                this.radioBecario.Checked = true;
+            }
+            else {
+                this.radioEncargado.Checked = true;
+            }
+        }
+        this.txtNombrePerfil.Text = this.gridPerfiles.Rows[indice + gridPerfiles.PageIndex * gridPerfiles.PageSize].Cells[1].Text;
         nombreAnterior = this.txtNombrePerfil.Text;
-        //marco el radio con el tipo de perfil que se tenga
-        if (Convert.ToInt32(tipo.ToString()) == 0)
-        {
-            this.radioAdministrador.Checked = true;
-        }
-        else if (Convert.ToInt32(tipo.ToString()) == 1)
-        {
-            this.radioEncargado.Checked = true;
-        }
-        else if (Convert.ToInt32(tipo.ToString()) == 2)
-        {
-            this.radioBecario.Checked = true;
-        }
-        else
-        {
-            //no hay ninguno seleccionado entonces se deja asi
-        }
+        
     }
 
     public void siElimina(object sender, EventArgs e)
@@ -487,11 +506,11 @@ public partial class Perfiles : System.Web.UI.Page
                 vaciarCampos();//vaciamos los campos del popUp
                 habilitarCampos(false);//se deshabilitan los campos, asi al inicio no puede modificar
                 habilitarBotones(true);//habilito botones de eliminar y modificar
-
-                String nom = this.gridPerfiles.Rows[Convert.ToInt32(e.CommandArgument)].Cells[1].Text;//recupero el nombre del perfil
+                int indice = Convert.ToInt32(e.CommandArgument);
+                String nom = this.gridPerfiles.Rows[indice + gridPerfiles.PageIndex * gridPerfiles.PageSize].Cells[1].Text;//recupero el nombre del perfil
                 DataTable dt = cp.consultarPerfil(nom);//consulto un perfil en especifico de la base
                 Object tipo = cp.tipoPerfil(nom);//recupero el tipo de perfil
-                cargarCamposPerfil(dt, tipo);//cargo los campos del perfil
+                cargarCamposPerfil(dt, tipo,indice);//cargo los campos del perfil
                 commonService.abrirPopUp("PopUp", "Consulta de Perfil");//abro el porUp con los datos
             } break;
         

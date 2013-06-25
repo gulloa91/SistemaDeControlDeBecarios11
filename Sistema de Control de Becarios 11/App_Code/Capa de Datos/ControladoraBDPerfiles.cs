@@ -38,7 +38,15 @@ public class ControladoraPerfilesDB
         }
         catch (SqlException e)
         {
-            returnValue = "Ha ocurrido un error al Ingresar el perfil";
+            int r = e.Number;
+            if (r == 2627)
+            {
+                returnValue = "Ya existe un perfil con el nombre digitado";
+            }
+            else
+            {
+                returnValue = "Se ha producido un error al modificar el perfil";
+            }
 
         }
 
