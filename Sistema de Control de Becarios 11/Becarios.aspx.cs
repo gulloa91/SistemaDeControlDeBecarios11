@@ -245,6 +245,7 @@ public partial class Becarios : System.Web.UI.Page
                         else if (((resultadoPerfil.Equals("Exito")) || (resultadoPerfil.Equals("-1")))) // un modificar
                         {
                             commonService.mensajeJavascript("Se ha modificado correctamente la información solcitada", "Éxito");
+                            resultado = "ExitoUpate";
                         }
                         else {
                           commonService.mensajeJavascript("Se ha modificado correctamente la información personal pero ha habido un problema al actualizar el perfil del becario", "Aviso");

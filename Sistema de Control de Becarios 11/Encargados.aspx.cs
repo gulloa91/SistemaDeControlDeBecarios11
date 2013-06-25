@@ -132,6 +132,7 @@ public partial class Encargados : System.Web.UI.Page
                 {
                     commonService.mensajeJavascript("Encargado modificado con éxito!", "Confirmación");
                     this.llenarGridEncargados(1);
+                    mensajeResultado = "ExiteUpdate";
                 }
                 else
                 {
