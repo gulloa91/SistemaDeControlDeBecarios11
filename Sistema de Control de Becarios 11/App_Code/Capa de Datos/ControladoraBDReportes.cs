@@ -82,7 +82,7 @@ public class ControladoraBDReportes
     public DataTable llenarBecariosInactivos(string criterioBusqueda, int año, int periodo, DateTime fechaUltimoReporte)
     {
         DataTable dt = new DataTable();
-        dt = adapterReporte4.obtenerBecariosInactivos(fechaUltimoReporte, criterioBusqueda, año, periodo);
+        dt = adapterReporte4.obtenerBecariosInactivos(fechaUltimoReporte, año, periodo, criterioBusqueda);
         return dt;
     }
 
