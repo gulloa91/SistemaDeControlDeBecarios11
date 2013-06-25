@@ -37,7 +37,15 @@ public class ControladoraBDEncargado
         {
             try
             {
-                this.adapter.UpdateQuery(encargado.Cedula, encargado.Nombre, encargado.Apellido1, encargado.Apellido2, encargado.Correo, encargado.TelefonoFijo, encargado.TelefonoCelular, encargado.OtroTelefono, encargado.Puesto, true, encargado.Cedula);
+                EncargadoDataSet.EncargadoDataTable encargadoLocal = this.adapter.obtenerEncargadoPorCedula(encargado.Cedula);
+                if (!(bool)encargadoLocal[0][9])
+                {
+                    this.adapter.UpdateQuery(encargado.Cedula, encargado.Nombre, encargado.Apellido1, encargado.Apellido2, encargado.Correo, encargado.TelefonoFijo, encargado.TelefonoCelular, encargado.OtroTelefono, encargado.Puesto, true, encargado.Cedula);
+                }
+                else
+                {
+                    mensajeError = "La cédula del encargado ya existe";
+                }
             } 
             catch (SqlException ee)
             {

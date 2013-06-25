@@ -83,15 +83,16 @@ public partial class Encargados : System.Web.UI.Page
 
     //Metodo que se ejecuta al presionar aceptar en el popUp
     protected void btnInvisible1_Click(object sender, EventArgs e)
-    {       
+    {
+        TextInfo miTexto = CultureInfo.CurrentCulture.TextInfo;
 
         //Empaquetar información
         Object[] nuevoEncargado = new Object[9];
         
         nuevoEncargado[0] = commonService.procesarStringDeUI(txtCedula.Text);
-        nuevoEncargado[1] = commonService.procesarStringDeUI(txtNombre.Text);
-        nuevoEncargado[2] = commonService.procesarStringDeUI(txtPrimerApellido.Text);
-        nuevoEncargado[3] = commonService.procesarStringDeUI(txtSegundoApellido.Text);
+        nuevoEncargado[1] = miTexto.ToTitleCase(commonService.procesarStringDeUI(txtNombre.Text));
+        nuevoEncargado[2] = miTexto.ToTitleCase(commonService.procesarStringDeUI(txtPrimerApellido.Text));
+        nuevoEncargado[3] = miTexto.ToTitleCase(commonService.procesarStringDeUI(txtSegundoApellido.Text));
         nuevoEncargado[4] = commonService.procesarStringDeUI(txtCorreo.Text);
         nuevoEncargado[5] = commonService.procesarStringDeUI(txtTelFijo.Text);
         nuevoEncargado[6] = commonService.procesarStringDeUI(txtCel.Text);
@@ -119,7 +120,7 @@ public partial class Encargados : System.Web.UI.Page
             }
             else
             {
-                commonService.mensajeJavascript("No fue posible insertar el nuevo encargado!", "ERROR");
+                commonService.mensajeJavascript(mensajeResultado, "ERROR");
             }
         }
         else
@@ -230,6 +231,7 @@ public partial class Encargados : System.Web.UI.Page
         datosOriginalesEncargado = encargadoActual;
 
         activarInputsPrincipales(true);
+        mostrarBotonesPrincipales(false);
     }
     
     // ELIMINAR CLICK
