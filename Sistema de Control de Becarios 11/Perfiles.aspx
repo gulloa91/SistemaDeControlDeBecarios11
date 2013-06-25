@@ -81,7 +81,7 @@
                             <span>Nombre</span>
                         </div>
                         <div id="txtNombre">
-                            <asp:TextBox ID="txtNombrePerfil"  runat="server" Width="323px" Enabled="False"></asp:TextBox>
+                            <asp:TextBox ID="txtNombrePerfil"  runat="server" Width="323px" Enabled="False" MaxLength="50"></asp:TextBox>
                         </div>
                     </div>
                     <div id="validadores">
@@ -95,7 +95,7 @@
                     <!--RADIO BUTTONS PARA EL TIPO DE PERFIL-->
                     <div id="radioTipo">
                         <span>Tipo de Perfil:</span>
-                        <asp:RadioButton ID="radioAdministrador" runat="server" Text="Administrador" GroupName="tipo" Enabled="False" />
+                        <asp:RadioButton ID="radioAdministrador" runat="server" Text="Administrador" GroupName="tipo" Enabled="False"/>
                         <asp:RadioButton ID="radioEncargado" runat="server" Text="Encargado" GroupName="tipo" Enabled="False" />
                         <asp:RadioButton ID="radioBecario" runat="server" Text="Becario" GroupName="tipo" Enabled="False" />
                     </div>
