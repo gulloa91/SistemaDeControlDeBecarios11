@@ -96,6 +96,7 @@ public class ControladoraBecarios
             becario.telefonoCelular = cs.procesarStringDeUI(r["Celular"].ToString());
             becario.telefonoOtro = cs.procesarStringDeUI(r["OtroTel"].ToString());
             becario.correo = cs.procesarStringDeUI(r["Correo"].ToString());
+           
             listaB.Add(becario);
         }
         return listaB;

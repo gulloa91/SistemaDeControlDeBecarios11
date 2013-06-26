@@ -114,7 +114,7 @@
                               <div style="width: 20%; float: right;">
                                    <asp:Button ID="btnModificarBecarioDatos" runat="server" Text="Modificar" 
                                      CssClass="boton ui-widget ui-state-default ui-corner-all ui-button-text-only" 
-                                    onclick="btnModificarBecario_Click" />
+                                    onclick="btnModificarBecario_Click" CausesValidation="false" />
                               </div>
                               
                          </div>

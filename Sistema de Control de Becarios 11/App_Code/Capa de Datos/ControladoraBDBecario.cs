@@ -59,8 +59,9 @@ public class ControladoraBDBecario
         int r;
         try
         {
-            this.adapterBecarios.Update(becarioNuevo.cedula, becarioNuevo.nombre, becarioNuevo.apellido1, becarioNuevo.apellido2, becarioNuevo.correo, becarioNuevo.carne, becarioNuevo.telefonoFijo, becarioNuevo.telefonoCelular, becarioNuevo.telefonoOtro, "", becarioNuevo.activo, becarioViejo.cedula, becarioViejo.nombre, becarioViejo.apellido1, becarioViejo.apellido2, becarioViejo.correo, becarioViejo.carne, becarioViejo.telefonoFijo, becarioViejo.telefonoCelular, becarioViejo.telefonoOtro, "", becarioViejo.activo);
 
+          this.adapterBecarios.UpdateQuery(becarioNuevo.cedula, becarioNuevo.nombre, becarioNuevo.apellido1, becarioNuevo.apellido2, becarioNuevo.correo, becarioNuevo.carne, becarioNuevo.telefonoFijo, becarioNuevo.telefonoCelular, becarioNuevo.telefonoOtro, becarioNuevo.foto, becarioNuevo.activo, becarioViejo.cedula);
+          
         }
         catch (SqlException e)
         {
