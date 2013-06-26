@@ -75,11 +75,11 @@ public partial class Becarios : System.Web.UI.Page
                  case 1: // Vista Completa
                      {
                          MultiViewBecario.ActiveViewIndex = 0;
-                         llenarGridBecarios(1);
-
+                         
                          if (!Page.IsPostBack)
                          {
-                           
+
+                           llenarGridBecarios(1);
                            llenarGridsPerfil();
                            if (Request["__EVENTTARGET"] == UpdateImage.ClientID)
                            {
@@ -101,12 +101,12 @@ public partial class Becarios : System.Web.UI.Page
                      {
                          MultiViewBecario.ActiveViewIndex = 1;
                          correrJavascript("crearTabsP();");
-                         
 
+                         
                          if (!Page.IsPostBack)
                          {
-                             consultarDatosBecarioLogueado();
 
+                             consultarDatosBecarioLogueado();
                              llenarListasPerfil(cedulaBecarioActual);
                              llenarGridsPerfil_vistaParcial();
                              
@@ -165,7 +165,7 @@ public partial class Becarios : System.Web.UI.Page
 
             Object[] datos;
 
-            datos = new Object[10];
+            datos = new Object[11];
             datos[0] = "";
             datos[1] = miTexto.ToTitleCase(this.txtNombre.Text.ToLower());
             datos[2] = miTexto.ToTitleCase(this.txtApellido1.Text.ToLower());
@@ -176,10 +176,14 @@ public partial class Becarios : System.Web.UI.Page
             datos[7] = this.txtCel.Text;
             datos[8] = this.txtOtroTel.Text;
             datos[9] = this.txtCorreo.Text;
+            
 
             string resultado = "";
             string resultadoPerfil = "";
             string resultadoCreacionCuenta = "";
+
+
+            //para la parte de creación de cuenta y envio de correo
 
             CultureInfo currentCulture = System.Threading.Thread.CurrentThread.CurrentCulture;
             TextInfo currentInfo = currentCulture.TextInfo;
@@ -195,6 +199,8 @@ public partial class Becarios : System.Web.UI.Page
             string pass = nombre.Substring(0, 2) + apellido.Substring(0, 2) + ced;
             string nombreCompleto = (currentInfo.ToTitleCase(nombre) + " " + currentInfo.ToTitleCase(apellido) + " " + currentInfo.ToTitleCase(apellido2)).Trim();
 
+
+            //se ejecuta la acción
             switch (modoEjecucion)
             {
 
@@ -249,6 +255,7 @@ public partial class Becarios : System.Web.UI.Page
                         }
                         else {
                           commonService.mensajeJavascript("Se ha modificado correctamente la información personal pero ha habido un problema al actualizar el perfil del becario", "Aviso");
+                          resultado = "ExitoUpate";
                         }
                 
                     }break;
@@ -370,7 +377,7 @@ public partial class Becarios : System.Web.UI.Page
         correrJavascript("crearTabsVistaCompleta();");
 
 
-        guardarDatosActuales();
+        guardarDatosActuales(1);
 
         modoEjecucion = 2;
 
@@ -568,23 +575,43 @@ public partial class Becarios : System.Web.UI.Page
  */
 
 
-    protected void guardarDatosActuales() {
+    //Se guardan los datos actuales --> 1 : datos de la vista administrador , otro numero : datos de la vista de becario
+    protected void guardarDatosActuales(int vista) {
 
 
         TextInfo miTexto = CultureInfo.CurrentCulture.TextInfo;
 
-        datosViejos = new Object[10];
-        datosViejos[0] = "";
-        datosViejos[1] = commonService.procesarStringDeUI(miTexto.ToTitleCase(this.txtNombre.Text.ToLower()));
-        datosViejos[2] = commonService.procesarStringDeUI(miTexto.ToTitleCase(this.txtApellido1.Text.ToLower()));
-        datosViejos[3] = commonService.procesarStringDeUI(miTexto.ToTitleCase(this.txtApellido2.Text.ToLower()));
-        datosViejos[4] = this.txtCarne.Text;
-        datosViejos[5] = this.txtCedula.Text;
-        datosViejos[6] = this.txtTelFijo.Text;
-        datosViejos[7] = this.txtCel.Text;
-        datosViejos[8] = this.txtOtroTel.Text;
-        datosViejos[9] = commonService.procesarStringDeUI(this.txtCorreo.Text);
-    
+
+        if (vista == 1)
+        {
+
+            datosViejos = new Object[10];
+            datosViejos[0] = "";
+            datosViejos[1] = commonService.procesarStringDeUI(miTexto.ToTitleCase(this.txtNombre.Text.ToLower()));
+            datosViejos[2] = commonService.procesarStringDeUI(miTexto.ToTitleCase(this.txtApellido1.Text.ToLower()));
+            datosViejos[3] = commonService.procesarStringDeUI(miTexto.ToTitleCase(this.txtApellido2.Text.ToLower()));
+            datosViejos[4] = this.txtCarne.Text;
+            datosViejos[5] = this.txtCedula.Text;
+            datosViejos[6] = this.txtTelFijo.Text;
+            datosViejos[7] = this.txtCel.Text;
+            datosViejos[8] = this.txtOtroTel.Text;
+            datosViejos[9] = commonService.procesarStringDeUI(this.txtCorreo.Text);
+        }
+        else {
+
+            datosViejos = new Object[10];
+            datosViejos[0] = "";
+            datosViejos[1] = commonService.procesarStringDeUI(miTexto.ToTitleCase(this.txtNombreP.Text.ToLower()));
+            datosViejos[2] = commonService.procesarStringDeUI(miTexto.ToTitleCase(this.txtApellido1P.Text.ToLower()));
+            datosViejos[3] = commonService.procesarStringDeUI(miTexto.ToTitleCase(this.txtApellido2P.Text.ToLower()));
+            datosViejos[4] = this.txtCarneP.Text;
+            datosViejos[5] = this.txtCedulaP.Text;
+            datosViejos[6] = this.txtTelFijoP.Text;
+            datosViejos[7] = this.txtCelularP.Text;
+            datosViejos[8] = this.txtOtroTelP.Text;
+            datosViejos[9] = commonService.procesarStringDeUI(this.txtCorreoP.Text);       
+        }
+       
     }
 
 
@@ -1319,7 +1346,7 @@ public partial class Becarios : System.Web.UI.Page
 
         mostrarBotonesSecundariosP(true);
 
-        guardarDatosActuales();
+        guardarDatosActuales(2);
 
         modoEjecucion = 2;
 
