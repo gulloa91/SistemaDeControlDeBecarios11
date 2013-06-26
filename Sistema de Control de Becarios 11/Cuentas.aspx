@@ -87,7 +87,7 @@
                             <tr>
                                 <td class="auto-style2">Usuario</td>
                                 <td class="auto-style6">
-                                    <asp:TextBox ID="txtUsuario" runat="server" Width="323px" CausesValidation="true"></asp:TextBox>
+                                    <asp:TextBox ID="txtUsuario" runat="server" Width="323px" CausesValidation="true" MaxLength="50"></asp:TextBox>
                                     <asp:TextBox ID="txtFechaAux" runat="server" Width="323px" CausesValidation="false" Enabled ="false" Visible ="false"></asp:TextBox>
                                     <asp:RequiredFieldValidator ID="RequiredFieldValidatorUser" runat="server" ErrorMessage="* Campo Requerido" ControlToValidate="txtUsuario" Display="Dynamic"></asp:RequiredFieldValidator>
                                     <asp:RegularExpressionValidator ID="rxvUsuario" runat="server" ErrorMessage="El nombre de usuario no puede contener caracteres blancos, comillas dobles o sencillas"
@@ -99,7 +99,7 @@
                                 <td class="auto-style2">
                                     Contraseña</td>
                                 <td class="auto-style6">
-                                    <asp:TextBox ID="cntUsuario" runat="server" Width="320px" CausesValidation="true" type="password"></asp:TextBox>
+                                    <asp:TextBox ID="cntUsuario" runat="server" Width="320px" CausesValidation="true" type="password" MaxLength="50"></asp:TextBox>
                                     <asp:RequiredFieldValidator ID="RequiredFieldValidatorCnt" runat="server" ErrorMessage="* Contraseña de usuario requerida" ControlToValidate="cntUsuario" Display="Dynamic"></asp:RequiredFieldValidator>
                                     <asp:RegularExpressionValidator ID="rxvContraseña" runat="server" ErrorMessage="La contraseña no puede contener caracteres blancos, comillas dobles o sencillas"
 						        ValidationExpression="([^\s&quot;' ])+" ControlToValidate="cntUsuario" Display="Dynamic"/>
@@ -110,7 +110,7 @@
                             <tr>
                                 <td class="auto-style2">Confirmar Contraseña</td>
                                 <td class="auto-style6">
-                                    <asp:TextBox ID="cofCntUsuario" runat="server" Width="320px" type="password"></asp:TextBox>
+                                    <asp:TextBox ID="cofCntUsuario" runat="server" Width="320px" type="password" MaxLength="50"></asp:TextBox>
                                     <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ErrorMessage="* Contraseña de usuario requerida" ControlToValidate="cofCntUsuario" Display="Dynamic"></asp:RequiredFieldValidator>
                                     <asp:RegularExpressionValidator ID="RegularExpressionValidator1" runat="server" ErrorMessage="La contraseña no puede contener caracteres blancos, comillas dobles o sencillas"
 						        ValidationExpression="([^\s&quot;' ])+" ControlToValidate="cofCntUsuario" Display="Dynamic"/>
@@ -160,18 +160,18 @@
                         <div id="infCuenta">
                             <div id="pnlUsuarioPers" class="cont">
                                     <asp:Label ID="lblUsuarioPers" runat="server" Text="Usuario" CssClass="etiq"></asp:Label>
-                                    <asp:TextBox ID="txtUsuarioPers" runat="server" CssClass="txtBox"></asp:TextBox>
+                                    <asp:TextBox ID="txtUsuarioPers" runat="server" CssClass="txtBox" MaxLength="50"></asp:TextBox>
                             </div>
                             <div id="pnlContrasenaPers" class="cont">
                                 <asp:Label ID="lblContrasenaPer" runat="server" Text="Contraseña" CssClass="etiq"></asp:Label>
-                                <asp:TextBox ID="txtContrasenaPers" runat="server" CausesValidation="true" type="password" CssClass="txtBox"></asp:TextBox>
+                                <asp:TextBox ID="txtContrasenaPers" runat="server" CausesValidation="true" type="password" CssClass="txtBox" MaxLength="50"></asp:TextBox>
                                     <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ErrorMessage="* Contraseña de usuario requerida" ControlToValidate="txtContrasenaPers" Display="Dynamic"></asp:RequiredFieldValidator>
                                     <asp:RegularExpressionValidator ID="RegularExpressionValidator3" runat="server" ErrorMessage="La contraseña no puede contener caracteres blancos, comillas dobles o sencillas"
 					            ValidationExpression="([^\s&quot;' ])+" ControlToValidate="txtContrasenaPers" Display="Dynamic"/>
                             </div>
                             <div id="pnlConfContrasenaPers" class="cont">
-                                <asp:Label ID="lblConfContrasenaPer" runat="server" Text="Contraseña" CssClass="etiq"></asp:Label>
-                                <asp:TextBox ID="txtConfContrasenaPers" runat="server" CausesValidation="true" type="password" CssClass="txtBox"></asp:TextBox>
+                                <asp:Label ID="lblConfContrasenaPer" runat="server" Text="Confirmar contraseña" CssClass="etiq"></asp:Label>
+                                <asp:TextBox ID="txtConfContrasenaPers" runat="server" CausesValidation="true" type="password" CssClass="txtBox" MaxLength="50"></asp:TextBox>
                                     <asp:RequiredFieldValidator ID="RequiredFieldValidator6" runat="server" ErrorMessage="* Contraseña de usuario requerida" ControlToValidate="txtConfContrasenaPers" Display="Dynamic"></asp:RequiredFieldValidator>
                                     <asp:RegularExpressionValidator ID="RegularExpressionValidator6" runat="server" ErrorMessage="La contraseña no puede contener caracteres blancos, comillas dobles o sencillas"
 					            ValidationExpression="([^\s&quot;' ])+" ControlToValidate="txtConfContrasenaPers" Display="Dynamic"/>
