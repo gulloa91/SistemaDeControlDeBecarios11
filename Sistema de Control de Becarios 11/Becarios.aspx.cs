@@ -261,8 +261,12 @@ public partial class Becarios : System.Web.UI.Page
                     }break;
                 case "Error1": 
                     {
-                      commonService.mensajeJavascript("Ya existe un becario con la cédula digitada", "Error");           
-                    }break;     
+                        commonService.mensajeJavascript("Ya existe un becario con la cédula digitada", "ERROR");           
+                    }break;
+                default: 
+                    {
+                        commonService.mensajeJavascript("No fue posible modificar al becario.", "ERROR");    
+                    }break;
             }
 
            

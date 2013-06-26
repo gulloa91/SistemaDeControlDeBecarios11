@@ -1107,13 +1107,13 @@ public partial class Asignaciones : System.Web.UI.Page
 
         periodoActual = -1;
 
-        if ((mes >= 3) && (mes <= 6))
+        if ((mes >= 3) && (mes <= 7))
         {
             periodoActual = 1;
         }
         else {
 
-            if ((mes >= 7) && (mes <= 12))
+            if ((mes >= 8) && (mes <= 12))
             {
                 periodoActual = 2;
             }
@@ -1486,6 +1486,10 @@ public partial class Asignaciones : System.Web.UI.Page
 
         switch (estadoAsignacion) {
 
+            case 1:
+                {
+                    mensajeAMostrar = "Su asignación esta vigente.";
+                }break;
             case 4: 
                 {
                    mensajeAMostrar = "La asignación aún no esta completa ya que falta la confirmación del encargado.";          
@@ -1607,7 +1611,7 @@ public partial class Asignaciones : System.Web.UI.Page
 
        if (mensajeResultado.Equals("Exito"))
        {
-          commonService.mensajeJavascript("¡Su rechazo ha sido procesado satisfactoriamente!", "Rechazo procesado");
+          commonService.mensajeJavascript("Usted ha rechazado su asignación. Un correo ha sido enviado a la dirección para notificar su decisión.", "Rechazo procesado");
        }
        else
        {
@@ -1676,7 +1680,7 @@ public partial class Asignaciones : System.Web.UI.Page
             }
             else {
 
-                //CORREO AL BECARIO  !!!
+              //CORREO AL BECARIO  !!!
               commonService.mensajeJavascript("Se ha aceptado la asignación y esta ya quedó en firme. El becario ha sido notificado", "Aviso");
               string correoBecario = lstBecariosAsignadosEncargado[rowIndex][4].ToString();
               string mensaje = "Se le informa que se acaba de confimar su asignación para el presente semetre. Ya puede empezar a reportar sus horas con la aplicación.";
