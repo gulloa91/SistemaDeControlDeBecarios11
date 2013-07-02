@@ -2,20 +2,21 @@
 <xs:schema id="BecariosDataSet" targetNamespace="http://tempuri.org/BecariosDataSet.xsd" xmlns:mstns="http://tempuri.org/BecariosDataSet.xsd" xmlns="http://tempuri.org/BecariosDataSet.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
   <xs:annotation>
     <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
-      <DataSource DefaultConnectionIndex="6" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="7" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
         <Connections>
           <Connection AppSettingsObjectName="Web.config" AppSettingsPropertyName="BD_BecariosConnectionString" IsAppSettingsProperty="true" Modifier="Assembly" Name="BD_BecariosConnectionString (Web.config)" ParameterPrefix="@" PropertyReference="AppConfig.System.Configuration.ConfigurationManager.0.ConnectionStrings.BD_BecariosConnectionString.ConnectionString" Provider="System.Data.SqlClient" />
           <Connection AppSettingsObjectName="Web.config" AppSettingsPropertyName="ingegsg2ConnectionString" ConnectionStringObject="" IsAppSettingsProperty="true" Modifier="Assembly" Name="ingegsg2ConnectionString (Web.config)" ParameterPrefix="@" PropertyReference="AppConfig.System.Configuration.ConfigurationManager.0.ConnectionStrings.ingegsg2ConnectionString.ConnectionString" Provider="System.Data.SqlClient" />
           <Connection AppSettingsObjectName="Web.config" AppSettingsPropertyName="SistemaControlBecariosConnectionString" ConnectionStringObject="" IsAppSettingsProperty="true" Modifier="Assembly" Name="SistemaControlBecariosConnectionString (Web.config)" ParameterPrefix="@" PropertyReference="AppConfig.System.Configuration.ConfigurationManager.0.ConnectionStrings.SistemaControlBecariosConnectionString.ConnectionString" Provider="System.Data.SqlClient" />
-          <Connection AppSettingsObjectName="Web.config" AppSettingsPropertyName="ingegsg2ConnectionString1" ConnectionStringObject="" IsAppSettingsProperty="true" Modifier="Assembly" Name="ingegsg2ConnectionString1 (Web.config)" ParameterPrefix="@" PropertyReference="AppConfig.System.Configuration.ConfigurationManager.0.ConnectionStrings.ingegsg2ConnectionString1.ConnectionString" Provider="System.Data.SqlClient" />
+          <Connection AppSettingsObjectName="Web.config" AppSettingsPropertyName="ingegsg2ConnectionString1" IsAppSettingsProperty="true" Modifier="Assembly" Name="ingegsg2ConnectionString1 (Web.config)" ParameterPrefix="@" PropertyReference="AppConfig.System.Configuration.ConfigurationManager.0.ConnectionStrings.ingegsg2ConnectionString1.ConnectionString" Provider="System.Data.SqlClient" />
           <Connection AppSettingsObjectName="Web.config" AppSettingsPropertyName="Sistema de Gestion de PruebasConnectionString" IsAppSettingsProperty="true" Modifier="Assembly" Name="Sistema de Gestion de PruebasConnectionString (Web.config)" ParameterPrefix="@" PropertyReference="AppConfig.System.Configuration.ConfigurationManager.0.ConnectionStrings.Sistema de Gestion de PruebasConnectionString.ConnectionString" Provider="System.Data.SqlClient" />
           <Connection AppSettingsObjectName="Web.config" AppSettingsPropertyName="Sistema Control BecariosConnectionString" IsAppSettingsProperty="true" Modifier="Assembly" Name="Sistema Control BecariosConnectionString (Web.config)" ParameterPrefix="@" PropertyReference="AppConfig.System.Configuration.ConfigurationManager.0.ConnectionStrings.Sistema Control BecariosConnectionString.ConnectionString" Provider="System.Data.SqlClient" />
           <Connection AppSettingsObjectName="Web.config" AppSettingsPropertyName="Sistema BecariosConnectionString" IsAppSettingsProperty="true" Modifier="Assembly" Name="Sistema BecariosConnectionString (Web.config)" ParameterPrefix="@" PropertyReference="AppConfig.System.Configuration.ConfigurationManager.0.ConnectionStrings.Sistema BecariosConnectionString.ConnectionString" Provider="System.Data.SqlClient" />
+          <Connection AppSettingsObjectName="Web.config" AppSettingsPropertyName="SistemaBecarios_LocalHugoConnectionString" ConnectionStringObject="" IsAppSettingsProperty="true" Modifier="Assembly" Name="SistemaBecarios_LocalHugoConnectionString (Web.config)" ParameterPrefix="@" PropertyReference="AppConfig.System.Configuration.ConfigurationManager.0.ConnectionStrings.SistemaBecarios_LocalHugoConnectionString.ConnectionString" Provider="System.Data.SqlClient" />
         </Connections>
         <Tables>
           <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="BecarioTableAdapter" GeneratorDataComponentClassName="BecarioTableAdapter" Name="Becario" UserDataComponentName="BecarioTableAdapter">
             <MainSource>
-              <DbSource ConnectionRef="ingegsg2ConnectionString1 (Web.config)" DbObjectName="ingegsg2.dbo.Becario" DbObjectType="Table" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="true" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetData" UserSourceName="Fill">
+              <DbSource ConnectionRef="SistemaBecarios_LocalHugoConnectionString (Web.config)" DbObjectName="SistemaBecarios_LocalHugo.dbo.Becario" DbObjectType="Table" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="true" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetData" UserSourceName="Fill">
                 <DeleteCommand>
                   <DbCommand CommandType="Text" ModifiedByUser="false">
                     <CommandText>DELETE FROM [Becario] WHERE (([Cedula] = @Original_Cedula) AND ([Nombre] = @Original_Nombre) AND ([Apellido1] = @Original_Apellido1) AND ((@IsNull_Apellido2 = 1 AND [Apellido2] IS NULL) OR ([Apellido2] = @Original_Apellido2)) AND ([Correo] = @Original_Correo) AND ([Carne] = @Original_Carne) AND ((@IsNull_Telefono = 1 AND [Telefono] IS NULL) OR ([Telefono] = @Original_Telefono)) AND ((@IsNull_Celular = 1 AND [Celular] IS NULL) OR ([Celular] = @Original_Celular)) AND ((@IsNull_OtroTel = 1 AND [OtroTel] IS NULL) OR ([OtroTel] = @Original_OtroTel)) AND ((@IsNull_Foto = 1 AND [Foto] IS NULL) OR ([Foto] = @Original_Foto)) AND ([Activo] = @Original_Activo))</CommandText>
@@ -58,7 +59,7 @@
                   </DbCommand>
                 </InsertCommand>
                 <SelectCommand>
-                  <DbCommand CommandType="Text" ModifiedByUser="false">
+                  <DbCommand CommandType="Text" ModifiedByUser="true">
                     <CommandText>SELECT        Cedula, Nombre, Apellido1, Apellido2, Correo, Carne, Telefono, Celular, OtroTel, Foto, Activo
 FROM            Becario
 ORDER BY Nombre</CommandText>
@@ -115,7 +116,7 @@ ORDER BY Nombre</CommandText>
               <Mapping SourceColumn="Activo" DataSetColumn="Activo" />
             </Mappings>
             <Sources>
-              <DbSource ConnectionRef="ingegsg2ConnectionString1 (Web.config)" DbObjectName="" DbObjectType="Unknown" GenerateShortCommands="true" GeneratorSourceName="actualizaEstado" Modifier="Public" Name="actualizaEstado" QueryType="NoData" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy" UserSourceName="actualizaEstado">
+              <DbSource ConnectionRef="SistemaBecarios_LocalHugoConnectionString (Web.config)" DbObjectName="" DbObjectType="Unknown" GenerateShortCommands="true" GeneratorSourceName="actualizaEstado" Modifier="Public" Name="actualizaEstado" QueryType="NoData" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy" UserSourceName="actualizaEstado">
                 <UpdateCommand>
                   <DbCommand CommandType="Text" ModifiedByUser="true">
                     <CommandText>UPDATE       Becario
@@ -128,7 +129,7 @@ WHERE        (Cedula = @Original_Cedula)</CommandText>
                   </DbCommand>
                 </UpdateCommand>
               </DbSource>
-              <DbSource ConnectionRef="ingegsg2ConnectionString1 (Web.config)" DbObjectName="ingegsg2.dbo.Becario" DbObjectType="Table" FillMethodModifier="Public" FillMethodName="buscarBecarios" GenerateMethods="Fill" GenerateShortCommands="true" GeneratorSourceName="buscarBecarios" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy1" UserSourceName="buscarBecarios">
+              <DbSource ConnectionRef="SistemaBecarios_LocalHugoConnectionString (Web.config)" DbObjectName="SistemaBecarios_LocalHugo.dbo.Becario" DbObjectType="Table" FillMethodModifier="Public" FillMethodName="buscarBecarios" GenerateMethods="Fill" GenerateShortCommands="true" GeneratorSourceName="buscarBecarios" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy1" UserSourceName="buscarBecarios">
                 <SelectCommand>
                   <DbCommand CommandType="Text" ModifiedByUser="true">
                     <CommandText>SELECT Activo, Apellido1, Apellido2, Carne, Cedula, Celular, Correo, Foto, Nombre, OtroTel, Telefono FROM Becario WHERE (Nombre LIKE @criterioBusqueda) AND (Activo = 1) OR (Activo = 1) AND (Apellido1 LIKE @criterioBusqueda) OR (Activo = 1) AND (Apellido2 LIKE @criterioBusqueda) OR (Activo = 1) AND (Carne LIKE @criterioBusqueda) OR (Activo = 1) AND (Correo LIKE @criterioBusqueda) OR (Activo = 1) AND (Celular LIKE @criterioBusqueda)</CommandText>
@@ -138,18 +139,15 @@ WHERE        (Cedula = @Original_Cedula)</CommandText>
                   </DbCommand>
                 </SelectCommand>
               </DbSource>
-              <DbSource ConnectionRef="ingegsg2ConnectionString1 (Web.config)" DbObjectName="ingegsg2.dbo.Becario" DbObjectType="Table" FillMethodModifier="Public" FillMethodName="consultarBecariosCompletos" GenerateMethods="Fill" GenerateShortCommands="true" GeneratorSourceName="consultarBecariosCompletos" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy2" UserSourceName="consultarBecariosCompletos">
+              <DbSource ConnectionRef="SistemaBecarios_LocalHugoConnectionString (Web.config)" DbObjectName="SistemaBecarios_LocalHugo.dbo.Becario" DbObjectType="Table" FillMethodModifier="Public" FillMethodName="consultarBecariosCompletos" GenerateMethods="Fill" GenerateShortCommands="true" GeneratorSourceName="consultarBecariosCompletos" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy2" UserSourceName="consultarBecariosCompletos">
                 <SelectCommand>
                   <DbCommand CommandType="Text" ModifiedByUser="true">
-                    <CommandText>SELECT        Activo, Apellido1, Apellido2, Carne, Cedula, Celular, Correo, Foto, Nombre, OtroTel, Telefono
-FROM            Becario
-WHERE        (Activo = 1)
-ORDER BY Nombre</CommandText>
+                    <CommandText>SELECT Activo, Apellido1, Apellido2, Carne, Cedula, Celular, Correo, Foto, Nombre, OtroTel, Telefono FROM Becario WHERE (Activo = 1) ORDER BY Nombre</CommandText>
                     <Parameters />
                   </DbCommand>
                 </SelectCommand>
               </DbSource>
-              <DbSource ConnectionRef="ingegsg2ConnectionString1 (Web.config)" DbObjectName="ingegsg2.dbo.Becario" DbObjectType="Table" GenerateMethods="Get" GenerateShortCommands="true" GeneratorGetMethodName="obtenerBecarioPorCedula" GetMethodModifier="Public" GetMethodName="obtenerBecarioPorCedula" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="obtenerBecarioPorCedula" UserSourceName="obtenerBecarioPorCedula">
+              <DbSource ConnectionRef="SistemaBecarios_LocalHugoConnectionString (Web.config)" DbObjectName="SistemaBecarios_LocalHugo.dbo.Becario" DbObjectType="Table" GenerateMethods="Get" GenerateShortCommands="true" GeneratorGetMethodName="obtenerBecarioPorCedula" GetMethodModifier="Public" GetMethodName="obtenerBecarioPorCedula" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="obtenerBecarioPorCedula" UserSourceName="obtenerBecarioPorCedula">
                 <SelectCommand>
                   <DbCommand CommandType="Text" ModifiedByUser="true">
                     <CommandText>SELECT Activo, Apellido1, Apellido2, Carne, Cedula, Celular, Correo, Foto, Nombre, OtroTel, Telefono FROM Becario WHERE (Cedula = @Cedula)</CommandText>
@@ -159,11 +157,35 @@ ORDER BY Nombre</CommandText>
                   </DbCommand>
                 </SelectCommand>
               </DbSource>
+              <DbSource ConnectionRef="SistemaBecarios_LocalHugoConnectionString (Web.config)" DbObjectName="" DbObjectType="Unknown" GenerateShortCommands="true" GeneratorSourceName="UpdateQuery" Modifier="Public" Name="UpdateQuery" QueryType="NoData" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy3" UserSourceName="UpdateQuery">
+                <UpdateCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="true">
+                    <CommandText>UPDATE       Becario
+SET                Cedula = @Cedula, Nombre = @Nombre, Apellido1 = @Apellido1, Apellido2 = @Apellido2, Correo = @Correo, Carne = @Carne, Telefono = @Telefono, 
+                         Celular = @Celular, OtroTel = @OtroTel, Foto = @Foto, Activo = @Activo
+WHERE        (Cedula = @Original_Cedula)</CommandText>
+                    <Parameters>
+                      <Parameter AllowDbNull="false" AutogeneratedName="Cedula" ColumnName="Cedula" DataSourceName="SistemaBecarios_LocalHugo.dbo.Becario" DataTypeServer="varchar(15)" DbType="AnsiString" Direction="Input" ParameterName="@Cedula" Precision="0" ProviderType="VarChar" Scale="0" Size="15" SourceColumn="Cedula" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="Nombre" ColumnName="Nombre" DataSourceName="SistemaBecarios_LocalHugo.dbo.Becario" DataTypeServer="nvarchar(50)" DbType="String" Direction="Input" ParameterName="@Nombre" Precision="0" ProviderType="NVarChar" Scale="0" Size="50" SourceColumn="Nombre" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="Apellido1" ColumnName="Apellido1" DataSourceName="SistemaBecarios_LocalHugo.dbo.Becario" DataTypeServer="nvarchar(50)" DbType="String" Direction="Input" ParameterName="@Apellido1" Precision="0" ProviderType="NVarChar" Scale="0" Size="50" SourceColumn="Apellido1" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="Apellido2" ColumnName="Apellido2" DataSourceName="SistemaBecarios_LocalHugo.dbo.Becario" DataTypeServer="nvarchar(50)" DbType="String" Direction="Input" ParameterName="@Apellido2" Precision="0" ProviderType="NVarChar" Scale="0" Size="50" SourceColumn="Apellido2" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="Correo" ColumnName="Correo" DataSourceName="SistemaBecarios_LocalHugo.dbo.Becario" DataTypeServer="varchar(100)" DbType="AnsiString" Direction="Input" ParameterName="@Correo" Precision="0" ProviderType="VarChar" Scale="0" Size="100" SourceColumn="Correo" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="Carne" ColumnName="Carne" DataSourceName="SistemaBecarios_LocalHugo.dbo.Becario" DataTypeServer="varchar(10)" DbType="AnsiString" Direction="Input" ParameterName="@Carne" Precision="0" ProviderType="VarChar" Scale="0" Size="10" SourceColumn="Carne" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="Telefono" ColumnName="Telefono" DataSourceName="SistemaBecarios_LocalHugo.dbo.Becario" DataTypeServer="varchar(15)" DbType="AnsiString" Direction="Input" ParameterName="@Telefono" Precision="0" ProviderType="VarChar" Scale="0" Size="15" SourceColumn="Telefono" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="Celular" ColumnName="Celular" DataSourceName="SistemaBecarios_LocalHugo.dbo.Becario" DataTypeServer="varchar(15)" DbType="AnsiString" Direction="Input" ParameterName="@Celular" Precision="0" ProviderType="VarChar" Scale="0" Size="15" SourceColumn="Celular" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="OtroTel" ColumnName="OtroTel" DataSourceName="SistemaBecarios_LocalHugo.dbo.Becario" DataTypeServer="varchar(15)" DbType="AnsiString" Direction="Input" ParameterName="@OtroTel" Precision="0" ProviderType="VarChar" Scale="0" Size="15" SourceColumn="OtroTel" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="Foto" ColumnName="Foto" DataSourceName="SistemaBecarios_LocalHugo.dbo.Becario" DataTypeServer="nvarchar(260)" DbType="String" Direction="Input" ParameterName="@Foto" Precision="0" ProviderType="NVarChar" Scale="0" Size="260" SourceColumn="Foto" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="Activo" ColumnName="Activo" DataSourceName="SistemaBecarios_LocalHugo.dbo.Becario" DataTypeServer="bit" DbType="Boolean" Direction="Input" ParameterName="@Activo" Precision="0" ProviderType="Bit" Scale="0" Size="1" SourceColumn="Activo" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="Original_Cedula" ColumnName="Cedula" DataSourceName="SistemaBecarios_LocalHugo.dbo.Becario" DataTypeServer="varchar(15)" DbType="AnsiString" Direction="Input" ParameterName="@Original_Cedula" Precision="0" ProviderType="VarChar" Scale="0" Size="15" SourceColumn="Cedula" SourceColumnNullMapping="false" SourceVersion="Original" />
+                    </Parameters>
+                  </DbCommand>
+                </UpdateCommand>
+              </DbSource>
             </Sources>
           </TableAdapter>
           <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="LenguajesProgTableAdapter" GeneratorDataComponentClassName="LenguajesProgTableAdapter" Name="LenguajesProg" UserDataComponentName="LenguajesProgTableAdapter">
             <MainSource>
-              <DbSource ConnectionRef="ingegsg2ConnectionString1 (Web.config)" DbObjectName="ingegsg2.dbo.LenguajesProg" DbObjectType="Table" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="true" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetData" UserSourceName="Fill">
+              <DbSource ConnectionRef="SistemaBecarios_LocalHugoConnectionString (Web.config)" DbObjectName="SistemaBecarios_LocalHugo.dbo.LenguajesProg" DbObjectType="Table" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="true" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetData" UserSourceName="Fill">
                 <DeleteCommand>
                   <DbCommand CommandType="Text" ModifiedByUser="false">
                     <CommandText>DELETE FROM [dbo].[LenguajesProg] WHERE (([CedulaBecario] = @Original_CedulaBecario) AND ([Lenguaje] = @Original_Lenguaje))</CommandText>
@@ -206,7 +228,7 @@ ORDER BY Nombre</CommandText>
               <Mapping SourceColumn="Lenguaje" DataSetColumn="Lenguaje" />
             </Mappings>
             <Sources>
-              <DbSource ConnectionRef="ingegsg2ConnectionString1 (Web.config)" DbObjectName="ingegsg2.dbo.LenguajesProg" DbObjectType="Table" FillMethodModifier="Public" FillMethodName="consultarLenguajes" GenerateMethods="Fill" GenerateShortCommands="true" GeneratorSourceName="consultarLenguajes" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy" UserSourceName="consultarLenguajes">
+              <DbSource ConnectionRef="SistemaBecarios_LocalHugoConnectionString (Web.config)" DbObjectName="SistemaBecarios_LocalHugo.dbo.LenguajesProg" DbObjectType="Table" FillMethodModifier="Public" FillMethodName="consultarLenguajes" GenerateMethods="Fill" GenerateShortCommands="true" GeneratorSourceName="consultarLenguajes" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy" UserSourceName="consultarLenguajes">
                 <SelectCommand>
                   <DbCommand CommandType="Text" ModifiedByUser="true">
                     <CommandText>SELECT CedulaBecario, Lenguaje FROM LenguajesProg WHERE (CedulaBecario = @Cedula)</CommandText>
@@ -216,7 +238,7 @@ ORDER BY Nombre</CommandText>
                   </DbCommand>
                 </SelectCommand>
               </DbSource>
-              <DbSource ConnectionRef="ingegsg2ConnectionString1 (Web.config)" DbObjectName="ingegsg2.dbo.eliminaLenguajes" DbObjectType="StoredProcedure" GenerateShortCommands="true" GeneratorSourceName="eliminaLenguajes" Modifier="Public" Name="eliminaLenguajes" QueryType="NoData" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy1" UserSourceName="eliminaLenguajes">
+              <DbSource ConnectionRef="SistemaBecarios_LocalHugoConnectionString (Web.config)" DbObjectName="SistemaBecarios_LocalHugo.dbo.eliminaLenguajes" DbObjectType="StoredProcedure" GenerateShortCommands="true" GeneratorSourceName="eliminaLenguajes" Modifier="Public" Name="eliminaLenguajes" QueryType="NoData" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy1" UserSourceName="eliminaLenguajes">
                 <SelectCommand>
                   <DbCommand CommandType="StoredProcedure" ModifiedByUser="false">
                     <CommandText>dbo.eliminaLenguajes</CommandText>
@@ -227,7 +249,7 @@ ORDER BY Nombre</CommandText>
                   </DbCommand>
                 </SelectCommand>
               </DbSource>
-              <DbSource ConnectionRef="ingegsg2ConnectionString1 (Web.config)" DbObjectName="" DbObjectType="Unknown" GenerateShortCommands="true" GeneratorSourceName="insertarLenguaje" Modifier="Public" Name="insertarLenguaje" QueryType="NoData" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy2" UserSourceName="insertarLenguaje">
+              <DbSource ConnectionRef="SistemaBecarios_LocalHugoConnectionString (Web.config)" DbObjectName="" DbObjectType="Unknown" GenerateShortCommands="true" GeneratorSourceName="insertarLenguaje" Modifier="Public" Name="insertarLenguaje" QueryType="NoData" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy2" UserSourceName="insertarLenguaje">
                 <InsertCommand>
                   <DbCommand CommandType="Text" ModifiedByUser="true">
                     <CommandText>INSERT INTO LenguajesProg
@@ -244,7 +266,7 @@ VALUES        (@CedulaBecario,@Lenguaje)</CommandText>
           </TableAdapter>
           <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="AreasInteresTableAdapter" GeneratorDataComponentClassName="AreasInteresTableAdapter" Name="AreasInteres" UserDataComponentName="AreasInteresTableAdapter">
             <MainSource>
-              <DbSource ConnectionRef="ingegsg2ConnectionString1 (Web.config)" DbObjectName="ingegsg2.dbo.AreasInteres" DbObjectType="Table" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="true" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="false" UserGetMethodName="GetData" UserSourceName="Fill">
+              <DbSource ConnectionRef="SistemaBecarios_LocalHugoConnectionString (Web.config)" DbObjectName="SistemaBecarios_LocalHugo.dbo.AreasInteres" DbObjectType="Table" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="true" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="false" UserGetMethodName="GetData" UserSourceName="Fill">
                 <DeleteCommand>
                   <DbCommand CommandType="Text" ModifiedByUser="false">
                     <CommandText>DELETE FROM [dbo].[AreasInteres] WHERE (([CedulaBecario] = @Original_CedulaBecario) AND ([Interes] = @Original_Interes))</CommandText>
@@ -287,7 +309,7 @@ VALUES        (@CedulaBecario,@Lenguaje)</CommandText>
               <Mapping SourceColumn="Interes" DataSetColumn="Interes" />
             </Mappings>
             <Sources>
-              <DbSource ConnectionRef="ingegsg2ConnectionString1 (Web.config)" DbObjectName="ingegsg2.dbo.AreasInteres" DbObjectType="Table" FillMethodModifier="Public" FillMethodName="consultarAreasInteres" GenerateMethods="Fill" GenerateShortCommands="true" GeneratorSourceName="consultarAreasInteres" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy" UserSourceName="consultarAreasInteres">
+              <DbSource ConnectionRef="SistemaBecarios_LocalHugoConnectionString (Web.config)" DbObjectName="SistemaBecarios_LocalHugo.dbo.AreasInteres" DbObjectType="Table" FillMethodModifier="Public" FillMethodName="consultarAreasInteres" GenerateMethods="Fill" GenerateShortCommands="true" GeneratorSourceName="consultarAreasInteres" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy" UserSourceName="consultarAreasInteres">
                 <SelectCommand>
                   <DbCommand CommandType="Text" ModifiedByUser="true">
                     <CommandText>SELECT CedulaBecario, Interes FROM AreasInteres WHERE (CedulaBecario = @ced)</CommandText>
@@ -297,7 +319,7 @@ VALUES        (@CedulaBecario,@Lenguaje)</CommandText>
                   </DbCommand>
                 </SelectCommand>
               </DbSource>
-              <DbSource ConnectionRef="ingegsg2ConnectionString1 (Web.config)" DbObjectName="ingegsg2.dbo.eliminaInteres" DbObjectType="StoredProcedure" GenerateShortCommands="true" GeneratorSourceName="eliminaInteres" Modifier="Public" Name="eliminaInteres" QueryType="NoData" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy1" UserSourceName="eliminaInteres">
+              <DbSource ConnectionRef="SistemaBecarios_LocalHugoConnectionString (Web.config)" DbObjectName="SistemaBecarios_LocalHugo.dbo.eliminaInteres" DbObjectType="StoredProcedure" GenerateShortCommands="true" GeneratorSourceName="eliminaInteres" Modifier="Public" Name="eliminaInteres" QueryType="NoData" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy1" UserSourceName="eliminaInteres">
                 <SelectCommand>
                   <DbCommand CommandType="StoredProcedure" ModifiedByUser="false">
                     <CommandText>dbo.eliminaInteres</CommandText>
@@ -308,7 +330,7 @@ VALUES        (@CedulaBecario,@Lenguaje)</CommandText>
                   </DbCommand>
                 </SelectCommand>
               </DbSource>
-              <DbSource ConnectionRef="ingegsg2ConnectionString1 (Web.config)" DbObjectName="" DbObjectType="Unknown" GenerateShortCommands="true" GeneratorSourceName="insertarAreaInteres" Modifier="Public" Name="insertarAreaInteres" QueryType="NoData" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy2" UserSourceName="insertarAreaInteres">
+              <DbSource ConnectionRef="SistemaBecarios_LocalHugoConnectionString (Web.config)" DbObjectName="" DbObjectType="Unknown" GenerateShortCommands="true" GeneratorSourceName="insertarAreaInteres" Modifier="Public" Name="insertarAreaInteres" QueryType="NoData" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy2" UserSourceName="insertarAreaInteres">
                 <InsertCommand>
                   <DbCommand CommandType="Text" ModifiedByUser="true">
                     <CommandText>INSERT INTO [dbo].[AreasInteres] ([CedulaBecario], [Interes]) VALUES (@CedulaBecario, @Interes)</CommandText>
@@ -323,7 +345,7 @@ VALUES        (@CedulaBecario,@Lenguaje)</CommandText>
           </TableAdapter>
           <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="IdiomasTableAdapter" GeneratorDataComponentClassName="IdiomasTableAdapter" Name="Idiomas" UserDataComponentName="IdiomasTableAdapter">
             <MainSource>
-              <DbSource ConnectionRef="ingegsg2ConnectionString1 (Web.config)" DbObjectName="ingegsg2.dbo.Idiomas" DbObjectType="Table" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="true" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="false" UserGetMethodName="GetData" UserSourceName="Fill">
+              <DbSource ConnectionRef="SistemaBecarios_LocalHugoConnectionString (Web.config)" DbObjectName="SistemaBecarios_LocalHugo.dbo.Idiomas" DbObjectType="Table" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="true" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="false" UserGetMethodName="GetData" UserSourceName="Fill">
                 <DeleteCommand>
                   <DbCommand CommandType="Text" ModifiedByUser="false">
                     <CommandText>DELETE FROM [dbo].[Idiomas] WHERE (([CedulaBecario] = @Original_CedulaBecario) AND ([Idioma] = @Original_Idioma))</CommandText>
@@ -366,7 +388,7 @@ VALUES        (@CedulaBecario,@Lenguaje)</CommandText>
               <Mapping SourceColumn="Idioma" DataSetColumn="Idioma" />
             </Mappings>
             <Sources>
-              <DbSource ConnectionRef="ingegsg2ConnectionString1 (Web.config)" DbObjectName="ingegsg2.dbo.Idiomas" DbObjectType="Table" FillMethodModifier="Public" FillMethodName="consultarIdiomas" GenerateMethods="Fill" GenerateShortCommands="true" GeneratorSourceName="consultarIdiomas" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy" UserSourceName="consultarIdiomas">
+              <DbSource ConnectionRef="SistemaBecarios_LocalHugoConnectionString (Web.config)" DbObjectName="SistemaBecarios_LocalHugo.dbo.Idiomas" DbObjectType="Table" FillMethodModifier="Public" FillMethodName="consultarIdiomas" GenerateMethods="Fill" GenerateShortCommands="true" GeneratorSourceName="consultarIdiomas" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy" UserSourceName="consultarIdiomas">
                 <SelectCommand>
                   <DbCommand CommandType="Text" ModifiedByUser="true">
                     <CommandText>SELECT CedulaBecario, Idioma FROM dbo.Idiomas WHERE CedulaBecario=@ced</CommandText>
@@ -376,7 +398,7 @@ VALUES        (@CedulaBecario,@Lenguaje)</CommandText>
                   </DbCommand>
                 </SelectCommand>
               </DbSource>
-              <DbSource ConnectionRef="ingegsg2ConnectionString1 (Web.config)" DbObjectName="ingegsg2.dbo.eliminaIdioma" DbObjectType="StoredProcedure" GenerateShortCommands="true" GeneratorSourceName="eliminaIdioma" Modifier="Public" Name="eliminaIdioma" QueryType="NoData" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy1" UserSourceName="eliminaIdioma">
+              <DbSource ConnectionRef="SistemaBecarios_LocalHugoConnectionString (Web.config)" DbObjectName="SistemaBecarios_LocalHugo.dbo.eliminaIdioma" DbObjectType="StoredProcedure" GenerateShortCommands="true" GeneratorSourceName="eliminaIdioma" Modifier="Public" Name="eliminaIdioma" QueryType="NoData" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy1" UserSourceName="eliminaIdioma">
                 <SelectCommand>
                   <DbCommand CommandType="StoredProcedure" ModifiedByUser="false">
                     <CommandText>dbo.eliminaIdioma</CommandText>
@@ -387,7 +409,7 @@ VALUES        (@CedulaBecario,@Lenguaje)</CommandText>
                   </DbCommand>
                 </SelectCommand>
               </DbSource>
-              <DbSource ConnectionRef="ingegsg2ConnectionString1 (Web.config)" DbObjectName="" DbObjectType="Unknown" GenerateShortCommands="true" GeneratorSourceName="insertarIdioma" Modifier="Public" Name="insertarIdioma" QueryType="NoData" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy2" UserSourceName="insertarIdioma">
+              <DbSource ConnectionRef="SistemaBecarios_LocalHugoConnectionString (Web.config)" DbObjectName="" DbObjectType="Unknown" GenerateShortCommands="true" GeneratorSourceName="insertarIdioma" Modifier="Public" Name="insertarIdioma" QueryType="NoData" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy2" UserSourceName="insertarIdioma">
                 <InsertCommand>
                   <DbCommand CommandType="Text" ModifiedByUser="true">
                     <CommandText>INSERT INTO [dbo].[Idiomas] ([CedulaBecario], [Idioma]) VALUES (@CedulaBecario, @Idioma)</CommandText>
@@ -402,7 +424,7 @@ VALUES        (@CedulaBecario,@Lenguaje)</CommandText>
           </TableAdapter>
           <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="CualidadesPersonalesTableAdapter" GeneratorDataComponentClassName="CualidadesPersonalesTableAdapter" Name="CualidadesPersonales" UserDataComponentName="CualidadesPersonalesTableAdapter">
             <MainSource>
-              <DbSource ConnectionRef="ingegsg2ConnectionString1 (Web.config)" DbObjectName="ingegsg2.dbo.CualidadesPersonales" DbObjectType="Table" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="true" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="false" UserGetMethodName="GetData" UserSourceName="Fill">
+              <DbSource ConnectionRef="SistemaBecarios_LocalHugoConnectionString (Web.config)" DbObjectName="SistemaBecarios_LocalHugo.dbo.CualidadesPersonales" DbObjectType="Table" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="true" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="false" UserGetMethodName="GetData" UserSourceName="Fill">
                 <DeleteCommand>
                   <DbCommand CommandType="Text" ModifiedByUser="false">
                     <CommandText>DELETE FROM [dbo].[CualidadesPersonales] WHERE (([CedulaBecario] = @Original_CedulaBecario) AND ([Cualidad] = @Original_Cualidad))</CommandText>
@@ -445,7 +467,7 @@ VALUES        (@CedulaBecario,@Lenguaje)</CommandText>
               <Mapping SourceColumn="Cualidad" DataSetColumn="Cualidad" />
             </Mappings>
             <Sources>
-              <DbSource ConnectionRef="ingegsg2ConnectionString1 (Web.config)" DbObjectName="ingegsg2.dbo.CualidadesPersonales" DbObjectType="Table" FillMethodModifier="Public" FillMethodName="consultarCualidades" GenerateMethods="Fill" GenerateShortCommands="true" GeneratorSourceName="consultarCualidades" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy" UserSourceName="consultarCualidades">
+              <DbSource ConnectionRef="SistemaBecarios_LocalHugoConnectionString (Web.config)" DbObjectName="SistemaBecarios_LocalHugo.dbo.CualidadesPersonales" DbObjectType="Table" FillMethodModifier="Public" FillMethodName="consultarCualidades" GenerateMethods="Fill" GenerateShortCommands="true" GeneratorSourceName="consultarCualidades" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy" UserSourceName="consultarCualidades">
                 <SelectCommand>
                   <DbCommand CommandType="Text" ModifiedByUser="true">
                     <CommandText>SELECT CedulaBecario, Cualidad FROM dbo.CualidadesPersonales WHERE CedulaBecario=@ced</CommandText>
@@ -455,7 +477,7 @@ VALUES        (@CedulaBecario,@Lenguaje)</CommandText>
                   </DbCommand>
                 </SelectCommand>
               </DbSource>
-              <DbSource ConnectionRef="ingegsg2ConnectionString1 (Web.config)" DbObjectName="ingegsg2.dbo.eliminaCualidad" DbObjectType="StoredProcedure" GenerateShortCommands="true" GeneratorSourceName="eliminaCualidad" Modifier="Public" Name="eliminaCualidad" QueryType="NoData" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy1" UserSourceName="eliminaCualidad">
+              <DbSource ConnectionRef="SistemaBecarios_LocalHugoConnectionString (Web.config)" DbObjectName="SistemaBecarios_LocalHugo.dbo.eliminaCualidad" DbObjectType="StoredProcedure" GenerateShortCommands="true" GeneratorSourceName="eliminaCualidad" Modifier="Public" Name="eliminaCualidad" QueryType="NoData" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy1" UserSourceName="eliminaCualidad">
                 <SelectCommand>
                   <DbCommand CommandType="StoredProcedure" ModifiedByUser="false">
                     <CommandText>dbo.eliminaCualidad</CommandText>
@@ -466,7 +488,7 @@ VALUES        (@CedulaBecario,@Lenguaje)</CommandText>
                   </DbCommand>
                 </SelectCommand>
               </DbSource>
-              <DbSource ConnectionRef="ingegsg2ConnectionString1 (Web.config)" DbObjectName="" DbObjectType="Unknown" GenerateShortCommands="true" GeneratorSourceName="insertarCualidad" Modifier="Public" Name="insertarCualidad" QueryType="NoData" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy2" UserSourceName="insertarCualidad">
+              <DbSource ConnectionRef="SistemaBecarios_LocalHugoConnectionString (Web.config)" DbObjectName="" DbObjectType="Unknown" GenerateShortCommands="true" GeneratorSourceName="insertarCualidad" Modifier="Public" Name="insertarCualidad" QueryType="NoData" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy2" UserSourceName="insertarCualidad">
                 <InsertCommand>
                   <DbCommand CommandType="Text" ModifiedByUser="true">
                     <CommandText>INSERT INTO [dbo].[CualidadesPersonales] ([CedulaBecario], [Cualidad]) VALUES (@CedulaBecario, @Cualidad)</CommandText>
@@ -481,7 +503,7 @@ VALUES        (@CedulaBecario,@Lenguaje)</CommandText>
           </TableAdapter>
           <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="Becario1TableAdapter" GeneratorDataComponentClassName="Becario1TableAdapter" Name="Becario1" UserDataComponentName="Becario1TableAdapter">
             <MainSource>
-              <DbSource ConnectionRef="ingegsg2ConnectionString1 (Web.config)" DbObjectName="ingegsg2.dbo.Becario" DbObjectType="Table" GenerateMethods="Get" GenerateShortCommands="true" GeneratorGetMethodName="getCedulaByCarne" GetMethodModifier="Public" GetMethodName="getCedulaByCarne" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="false" UserGetMethodName="getCedulaByCarne" UserSourceName="getCedulaByCarne">
+              <DbSource ConnectionRef="SistemaBecarios_LocalHugoConnectionString (Web.config)" DbObjectName="SistemaBecarios_LocalHugo.dbo.Becario" DbObjectType="Table" GenerateMethods="Get" GenerateShortCommands="true" GeneratorGetMethodName="getCedulaByCarne" GetMethodModifier="Public" GetMethodName="getCedulaByCarne" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="false" UserGetMethodName="getCedulaByCarne" UserSourceName="getCedulaByCarne">
                 <DeleteCommand>
                   <DbCommand CommandType="Text" ModifiedByUser="false">
                     <CommandText>DELETE FROM [dbo].[Becario] WHERE (([Cedula] = @Original_Cedula))</CommandText>
@@ -513,7 +535,7 @@ VALUES        (@CedulaBecario,@Lenguaje)</CommandText>
               <Mapping SourceColumn="Cedula" DataSetColumn="Cedula" />
             </Mappings>
             <Sources>
-              <DbSource ConnectionRef="ingegsg2ConnectionString1 (Web.config)" DbObjectType="Unknown" GenerateShortCommands="true" GeneratorSourceName="obtenerNombrePorCedula" Modifier="Public" Name="obtenerNombrePorCedula" QueryType="Scalar" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy" UserSourceName="obtenerNombrePorCedula">
+              <DbSource ConnectionRef="SistemaBecarios_LocalHugoConnectionString (Web.config)" DbObjectType="Unknown" GenerateShortCommands="true" GeneratorSourceName="obtenerNombrePorCedula" Modifier="Public" Name="obtenerNombrePorCedula" QueryType="Scalar" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy" UserSourceName="obtenerNombrePorCedula">
                 <SelectCommand>
                   <DbCommand CommandType="Text" ModifiedByUser="true">
                     <CommandText>SELECT Nombre + ' ' + Apellido1 + ' ' + Apellido2 as NombreCompleto FROM dbo.Becario WHERE(Cedula=@Cedula);</CommandText>
