@@ -225,6 +225,7 @@ public partial class Becarios : System.Web.UI.Page
             }
 
 
+            bool noCerrarVentana=false;
             switch (resultado) {
 
 
@@ -261,7 +262,9 @@ public partial class Becarios : System.Web.UI.Page
                     }break;
                 case "Error1": 
                     {
-                        commonService.mensajeJavascript("Ya existe un becario con la cédula digitada", "ERROR");           
+                        commonService.mensajeJavascript("Ya existe un becario con la cédula digitada", "ERROR");
+                        noCerrarVentana = true;
+
                     }break;
                 default: 
                     {
@@ -272,7 +275,11 @@ public partial class Becarios : System.Web.UI.Page
            
         llenarGridBecarios(1);
         habilitarBotonesPrincipales(true);
-        correrJavascript("cerrarPopUp();");
+
+        if (noCerrarVentana == false)
+        {
+            correrJavascript("cerrarPopUp();");
+        }
 
         if (resultado == "Exito")
         {
@@ -332,9 +339,6 @@ public partial class Becarios : System.Web.UI.Page
     protected void btnInvisible3_Click(object sender, EventArgs e)
     {
 
-        habilitarBotonesPrincipales(true);
-        cancelarEdicionPerfil();
-
     }
 
 
@@ -350,13 +354,19 @@ public partial class Becarios : System.Web.UI.Page
         lblInstTab2.Text = "A continuación se le presentan unas tablas que resumen algunos aspectos de importancia para el proceso de becas. Se le solicita completar los datos de la forma más precisa posible.";
         lblInstTab2.Visible = true;
 
-
-        correrJavascript("abrirPopUp();");
+       
         mostrarBotonesPrincipales(false);
+
         vaciarCampos(0);
         habilitarCampos(true,0);
+
+        limpiarListasPerfil();
+        llenarGridsPerfil();
         habilitarEdicionPefil(true, 0);
+
         modoEjecucion = 1;
+
+        correrJavascript("abrirPopUp();");
         commonService.mostrarPrimerBotonDePopUp("PopUp");
     }
 
@@ -862,7 +872,7 @@ public partial class Becarios : System.Web.UI.Page
 
 
     //limpia las las lista locales para evitar conflictos y quita avisos
-    protected void cancelarEdicionPerfil()
+    protected void limpiarListasPerfil()
     {
 
         listaLocalLenguajes.Clear();

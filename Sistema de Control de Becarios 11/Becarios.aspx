@@ -179,6 +179,13 @@ border-radius: 5px; background: #F9E5B1;">
                                      \u00e3\u00e4\u00e7\u00e8\u00eb\u00ec\u00ee\u00ef\u00f2\u00f4\u00f5\u00f6\u00f9\u00fb\u00fc\u00fd\u00ff]+" 
                                       ControlToValidate="txtNombre" ForeColor="#FF3300">
                                     </asp:RegularExpressionValidator>
+
+                                    <asp:RegularExpressionValidator ID="cantidadCaracteresNombre" runat="server" 
+                                       ErrorMessage ="Se han escrito muy pocos caracteres"  Display="Dynamic"
+                                       ValidationExpression = ".{3,}$" ControlToValidate="txtNombre" ForeColor="#FF3300">
+                                    </asp:RegularExpressionValidator>
+
+
                                  </div>
 
                                 </div>
@@ -201,6 +208,12 @@ border-radius: 5px; background: #F9E5B1;">
                                          \u00e3\u00e4\u00e7\u00e8\u00eb\u00ec\u00ee\u00ef\u00f2\u00f4\u00f5\u00f6\u00f9\u00fb\u00fc\u00fd\u00ff]+"
                                        ControlToValidate="txtApellido1" ForeColor="#FF3300">
                                        </asp:RegularExpressionValidator>
+                                       
+                                       <asp:RegularExpressionValidator ID="validadorCantidadLetras" runat="server" 
+                                       ErrorMessage ="Se han escrito muy pocos caracteres"  Display="Dynamic"
+                                       ValidationExpression = ".{3,}$" ControlToValidate="txtApellido1" ForeColor="#FF3300">
+                                       </asp:RegularExpressionValidator>
+
                                     </div>
 
                                 </div>
