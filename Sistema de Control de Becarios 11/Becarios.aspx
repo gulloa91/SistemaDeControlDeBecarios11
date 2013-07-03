@@ -64,8 +64,7 @@
                         <div id="divGridBecarios">
 
                         <asp:GridView ID="gridBecarios" runat="server" GridLines="Both" RowStyle-HorizontalAlign="Center" RowStyle-VerticalAlign="Middle"
-                          AllowPaging="True" onselectedindexchanging="gridBecarios_SelectedIndexChanged"
-                           onpageindexchanging="gridBecarios_PageIndexChanging" PageSize="15"
+                          AllowPaging="True" onpageindexchanging="gridBecarios_PageIndexChanging" PageSize="15"
                            onrowcommand="gridBecarios_RowCommand"  CssClass="gridBecario"  PagerStyle-CssClass="pagerGlobal">
                         <Columns>
                          <asp:ButtonField CommandName="btnSeleccionarTupla_Click" CausesValidation="false" ButtonType="Image" Visible="true" ImageUrl="~/Images/arrow-right.png" ItemStyle-HorizontalAlign="Center" ItemStyle-VerticalAlign="Middle"/> 
@@ -127,8 +126,7 @@
                                   Text="" Visible="false"></asp:Label>
                              </div>
 
-                             <div class="wrap_row_becario" style="display:none; border: 1px solid #414141;
-border-radius: 5px; background: #F9E5B1;">
+                             <div class="wrap_row_becario" style="display:none; border: 1px solid #414141;border-radius: 5px; background: #F9E5B1;">
 
                                 <div style=" width: 20%; min-height: 80px; max-height: 100px; float: left; text-align: center; background: #FFF; border-radius: 5px; padding: 5px 0;">
                                     <asp:UpdatePanel ID="UpdateImage" runat="server">
@@ -362,7 +360,7 @@ border-radius: 5px; background: #F9E5B1;">
 	                </div>
 
                     <!--PERFIL DEL BECARIO-->
-	                <div id="tabs-2" style= "width:96%; min-height:560px">
+	                <div id="tabs-2" style= "width:94%;max-height:530px" class="pruebaCss">
 
                        <div style="width: 96%; padding: 2%; float: left;" >
 
@@ -408,8 +406,8 @@ border-radius: 5px; background: #F9E5B1;">
                                 </div>
 
                                 <asp:GridView ID="gridLenguajesProg" runat="server" AutoGenerateColumns="False" ShowFooter="True"
-                                  CellPadding="7" onrowcommand="eliminaDatosPerfil_RowCommand"
-                                  ForeColor="#333333" GridLines="Vertical" >
+                                  CellPadding="7" onrowcommand="eliminaDatosPerfil_RowCommand" AllowPaging="true" PagerStyle-CssClass="pagerGlobal"
+                                  ForeColor="#333333" GridLines="Vertical" onpageindexchanging="gridLenguajesProg_PageIndexChanging" PageSize="3" >
 
                                   <AlternatingRowStyle BackColor="White" />
                                   <Columns>
@@ -454,8 +452,8 @@ border-radius: 5px; background: #F9E5B1;">
                                     </div>
 
                                     <asp:GridView ID="gridIdiomas" runat="server" AutoGenerateColumns="False" ShowFooter="True"
-                                      CellPadding="7"  onrowcommand="eliminaDatosPerfil_RowCommand"
-                                      ForeColor="#333333" GridLines="Vertical">
+                                      CellPadding="7"  onrowcommand="eliminaDatosPerfil_RowCommand" ForeColor="#333333" GridLines="Vertical" 
+                                       AllowPaging="true" onpageindexchanging="gridIdiomas_PageIndexChanging" PageSize="3"  PagerStyle-CssClass="pagerGlobal">
 
                                       <AlternatingRowStyle BackColor="White" />
 
@@ -508,8 +506,8 @@ border-radius: 5px; background: #F9E5B1;">
                                  </div>
 
                                 <asp:GridView ID="gridAreasInteres" runat="server" AutoGenerateColumns="False" ShowFooter="True"
-                                 CellPadding="7" onrowcommand="eliminaDatosPerfil_RowCommand"
-                                 ForeColor="#333333" GridLines="Vertical">
+                                 CellPadding="7" onrowcommand="eliminaDatosPerfil_RowCommand" ForeColor="#333333" GridLines="Vertical" 
+                                 AllowPaging="true" onpageindexchanging="gridAreasInteres_PageIndexChanging" PageSize="3"  PagerStyle-CssClass="pagerGlobal" >
 
                                   <AlternatingRowStyle BackColor="White" />
                                   <Columns>
@@ -556,8 +554,8 @@ border-radius: 5px; background: #F9E5B1;">
                                  </div>
 
                                 <asp:GridView ID="gridCualidades" runat="server" AutoGenerateColumns="False" ShowFooter="True"
-                                 CellPadding="7" onrowcommand="eliminaDatosPerfil_RowCommand"
-                                 ForeColor="#333333" GridLines="Vertical">
+                                 CellPadding="7" onrowcommand="eliminaDatosPerfil_RowCommand" ForeColor="#333333" GridLines="Vertical" 
+                                  AllowPaging="true" onpageindexchanging="gridCualidades_PageIndexChanging" PageSize="3"  PagerStyle-CssClass="pagerGlobal" >
 
                                   <AlternatingRowStyle BackColor="White" />
                                   <Columns>

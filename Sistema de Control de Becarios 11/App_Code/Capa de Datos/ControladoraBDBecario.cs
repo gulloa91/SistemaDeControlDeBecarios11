@@ -43,7 +43,8 @@ public class ControladoraBDBecario
             r = e.Number;
             if (r == 2627)
             {
-                returnValue = "Error1"; //"Ya existe un becario con la cedula digitada";
+                adapterBecarios.UpdateQuery(becario.cedula, becario.nombre, becario.apellido1, becario.apellido2, becario.correo, becario.carne, becario.telefonoFijo, becario.telefonoCelular, becario.telefonoOtro, becario.foto, true, becario.cedula);
+                returnValue = "Exito"; 
             }
             else
             {

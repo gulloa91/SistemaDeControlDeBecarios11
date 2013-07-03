@@ -83,15 +83,6 @@
 }
 
 
-.checkBoxBecario
-{
-    margin-left:12px;
-    margin-top:16px;
-    float:left;
-    font-family:"Palatino Linotype", "Book Antiqua", Palatino, serif;
-    font-size:12px;
-}
-
 .lblPerfilBecario
 {
     font-family:"Times New Roman", Times, serif;
@@ -168,4 +159,10 @@
 
     width: 100%;
 
+}
+
+
+.pruebaCss
+{
+  overflow-y:auto;
 }
