@@ -317,10 +317,10 @@ public partial class Perfiles : System.Web.UI.Page
         }
         else { 
             //marco el tipo
-            if(this.gridPerfiles.Rows[indice + gridPerfiles.PageIndex * gridPerfiles.PageSize].Cells[2].Text.Equals("Administrador")){
+            if(this.gridPerfiles.Rows[indice].Cells[2].Text.Equals("Administrador")){
                 this.radioAdministrador.Checked = true;
             }
-            else if (this.gridPerfiles.Rows[indice + gridPerfiles.PageIndex * gridPerfiles.PageSize].Cells[2].Text.Equals("Becario"))
+            else if (this.gridPerfiles.Rows[indice].Cells[2].Text.Equals("Becario"))
             {
                 this.radioBecario.Checked = true;
             }
@@ -328,7 +328,7 @@ public partial class Perfiles : System.Web.UI.Page
                 this.radioEncargado.Checked = true;
             }
         }
-        this.txtNombrePerfil.Text = this.gridPerfiles.Rows[indice + gridPerfiles.PageIndex * gridPerfiles.PageSize].Cells[1].Text;
+        this.txtNombrePerfil.Text = this.gridPerfiles.Rows[indice].Cells[1].Text;
         nombreAnterior = this.txtNombrePerfil.Text;
         
     }
@@ -507,7 +507,7 @@ public partial class Perfiles : System.Web.UI.Page
                 habilitarCampos(false);//se deshabilitan los campos, asi al inicio no puede modificar
                 habilitarBotones(true);//habilito botones de eliminar y modificar
                 int indice = Convert.ToInt32(e.CommandArgument);
-                String nom = this.gridPerfiles.Rows[indice + gridPerfiles.PageIndex * gridPerfiles.PageSize].Cells[1].Text;//recupero el nombre del perfil
+                String nom = this.gridPerfiles.Rows[indice].Cells[1].Text;//recupero el nombre del perfil
                 DataTable dt = cp.consultarPerfil(nom);//consulto un perfil en especifico de la base
                 Object tipo = cp.tipoPerfil(nom);//recupero el tipo de perfil
                 cargarCamposPerfil(dt, tipo,indice);//cargo los campos del perfil
