@@ -52,7 +52,7 @@
                 </div>
                 <asp:GridView ID="gridPerfiles" CssClass="globalTable" runat="server" 
                     OnPageIndexChanging="gridPerfiles_PageIndexChanging" 
-                    onrowcommand="gridPerfiles_RowCommand">
+                    onrowcommand="gridPerfiles_RowCommand" AllowPaging="True" PageSize="15">
                     <Columns>
                         <asp:ButtonField CommandName="seleccionarPosiblePerfil" CausesValidation="false" ButtonType="Image" Visible="true" ImageUrl="Images/arrow-right.png"/>
                     </Columns>
