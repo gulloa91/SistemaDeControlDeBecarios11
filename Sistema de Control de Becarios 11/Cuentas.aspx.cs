@@ -12,6 +12,7 @@ public partial class Cuentas : System.Web.UI.Page
     private static CommonServices commonService;
     private ControladoraCuentas controladoraCuentas = new ControladoraCuentas();
     private ControladoraPerfiles controladoraPerfiles = new ControladoraPerfiles();
+    private ControladoraBecarios cb = new ControladoraBecarios();
     private static List<int> lsTipoCuentasDrp = new List<int>();
     private static Object [] datosOriginales = new Object[4];
     private static Object [] datosOriginalesAsociacion = new Object[2];
@@ -56,6 +57,7 @@ public partial class Cuentas : System.Web.UI.Page
                         {
                             llenarDrpDown();
                             llenarGridCuentas();
+                            //llenarDrpPersona();
                         }
                     } break;
 
@@ -95,7 +97,7 @@ public partial class Cuentas : System.Web.UI.Page
             }
             else
             {
-                datos[3] = this.txtCedula.Text;
+                datos[3] = this.drpPersona.SelectedValue; 
             }
         }
         if(modo==1){
@@ -143,7 +145,7 @@ public partial class Cuentas : System.Web.UI.Page
                 datosOriginales[0] = this.txtUsuario.Text;
                 datosOriginales[1] = this.cntUsuario.Text;
                 datosOriginales[2] = "";
-                datosOriginales[3] = this.txtCedula.Text;
+                datosOriginales[3] = this.drpPersona.SelectedValue; 
                 datosOriginalesAsociacion[0] = this.txtUsuario.Text;
                 datosOriginalesAsociacion[1] = this.drpDownPerfiles.SelectedItem.Text;
                 mensaje = controladoraCuentas.ejecutarAsociacion(3, datosOriginalesAsociacion, null);
@@ -193,9 +195,25 @@ public partial class Cuentas : System.Web.UI.Page
         datosOriginales[0] = this.txtUsuario.Text;
         datosOriginales[1] = this.cntUsuario.Text;
         datosOriginales[2] = this.txtFechaAux.Text;
-        datosOriginales[3] = this.txtCedula.Text;
+        datosOriginales[3] = cb.obtieneCedulaDeUsuario(this.txtUsuario.Text); ; 
         datosOriginalesAsociacion[0] = this.txtUsuario.Text;
         datosOriginalesAsociacion[1] = this.drpDownPerfiles.SelectedItem.Text;
+        drpIndex = this.drpDownPerfiles.SelectedIndex;
+        if (lsTipoCuentasDrp[drpIndex] == 1 || lsTipoCuentasDrp[drpIndex] == 2)
+        {
+            switch (lsTipoCuentasDrp[drpIndex])
+            {
+                case 1:
+                    {
+                        llenarDrpPersona(1);
+                    } break;
+                case 2:
+                    {
+                        llenarDrpPersona(0);
+                    } break;
+            }
+            this.drpPersona.Visible = true;
+        }
         controlarCampos(true);
         modo = 2;
     }
@@ -226,6 +244,7 @@ public partial class Cuentas : System.Web.UI.Page
         {
             ListItem aux = this.drpDownPerfiles.Items.FindByValue("0");
             this.drpDownPerfiles.SelectedValue = aux.Value;
+            this.drpDownPerfiles.SelectedIndex = 0;
             controlarCedula(false);
         }
          
@@ -237,11 +256,26 @@ public partial class Cuentas : System.Web.UI.Page
         drpIndex = this.drpDownPerfiles.SelectedIndex;
         if (lsTipoCuentasDrp[drpIndex] == 1 || lsTipoCuentasDrp[drpIndex] == 2)
         {
+            switch (lsTipoCuentasDrp[drpIndex])
+            {
+                case 1:
+                    {
+                        llenarDrpPersona(1);
+                    } break;
+                case 2:
+                    {
+                        llenarDrpPersona(0);
+                    } break;
+            }
             controlarCedula(true);
         }
         else{
             controlarCedula(false);
         }
+    }
+    protected void drpDownPersona_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        this.txtNombrePersona.Text = this.drpPersona.SelectedItem.ToString();
     }
 
     protected void mostrarBotonesPrincipales(Boolean accion) { 
@@ -260,7 +294,6 @@ public partial class Cuentas : System.Web.UI.Page
             this.txtUsuario.Text = "";
             this.cntUsuario.Text = "";
             this.cofCntUsuario.Text = "";
-            this.txtCedula.Text = "";
             this.txtFechaAux.Text = "";
         }
     }
@@ -282,14 +315,12 @@ public partial class Cuentas : System.Web.UI.Page
             this.txtUsuario.Enabled = true;
             this.cntUsuario.Enabled = true;
             this.cofCntUsuario.Enabled = true;
-            this.txtCedula.Enabled = true;
             this.drpDownPerfiles.Enabled = true;
         }
         else {
             this.txtUsuario.Enabled = false;
             this.cntUsuario.Enabled = false;
             this.cofCntUsuario.Enabled = false;
-            this.txtCedula.Enabled = false;
             this.drpDownPerfiles.Enabled = false;
         }
     }
@@ -317,11 +348,11 @@ public partial class Cuentas : System.Web.UI.Page
     protected void controlarCedula(Boolean accion) {
         if (accion)
         {
-            this.txtCedula.Visible = true;
+            this.drpPersona.Visible = true;
             this.lblCedula.Visible = true;
         }
         else {
-            this.txtCedula.Visible = false;
+            this.drpPersona.Visible = false;
             this.lblCedula.Visible = false;
         }
     }
@@ -365,7 +396,7 @@ public partial class Cuentas : System.Web.UI.Page
                        this.txtFechaAux.Text = r[2].ToString();
                        this.cntUsuario.Text = commonService.procesarStringDeUI(r[1].ToString());
                        this.cofCntUsuario.Text = commonService.procesarStringDeUI(r[1].ToString());
-                       this.txtCedula.Text = commonService.procesarStringDeUI(r[3].ToString());
+                       this.txtNombrePersona.Text = cb.obtenerNombrePorCedula(commonService.procesarStringDeUI(r[3].ToString()));
                        DataTable dtPerfil = controladoraCuentas.consultarPorNombreCuenta(this.txtUsuario.Text);
                        if (dtPerfil.Rows.Count==1 && this.drpDownPerfiles.Items.FindByText(commonService.procesarStringDeUI(dtPerfil.Rows[0][1].ToString())) != null)
                        {
@@ -383,6 +414,7 @@ public partial class Cuentas : System.Web.UI.Page
                    mostrarBotonesPrincipales(true);
                    controlarCampos(false);
                    modo = 0;
+                   this.drpPersona.Visible = false;
                    commonService.abrirPopUp("PopUp", "Consultar cuenta");
                    commonService.esconderPrimerBotonDePopUp("PopUp");
                 }
@@ -491,7 +523,7 @@ public partial class Cuentas : System.Web.UI.Page
         datosOriginales[0] = this.txtUsuarioPers.Text;
         datosOriginales[1] = this.txtContrasenaPers.Text;
         datosOriginales[2] = Session["UltimoAcceso"];
-        datosOriginales[3] = this.txtCedulaPers.Text;
+        datosOriginales[3] = cb.obtieneCedulaDeUsuario(this.txtUsuarioPers.Text);
         datosOriginalesAsociacion[0] = this.txtUsuarioPers.Text;
         datosOriginalesAsociacion[1] = this.txtPerfil.Text;
         controlarCamposPersonales(true);
@@ -533,6 +565,31 @@ public partial class Cuentas : System.Web.UI.Page
     {
         this.GridViewCuentas.PageIndex = e.NewPageIndex;
         this.GridViewCuentas.DataBind();
+        llenarGridCuentas();
+    }
+
+    protected void llenarDrpPersona(int tipo) { 
+        DataTable dt = new DataTable();
+        switch(tipo){
+            case 0: { 
+                dt = controladoraCuentas.devolverBecariosSinCuenta();
+                this.drpPersona.DataSource = dt;
+                this.drpPersona.DataValueField = "Cedula";
+                this.drpPersona.DataTextField = "nombreCompleto";
+                this.drpPersona.DataBind();
+            }break;
+            case 1:{
+                dt = controladoraCuentas.devolverEncargadosSinCuenta();
+                this.drpPersona.DataSource = dt;
+                this.drpPersona.DataValueField = "Cedula";
+                this.drpPersona.DataTextField = "nombreCompleto";
+                this.drpPersona.DataBind();
+            }break;
+        }
+        if(dt.Rows.Count>0){
+            this.drpPersona.SelectedIndex = 0;
+            this.txtNombrePersona.Text = this.drpPersona.SelectedItem.Text;
+        }
     }
 
 }

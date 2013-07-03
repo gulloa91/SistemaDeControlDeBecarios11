@@ -128,13 +128,11 @@
                             </tr>
                             <tr>
                                <td class="auto-style2">
-                                   <asp:Label ID="lblCedula" runat="server" Text="Cedula"></asp:Label>
+                                   <asp:Label ID="lblCedula" runat="server" Text="Seleccione una persona:"></asp:Label>
                                </td>
-                               <td class="auto-style6">
-                                  <asp:TextBox ID="txtCedula" runat="server" CausesValidation="false"></asp:TextBox>
-                                   <asp:RequiredFieldValidator ControlToValidate="txtCedula" CssClass="error" ID="RequiredFieldValidator" runat="server" ErrorMessage="*Cédula requerida"  Display="Dynamic" ></asp:RequiredFieldValidator>
-                                   <asp:RegularExpressionValidator ID="formato_cedula" runat="server" ErrorMessage="**Se han escrito caracteres inválidos o la cédula excede el tamaño máximo de 9 caracteres. Utilce únicamente carateres numéricos"
-                                    ValidationExpression="^[0-9]{1,9}$" ControlToValidate="txtCedula" ForeColor="#FF3300" Display="Dynamic"></asp:RegularExpressionValidator>
+                               <td class="auto-style6"> 
+                                  <asp:DropDownList ID="drpPersona" runat="server" AutoPostBack="true" OnSelectedIndexChanged="drpDownPersona_SelectedIndexChanged"></asp:DropDownList>
+                                  <asp:TextBox ID="txtNombrePersona" runat="server" Text="" Enabled="false"></asp:TextBox>
                                </td>
                             </tr>
                         </table>

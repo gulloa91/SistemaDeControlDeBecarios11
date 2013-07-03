@@ -10,11 +10,15 @@ using DataSetCuentasPerfilesQuitarTableAdapters;
 public class ControladoraBDCuentas
 {
     CuentaTableAdapter adapterCuentas;
+    BecarioTableAdapter adapterBecario;
+    EncargadoTableAdapter adapterEncargado;
     Cuenta_PerfilTableAdapter adapterCuenta_Perfil;
 	public ControladoraBDCuentas()
     {
         adapterCuenta_Perfil = new Cuenta_PerfilTableAdapter();
         adapterCuentas = new CuentaTableAdapter();
+        adapterBecario = new BecarioTableAdapter();
+        adapterEncargado = new EncargadoTableAdapter();
 	}
 
     public String insertarCuenta(Cuentas cuenta) {
@@ -174,6 +178,19 @@ public class ControladoraBDCuentas
             returnValue = "Error al eliminar la asociacion";
         }
         return returnValue;
+    }
+
+    public DataTable retornarBecariosSinCuenta() {
+        DataTable dt = new DataTable();
+        dt = adapterBecario.devolverBecariosSinCuenta();
+        return dt;
+    }
+
+    public DataTable retornarEncargadosSinCuenta()
+    {
+        DataTable dt = new DataTable();
+        dt = adapterEncargado.devolverEncargadosSinCuenta();
+        return dt;
     }
 
 }

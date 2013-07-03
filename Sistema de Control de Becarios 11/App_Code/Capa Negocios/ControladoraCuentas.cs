@@ -103,4 +103,12 @@ public class ControladoraCuentas
     {
         controladoraBDCuentas.actualizarFechaIngresoCuenta(fecha, cuenta);
     }
+
+    public DataTable devolverBecariosSinCuenta() { 
+        return controladoraBDCuentas.retornarBecariosSinCuenta();
+    }
+
+    public DataTable devolverEncargadosSinCuenta() {
+        return controladoraBDCuentas.retornarEncargadosSinCuenta();
+    }
 }
