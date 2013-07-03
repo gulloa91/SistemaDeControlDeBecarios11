@@ -11,7 +11,7 @@
         <i>De la Escuela de Ciencias de la Computación e Informática</i>.
     </p>
     <p>
-        Prototipo diseñado por:
+        Aplicación diseñada para el curso de <b>Ingeniería de Software 2</b> por:
     </p>
     <ul>
         <li>Heriberto Ureña Madrigal - B06432</li>
@@ -21,5 +21,9 @@
         <li>Manuel Hidalgo Murillo - B03143</li>
         <li>Gabriel Ulloa Murillo - A96320</li>
     </ul>
+	<p>
+		Bajo la supervisión de:
+	</p>
+	<ul><li>MSc. Gabriela Salazar Bermúdez</li></ul>
 </asp:Content>
 
