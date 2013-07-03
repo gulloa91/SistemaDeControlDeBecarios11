@@ -4,7 +4,8 @@
                 autoOpen: false,
                 modal: true,
                 appendTo: "form",
-                width: 795,
+                width: 820,
+                resizable: false,
                 open: function () {
                     $("#tabs").tabs();
                 },

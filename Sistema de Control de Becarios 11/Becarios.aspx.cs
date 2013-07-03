@@ -80,7 +80,6 @@ public partial class Becarios : System.Web.UI.Page
                          {
 
                            llenarGridBecarios(1);
-                           llenarGridsPerfil();
                            if (Request["__EVENTTARGET"] == UpdateImage.ClientID)
                            {
                                // Subir foto
@@ -761,13 +760,6 @@ public partial class Becarios : System.Web.UI.Page
 
 
 
-    protected void gridBecarios_SelectedIndexChanged(object sender, GridViewSelectEventArgs e)
-    {
-        /*this.gridBecarios.SelectedIndex = e.NewSelectedIndex;
-        this.gridBecarios.DataBind();*/
-    }
-
-
     //Arregla los encabezados del grid
     private void headersCorrectosGridBecarios()
     {
@@ -786,6 +778,7 @@ public partial class Becarios : System.Web.UI.Page
         this.gridBecarios.PageIndex = e.NewPageIndex;
         this.gridBecarios.DataBind();
         this.headersCorrectosGridBecarios();
+        llenarGridBecarios(1);
     }
 
 
@@ -898,7 +891,7 @@ public partial class Becarios : System.Web.UI.Page
     //llena los grid del perfil del becario
     protected void llenarGridsPerfil()
     {
-
+        lblAvisoPerfil.Visible = false;
         llenarGridLenguajes();
         llenarGridIdiomas();
         llenarGridAreasInteres();
@@ -1159,22 +1152,17 @@ public partial class Becarios : System.Web.UI.Page
 
 
 
-    /*protected void gridLenguajes_PageIndexChanging(object sender, GridViewPageEventArgs e)
+    //controla la paginacion del grid de lenguajes de programacion
+    protected void gridLenguajesProg_PageIndexChanging(object sender, GridViewPageEventArgs e)
     {
-
-        this.gridLenguajesProg.PageIndex = e.NewPageIndex;
-        this.gridLenguajesProg.DataBind();
-
-        this.gridLenguajesProg.HeaderRow.BackColor = System.Drawing.Color.FromArgb(4562432);
-        this.gridLenguajesProg.ForeColor = System.Drawing.Color.White;
-        this.gridLenguajesProg.HeaderRow.Cells[1].Text = "Lenguaje de Programación";
-        //this.headersCorrectosGridBecarios();
-    }*/
+       this.gridLenguajesProg.PageIndex = e.NewPageIndex;
+       this.gridLenguajesProg.DataBind();
+       llenarGridLenguajes();
+    }
 
 
 
     /**GRID DE IDIOMAS**/
-
 
     protected void llenarGridIdiomas()
     {
@@ -1213,8 +1201,18 @@ public partial class Becarios : System.Web.UI.Page
 
 
 
-    /**GRID DE AREAS DE INTERÉS**/
+    //controla la paginacion del grid de idiomas
+    protected void gridIdiomas_PageIndexChanging(object sender, GridViewPageEventArgs e)
+    {
+        this.gridIdiomas.PageIndex = e.NewPageIndex;
+        this.gridIdiomas.DataBind();
+        llenarGridIdiomas();
+    }
 
+
+
+
+    /**GRID DE AREAS DE INTERÉS**/
 
     protected void llenarGridAreasInteres()
     {
@@ -1250,6 +1248,17 @@ public partial class Becarios : System.Web.UI.Page
         gridAreasInteres.DataSource = dt;
         gridAreasInteres.DataBind();
     }
+
+
+
+    //controla la paginacion del grid de áreas de interés
+    protected void gridAreasInteres_PageIndexChanging(object sender, GridViewPageEventArgs e)
+    {
+        this.gridAreasInteres.PageIndex = e.NewPageIndex;
+        this.gridAreasInteres.DataBind();
+        llenarGridAreasInteres();
+    }
+
 
 
     /**GRID DE CUALIDADES PERSONALES**/
@@ -1290,6 +1299,13 @@ public partial class Becarios : System.Web.UI.Page
     }
 
 
+    //controla la paginacion del grid de cualidades personales
+    protected void gridCualidades_PageIndexChanging(object sender, GridViewPageEventArgs e)
+    {
+        this.gridCualidades.PageIndex = e.NewPageIndex;
+        this.gridCualidades.DataBind();
+        llenarGridCualidades();
+    }
 
 
     protected void AsyncFileUpload1_UploadedComplete(object sender, AjaxControlToolkit.AsyncFileUploadEventArgs e)
