@@ -91,7 +91,7 @@ public partial class Cuentas : System.Web.UI.Page
             datos[0] = this.txtUsuario.Text;
             datos[1] = this.cntUsuario.Text;
             datos[2] = this.txtFechaAux.Text;
-            if (this.drpDownPerfiles.SelectedValue != "1" && this.drpDownPerfiles.SelectedValue != "2")
+            if (lsTipoCuentasDrp[this.drpDownPerfiles.SelectedIndex] != 1 && lsTipoCuentasDrp[this.drpDownPerfiles.SelectedIndex] != 2)
             {
                 datos[3] = "000000000";
             }
@@ -144,8 +144,8 @@ public partial class Cuentas : System.Web.UI.Page
                 commonService.cerrarPopUp("PopUp");//cierro el popUp con los datos
                 datosOriginales[0] = this.txtUsuario.Text;
                 datosOriginales[1] = this.cntUsuario.Text;
-                datosOriginales[2] = "";
-                datosOriginales[3] = this.drpPersona.SelectedValue; 
+                datosOriginales[2] = this.txtFechaAux.Text; 
+                datosOriginales[3] = cb.obtieneCedulaDeUsuario(this.txtUsuario.Text);
                 datosOriginalesAsociacion[0] = this.txtUsuario.Text;
                 datosOriginalesAsociacion[1] = this.drpDownPerfiles.SelectedItem.Text;
                 mensaje = controladoraCuentas.ejecutarAsociacion(3, datosOriginalesAsociacion, null);
