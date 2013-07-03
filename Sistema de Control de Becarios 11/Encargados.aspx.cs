@@ -452,6 +452,7 @@ public partial class Encargados : System.Web.UI.Page
         this.GridEncargados.PageIndex = e.NewPageIndex;
         this.GridEncargados.DataBind();
         this.HeadersCorrectosGridEncargados();
+        llenarGridEncargados(1);
     }    
 
     protected void GridEncargados_RowCommand(object sender, GridViewCommandEventArgs e)
