@@ -12,15 +12,15 @@ using System.Net.Mail;
 public class EmailServices
 {
     private static String nombreSistema = "Sistema de Control de Becarios 11 de la ECCI";
-    private static String correoSistema = "noreply.sistemabecarios11ecci@gmail.com";
-    private static String clavecorreoSistema = "ingeg22013";
+    private static String correoSistema = "cristopher.sanchez@ucr.ac.cr";
+    private static String clavecorreoSistema = "CRSACO829";
     private static SmtpClient SmtpServer;
 
 	public EmailServices()
 	{
-        SmtpServer = new SmtpClient("smtp.gmail.com");
+        SmtpServer = new SmtpClient("smtp.ucr.ac.cr");
         //Configuracion del SMTP
-        SmtpServer.Port = 587; //Puerto que utiliza Gmail para sus servicios
+        SmtpServer.Port = 25; //Puerto que utiliza Gmail para sus servicios
 
         //Especificamos las credenciales con las que enviaremos el mail
         SmtpServer.Credentials = new System.Net.NetworkCredential(correoSistema, clavecorreoSistema);
