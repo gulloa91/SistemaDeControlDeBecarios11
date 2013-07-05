@@ -19,8 +19,8 @@ public partial class Becarios : System.Web.UI.Page
     private static Object[] datosViejos;
     private static int rowIndex;
     private static string cedulaBecarioActual;
-    private static ControladoraBecarios controladoraBecarios = new ControladoraBecarios();
-    private static ControladoraCuentas controladoraCuentas = new ControladoraCuentas();
+    private static ControladoraBecarios controladoraBecarios;
+    private static ControladoraCuentas controladoraCuentas;
 
     private static List<Becario> listaBecarios = new List<Becario>();
     private static List<String> listaLocalLenguajes = new List<String>();
@@ -39,6 +39,10 @@ public partial class Becarios : System.Web.UI.Page
 
         commonService = new CommonServices(UpdateInfo);
         servicioCorreo = new EmailServices();
+
+        controladoraBecarios = new ControladoraBecarios();
+        controladoraCuentas = new ControladoraCuentas();
+
         imgBecario.ImageUrl = this.ImageUrl;
        
 
