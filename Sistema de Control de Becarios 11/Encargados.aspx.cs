@@ -192,7 +192,14 @@ public partial class Encargados : System.Web.UI.Page
         }
         else
         {
-            commonService.mensajeJavascript("¡No fue posible eliminar el encargado!", "ERROR");
+            if (mensajeResultado.Equals("ErrorAsignacion"))
+            {
+              commonService.mensajeJavascript("El encargado seleccionado no puede ser eliminado porque tiene una o más asignaciones en el presente ciclo lectivo", "ERROR");
+            }
+            else
+            {
+                commonService.mensajeJavascript("¡No fue posible eliminar el encargado!", "ERROR");
+            }
         }
     }
 

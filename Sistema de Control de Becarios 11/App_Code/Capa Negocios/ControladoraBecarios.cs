@@ -10,16 +10,18 @@ using System.Data;
 /// </summary>
 public class ControladoraBecarios
 {
-    private ControladoraBDBecario controladoraBDBecario;
-    private CommonServices cs;
-    private ControladoraCuentas controladoraCuentas;
 
+    private CommonServices cs;
+    private ControladoraBDBecario controladoraBDBecario;
+    private ControladoraCuentas controladoraCuentas;
+    private ControladoraAsignaciones contAsig;
 
     public ControladoraBecarios()
     {
         cs = new CommonServices(null);
         controladoraBDBecario = new ControladoraBDBecario();
         controladoraCuentas = new ControladoraCuentas();
+        
     }
 
     public String ejecutar(int accion, Object[] datos, Object[] datosViejos) //1 insertar 2 modificar 3 eliminar
@@ -42,7 +44,19 @@ public class ControladoraBecarios
                 } break;
             case 3: //Eliminar
                 {
-                    mensajeResultado = controladoraBDBecario.eliminarBecario(datos[0].ToString());
+
+                    int año = cs.getAñoActual();
+                    int periodo = cs.getPeriodoActual();
+                    contAsig = new ControladoraAsignaciones();
+                    List<Object[]> asignacion = contAsig.consultarAsignacionDeBecario(datos[0].ToString(), año, periodo);
+
+                    if (asignacion.Count == 0)
+                    {
+                        mensajeResultado = controladoraBDBecario.eliminarBecario(datos[0].ToString());
+                    }
+                    else {
+                        mensajeResultado = "ErrorA";
+                    }
                 } break;
         }
         return mensajeResultado;

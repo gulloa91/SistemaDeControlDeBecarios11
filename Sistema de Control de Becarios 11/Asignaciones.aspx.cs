@@ -1550,7 +1550,7 @@ public partial class Asignaciones : System.Web.UI.Page
     }
 
 
-   // Aceptar asignación
+   // Aceptar asignación el becario
    protected void btnAceptarAsignacionBecario_Click(object sender, EventArgs e)
    {
 
@@ -1576,7 +1576,7 @@ public partial class Asignaciones : System.Web.UI.Page
              //CORREO A ENCARGADO !!
              string correoEncargado = datosDeAsignacionDeBecario[0][7].ToString();
              string nombreBecario = Session["Nombre"].ToString() + " " + Session["Apellido1"].ToString();
-             string mensaje = "Se le informa que el estudiante " + nombreBecario + " acaba de aceptar una asignación con usted para el presente semestre. A partir de este momento el estudiante queda bajo su tutela para el control de las horas beca.";
+             string mensaje = "Se le informa que el/la estudiante " + nombreBecario + " acaba de aceptar una asignación con usted para el presente semestre. A partir de este momento el estudiante queda bajo su tutela para el control de las horas beca.";
              servicioCorreo.enviarCorreo(correoEncargado, "Mensaje del Sistema de Control de Becarios 11", mensaje);
   
            }
@@ -1613,6 +1613,14 @@ public partial class Asignaciones : System.Web.UI.Page
        if (mensajeResultado.Equals("Exito"))
        {
           commonService.mensajeJavascript("Usted ha rechazado su asignación. Un correo ha sido enviado a la dirección para notificar su decisión.", "Rechazo procesado");
+
+          //CORREO A DIRECCIÓN !!!
+
+          string correo = "direccion@ecci.ucr.ac.cr";
+          string nombreBecario = Session["Nombre"].ToString() + " " + Session["Apellido1"].ToString();
+          string mensaje = "Se le informa que el/la estudiante " + nombreBecario + " acaba de rechazar la asignación para el presente semestre. Dirígase al menú de asignaciones para cambiar esta asignación.";
+          servicioCorreo.enviarCorreo(correo, "Mensaje del Sistema de Control de Becarios 11", mensaje); 
+       
        }
        else
        {
@@ -1719,9 +1727,9 @@ public partial class Asignaciones : System.Web.UI.Page
 
            //CORREO A DIRECCIÓN !!!
 
-           string correo = "hugo.villalta@ucr.ac.cr";
+           string correo = "direccion@ecci.ucr.ac.cr";
            string nombreEncargado = Session["Nombre"].ToString() + " " + Session["Apellido1"].ToString() ;
-           string mensaje = "Se le informa que el encargado " + nombreEncargado + " acaba de rechazar una asignación. Dirígase al menú de asignaciones para cambiar esta asignación.";
+           string mensaje = "Se le informa que el/la encargad@ " + nombreEncargado + " acaba de rechazar una asignación. Dirígase al menú de asignaciones para cambiar esta asignación.";
            servicioCorreo.enviarCorreo(correo, "Mensaje del Sistema de Control de Becarios 11", mensaje); 
         }
         else

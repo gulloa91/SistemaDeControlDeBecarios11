@@ -58,8 +58,9 @@
         });
 
 
-        function abrirPopUp() {
+        function abrirPopUp(titulo) {
             $("#PopUp").dialog("open");
+            $("#PopUp").dialog({ title: titulo });
         }
 
         function crearTabsVistaCompleta() {
