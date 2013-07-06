@@ -144,8 +144,15 @@ public partial class Cuentas : System.Web.UI.Page
                 commonService.cerrarPopUp("PopUp");//cierro el popUp con los datos
                 datosOriginales[0] = this.txtUsuario.Text;
                 datosOriginales[1] = this.cntUsuario.Text;
-                datosOriginales[2] = this.txtFechaAux.Text; 
-                datosOriginales[3] = cb.obtieneCedulaDeUsuario(this.txtUsuario.Text);
+                datosOriginales[2] = this.txtFechaAux.Text;
+                int drpIndex = this.drpDownPerfiles.SelectedIndex;
+                if (lsTipoCuentasDrp[drpIndex] == 1 || lsTipoCuentasDrp[drpIndex] == 2)
+                {
+                    datosOriginales[3] = cb.obtieneCedulaDeUsuario(this.txtUsuario.Text);
+                }
+                else {
+                    datosOriginales[3] = "000000000";
+                }
                 datosOriginalesAsociacion[0] = this.txtUsuario.Text;
                 datosOriginalesAsociacion[1] = this.drpDownPerfiles.SelectedItem.Text;
                 mensaje = controladoraCuentas.ejecutarAsociacion(3, datosOriginalesAsociacion, null);
@@ -396,7 +403,7 @@ public partial class Cuentas : System.Web.UI.Page
                        this.txtFechaAux.Text = r[2].ToString();
                        this.cntUsuario.Text = commonService.procesarStringDeUI(r[1].ToString());
                        this.cofCntUsuario.Text = commonService.procesarStringDeUI(r[1].ToString());
-                       this.txtNombrePersona.Text = cb.obtenerNombrePorCedula(commonService.procesarStringDeUI(r[3].ToString()));
+                       this.txtNombrePersona.Text = controladoraCuentas.retornarNombreCuentaPorCedula(commonService.procesarStringDeUI(r[3].ToString()));
                        DataTable dtPerfil = controladoraCuentas.consultarPorNombreCuenta(this.txtUsuario.Text);
                        if (dtPerfil.Rows.Count==1 && this.drpDownPerfiles.Items.FindByText(commonService.procesarStringDeUI(dtPerfil.Rows[0][1].ToString())) != null)
                        {
