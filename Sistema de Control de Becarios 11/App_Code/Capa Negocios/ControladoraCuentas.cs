@@ -111,4 +111,16 @@ public class ControladoraCuentas
     public DataTable devolverEncargadosSinCuenta() {
         return controladoraBDCuentas.retornarEncargadosSinCuenta();
     }
+
+    public String retornarNombreCuentaPorCedula(String cedula)
+    {
+        String resultado = "-1";
+        DataTable dt = new DataTable();
+        dt = controladoraBDCuentas.retornarNombreCuentaPorCedula(cedula);
+        if(dt.Rows.Count==1){
+            resultado = dt.Rows[0][0].ToString();
+        }
+        return resultado;
+    }
+
 }

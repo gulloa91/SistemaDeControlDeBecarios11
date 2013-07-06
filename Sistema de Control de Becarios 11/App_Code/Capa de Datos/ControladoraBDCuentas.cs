@@ -13,12 +13,14 @@ public class ControladoraBDCuentas
     BecarioTableAdapter adapterBecario;
     EncargadoTableAdapter adapterEncargado;
     Cuenta_PerfilTableAdapter adapterCuenta_Perfil;
+    DataTable1TableAdapter adapterNombreCuenta;
 	public ControladoraBDCuentas()
     {
         adapterCuenta_Perfil = new Cuenta_PerfilTableAdapter();
         adapterCuentas = new CuentaTableAdapter();
         adapterBecario = new BecarioTableAdapter();
         adapterEncargado = new EncargadoTableAdapter();
+        adapterNombreCuenta = new DataTable1TableAdapter();
 	}
 
     public String insertarCuenta(Cuentas cuenta) {
@@ -190,6 +192,12 @@ public class ControladoraBDCuentas
     {
         DataTable dt = new DataTable();
         dt = adapterEncargado.devolverEncargadosSinCuenta();
+        return dt;
+    }
+
+    public DataTable retornarNombreCuentaPorCedula(String cedula) {
+        DataTable dt = new DataTable();
+        dt = adapterNombreCuenta.obtenerNombrePorCedulaCuenta(cedula);
         return dt;
     }
 
