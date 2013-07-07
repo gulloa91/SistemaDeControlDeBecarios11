@@ -188,6 +188,8 @@ public partial class Cuentas : System.Web.UI.Page
     {
         vaciarCampos(true);
         controlarCampos(true);
+        controlarCedula(false);
+        llenarDrpDown();
         modo = 1;
         commonService.abrirPopUp("PopUp", "Insertar Nueva Cuenta");
         commonService.mostrarPrimerBotonDePopUp("PopUp");
@@ -237,6 +239,8 @@ public partial class Cuentas : System.Web.UI.Page
 
         DataTable dtPerfiles = controladoraPerfiles.consultar();
         lsTipoCuentasDrp.Clear();
+        this.drpDownPerfiles.SelectedIndex = -1;
+        this.drpDownPerfiles.Items.Clear();
         int i = 0;
         foreach(DataRow r in dtPerfiles.Rows){
             ListItem item = new ListItem(commonService.procesarStringDeUI(r[0].ToString()), i+"");
@@ -302,6 +306,7 @@ public partial class Cuentas : System.Web.UI.Page
             this.cntUsuario.Text = "";
             this.cofCntUsuario.Text = "";
             this.txtFechaAux.Text = "";
+            this.txtNombrePersona.Text = "";
         }
     }
 
@@ -357,10 +362,12 @@ public partial class Cuentas : System.Web.UI.Page
         {
             this.drpPersona.Visible = true;
             this.lblCedula.Visible = true;
+            this.txtNombrePersona.Visible = true;
         }
         else {
             this.drpPersona.Visible = false;
             this.lblCedula.Visible = false;
+            this.txtNombrePersona.Visible = false;
         }
     }
 
