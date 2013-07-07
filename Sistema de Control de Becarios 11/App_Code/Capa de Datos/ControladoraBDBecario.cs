@@ -89,7 +89,7 @@ public class ControladoraBDBecario
         }
         catch (SqlException e)
         {
-            returnValue = "Error";
+            returnValue = "ErrorB";
 
         }
 

@@ -13,6 +13,8 @@ public class ControladoraEncargado
     private Encargado nuevoEncargado;
     private ControladoraBDEncargado controladoraBDEncargado;
     private ControladoraCuentas controladoraCuentas;
+    private ControladoraAsignaciones contAsig;
+    private CommonServices cs;
 
 	/** EFECTO: Constructor de la clase. Inicializa la controladoraBDEncagado
 	 ** REQUIERE: Nada
@@ -21,6 +23,7 @@ public class ControladoraEncargado
 	{
         controladoraBDEncargado = new ControladoraBDEncargado();
         controladoraCuentas = new ControladoraCuentas();
+        cs = new CommonServices(null);
 	}
 
 	/** EFECTO: LLama a la controladosra BD de Encargado para Insertar, Modificar, o Eliminar tuplas de la tabla ENCARGADO en la BD 
@@ -42,8 +45,20 @@ public class ControladoraEncargado
                 break;
             case 2://ELIMINAR (este caso esta contemplado en el método )
                 {
+
                     Encargado encargado = new Encargado(datosOriginales);
-                    mensajeResultado = controladoraBDEncargado.eliminarEncargado(encargado);
+                    int año = cs.getAñoActual();
+                    int periodo = cs.getPeriodoActual();
+                    contAsig = new ControladoraAsignaciones();
+                    int becariosAsignados = contAsig.contarBecariosAsignados(encargado.Cedula, año, periodo);
+
+                    if (becariosAsignados == 0)
+                    {
+                        mensajeResultado = controladoraBDEncargado.eliminarEncargado(encargado);
+                    }
+                    else {
+                        mensajeResultado = "ErrorAsignacion";
+                    }
                 }
                 break;
             case 3://MODIFICAR

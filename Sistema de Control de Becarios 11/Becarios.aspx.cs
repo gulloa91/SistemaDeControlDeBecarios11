@@ -19,8 +19,8 @@ public partial class Becarios : System.Web.UI.Page
     private static Object[] datosViejos;
     private static int rowIndex;
     private static string cedulaBecarioActual;
-    private static ControladoraBecarios controladoraBecarios = new ControladoraBecarios();
-    private static ControladoraCuentas controladoraCuentas = new ControladoraCuentas();
+    private static ControladoraBecarios controladoraBecarios;
+    private static ControladoraCuentas controladoraCuentas;
 
     private static List<Becario> listaBecarios = new List<Becario>();
     private static List<String> listaLocalLenguajes = new List<String>();
@@ -39,6 +39,10 @@ public partial class Becarios : System.Web.UI.Page
 
         commonService = new CommonServices(UpdateInfo);
         servicioCorreo = new EmailServices();
+
+        controladoraBecarios = new ControladoraBecarios();
+        controladoraCuentas = new ControladoraCuentas();
+
         imgBecario.ImageUrl = this.ImageUrl;
        
 
@@ -78,7 +82,6 @@ public partial class Becarios : System.Web.UI.Page
                          
                          if (!Page.IsPostBack)
                          {
-
                            llenarGridBecarios(1);
                            if (Request["__EVENTTARGET"] == UpdateImage.ClientID)
                            {
@@ -326,7 +329,14 @@ public partial class Becarios : System.Web.UI.Page
             commonService.mensajeJavascript("Se ha eliminado correctamente al becario", "Éxito");
         }
         else {
-           commonService.mensajeJavascript("No se ha podido al eliminar el becario", "Error");       
+
+            if (resultado.Equals("ErrorA"))
+            {
+                commonService.mensajeJavascript("No se puede eliminar el becario seleccionado porque tiene una asignación en el presente ciclo lectivo", "Error");
+            }
+            else {
+                commonService.mensajeJavascript("No se ha podido al eliminar el becario por un error de la base de datos", "Error");
+            }       
         }
        
         llenarGridBecarios(1);
@@ -365,7 +375,7 @@ public partial class Becarios : System.Web.UI.Page
 
         modoEjecucion = 1;
 
-        correrJavascript("abrirPopUp();");
+        correrJavascript("abrirPopUp('Insertar Becario');");
         commonService.mostrarPrimerBotonDePopUp("PopUp");
     }
 
@@ -810,7 +820,7 @@ public partial class Becarios : System.Web.UI.Page
                     lblInstTab2.Text = "A continuación se le presentan unas tablas que resumen algunos aspectos de importancia para el proceso de becas. Se le solicita completar los datos de la forma más precisa posible. Para editar esta información debe presionar el botón modificar ubicado arriba.";
                     lblInstTab2.Visible = true;
 
-                    correrJavascript("abrirPopUp();");
+                    correrJavascript("abrirPopUp('Becarios');");
                     modoEjecucion = -1;
 
                     commonService.esconderPrimerBotonDePopUp("PopUp");

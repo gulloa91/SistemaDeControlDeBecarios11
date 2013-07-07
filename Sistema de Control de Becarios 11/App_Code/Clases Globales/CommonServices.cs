@@ -67,4 +67,44 @@ public class CommonServices
     {
         correrJavascript("$('#popUpEspera').dialog('close');");
     }
+
+
+    public int getAñoActual()
+    {
+
+        DateTime fecha = DateTime.Now;
+        int año  = fecha.Year;
+        return año;
+    }
+
+
+    public int getPeriodoActual()
+    {
+
+        DateTime fecha = DateTime.Now;
+        int mes = fecha.Month;
+
+        int periodo = -1;
+
+        if ((mes >= 3) && (mes <= 7))
+        {
+            periodo = 1;
+        }
+        else
+        {
+
+            if ((mes >= 8) && (mes <= 12))
+            {
+                periodo = 2;
+            }
+            else
+            {
+                periodo = 3;
+            }
+        }
+
+        return periodo;
+    }
+
+
 }
