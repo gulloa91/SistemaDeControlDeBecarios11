@@ -4,7 +4,7 @@
     <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
       <DataSource DefaultConnectionIndex="2" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
         <Connections>
-          <Connection AppSettingsObjectName="Web.config" AppSettingsPropertyName="ingegsg2ConnectionString1" IsAppSettingsProperty="true" Modifier="Assembly" Name="ingegsg2ConnectionString1 (Web.config)" ParameterPrefix="@" PropertyReference="AppConfig.System.Configuration.ConfigurationManager.0.ConnectionStrings.ingegsg2ConnectionString1.ConnectionString" Provider="System.Data.SqlClient" />
+          <Connection AppSettingsObjectName="Web.config" AppSettingsPropertyName="ingegsg2ConnectionString1" ConnectionStringObject="" IsAppSettingsProperty="true" Modifier="Assembly" Name="ingegsg2ConnectionString1 (Web.config)" ParameterPrefix="@" PropertyReference="AppConfig.System.Configuration.ConfigurationManager.0.ConnectionStrings.ingegsg2ConnectionString1.ConnectionString" Provider="System.Data.SqlClient" />
           <Connection AppSettingsObjectName="Web.config" AppSettingsPropertyName="ConnectionString" IsAppSettingsProperty="true" Modifier="Assembly" Name="ConnectionString (Web.config)" ParameterPrefix="@" PropertyReference="AppConfig.System.Configuration.ConfigurationManager.0.ConnectionStrings.ConnectionString.ConnectionString" Provider="System.Data.SqlClient" />
           <Connection AppSettingsObjectName="Web.config" AppSettingsPropertyName="ingegsg2ConnectionString" ConnectionStringObject="" IsAppSettingsProperty="true" Modifier="Assembly" Name="ingegsg2ConnectionString (Web.config)" ParameterPrefix="@" PropertyReference="AppConfig.System.Configuration.ConfigurationManager.0.ConnectionStrings.ingegsg2ConnectionString.ConnectionString" Provider="System.Data.SqlClient" />
         </Connections>
@@ -186,7 +186,7 @@ AND
           </TableAdapter>
           <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="BecarioTableAdapter" GeneratorDataComponentClassName="BecarioTableAdapter" Name="Becario" UserDataComponentName="BecarioTableAdapter">
             <MainSource>
-              <DbSource ConnectionRef="ingegsg2ConnectionString (Web.config)" DbObjectName="ingegsg2.dbo.Becario" DbObjectType="Table" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="true" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="false" UserGetMethodName="GetData" UserSourceName="Fill">
+              <DbSource ConnectionRef="ingegsg2ConnectionString1 (Web.config)" DbObjectName="ingegsg2.dbo.Becario" DbObjectType="Table" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="true" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="false" UserGetMethodName="GetData" UserSourceName="Fill">
                 <DeleteCommand>
                   <DbCommand CommandType="Text" ModifiedByUser="false">
                     <CommandText>DELETE FROM [dbo].[Becario] WHERE (([Cedula] = @Original_Cedula))</CommandText>
@@ -254,7 +254,7 @@ AND
               <Mapping SourceColumn="Activo" DataSetColumn="Activo" />
             </Mappings>
             <Sources>
-              <DbSource ConnectionRef="ingegsg2ConnectionString (Web.config)" DbObjectName="ingegsg2.dbo.Becario" DbObjectType="Table" GenerateMethods="Get" GenerateShortCommands="true" GeneratorGetMethodName="reportarBecariosNoAsignados" GetMethodModifier="Public" GetMethodName="reportarBecariosNoAsignados" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="reportarBecariosNoAsignados" UserSourceName="reportarBecariosNoAsignados">
+              <DbSource ConnectionRef="ingegsg2ConnectionString1 (Web.config)" DbObjectName="ingegsg2.dbo.Becario" DbObjectType="Table" GenerateMethods="Get" GenerateShortCommands="true" GeneratorGetMethodName="reportarBecariosNoAsignados" GetMethodModifier="Public" GetMethodName="reportarBecariosNoAsignados" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="reportarBecariosNoAsignados" UserSourceName="reportarBecariosNoAsignados">
                 <SelectCommand>
                   <DbCommand CommandType="Text" ModifiedByUser="true">
                     <CommandText>SELECT b.Cedula, b.Nombre, b.Apellido1,b.Apellido2,b.Correo,b.Carne,b.Telefono,b.Celular,b.OtroTel,b.Foto,b.Activo
@@ -275,7 +275,7 @@ order by b.Carne DESC</CommandText>
                   </DbCommand>
                 </SelectCommand>
               </DbSource>
-              <DbSource ConnectionRef="ingegsg2ConnectionString (Web.config)" DbObjectName="ingegsg2.dbo.Becario" DbObjectType="Table" GenerateMethods="Get" GenerateShortCommands="true" GeneratorGetMethodName="reportarBecariosNoAsignados2" GetMethodModifier="Public" GetMethodName="reportarBecariosNoAsignados2" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="reportarBecariosNoAsignados2" UserSourceName="reportarBecariosNoAsignados2">
+              <DbSource ConnectionRef="ingegsg2ConnectionString1 (Web.config)" DbObjectName="ingegsg2.dbo.Becario" DbObjectType="Table" GenerateMethods="Get" GenerateShortCommands="true" GeneratorGetMethodName="reportarBecariosNoAsignados2" GetMethodModifier="Public" GetMethodName="reportarBecariosNoAsignados2" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="reportarBecariosNoAsignados2" UserSourceName="reportarBecariosNoAsignados2">
                 <SelectCommand>
                   <DbCommand CommandType="Text" ModifiedByUser="true">
                     <CommandText>SELECT b.Cedula, b.Nombre, b.Apellido1,b.Apellido2,b.Correo,b.Carne,b.Telefono,b.Celular,b.OtroTel,b.Foto,b.Activo
@@ -300,7 +300,7 @@ order by b.Carne DESC</CommandText>
                   </DbCommand>
                 </SelectCommand>
               </DbSource>
-              <DbSource ConnectionRef="ingegsg2ConnectionString (Web.config)" DbObjectName="ingegsg2.dbo.Becario" DbObjectType="Table" GenerateMethods="Get" GenerateShortCommands="true" GeneratorGetMethodName="reportarBecariosNoAsignados3" GetMethodModifier="Public" GetMethodName="reportarBecariosNoAsignados3" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="reportarBecariosNoAsignados3" UserSourceName="reportarBecariosNoAsignados3">
+              <DbSource ConnectionRef="ingegsg2ConnectionString1 (Web.config)" DbObjectName="ingegsg2.dbo.Becario" DbObjectType="Table" GenerateMethods="Get" GenerateShortCommands="true" GeneratorGetMethodName="reportarBecariosNoAsignados3" GetMethodModifier="Public" GetMethodName="reportarBecariosNoAsignados3" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="reportarBecariosNoAsignados3" UserSourceName="reportarBecariosNoAsignados3">
                 <SelectCommand>
                   <DbCommand CommandType="Text" ModifiedByUser="true">
                     <CommandText>SELECT b.Cedula, b.Nombre, b.Apellido1,b.Apellido2,b.Correo,b.Carne,b.Telefono,b.Celular,b.OtroTel,b.Foto,b.Activo
