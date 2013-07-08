@@ -381,7 +381,7 @@
 
 
                        <div style="font-family:Segoe UI,Verdana,Helvetica,Sans-Serif;font-size:13px;margin-top: 15px;margin-bottom: 15px">
-                           <asp:Label ID="lblInstTab2" runat="server" Text="" Visible="false"> </asp:Label>
+                           <asp:Label ID="lblInstTab2" runat="server" Text="" Font-Size="15px" Visible="false"> </asp:Label>
                        </div>
               
                        <asp:UpdatePanel runat="server" ID="UpdatePanel1">
@@ -669,7 +669,7 @@
                                     <asp:TextBox ID="txtNombreP" runat="server" CssClass="txtBecario"></asp:TextBox>
                                    </div>
 
-                                  <div style="width: 88%; font-size:14px">
+                                  <div style="width: 88%; font-size:15px">
 
                                     <asp:RequiredFieldValidator ControlToValidate="txtNombreP" CssClass="error" ID="obligatorio_nombreP" runat="server" ErrorMessage="* Campo obligatorio"  ForeColor="#FF3300" Display="Dynamic" Font-Bold="true" ></asp:RequiredFieldValidator>                                   
                                     
@@ -692,7 +692,7 @@
                                        <asp:TextBox ID="txtApellido1P" runat="server" CssClass="txtBecario"></asp:TextBox>
                                     </div>
                                      
-                                    <div style="width: 88%; font-size:14px">                       
+                                    <div style="width: 88%; font-size:15px">                       
                                        <asp:RequiredFieldValidator ControlToValidate="txtApellido1P" CssClass="error" ID="obligatorio_apellido1P" runat="server" ErrorMessage="* Campo obligatorio"  ForeColor="#FF3300" Display="Dynamic" Font-Bold="true" ></asp:RequiredFieldValidator>
                                     
                                        <asp:RegularExpressionValidator ID="formato_apellido1P" runat="server" 
@@ -714,7 +714,7 @@
                                       <asp:TextBox ID="txtApellido2P" runat="server" CssClass="txtBecario"></asp:TextBox>
                                     </div>
 
-                                    <div style="width: 88%; font-size:14px">                                                                                    
+                                    <div style="width: 88%; font-size:15px">                                                                                    
                                        <asp:RegularExpressionValidator ID="formato_apellido2P" runat="server" 
                                        ErrorMessage ="Se ha escrito caracteres inválidos"  Display="Dynamic"
                                        ValidationExpression = "[a-zA-Z\u00c1\u00c9\u00cd\u00d3 
@@ -738,7 +738,7 @@
                                        <asp:TextBox ID="txtCarneP" runat="server" CssClass="txtBecario"></asp:TextBox>
                                     </div>
 
-                                    <div style="width: 88%; font-size:14px">                       
+                                    <div style="width: 88%; font-size:15px">                       
                                        <asp:RequiredFieldValidator ControlToValidate="txtCarneP" CssClass="error" ID="obligatorio_carneP" runat="server" ErrorMessage="* Campo obligatorio"  ForeColor="#FF3300" Display="Dynamic" Font-Bold="true" ></asp:RequiredFieldValidator>
                                     
                                        <asp:RegularExpressionValidator ID="formato_carneP" runat="server" 
@@ -756,7 +756,7 @@
                                       <asp:TextBox ID="txtCedulaP" runat="server" CssClass="txtBecario"></asp:TextBox>
                                     </div>
 
-                                    <div style="width: 88%; font-size:14px">                       
+                                    <div style="width: 88%; font-size:15px">                       
                                        <asp:RequiredFieldValidator ControlToValidate="txtCedulaP" CssClass="error" ID="obligatorio_cedP" runat="server" ErrorMessage="* Campo obligatorio"  ForeColor="#FF3300" Display="Dynamic" Font-Bold="true" ></asp:RequiredFieldValidator>
                                     
                                        <asp:RegularExpressionValidator ID="formato_cedP" runat="server" 
@@ -774,7 +774,7 @@
                                        <asp:TextBox ID="txtCorreoP" runat="server" CssClass="txtBecario"></asp:TextBox>
                                     </div>
                                     
-                                    <div style="width: 88%; font-size:14px">                       
+                                    <div style="width: 88%; font-size:15px">                       
                                        <asp:RequiredFieldValidator ControlToValidate="txtCorreoP" CssClass="error" ID="obligatorio_correoP" runat="server" ErrorMessage="* Campo obligatorio"  ForeColor="#FF3300" Display="Dynamic" Font-Bold="true" ></asp:RequiredFieldValidator>
                                     
                                        <asp:RegularExpressionValidator ID="formato_correoP" runat="server" 
@@ -797,7 +797,7 @@
                                       <asp:TextBox ID="txtTelFijoP" runat="server" CssClass="txtBecario"></asp:TextBox>
                                     </div>
 
-                                    <div style="width: 88%; font-size:14px">       
+                                    <div style="width: 88%; font-size:15px">       
                                      <asp:RegularExpressionValidator ID="RegularExpressionValidator6" CssClass="error"  runat="server" ErrorMessage="**Se han escrito caracteres inválidos. Ingrese únicamente caracteres numéricos"
                                                                 ValidationExpression="([0-9]|-)+" ControlToValidate="txtTelFijoP" ForeColor="#FF3300" Display="Dynamic" font-size="Small"></asp:RegularExpressionValidator>
                                         <asp:RegularExpressionValidator ID="RegularExpressionValidator7" CssClass="error"  runat="server" ErrorMessage="*Valor del teléfono entre 8 y 15 caracteres"
@@ -813,7 +813,7 @@
                                       <asp:TextBox ID="txtCelularP" runat="server" CssClass="txtBecario"></asp:TextBox>
                                    </div>
 
-                                    <div style="width: 88%; font-size:14px">
+                                    <div style="width: 88%; font-size:15px">
                                       <asp:RegularExpressionValidator ID="RegularExpressionValidator8" CssClass="error"  runat="server" ErrorMessage="**Se han escrito caracteres inválidos. Ingrese únicamente caracteres numéricos"
                                                                 ValidationExpression="([0-9]|-)+" ControlToValidate="txtCelularP" ForeColor="#FF3300" Display="Dynamic" font-size="Small"></asp:RegularExpressionValidator>
                                         <asp:RegularExpressionValidator ID="RegularExpressionValidator9" CssClass="error"  runat="server" ErrorMessage="*Valor del teléfono entre 8 y 15 caracteres"
@@ -829,7 +829,7 @@
                                       <asp:TextBox ID="txtOtroTelP" runat="server" CssClass="txtBecario"></asp:TextBox>
                                     </div>
 
-                                    <div style="width: 88%; font-size:14px">       
+                                    <div style="width: 88%; font-size:15px">       
                                       <asp:RegularExpressionValidator ID="RegularExpressionValidator10" CssClass="error"  runat="server" ErrorMessage="**Se han escrito caracteres inválidos. Ingrese únicamente caracteres numéricos"
                                                                 ValidationExpression="([0-9]|-)+" ControlToValidate="txtOtroTelP" ForeColor="#FF3300" Display="Dynamic" font-size="Small"></asp:RegularExpressionValidator>
                                         <asp:RegularExpressionValidator ID="RegularExpressionValidator11" CssClass="error"  runat="server" ErrorMessage="*Valor del teléfono entre 8 y 15 caracteres"
@@ -868,8 +868,8 @@
            <div style="width: 96%; padding: 0 2%; float: left; background: #D8D8BF; border-radius: 5px;">
    
                           
-              <div style="font-family:Segoe UI,Verdana,Helvetica,Sans-Serif;font-size:14px">
-                <p>A continuación se le presentan unas tablas que resumen algunos aspectos
+              <div style="font-family:Segoe UI,Verdana,Helvetica,Sans-Serif;font-size:15px">
+                <p> continuación se le presentan unas tablas que resumen algunos aspectos
                     de importancia para el proceso de becas. Se le solicita completar los datos de la forma más precisa posible.
                     Para editar esta información debe presionar el botón modificar ubicado arriba.
                   </p>

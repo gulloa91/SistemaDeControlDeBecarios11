@@ -12,6 +12,7 @@
                 },
                 close: function () {
                     $("#tabs").tabs("destroy");
+                    $("#tabs").css("height", "500px");
                 },
                 buttons: {
                     "Aceptar": function () {
