@@ -8,6 +8,7 @@
                 resizable: false,
                 open: function () {
                     $("#tabs").tabs();
+                    $("#tabs").css("height", "auto");
                 },
                 close: function () {
                     $("#tabs").tabs("destroy");

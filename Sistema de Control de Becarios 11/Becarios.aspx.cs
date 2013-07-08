@@ -429,11 +429,6 @@ public partial class Becarios : System.Web.UI.Page
         correrJavascript("abrirPopUpEliminar();");
     }
 
-
-
-
-
-
     /*
     * -----------------------------------------------------------------------
     * AUXILIARES

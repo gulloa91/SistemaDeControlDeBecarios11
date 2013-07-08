@@ -767,8 +767,9 @@ button.ui-button::-moz-focus-inner {
 .ui-tabs .ui-tabs-panel {
 	display: block;
 	border-width: 0;
-	padding: 1em 1.4em;
-	background: none;
+	padding: 1em 2%;
+    float: left;
+    background: none;
 }
 .ui-tooltip {
 	padding: 8px;
@@ -862,7 +863,16 @@ body .ui-tooltip {
 .ui-state-active a:link,
 .ui-state-active a:visited {
 	color: #459e00;
-	text-decoration: none;
+    text-decoration: underline;
+    border-left: 2px solid red;
+    border-right: 2px solid red;
+    border-top: 2px solid red;
+    -webkit-border-top-left-radius: 5px;
+    -webkit-border-top-right-radius: 5px;
+    -moz-border-radius-topleft: 5px;
+    -moz-border-radius-topright: 5px;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
 }
 
 /* Interaction Cues

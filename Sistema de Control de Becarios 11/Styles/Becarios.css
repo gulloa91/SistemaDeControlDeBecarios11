@@ -45,12 +45,15 @@
     margin-top:3px;
 }
 
+.grid_becario_perfil{
+    float: left;
+}
 
 .botonMasParcial
 {
-    width: 31%;
-    float: right;
-    margin-top:15px;
+    float: left;
+    margin-top:10px;
+    margin-left: 5px;
 }
 
 .txtBecario

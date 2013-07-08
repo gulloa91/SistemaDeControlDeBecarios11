@@ -87,7 +87,7 @@
        <!-- POP UP -->
       <div id="PopUp" style="min-height: 375px;">
         
-        <div id="tabs" style="width:96%; margin-left:1%">
+        <div id="tabs" style="width:96%; margin: 0 2%; float: left; height: 500px;">
 
            <asp:UpdatePanel runat="server" ID="UpdatePopUp">
              <Triggers>
@@ -366,7 +366,7 @@
 	                </div>
 
                     <!--PERFIL DEL BECARIO-->
-	                <div id="tabs-2" style= "width:94%;max-height:530px" class="pruebaCss">
+	                <div id="tabs-2" style= "width:96%; padding: 0 2%;" class="pruebaCss">
 
                        <div style="width: 96%; padding: 2%; float: left;" >
 
@@ -626,7 +626,7 @@
    <!-- ****VISTA PARCIAL **** -->
    <asp:View ID="VistaParcial" runat="server">
 
-      <div id="tabsP" style="width: 85%; margin-left:5% ; margin-top:2%" >
+      <div id="tabsP" style="width: 90%; margin:0 5% ; margin-top:1%; float: left;" >
 
         <asp:UpdatePanel runat="server" ID="UpdatePanelParcial">
 
@@ -644,9 +644,9 @@
 	       </ul>
 
             <!--Datos Personales-->
-            <div id="tabsP-1" style= "width:96% ; min-height:445px" >
+            <div id="tabsP-1" style= "width:96% ;" >
 
-                    <div style="width: 12%; float: right; margin-bottom:5% ; margin-top:2% ">
+                    <div style="width: 12%; float: right; margin-bottom:1% ; margin-top:1% ">
                     <asp:Button ID="btnModificarBecarioDatosP" runat="server" Text="Modificar" 
                             CssClass="boton ui-widget ui-state-default ui-corner-all ui-button-text-only" 
                             onclick="btnModificarBecarioParcial_Click" CausesValidation="false" />
@@ -841,15 +841,15 @@
                             </div>
                     </div>
 
-                   <div style="width: 96%; padding: 2%; float: left;" >
+                   <div style="width: 96%; padding: 1% 2% 0 2%; float: left;" >
                        
-                       <div style="width: 12%; float: right; margin-bottom:5% ; margin-top:4% ">
+                       <div style="width: 12%; float: right; margin-bottom:0% ; margin-top:0% ">
                          <asp:Button ID="btnCancelarP" runat="server" Text="Cancelar" 
                          CssClass="boton ui-widget ui-state-default ui-corner-all ui-button-text-only" 
                          onClick="btnCancelarP_Click"  CausesValidation="false"/>
                        </div>
 
-                       <div style="width: 12%; float: right; margin-bottom:5% ; margin-top:4%;margin-right:10px">    
+                       <div style="width: 12%; float: right; margin-bottom:0% ; margin-top:0%;margin-right:10px">    
                         <asp:Button ID="btnAceptarP" runat="server" Text="Aceptar"  onClick="btnAceptarP_Click"
                          CssClass="boton ui-widget ui-state-default ui-corner-all ui-button-text-only" />
                        </div>
@@ -857,15 +857,15 @@
            </div>
      
            <!--PERFIL DEL BECARIO : vista parcial-->
-           <div id="tabsP-2" style= "width:100% ; min-height:580px" >
+           <div id="tabsP-2" style= "width:96% ;" >
 
-              <div style="width: 15%; float: right; margin-bottom:2% ; margin-top:2%; margin-right:8%">
+              <div style="width: 12%; float: right; margin-bottom:1% ; margin-top:1%;">
                  <asp:Button ID="btnModificarBecarioPerfilP" runat="server" Text="Modificar" 
                   CssClass="boton ui-widget ui-state-default ui-corner-all ui-button-text-only" 
                     onclick="btnModificarBecarioParcial_Click" />
                </div>
 
-           <div style="width: 86%; padding: 0 2%; float: left; background: #D8D8BF; border-radius: 5px; margin-left:3%">
+           <div style="width: 96%; padding: 0 2%; float: left; background: #D8D8BF; border-radius: 5px;">
    
                           
               <div style="font-family:Segoe UI,Verdana,Helvetica,Sans-Serif;font-size:14px">
@@ -893,14 +893,8 @@
                         <span class="lblGrid1" style="margin-left: 15px">a) Lenguajes de programación:</span>
 
                         <div style= "margin-top: 20px;margin-left: 20px;">
-
-                           <div class="botonMasParcial">
-                            <asp:ImageButton ID="btnAgregaLenguajeParcial" runat="server"
-                            ImageUrl="~/Images/signoMas.png" OnClick="nuevoAtributoDePerfilParcial_click" CausesValidation="False"  />
-                           </div>
-
                             <asp:GridView ID="gridLenguajesProgP" runat="server" AutoGenerateColumns="False" ShowFooter="True"
-                              CellPadding ="7" onrowcommand="eliminaDatosPerfilParcial_RowCommand"
+                              CellPadding ="7" CssClass="grid_becario_perfil" onrowcommand="eliminaDatosPerfilParcial_RowCommand"
                               ForeColor="#333333" GridLines="Vertical">
 
                              <AlternatingRowStyle BackColor="White" />
@@ -929,6 +923,10 @@
                                  <SortedDescendingCellStyle BackColor="#D4DFE1" />
                                  <SortedDescendingHeaderStyle BackColor="#15524A" />
                                </asp:GridView>
+                            <div class="botonMasParcial">
+                                <asp:ImageButton ID="btnAgregaLenguajeParcial" runat="server"
+                            ImageUrl="~/Images/signoMas.png" OnClick="nuevoAtributoDePerfilParcial_click" CausesValidation="False"  />
+                           </div>
                        </div>
                      </div>
  
@@ -937,14 +935,9 @@
 
                        <span class="lblGrid2" style="margin-left: 15px">b) Idiomas:</span>
 
-                       <div style= "margin-top: 20px;margin-left: 20px;">
-                        
-                        <div class="botonMasParcial">                       
-                          <asp:ImageButton ID="btnAgregaIdiomaParcial" runat="server" ImageUrl="~/Images/signoMas.png" 
-                           OnClick="nuevoAtributoDePerfilParcial_click" CausesValidation="False" />
-                        </div>
+                       <div style= "margin-top: 20px;margin-left: 20px;">      
 
-                         <asp:GridView ID="gridIdiomasP" runat="server" AutoGenerateColumns="False" ShowFooter="True"
+                         <asp:GridView ID="gridIdiomasP" CssClass="grid_becario_perfil" runat="server" AutoGenerateColumns="False" ShowFooter="True"
                            CellPadding="7"  onrowcommand="eliminaDatosPerfilParcial_RowCommand"
                            ForeColor="#333333" GridLines="Vertical">
 
@@ -974,7 +967,10 @@
                               <SortedDescendingCellStyle BackColor="#D4DFE1" />
                               <SortedDescendingHeaderStyle BackColor="#15524A" />
                           </asp:GridView>
-                    
+                            <div class="botonMasParcial">                       
+                              <asp:ImageButton ID="btnAgregaIdiomaParcial" runat="server" ImageUrl="~/Images/signoMas.png" 
+                               OnClick="nuevoAtributoDePerfilParcial_click" CausesValidation="False" />
+                            </div>
                        </div>
 
                      </div>   
@@ -989,13 +985,8 @@
                      <span class="lblGrid1" style="margin-left: 15px">c) Áreas de Interés:</span>
 
                        <div style= "margin-top: 20px;margin-left: 20px;">
-                      
-                          <div class="botonMasParcial">
-                            <asp:ImageButton ID="btnAgregaAreaInteresParcial" runat="server"
-                            ImageUrl="~/Images/signoMas.png" OnClick="nuevoAtributoDePerfilParcial_click" CausesValidation="False"  />
-                          </div>
 
-                          <asp:GridView ID="gridAreasInteresP" runat="server" AutoGenerateColumns="False" ShowFooter="True"
+                          <asp:GridView ID="gridAreasInteresP" CssClass="grid_becario_perfil" runat="server" AutoGenerateColumns="False" ShowFooter="True"
                             CellPadding="7" onrowcommand="eliminaDatosPerfilParcial_RowCommand"
                             ForeColor="#333333" GridLines="Vertical">
 
@@ -1024,7 +1015,11 @@
                              <SortedDescendingCellStyle BackColor="#D4DFE1" />
                              <SortedDescendingHeaderStyle BackColor="#15524A" />
                           </asp:GridView>
-                        
+                            
+                           <div class="botonMasParcial">
+                            <asp:ImageButton ID="btnAgregaAreaInteresParcial" runat="server"
+                            ImageUrl="~/Images/signoMas.png" OnClick="nuevoAtributoDePerfilParcial_click" CausesValidation="False"  />
+                          </div>
                        </div>
 
                     </div>
@@ -1036,12 +1031,7 @@
 
                       <div style= "margin-top: 20px;margin-left: 20px;">
 
-                         <div class="botonMasParcial">
-                           <asp:ImageButton ID="btnAgregaCualidadParcial" runat="server"
-                            ImageUrl ="~/Images/signoMas.png" OnClick="nuevoAtributoDePerfilParcial_click" CausesValidation="False"  />
-                         </div>
-
-                         <asp:GridView ID="gridCualidadesP" runat="server" AutoGenerateColumns="False" ShowFooter="True"
+                         <asp:GridView ID="gridCualidadesP" CssClass="grid_becario_perfil" runat="server" AutoGenerateColumns="False" ShowFooter="True"
                           CellPadding="7" onrowcommand="eliminaDatosPerfilParcial_RowCommand"
                           ForeColor="#333333" GridLines="Vertical">
 
@@ -1072,6 +1062,10 @@
                           </asp:GridView>
                       </div>
 
+                        <div class="botonMasParcial">
+                           <asp:ImageButton ID="btnAgregaCualidadParcial" runat="server"
+                            ImageUrl ="~/Images/signoMas.png" OnClick="nuevoAtributoDePerfilParcial_click" CausesValidation="False"  />
+                         </div>
                     </div>
 
                 </div>
@@ -1080,15 +1074,15 @@
            </asp:UpdatePanel>
           </div>
 
-            <div style="width: 90%; padding: 2%; float: left;" >
+            <div style="width: 90%; padding: 1% 2% 0 2%; float: left;" >
                        
-               <div style="width: 12%; float: right; margin-bottom:5% ; margin-top:4% ">
+               <div style="width: 12%; float: right; margin-bottom:0% ; margin-top:0% ">
                  <asp:Button ID="btnCancelarPerfilParcial" runat="server" Text="Cancelar" 
                   CssClass="boton ui-widget ui-state-default ui-corner-all ui-button-text-only" 
                   onClick="btnCancelarP_Click"  CausesValidation="false"/>
                </div>
 
-               <div style="width: 12%; float: right; margin-bottom:5% ; margin-top:4%;margin-right:10px">    
+               <div style="width: 12%; float: right; margin-bottom:0% ; margin-top:0%;margin-right:10px">    
                  <asp:Button ID="btnAceptarPerfilParcial" runat="server" Text="Aceptar"  onClick="btnAceptarP_Click"
                  CssClass ="boton ui-widget ui-state-default ui-corner-all ui-button-text-only" />
                </div>

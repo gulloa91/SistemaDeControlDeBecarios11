@@ -335,7 +335,7 @@
                         CssClass="btnInvisibleConfirmarRechazo invisible" runat="server" Text="" 
                         onclick="btnInvisibleConfirmarRechazo_Click" />
 
-                    <div style="width: 40%; float: left; border: 2px solid #414141; margin: 5% 20%; padding: 10%; border-radius: 5px; background-color: #D8D8BF;">
+                    <div style="width: 40%; float: left; border: 2px solid #414141; margin: 4% 24%; padding: 2% 6%; border-radius: 5px; background-color: #D8D8BF;">
                         
                         <div style="width: 100%; float: left; text-align: center; font-weight: bold; font-size: 1.2em;margin-bottom:30px">
                             <span style="width: 100%; float: left;">Asignación de Encargado</span>
