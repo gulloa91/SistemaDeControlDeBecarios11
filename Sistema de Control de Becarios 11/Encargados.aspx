@@ -3,6 +3,12 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" Runat="Server">
     <script src="Scripts/Encargados.js" type="text/javascript"></script>
     <link href="Styles/Encargados.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("a.level1:contains('Encargados')").addClass("item_active");
+            $("a.level1:contains('Información Personal')").addClass("item_active");
+        });
+    </script>
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" Runat="Server">

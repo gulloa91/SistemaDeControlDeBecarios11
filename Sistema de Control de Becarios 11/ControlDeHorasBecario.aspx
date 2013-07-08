@@ -4,7 +4,11 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="Server">
     <link href="Styles/ControlDeHorasBecario.css" rel="stylesheet" type="text/css" />
     <script src="Scripts/ControlDeHorasBecario.js" type="text/javascript"></script>
-
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("a.level1:contains('Reportar Horas')").addClass("item_active");
+        });
+    </script>
 
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="Server">

@@ -9,6 +9,11 @@
             width: 128px;
         }
     </style>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("a.level1:contains('Perfiles')").addClass("item_active");
+        });
+    </script>
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="MainContent" runat="Server">
     <asp:ScriptManager ID="ScriptManager" runat="server">

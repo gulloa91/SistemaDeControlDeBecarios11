@@ -2,6 +2,11 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" Runat="Server">
     <link href="Styles/Reportes.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("a.level1:contains('Reportes')").addClass("item_active");
+        });
+    </script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" Runat="Server">
     <asp:ScriptManager ID="ScriptManager" runat="server">

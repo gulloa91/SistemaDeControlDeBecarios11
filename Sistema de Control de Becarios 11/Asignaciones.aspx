@@ -3,6 +3,13 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" Runat="Server">
     <script src="Scripts/Asignaciones.js" type="text/javascript"></script>
     <link href="Styles/Asignaciones.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("a.level1:contains('Asignaciones')").addClass("item_active");
+            $("a.level1:contains('Becarios Asignados')").addClass("item_active");
+            $("a.level1:contains('Encargado Asignado')").addClass("item_active");
+        });
+    </script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" Runat="Server">
     <asp:ScriptManager ID="ScriptManager" runat="server">	

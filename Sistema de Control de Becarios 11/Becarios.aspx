@@ -4,6 +4,12 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" Runat="Server">
    <script src="Scripts/Becarios.js" type="text/javascript"></script>
    <link href="Styles/Becarios.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("a.level1:contains('Becarios')").addClass("item_active");
+            $("a.level1:contains('Información Personal')").addClass("item_active");
+        });
+    </script>
 </asp:Content>
 
 

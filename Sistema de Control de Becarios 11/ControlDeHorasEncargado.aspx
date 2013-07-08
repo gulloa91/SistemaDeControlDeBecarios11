@@ -4,6 +4,11 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" Runat="Server">
     <script src="Scripts/ControlDeHorasEncargado.js" type="text/javascript"></script>
     <link href="Styles/ControlDeHorasEncargado.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("a.level1:contains('Revisar Horas')").addClass("item_active");
+        });
+    </script>
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" Runat="Server">

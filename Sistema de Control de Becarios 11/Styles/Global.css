@@ -15,6 +15,11 @@ body
     margin: 0 auto;
 }
 
+.item_active{
+	background: #000 !important;
+    border-bottom: 2px solid red;
+}
+
 .header
 {
     float: left;
