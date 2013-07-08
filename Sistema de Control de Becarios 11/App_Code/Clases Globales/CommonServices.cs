@@ -77,6 +77,13 @@ public class CommonServices
         return año;
     }
 
+    public string getContrasena(string nom, string ap, string ced)
+    {
+        //nombre.Substring(0, 2) + apellido.Substring(0, 2) + ced;
+
+        return nom.Substring(0, 2) + ced + ap.Substring(0, 2);
+    }
+
 
     public int getPeriodoActual()
     {

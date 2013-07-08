@@ -25,7 +25,7 @@ public partial class SiteMaster : System.Web.UI.MasterPage
 			}
 			else
 			{
-				this.lblCerrarSesion.Text = "| Bienvenido, " + Session["Nombre"].ToString() + " " + Session["Apellido1"].ToString();
+				this.lblCerrarSesion.Text = "| Bienvenid@, " + Session["Nombre"].ToString() + " " + Session["Apellido1"].ToString();
 				MultiViewSiteMaster.SetActiveView(VistaPrincipal);
 
                 List<int> permisos = new List<int>();

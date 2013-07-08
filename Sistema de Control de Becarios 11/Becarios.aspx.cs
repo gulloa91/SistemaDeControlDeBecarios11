@@ -198,7 +198,8 @@ public partial class Becarios : System.Web.UI.Page
             int lg = cedula.Length - 3;
             string ced = cedula.Substring(lg, 3);
             string usuario = nombre + "." + apellido + ced;
-            string pass = nombre.Substring(0, 2) + apellido.Substring(0, 2) + ced;
+            string pass = commonService.getContrasena(nombre, apellido, ced);
+            
             string nombreCompleto = (currentInfo.ToTitleCase(nombre) + " " + currentInfo.ToTitleCase(apellido) + " " + currentInfo.ToTitleCase(apellido2)).Trim();
 
 
