@@ -19,6 +19,8 @@ public partial class Reportes : System.Web.UI.Page
     static int indexPeriodo = 0;
     static int indexAño = 6;
     static int indexUltimaAsignacion = 0;
+    static int indexBecario = 0;
+    static int indexEncargado = 0;
     private static List<EncargadoAtrasado> lsEncargadosAtrasados = new List<EncargadoAtrasado>();
     private static List<BecarioInactivo> lsBecariosInactivos = new List<BecarioInactivo>();
 
@@ -57,7 +59,7 @@ public partial class Reportes : System.Web.UI.Page
                     indexEstado = 0;
                     indexPeriodo = 0;
                     indexAño = 6;
-                    indexUltimaAsignacion = 0;
+                    indexUltimaAsignacion = 1;
 
                     tipoReporte = 2;
                     mostrarGrid();                  
@@ -116,7 +118,7 @@ public partial class Reportes : System.Web.UI.Page
                 } break;
 
             // REPORTE 7
-            case "Asignaciones de un Encargado":
+            case "Anotaciones de un Encargado":
                 {
                     tipoReporte = 7;
                     mostrarGrid();
@@ -733,8 +735,8 @@ public partial class Reportes : System.Web.UI.Page
             case 2:
                 {
                     this.lblReporteActivo.Text = "Reporte de becarios no asignados en un Semestre y Año, que si fueron asignados en el semestre anterior o tras-anterior";
-                    this.lblCriterio1.Text = "Periodo";
-                    this.lblCriterio2.Text = "Año";
+                    this.lblCriterio1.Text = "Periodo a Consultar";
+                    this.lblCriterio2.Text = "Año a Consultar";
                     this.lblCriterio3.Text = "Última Asignación";
                     commonService.correrJavascript("$('#criterio4').css('display', 'none');");
                     commonService.correrJavascript("$('#criterio5').css('display', 'none');");
@@ -770,6 +772,7 @@ public partial class Reportes : System.Web.UI.Page
                     ultimaAsignación.Add(0, "Hace 3 periodos");
                     ultimaAsignación.Add(1, "Hace 2 periodos");
                     ultimaAsignación.Add(2, "Periodo anterior");
+                    ultimaAsignación.Add(3, "Becarios nunca Asignados");
                     this.DropDownListCriterio3.DataTextField = "Value";
                     this.DropDownListCriterio3.DataValueField = "Key";
                     this.DropDownListCriterio3.DataSource = ultimaAsignación;
@@ -952,6 +955,7 @@ public partial class Reportes : System.Web.UI.Page
                     this.DropDownListCriterio1.DataValueField = "Key";
                     this.DropDownListCriterio1.DataSource = becario;
                     this.DropDownListCriterio1.DataBind();
+                    DropDownListCriterio1.SelectedIndex = indexBecario; 
                 } break;
             case 7:
                 {
@@ -968,11 +972,12 @@ public partial class Reportes : System.Web.UI.Page
                     for (int i = 0; i < lsEncargados.Count(); i++)
                     {
                         encargdo.Add(lsEncargados[i].Cedula, lsEncargados[i].Nombre + " " + lsEncargados[i].Apellido1 + " " + lsEncargados[i].Apellido2);
-                    }
+                    }                    
                     this.DropDownListCriterio1.DataTextField = "Value";
                     this.DropDownListCriterio1.DataValueField = "Key";
                     this.DropDownListCriterio1.DataSource = encargdo;
                     this.DropDownListCriterio1.DataBind();
+                    DropDownListCriterio1.SelectedIndex = indexEncargado; 
                 } break;
         }
 
@@ -1092,6 +1097,8 @@ public partial class Reportes : System.Web.UI.Page
                 } break;
             case 6:
                 {
+                    indexBecario = this.DropDownListCriterio1.SelectedIndex;
+
                     string criterioBusqueda = "%" + this.txtBuscarGeneral.Text + "%";
                     string cedulaBecario  = this.DropDownListCriterio1.SelectedValue.ToString();
 
@@ -1101,11 +1108,13 @@ public partial class Reportes : System.Web.UI.Page
                 } break;
             case 7:
                 {
+                    indexEncargado = this.DropDownListCriterio1.SelectedIndex;
+
                     string criterioBusqueda = "%" + this.txtBuscarGeneral.Text + "%";
                     string cedulaBecario = this.DropDownListCriterio1.SelectedValue.ToString();
 
-                    lsObject = controladoraReportes.reportarHistorialDeAsignacionesEncargado(criterioBusqueda, cedulaBecario);
-
+                    lsObject = controladoraReportes.reportarHistorialDeAnotacionesEncargado(criterioBusqueda, cedulaBecario);
+                    
                     mostrarGrid();
                 } break;
         }

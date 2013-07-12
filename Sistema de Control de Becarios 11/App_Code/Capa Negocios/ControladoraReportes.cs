@@ -206,6 +206,11 @@ public class ControladoraReportes
                                 }
                                 tbBecarios = controladoraBDReportes.reportarBecariosNoAsignados(criterioBusquedaGeneral, periodo, criterio2, añoAnterior, periodoAnterior);
                             } break;
+
+                        case "Becarios nunca Asignados":
+                            {
+                                tbBecarios = controladoraBDReportes.reportarBecariosNoAsignados4(criterioBusquedaGeneral);
+                            } break;
                     }
 
                     List<object[]> lsObjectAux = new List<object[]>();
@@ -367,10 +372,10 @@ public class ControladoraReportes
         return lsObject;
     }
 
-    public List<Object[]> reportarHistorialDeAsignacionesEncargado(string criterioBusqueda, string cedula)
+    public List<Object[]> reportarHistorialDeAnotacionesEncargado(string criterioBusqueda, string cedula)
     {
         List<Object[]> lsObject = new List<Object[]>();
-        DataTable dt = controladoraBDReportes.reportarHistorialDeAsignacionesEncargado(criterioBusqueda, cedula);
+        DataTable dt = controladoraBDReportes.reportarHistorialDeAnotacionesEncargado(criterioBusqueda, cedula);
         foreach (DataRow r in dt.Rows)
         {
             Object[] obj = new Object[23];

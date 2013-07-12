@@ -63,6 +63,13 @@ public class ControladoraBDReportes
         return dt;
     }
 
+    public DataTable reportarBecariosNoAsignados4(string criterioBusquedaGeneral)
+    {
+        DataTable dt = new DataTable();
+        dt = this.adapterReporte2.reportarBecariosNoAsignados4(criterioBusquedaGeneral);
+        return dt;
+    }
+
     //Consultas para Reorte3
     public DataTable optenerUnidadesAcademicas()
     {
@@ -103,10 +110,10 @@ public class ControladoraBDReportes
     }
 
      //Consultas para Reporte7
-    public DataTable reportarHistorialDeAsignacionesEncargado(string criterioBusqueda, string cedula) 
+    public DataTable reportarHistorialDeAnotacionesEncargado(string criterioBusqueda, string cedula) 
     {
         DataTable dt = new DataTable();
-        dt = adapterReporte1.reportarHistorialDeAsignacionesEncargado(criterioBusqueda, cedula);
+        dt = adapterReporte1.reportarHistorialDeAnotacionesEncargado(criterioBusqueda, cedula);
         return dt;
     }
 
