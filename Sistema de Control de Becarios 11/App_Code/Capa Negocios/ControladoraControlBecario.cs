@@ -20,7 +20,7 @@ public class ControladoraControlBecario
 	}
 
     public DataTable horasReportadas(String becario,String encargado) {
-        return cb.horasReportadas(becario,encargado);
+        return cb.horasReportadas(becario,encargado);//retorna los reportes de un becario especifico
     }
 
     //retorna la cedula del encargado para el becario en el periodo actual
@@ -30,8 +30,8 @@ public class ControladoraControlBecario
     //inserta un reporte de horas
     public String enviarReporte(Object[] datos)
     {
-        ControlDeHoras c = new ControlDeHoras(datos);
-        return this.cb.enviarReporte(c);
+        ControlDeHoras c = new ControlDeHoras(datos);//crea la entidad
+        return this.cb.enviarReporte(c);//envia el reporte
     }
     //modifica el reporte de horas
     public int modificarReporte(Object [] datos) {
@@ -54,10 +54,12 @@ public class ControladoraControlBecario
         return cb.getAsignacion(becario, encargado,periodo);
     }
 
+    //para aceptar la sigueinte asignacion con el encargado
     public int aceptarSiguienteAsignacion(Object [] datos) {
         return cb.aceptarSiguienteAsignacion(datos);
     }
 
+    //retorna el comentario final de un becario
     public String getComentarioBecarioFinal(String becario, String encargado)
     {
         return cb.getComentarioBecarioFinal(becario, encargado);
