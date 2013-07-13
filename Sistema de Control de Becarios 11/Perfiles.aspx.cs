@@ -8,17 +8,20 @@ using System.Data;
 
 public partial class Perfiles : System.Web.UI.Page
 {
-    private static CommonServices commonService;
-    private ControladoraPerfiles cp;
-    private static int modo;
-    private static String nombreAnterior;
+
+    private static CommonServices commonService;//variable de servicios comunes
+    private ControladoraPerfiles cp;//variable de controladora
+    private static int modo;//modo de operacion (insretar o modificar)
+    private static String nombreAnterior;//para almacenar el nombre anterior en caso de cambio
+
+
     protected void Page_Load(object sender, EventArgs e)
     {
-        List<int> permisos = new List<int>();
-        permisos = Session["ListaPermisos"] as List<int>;
+        List<int> permisos = new List<int>();//crea una lista para los permisos
+        permisos = Session["ListaPermisos"] as List<int>;//obtiene los permisos del usuario logueado
 
         if (permisos == null)
-        {
+        {//no tiene permisos
             Session["Nombre"] = "";
             Response.Redirect("~/Default.aspx");
         }
@@ -26,7 +29,7 @@ public partial class Perfiles : System.Web.UI.Page
         {
 
              int permiso = 0; /* Query to user validation */
-             if (permisos.Contains(13))/**Cambiar**/
+             if (permisos.Contains(13))//permiso para perfiles
              {
                  permiso = 13;
              }
@@ -34,8 +37,8 @@ public partial class Perfiles : System.Web.UI.Page
              switch (permiso)
              {
                  case 13:
-                     {
-                         multiViewPerfiles.SetActiveView(vistaAdmin);
+                     {//perfiles
+                         multiViewPerfiles.SetActiveView(vistaAdmin);//se hace visible la vista del administrador
                          cp = new ControladoraPerfiles();//se crea el objeto de la controlador para solicitar servicios
                          if (!IsPostBack)
                          {
@@ -47,29 +50,31 @@ public partial class Perfiles : System.Web.UI.Page
                      } break;
 
                  default:
-                     {
+                     {//no tiene permiso por lo tanto se le muestra un mensaje
                          multiViewPerfiles.SetActiveView(VistaSinPermiso);
                      } break;
              }
          }
     }
 
+    //clic del boton para crear un modificar un perfil
     protected void clicBotonAceptar(object sender, EventArgs e)
     {
         if (Page.IsValid)
-        {
+        {//datos de la pagina validos
             Object[] datos = new Object[16];//crea el objeto para almacenar los datos del perfil
             datos[0] = this.txtNombrePerfil.Text;//nombre nuevo del permiso
+            //guardo cual de los tipos de perfil se selecciono
             if (radioAdministrador.Checked)
-            {
+            {//administrador
                 datos[1] = "0";
             }
             else if (radioEncargado.Checked)
-            {
+            {//encargado
                 datos[1] = "1";
             }
             else if (radioBecario.Checked)
-            {
+            {//becario
                 datos[1] = "2";
             }
             else
@@ -77,19 +82,20 @@ public partial class Perfiles : System.Web.UI.Page
                 datos[1] = "3";
             }
             datos[2] = nombreAnterior;//para modificar el nombre de ser necesario
-            datos[3] = (this.radioBecarioCompleto.Checked) ? "1" : "0";
-            datos[4] = (this.radioBecarioParcial.Checked) ? "2" : "0";
-            datos[5] = (this.radioEncargadoCompleto.Checked) ? "3" : "0";
-            datos[6] = (this.radioEncargadoParcial.Checked) ? "4" : "0";
-            datos[7] = (this.radioControlBecario.Checked) ? "5" : "0";
-            datos[8] = (this.radioControlEncargado.Checked) ? "6" : "0";
-            datos[9] = (this.checkReportes.Checked) ? "7" : "0";
-            datos[10] = (this.radioAsignacionCompleta.Checked) ? "8" : "0";
-            datos[11] = (this.radioAsignacionEncargado.Checked) ? "9" : "0";
-            datos[12] = (this.radioAsignacionBecario.Checked) ? "10" : "0";
-            datos[13] = (this.radioCuentaCompleta.Checked) ? "11" : "0";
-            datos[14] = (this.radioCuentaParcial.Checked) ? "12" : "0";
-            datos[15] = (this.checkPerfiles.Checked) ? "13" : "0";
+            //Guardo los perfiles que se han seleccionado para un perfil
+            datos[3] = (this.radioBecarioCompleto.Checked) ? "1" : "0";//seleccion becario completo
+            datos[4] = (this.radioBecarioParcial.Checked) ? "2" : "0";//seleccion becario parcial
+            datos[5] = (this.radioEncargadoCompleto.Checked) ? "3" : "0";//seleccion encargado completo
+            datos[6] = (this.radioEncargadoParcial.Checked) ? "4" : "0";//seleccion encargado parcial
+            datos[7] = (this.radioControlBecario.Checked) ? "5" : "0";//seleccion control becario
+            datos[8] = (this.radioControlEncargado.Checked) ? "6" : "0";//seleccion control encargado
+            datos[9] = (this.checkReportes.Checked) ? "7" : "0";//seleccion reportes
+            datos[10] = (this.radioAsignacionCompleta.Checked) ? "8" : "0";//seleccion asignacion completa
+            datos[11] = (this.radioAsignacionEncargado.Checked) ? "9" : "0";//seleccion asignacion encargado
+            datos[12] = (this.radioAsignacionBecario.Checked) ? "10" : "0";//seleccion asignacion becario
+            datos[13] = (this.radioCuentaCompleta.Checked) ? "11" : "0";//seleccion cuentas completo
+            datos[14] = (this.radioCuentaParcial.Checked) ? "12" : "0";//seleccion cuentas parcial
+            datos[15] = (this.checkPerfiles.Checked) ? "13" : "0";//seleccion perfiles completo
             //para saber el tipo de perfil revizo los radioButtons            
             
             String resultado = cp.ejecutar(modo, datos);//se realiza la accion y se retorna el resultado
@@ -125,33 +131,35 @@ public partial class Perfiles : System.Web.UI.Page
         modo = 1;//insertar
         vaciarCampos();//se vacian los campos para insertar un nuevo perfil
         this.radioAdministrador.Checked = true;
-        habilitarCampos(true);
-        commonService.abrirPopUp("PopUp", "Insertar Nuevo Perfil");
+        habilitarCampos(true);//habilita los para ingresarlos
+        commonService.abrirPopUp("PopUp", "Insertar Nuevo Perfil");//abre la ventana emergente
     }
 
+    //llena el grid
     public void llenarGridPerfiles()
     {//se llena el grid con los perfiles en la base de datos
         this.gridPerfiles.DataSource = llenarTablaPerfiles();//creo la tabla
         this.gridPerfiles.DataBind();//se inserto la tabla al grid
-        this.gridPerfiles.AllowPaging = true;
-        if (this.gridPerfiles.Rows.Count > 0)
-        {
+        this.gridPerfiles.AllowPaging = true;//paginacion del grid
+        if (this.gridPerfiles.Rows.Count > 0)//si hay filas
+        {//asigno los headers
             this.gridPerfiles.HeaderRow.BackColor = System.Drawing.Color.FromArgb(4562432);
             this.gridPerfiles.HeaderRow.ForeColor = System.Drawing.Color.White;
         }
     }
 
+    //llena la tabla para el grid
     public DataTable llenarTablaPerfiles()
     {
         DataTable tablaPerfiles = cp.consultar(); //consulto los perfiles en el sistema
         DataTable tablaPerfilesAMostrar = tablaPerfilAMostrar();
-
+        //recorro la consulta
         foreach( DataRow row in tablaPerfiles.Rows) {
 
-            DataRow fila = tablaPerfilesAMostrar.NewRow();
-            fila["Nombre de Perfil"] = row[0].ToString();
+            DataRow fila = tablaPerfilesAMostrar.NewRow();//creo una fila para el grid
+            fila["Nombre de Perfil"] = row[0].ToString();//nombre del perfil
 
-            switch (Convert.ToInt32( row[1] )){
+            switch (Convert.ToInt32( row[1] )){//tipo de perfil
                 case 0: // Administrador
                     {
                         fila["Tipo"] = "Administrador";
@@ -171,30 +179,31 @@ public partial class Perfiles : System.Web.UI.Page
                         fila["Tipo"] = "Otro";
                     } break;
             }
-            tablaPerfilesAMostrar.Rows.Add(fila);
+            tablaPerfilesAMostrar.Rows.Add(fila);//agrego la fila
         }
-        if(tablaPerfiles.Rows.Count == 0){
+        if(tablaPerfiles.Rows.Count == 0){//para cuando no hay nada
             DataRow fila = tablaPerfilesAMostrar.NewRow();
             fila["Tipo"] = "-"; fila["Nombre de Perfil"] = "-";
         }
         return tablaPerfilesAMostrar;
     }
 
+    //crea la tabla que se va mostrar
     private DataTable tablaPerfilAMostrar()
     {
         DataTable tabla = new DataTable();
 
         // Nombre de Perfil
-        DataColumn idColumn = new DataColumn();
+        DataColumn idColumn = new DataColumn();//nueva columna
         idColumn.DataType = System.Type.GetType("System.String");
-        idColumn.ColumnName = "Nombre de Perfil";
-        tabla.Columns.Add(idColumn);
+        idColumn.ColumnName = "Nombre de Perfil";//nombre de la columna
+        tabla.Columns.Add(idColumn);//agrego
 
         // Nombre de Tipo
-        DataColumn typeColumn = new DataColumn();
+        DataColumn typeColumn = new DataColumn();//nueva columna
         typeColumn.DataType = System.Type.GetType("System.String");
-        typeColumn.ColumnName = "Tipo";
-        tabla.Columns.Add(typeColumn);
+        typeColumn.ColumnName = "Tipo";//nombre de la columna
+        tabla.Columns.Add(typeColumn);//agrego
 
         return tabla;
     }
@@ -318,26 +327,27 @@ public partial class Perfiles : System.Web.UI.Page
         else { 
             //marco el tipo
             if(this.gridPerfiles.Rows[indice].Cells[2].Text.Equals("Administrador")){
-                this.radioAdministrador.Checked = true;
+                this.radioAdministrador.Checked = true;//se marca el administrador
             }
             else if (this.gridPerfiles.Rows[indice].Cells[2].Text.Equals("Becario"))
             {
-                this.radioBecario.Checked = true;
+                this.radioBecario.Checked = true;//marca el becario
             }
             else {
-                this.radioEncargado.Checked = true;
+                this.radioEncargado.Checked = true;//marca el encargado
             }
         }
-        this.txtNombrePerfil.Text = this.gridPerfiles.Rows[indice].Cells[1].Text;
-        nombreAnterior = this.txtNombrePerfil.Text;
+        this.txtNombrePerfil.Text = this.gridPerfiles.Rows[indice].Cells[1].Text;//pone el nombre del perfil
+        nombreAnterior = this.txtNombrePerfil.Text;//guarda el nombre anterior
         
     }
 
     public void siElimina(object sender, EventArgs e)
     {//confirmacion del usuario para eliminar un perfil
         commonService.cerrarPopUp("PopUp");//cierro el popUp con los datos
-        Object[] datos = new Object[16];
-        datos[0] = this.txtNombrePerfil.Text;
+        Object[] datos = new Object[16];//creo el objeto de datos
+        datos[0] = this.txtNombrePerfil.Text;//guardo el nombre
+        //guardo los permisos que se van a eliminar
         datos[3] = (this.radioBecarioCompleto.Checked) ? "1" : "0";
         datos[4] = (this.radioBecarioParcial.Checked) ? "2" : "0";
         datos[5] = (this.radioEncargadoCompleto.Checked) ? "3" : "0";
@@ -360,21 +370,21 @@ public partial class Perfiles : System.Web.UI.Page
         {//mensaje de error
             commonService.mensajeJavascript(result, "Error en la eliminacion");
         }
-        llenarGridPerfiles();
+        llenarGridPerfiles();//lana nuevamente el grid con los nuevos perfiles
     }
 
     protected void gridPerfiles_PageIndexChanging(object sender, GridViewPageEventArgs e)
     {//para cuando se cambie de pagina en el grid
         DataTable dt = cp.consultar();//se llama a la controladora
-        DataTable tablaPerfilesAMostrar = tablaPerfilAMostrar();
+        DataTable tablaPerfilesAMostrar = tablaPerfilAMostrar();//crea la tabla a mostrar
         foreach (DataRow row in dt.Rows)
-        {
+        {//recorre la consulta
 
             DataRow fila = tablaPerfilesAMostrar.NewRow();
             fila["Nombre de Perfil"] = row[0].ToString();
 
             switch (Convert.ToInt32(row[1]))
-            {
+            {//marca administrador, becario o encargado
                 case 0: // Administrador
                     {
                         fila["Tipo"] = "Administrador";
@@ -394,82 +404,84 @@ public partial class Perfiles : System.Web.UI.Page
         }
         gridPerfiles.PageIndex = e.NewPageIndex;//siguiente indice del grid
         gridPerfiles.DataSource = tablaPerfilesAMostrar;//se ligan los datos
-        gridPerfiles.DataBind();
+        gridPerfiles.DataBind();//agrego los datos
 
         if (this.gridPerfiles.Rows.Count > 0)
-        {
+        {//si hay filas entonces muestra la tabla
             this.gridPerfiles.HeaderRow.BackColor = System.Drawing.Color.FromArgb(4562432);
             this.gridPerfiles.HeaderRow.ForeColor = System.Drawing.Color.White;
         }
     }
 
+    //para cuando se consulta un perfil
     private void marcarRadio(int cual)
     {//se marcan los radioButtons o checkBoxes para dicho perfil
         switch (cual)
         {
-            case 1:
+            case 1://becario
                 this.radioSinAccesoBecario.Checked = false;
                 this.radioBecarioCompleto.Checked = true;
                 break;
-            case 2:
+            case 2://becario
                 this.radioSinAccesoBecario.Checked = false;
                 this.radioBecarioParcial.Checked = true;
                 break;
-            case 3:
+            case 3://encargado
                 this.radioSinAccesoEncargado.Checked = false;
                 this.radioEncargadoCompleto.Checked = true;
                 break;
-            case 4:
+            case 4://encargado
                 this.radioSinAccesoEncargado.Checked = false;
                 this.radioEncargadoParcial.Checked = true;
                 break;
-            case 5:
+            case 5://control de horas
                 this.radioControlBecario.Checked = true;
                 break;
-            case 6:
+            case 6://control de horas
                 this.radioControlEncargado.Checked = true;
                 break;
-            case 7:
+            case 7://reportes
                 this.checkReportes.Checked = true;
                 break;
-            case 8:
+            case 8://asignacion
                 this.radioAsignacionCompleta.Checked = true;
                 break;
-            case 9:
+            case 9://asignacion
                 this.radioAsignacionEncargado.Checked = true;
                 break;
-            case 10:
+            case 10://asignacion
                 this.radioAsignacionBecario.Checked = true;
                 break;
-            case 11:
+            case 11://cuentas
                 this.radioSinCuenta.Checked = false;
                 this.radioCuentaCompleta.Checked = true;
                 break;
-            case 12:
+            case 12://cuentas
                 this.radioSinCuenta.Checked = false;
                 this.radioCuentaParcial.Checked = true;
                 break;
-            case 13:
+            case 13://perfiles
                 {
                     this.checkPerfiles.Checked = true;
                 } break;
         }
     }
 
+    //buscar por un filtro
     protected void btnBuscar_Click(object sender, EventArgs e)
     {
         String patron = this.txtBuscarPerfil.Text;//patron para buscar entre los nombres
-        DataTable dt = cp.buscarPerfiles("%"+patron+"%");
+        DataTable dt = cp.buscarPerfiles("%"+patron+"%");//para buscar patron
         DataTable tablaPerfilesAMostrar = tablaPerfilAMostrar();
 
         foreach (DataRow row in dt.Rows)
-        {
+        {//recorro la consulta
 
             DataRow fila = tablaPerfilesAMostrar.NewRow();
             fila["Nombre de Perfil"] = row[0].ToString();
 
             switch (Convert.ToInt32(row[1]))
-            {
+            {//marco el tipo
                 case 0: // Administrador
                     {
                         fila["Tipo"] = "Administrador";
@@ -485,11 +497,11 @@ public partial class Perfiles : System.Web.UI.Page
                         fila["Tipo"] = "Becario";
                     } break;
             }
-            tablaPerfilesAMostrar.Rows.Add(fila);
+            tablaPerfilesAMostrar.Rows.Add(fila);//agrego la fila
         }
         this.gridPerfiles.DataSource = tablaPerfilesAMostrar;//creo la tabla
         this.gridPerfiles.DataBind();//se inserto la tabla al grid
-        this.gridPerfiles.AllowPaging = true;
+        this.gridPerfiles.AllowPaging = true;//paginacion
         if (this.gridPerfiles.Rows.Count > 0)
         {
             this.gridPerfiles.HeaderRow.BackColor = System.Drawing.Color.FromArgb(4562432);
@@ -500,9 +512,9 @@ public partial class Perfiles : System.Web.UI.Page
     protected void gridPerfiles_RowCommand(object sender, GridViewCommandEventArgs e)
     {
 
-        switch(e.CommandName){
+        switch(e.CommandName){//seleccion
 
-            case "seleccionarPosiblePerfil": {
+            case "seleccionarPosiblePerfil": {//seleccion de fila
                 vaciarCampos();//vaciamos los campos del popUp
                 habilitarCampos(false);//se deshabilitan los campos, asi al inicio no puede modificar
                 habilitarBotones(true);//habilito botones de eliminar y modificar

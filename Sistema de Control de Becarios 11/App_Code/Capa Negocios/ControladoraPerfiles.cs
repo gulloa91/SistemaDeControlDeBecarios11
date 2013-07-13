@@ -111,6 +111,7 @@ public class ControladoraPerfiles
         return cp.buscarPerfiles(nom);
     }
 
+    //obtiene permisos de un usuario
     public List<int> obtenerPermisosUsuario(String nombre)
     {
         return cp.obtenerPermisosUsuario(nombre);
