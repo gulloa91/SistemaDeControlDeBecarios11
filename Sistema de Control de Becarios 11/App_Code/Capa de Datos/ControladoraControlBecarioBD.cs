@@ -124,9 +124,10 @@ public class ControladoraControlBecarioBD
 
     public String getComentarioBecarioFinal(String becario, String encargado)
     {
-        String resultado = "-1";
+        String resultado = null;
         try {
-            return (a.getComentarioFinalBecario(becario, 1, DateTime.Now.Year, encargado)).ToString();
+            resultado = (a.getComentarioFinalBecario(becario, 1, DateTime.Now.Year, encargado)).ToString();
+            return resultado;
         }catch(Exception ex){
             return resultado;
         }
