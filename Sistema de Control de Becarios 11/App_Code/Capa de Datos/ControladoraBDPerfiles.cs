@@ -33,19 +33,19 @@ public class ControladoraPerfilesDB
         string returnValue = "";
 
         try
-        {
+        {//intenta hacer la insercion
             pt.Insert(nombre, tipo);//se inserta el perfil
         }
         catch (SqlException e)
         {
             int r = e.Number;
             if (r == 2627)
-            {
+            {//ya existia ese perfil
                 returnValue = "Ya existe un perfil con el nombre digitado";
             }
             else
-            {
-                returnValue = "Se ha producido un error al modificar el perfil";
+            {//error de base de datos
+                returnValue = "Se ha producido un error al insertar el perfil";
             }
 
         }
@@ -53,15 +53,16 @@ public class ControladoraPerfilesDB
         return returnValue;
     }
 
+    //para modificar el tipo del perfil
     public String modificarTipo(String nom,String tipo) {
         string returnValue = "";
 
         try
-        {
-            pt.updateTipo(Convert.ToInt32(tipo),nom);
+        {//intenta hacer la modificacion
+            pt.updateTipo(Convert.ToInt32(tipo),nom);//hace la modificacion
         }
         catch (SqlException e)
-        {
+        {//error muestra mensaje
             returnValue = "Ha ocurrido un error al modificar el perfil";
 
         }
@@ -69,15 +70,16 @@ public class ControladoraPerfilesDB
         return returnValue;
     }
 
+    //modifica el nombre del perfil
     public String modNom(String nom,String nomAnt) {
         string returnValue = "";
 
         try
-        {
-            pt.updateNombre(nom, nomAnt);
+        {//intenta hacer la modificacion
+            pt.updateNombre(nom, nomAnt);//hace la modificacion
         }
         catch (SqlException e)
-        {
+        {//error, muestra mensaje de error
             returnValue = "Ha ocurrido un error al modificar el perfil";
 
         }
@@ -92,11 +94,11 @@ public class ControladoraPerfilesDB
         string returnValue = "";
 
         try
-        {
-            pp.Insert(p.Nombre, p.IDPermiso);
+        {//intenta agregar permisos
+            pp.Insert(p.Nombre, p.IDPermiso);//agrega permisos a un perfil
         }
         catch (SqlException e)
-        {
+        {//error, muestra mensaje de error
             returnValue = "Ha ocurrido un error al Agregar el perfil";
 
         }
@@ -126,7 +128,7 @@ public class ControladoraPerfilesDB
         string returnValue = "";
 
         try
-        {
+        {//intenta la eliminacion
             pt.Delete(nombre);//elimina el perfil de la tabla Perfil
         }
         catch (SqlException e)
@@ -143,7 +145,7 @@ public class ControladoraPerfilesDB
         string returnValue = "";
 
         try
-        {
+        {//intenta la eliminacion
             pp.Delete(nombre, permiso);//elimina un permiso de la tabla Perfil_Permiso
         }
         catch (SqlException e)
@@ -166,7 +168,7 @@ public class ControladoraPerfilesDB
         try
         {
             switch (tipo)
-            {
+            {//tipo es para saber si borro o agrego permisos a un perfil
                 case 1: //para las inserciones
                     agregarPermisos(perfil);
                     break;
@@ -181,24 +183,25 @@ public class ControladoraPerfilesDB
         {
             r = e.Number;
             if (r == 2627)
-            {
+            {//ya existia
                 returnValue = "Ya existe un perfil con el nombre digitado";
             }
             else
-            {
+            {//error de base de datos
                 returnValue = "Se ha producido un error al modificar el perfil";
             }
         }
         return returnValue;
     }
 
+    //lista de permisos de un perfil
     public List<int> obtenerPermisosUsuario(String nombre)
     {
-        DataTable dt = pp.consultarPerfil(nombre);
-        List<int> lista = new List<int>();
+        DataTable dt = pp.consultarPerfil(nombre);//consulta perfil
+        List<int> lista = new List<int>();//crea la lista
         for (int i = 0; i < dt.Rows.Count; ++i)
         {//recorro el data Table
-            lista.Add(Convert.ToInt32(dt.Rows[i].ItemArray[1]));
+            lista.Add(Convert.ToInt32(dt.Rows[i].ItemArray[1]));//agrego permisos
         }
         return lista;
     }

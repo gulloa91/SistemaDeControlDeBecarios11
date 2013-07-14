@@ -103,10 +103,9 @@
                         <!-- Grid -->
                         <div id="divGridControlHorasBecario">
                             <asp:GridView ID="gridControlHorasBecario" runat="server" GridLines="Both" RowStyle-HorizontalAlign="Center"
-                                RowStyle-VerticalAlign="Middle" AllowPaging="true" OnSelectedIndexChanging="gridControlHorasBecario_SelectedIndexChanging"
-                                OnPageIndexChanging="gridControlHorasBecario_PageIndexChanging" PageSize="15"
+                                RowStyle-VerticalAlign="Middle" AllowPaging="true" PageSize="15"
                                 OnRowCommand="gridControlHorasBecario_RowCommand" CssClass="table_css centerText"
-                                PagerStyle-CssClass="pagerGlobal" OnSelectedIndexChanged="gridControlHorasBecario_SelectedIndexChanged">
+                                PagerStyle-CssClass="pagerGlobal" >
                                 <Columns>
                                     <asp:ButtonField CommandName="btnSeleccionarTupla_Click" CausesValidation="false"
                                         ButtonType="Image" ImageUrl="~/Images/arrow-right.png" ItemStyle-HorizontalAlign="Center"
@@ -164,8 +163,8 @@
                                 </div>
                                 <!-- Textbox para comentario respuesta -->
                                 <div id="comentarioDeEncargado" style="width: 100%; float: left">
-                                    <asp:Label ID="Label2" runat="server" Visible="false" Text="Comentario del encargado"></asp:Label>
-                                    <asp:TextBox ID="txtComentarioEncargado" Visible="false" CssClass="comentarioCHB" TextMode="MultiLine"
+                                    <asp:Label ID="Label2" runat="server" Text="Comentario del encargado"></asp:Label>
+                                    <asp:TextBox ID="txtComentarioEncargado" CssClass="comentarioCHB" TextMode="MultiLine"
                                         Rows="5" runat="server"></asp:TextBox>
                                 </div>
                                 <div id="validadorComentario" style="width: 100%; float: left">

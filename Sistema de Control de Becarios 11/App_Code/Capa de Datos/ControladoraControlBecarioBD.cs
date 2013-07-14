@@ -18,21 +18,23 @@ public class ControladoraControlBecarioBD
 		//
 		// TODO: Add constructor logic here
 		//
+        //instancias de los tableAdapters
         ch = new ControlDeHorasTableAdapter();
         a = new AsignadoATableAdapter();
         c = new ComentarioTableAdapter();
 	}
 
+    //retorna las horas un becario
     public DataTable horasReportadas(String becario,String encargado)
     {
         DataTable retorno;
         try
-        {
-            retorno = ch.getReportesByBecario(becario,encargado,1,DateTime.Now.Year) ;
+        {//intenta recuperar las horas
+            retorno = ch.getReportesByBecario(becario,encargado,1,DateTime.Now.Year) ;//recupera las horas
         }
         catch (Exception e)
-        {
-            retorno = null;
+        {//error
+            retorno = null;//no retorna nada
         }
         return retorno;
     }
@@ -41,54 +43,58 @@ public class ControladoraControlBecarioBD
     public String getCedEncargado(String becario,int periodo) {
         String resultado = "";
         try
-        {
-            resultado = a.getCedulaEncargado(becario,periodo,DateTime.Now.Year).ToString();
-        }catch(Exception ex){
-            resultado = "";
+        {//intenta recuperar cedula
+            resultado = a.getCedulaEncargado(becario,periodo,DateTime.Now.Year).ToString();//recupera cedula
+        }catch(Exception ex){//error
+            resultado = "";//no retorna nada
         }
         return resultado;
     }
 
     public String enviarReporte(ControlDeHoras c)
-    {
+    {//se envia un reporte de horas
         String resultado = "Envío Exitoso";
         try
-        {
+        {//intenta insertar el reporte
+            //inserta el reporte en la base de datos
             int result = ch.Insert(c.cedulaBecario, c.cedulaEncargado, c.cantidadHoras, c.fecha, c.estado, c.comentarioBecario, c.comentarioEncargado, c.periodo, DateTime.Now.Year);
             //si el comentario no esta vacio, lo agrego
             if (!c.comentarioBecario.Equals("")) agregarComentario(c.cedulaBecario, c.cedulaEncargado, c.comentarioBecario);//agrego el comentario
         }
         catch (Exception ex)
-        {
-            resultado = "Envío Fallido";
+        {//error
+            resultado = "Envío Fallido";//mensaje de fallo
         }
         return resultado;
     }
-
+    
+    //modificacion de un reporte existente
     public int modificarReporte(ControlDeHoras c) { 
         int resultado = -1;
         try
-        {
+        {//intenta la modificacion
+            //realiza la modificacion con los nuevos datos
             resultado = ch.updateReporte(c.cantidadHoras, c.estado, c.comentarioBecario, c.cedulaBecario, c.cedulaEncargado, c.fecha, c.periodo, DateTime.Now.Year);
             //si el comentario no esta vacio lo agrego
             if(!c.comentarioBecario.Equals(""))agregarComentario(c.cedulaBecario, c.cedulaEncargado, c.comentarioBecario);//agrego el comentario
         }
         catch (Exception ex)
-        {
-            resultado = 0;
+        {//error
+            resultado = 0;//resultado fallido
         }
         return 1;
     }
 
+    //retorna la cantidad de horas totales para una asignacion
     public int getHoras(String becario, String encargado,int periodo)
     {
-        AsignadoATableAdapter a = new AsignadoATableAdapter();
-        return (int)(a.getTotalHoras(becario, encargado, periodo, DateTime.Now.Year));
+        AsignadoATableAdapter a = new AsignadoATableAdapter();//se inicializa la instancia
+        return (int)(a.getTotalHoras(becario, encargado, periodo, DateTime.Now.Year));//retorna la cantidad de horas
     }
 
     //agrega el comentario en la tabla de comentarios
     private void agregarComentario(String autor, String destino, String comentario) {
-        c.Insert(autor, DateTime.Now, destino, comentario);
+        c.Insert(autor, DateTime.Now, destino, comentario);//inserta el comentario en la tabla de comentario
     }
 
     //comantario final de la asignacion que concluye
@@ -112,9 +118,11 @@ public class ControladoraControlBecarioBD
         }
     }
 
+    //para aceptar la asignacion del siguiente semestre
     public int aceptarSiguienteAsignacion(Object [] datos)
     {
         try {
+            //realiza la insercion en la base de datos
             a.aceptarAsignacion(datos[0].ToString(), Convert.ToInt32(datos[2].ToString()), Convert.ToInt32(datos[3].ToString()), datos[1].ToString());
             return 1;
         }catch(Exception ex){
@@ -122,13 +130,16 @@ public class ControladoraControlBecarioBD
         }
     }
 
+    //retorna el comentario final del becario para saber si ya finalizo la asignacion
     public String getComentarioBecarioFinal(String becario, String encargado)
     {
-        String resultado = "-1";
+        String resultado = null;
         try {
-            return (a.getComentarioFinalBecario(becario, 1, DateTime.Now.Year, encargado)).ToString();
+            //busca el comentario
+            resultado = (a.getComentarioFinalBecario(becario, 1, DateTime.Now.Year, encargado)).ToString();
+            return resultado;//retorna el comentario
         }catch(Exception ex){
-            return resultado;
+            return resultado;//no habia comentario, retorna nulo
         }
     }
 

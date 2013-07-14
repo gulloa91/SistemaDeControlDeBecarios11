@@ -8,35 +8,37 @@ using System.Data;
 
 public partial class ControlDeHoras : System.Web.UI.Page
 {
-    private static CommonServices commonService;
+    private static CommonServices commonService;//variable de servicios
     private DataTable infoActual;//CedulaBecario, CedulaEncargado, CantidadHoras, Fecha, Estado, CuerpoComentarioBecario, CuerpoComentarioEncargado
-    private ControladoraControlBecario cb;
-    private ControladoraAsignaciones ca;
-    public static int modo = 0;
-    public static int indice = 0;
+    private ControladoraControlBecario cb;//variable de controladora de becario
+    private ControladoraAsignaciones ca;//variable controladora de asignaciones
+    public static int modo = 0;//inserta o modifica
+    public static int indice = 0;//indice del grid
 
 
     protected void Page_Load(object sender, EventArgs e)
     {
         cb = new ControladoraControlBecario();
-        //recupero el estado de dicha asignacion
+        //cedula del encargado del becario logueado
         String encargado = this.cb.getCedulaEncargado(Session["Cedula"].ToString(),Convert.ToInt32(Session["Periodo"].ToString()));
+        //recupero el estado de dicha asignacion
         int estado = cb.getEstado(Session["Cedula"].ToString(),encargado,Convert.ToInt32(Session["Periodo"].ToString()));
+        //comentrario final del becario
         String comentario = cb.getComentarioBecarioFinal(Session["Cedula"].ToString(), encargado);
 
         if (estado == 1)
         {//asignacion aceptada
             this.MultiViewBecario.ActiveViewIndex = 1;
-            commonService = new CommonServices(UpdateInfo);
-            ca = new ControladoraAsignaciones();
-            llenarGridHorasReportadas();
+            commonService = new CommonServices(UpdateInfo);//inicializo variables
+            ca = new ControladoraAsignaciones();//inicializo variables
+            llenarGridHorasReportadas();//se llena el grid
         }
         else
         {
             this.MultiViewBecario.ActiveViewIndex = 0;
             if(estado == 7 && comentario == null){//esta finalizada y no ha hecho el comentario final
-                commonService = new CommonServices(panelVacio);
-                commonService.correrJavascript("abrir();");
+                commonService = new CommonServices(panelVacio);//inicializo vairables
+                commonService.correrJavascript("abrir();");//abre ventana para ultimo comentario y aceptar sig asignacion
             }
             //no se muestra nada pues no hay asignacion activa
         }
@@ -44,9 +46,10 @@ public partial class ControlDeHoras : System.Web.UI.Page
 
     protected void btnReportarHoras_Click(object sender, EventArgs e)
     {
-        modo = 0;
+        modo = 0;//reportar nuevas horas
         habilitar();//habilito los campos para la insercion
-        vaciarCampos();
+        vaciarCampos();//limpia los capos
+        //abre la ventana emergente
         commonService.abrirPopUp("PopUpCtrlBecario", "Nuevo Reporte de Horas");
         commonService.correrJavascript("$('#comentarioDeEncargado').hide();");
         commonService.correrJavascript("$('.dateText').datepicker({ dateFormat: 'dd-MM-yy' });");
@@ -55,44 +58,46 @@ public partial class ControlDeHoras : System.Web.UI.Page
     // Selecciona tupla del grid
     protected void gridControlHorasBecario_RowCommand(object sender, GridViewCommandEventArgs e)
     {
-
         switch (e.CommandName)
         {
             // Abrir Pop Up aceptar/rechazar horas
             case "btnSeleccionarTupla_Click":
-                {
+                {//selecciona tupla
                     vaciarCampos();//vacio los campos
-                    indice = Convert.ToInt32(e.CommandArgument);
+                    indice = Convert.ToInt32(e.CommandArgument);//cual fila selecciono
+                    //se cargan los datos de la informacion actual
                     this.txtCantidadHoras.Text = infoActual.Rows[indice + gridControlHorasBecario.PageIndex * gridControlHorasBecario.PageSize].ItemArray[2].ToString();
                     this.txtFecha.Text = infoActual.Rows[indice + gridControlHorasBecario.PageIndex * gridControlHorasBecario.PageSize].ItemArray[3].ToString();
                     this.txtComentario.Text = infoActual.Rows[indice + gridControlHorasBecario.PageIndex * gridControlHorasBecario.PageSize].ItemArray[5].ToString();
                     this.txtComentarioEncargado.Text = infoActual.Rows[indice + gridControlHorasBecario.PageIndex * gridControlHorasBecario.PageSize].ItemArray[6].ToString();
-                    this.txtComentarioEncargado.Enabled = false;
+                    this.txtComentarioEncargado.Enabled = true;
                     if (Convert.ToInt32(infoActual.Rows[indice + gridControlHorasBecario.PageIndex * gridControlHorasBecario.PageSize].ItemArray[4].ToString()) == 1)
-                    {//reporte aceptado
+                    {//reporte rechazado
                         habilitarModificacion(true);
                         modo = 1;
                     }
-                    else {//reporte rechazado 
+                    else {//reporte aceptado o pendiente
                         habilitarModificacion(false);
                         modo = -1;//no se hace nada en esta
                     }
-                    commonService.abrirPopUp("PopUpCtrlBecario", "Nuevo Reporte de Horas");
+                    //abre la ventana emergente
                     commonService.correrJavascript("$('#comentarioDeEncargado').show();");
+                    commonService.abrirPopUp("PopUpCtrlBecario", "Nuevo Reporte de Horas");
                     
                 } break;
         }
     }
 
+    //para saber si puede o no modificar
     private void habilitarModificacion(Boolean estado) {
         if (estado)
-        {//para la modificacion del becario
+        {//para la modificacion del becario se habilitan los campos
             this.txtCantidadHoras.Enabled = true;
             this.txtComentario.Enabled = true;
             this.txtFecha.Enabled = false;
             this.txtComentarioEncargado.Enabled = false;
         }
-        else { //no puede modificar
+        else { //no puede modificar, no se habilitan los campos
             this.txtCantidadHoras.Enabled = false;
             this.txtComentario.Enabled = false;
             this.txtFecha.Enabled = false;
@@ -100,20 +105,11 @@ public partial class ControlDeHoras : System.Web.UI.Page
         }
     }
 
+    //habilita los campos
     private void habilitar() {
         this.txtCantidadHoras.Enabled = true;
         this.txtComentario.Enabled = true;
         this.txtFecha.Enabled = true;
-    }
-
-    protected void gridControlHorasBecario_SelectedIndexChanging(object sender, EventArgs e)
-    {
-
-    }
-
-    protected void gridControlHorasBecario_PageIndexChanging(object sender, EventArgs e)
-    {
-        
     }
 
     // BUSCAR CLICK
@@ -122,22 +118,24 @@ public partial class ControlDeHoras : System.Web.UI.Page
         
     }
 
-    /* Crear tabla */
+    /* llena tabla */
     protected void llenarGridHorasReportadas()
     {
-        DataTable tablaHorasReportadas = crearTablaHorasReportadas();
+        DataTable tablaHorasReportadas = crearTablaHorasReportadas();//crea la tabla
+        //recupera el encargado
         String cedEncargado = this.cb.getCedulaEncargado(Session["Cedula"].ToString(), Convert.ToInt32(Session["Periodo"].ToString()));
-        infoActual = cb.horasReportadas(Session["Cedula"].ToString(), cedEncargado);
-        DataRow newRow;
+        infoActual = cb.horasReportadas(Session["Cedula"].ToString(), cedEncargado);//consulta las horas reportadas
+        DataRow newRow;//nueva fila
+        //cantidad de horas restantes
         int cantidadHoras = this.cb.getHoras(Session["Cedula"].ToString(), this.cb.getCedulaEncargado(Session["Cedula"].ToString(), Convert.ToInt32(Session["Periodo"].ToString())),Convert.ToInt32(Session["Periodo"].ToString()));
         if (infoActual.Rows.Count > 0)
-        {
+        {//si hay reportes
             foreach (DataRow r in infoActual.Rows)
-            {
+            {//se recorre cada reporte de horas
                 newRow = tablaHorasReportadas.NewRow();
-                newRow["Fecha"] = r[3].ToString();
-                newRow["Cantidad Horas"] = r[2].ToString();
-                switch (Convert.ToInt32(r[4].ToString())) {
+                newRow["Fecha"] = r[3].ToString();//columna fecha
+                newRow["Cantidad Horas"] = r[2].ToString();//columna cantiadd de horas
+                switch (Convert.ToInt32(r[4].ToString())) {//estado del reporte
                     case 0: newRow["Estado"] = "Pendiente";
                         break;
                     case 1: newRow["Estado"] = "Rechazada"; 
@@ -147,32 +145,33 @@ public partial class ControlDeHoras : System.Web.UI.Page
                 }
                 
                 if (r[4].ToString().Equals("2")) { //horas aceptadas
-                    cantidadHoras -= Convert.ToInt32(r[2].ToString());
+                    cantidadHoras -= Convert.ToInt32(r[2].ToString());//resta la cantidad de horas si estan aceptadas
                 }
-                tablaHorasReportadas.Rows.Add(newRow);
+                tablaHorasReportadas.Rows.Add(newRow);//agrega la fila
             }
         }
-        this.gridControlHorasBecario.DataSource = tablaHorasReportadas;
-        this.gridControlHorasBecario.DataBind();
-        this.lblHorasRestantes.Text = cantidadHoras.ToString();
+        this.gridControlHorasBecario.DataSource = tablaHorasReportadas;//los datos del grid
+        this.gridControlHorasBecario.DataBind();//se agregan los datos
+        this.lblHorasRestantes.Text = cantidadHoras.ToString();//se fija la cantidad de horas restantes
         headersCorrectosHorasReportadas();
     }
 
+    //crea la tabla para el grid
     protected DataTable crearTablaHorasReportadas()
     {
         DataTable dt = new DataTable();
         DataColumn column;
-
+        //nueva columna Fecha
         column = new DataColumn();
         column.DataType = System.Type.GetType("System.String");
         column.ColumnName = "Fecha";
         dt.Columns.Add(column);
-
+        //nueva Columna Cantidad de horas
         column = new DataColumn();
         column.DataType = System.Type.GetType("System.String");
         column.ColumnName = "Cantidad Horas";
         dt.Columns.Add(column);
-
+        //Nueva columna Estado del reporte
         column = new DataColumn();
         column.DataType = System.Type.GetType("System.String");
         column.ColumnName = "Estado";
@@ -181,6 +180,7 @@ public partial class ControlDeHoras : System.Web.UI.Page
         return dt;
     }
 
+    //crea el header para el grid
     protected void headersCorrectosHorasReportadas()
     {
         try
@@ -198,42 +198,46 @@ public partial class ControlDeHoras : System.Web.UI.Page
     protected void btnInvisibleEnviarReporte_Click(object sender, EventArgs e)
     {
         switch(modo){
-            case 0: insertarReporte();
+            case 0: insertarReporte();//va insertar nuevo reporte
                 break;
-            case 1: modificarReporte();
+            case 1: modificarReporte();//va modificar un reporte existente
                 break;
             default://no se hace nada
                 break;
         }
+        //cierra la ventana emergente
         commonService.correrJavascript("$('#PopUpCtrlBecario').dialog('close');");
-        vaciarCampos();
-        llenarGridHorasReportadas();
+        vaciarCampos();//limpia los campos
+        llenarGridHorasReportadas();//llena nuevamente el grid
     }
 
+    //limpia todos los campos de texto
     private void vaciarCampos() {
         this.txtCantidadHoras.Text = "";
         this.txtComentario.Text = "";
         this.txtComentarioEncargado.Text = "";
     }
 
+    //se inserta un nuevo reporte de horas
     public void insertarReporte() {
-        Object[] datos = new Object[9];
+        Object[] datos = new Object[9];//se crea el objeto de datos
         datos[0] = this.cb.getCedulaEncargado(Session["Cedula"].ToString(), Convert.ToInt32(Session["Periodo"].ToString()));//recupera la cedula del encargado para el becario logueado en el sistema
         datos[1] = Session["Cedula"].ToString();//el becario que esta logueado
         datos[2] = 0;//0 pendiente, 1 rechazada y 2 aceptada
         datos[3] = Convert.ToInt32(this.txtCantidadHoras.Text);//horas digitadas por el usuario
-        datos[4] = DateTime.Now;//fecha actual del sistema
+        datos[4] = txtFecha.Text;//fecha actual del sistema
         datos[5] = "";
         datos[6] = this.txtComentario.Text;//comentario del becario
         datos[7] = Session["Periodo"].ToString();//periodo
         datos[8] = DateTime.Now.Year;
         String resultado = "";
-        resultado = this.cb.enviarReporte(datos);
-        commonService.mensajeJavascript(resultado, "Reporte de Horas");
+        resultado = this.cb.enviarReporte(datos);//inserta el reporte de horas
+        commonService.mensajeJavascript(resultado, "Reporte de Horas");//muestra un mensaje de exito o error
     }
 
+    //para modificar un reporte existente
     public void modificarReporte() {
-        Object[] datos = new Object[9];
+        Object[] datos = new Object[9];//crea el arreglo de datos
         datos[0] = this.cb.getCedulaEncargado(Session["Cedula"].ToString(), Convert.ToInt32(Session["Periodo"].ToString()));//recupera la cedula del encargado para el becario logueado en el sistema
         datos[1] = Session["Cedula"].ToString();//el becario que esta logueado
         datos[2] = 0;//0 pendiente, 1 rechazada y 2 aceptada
@@ -243,23 +247,13 @@ public partial class ControlDeHoras : System.Web.UI.Page
         datos[6] = this.txtComentario.Text;//comentario del becario
         datos[7] = Session["Periodo"].ToString();//periodo
         datos[8] = DateTime.Now.Year;
-        int resultado;
-        resultado = this.cb.modificarReporte(datos);
-        if (resultado == 1) commonService.mensajeJavascript("Modificacion Exitosa", "Reporte de Horas");
-        else  commonService.mensajeJavascript("Modificacion Fallida", "Reporte de Horas"); 
-        
+        int resultado;//resultado de la modificacion
+        resultado = this.cb.modificarReporte(datos);//modifico el reporte
+        if (resultado == 1) commonService.mensajeJavascript("Modificacion Exitosa", "Reporte de Horas");//exitoso
+        else  commonService.mensajeJavascript("Modificacion Fallida", "Reporte de Horas"); //fallido
     }
 
-    protected void gridControlHorasBecario_SelectedIndexChanging(object sender, GridViewSelectEventArgs e)
-    {
-
-    }
-
-    protected void gridControlHorasBecario_SelectedIndexChanged(object sender, EventArgs e)
-    {
-
-    }
-
+    //obtiene el siguiente periodo al actual
     private int siguientePeriodo(int cual) {
         switch (cual) {
             case 1: return 2;
@@ -274,23 +268,25 @@ public partial class ControlDeHoras : System.Web.UI.Page
     {
         if (radioNo.Checked || radioSi.Checked)
         {//si alguno esta presionado
+            //obtiene cedula del encargado
             String encargado = this.cb.getCedulaEncargado(Session["Cedula"].ToString(), Convert.ToInt32(Session["Periodo"].ToString()));
             if (radioSi.Checked)
-            {
-                Object[] datos = new Object[4];
-                datos[0] = Session["Cedula"].ToString();
-                datos[1] = encargado;
-                datos[2] = siguientePeriodo(1);
-                datos[3] = retornarAnno(Convert.ToInt32(Session["Periodo"].ToString()), DateTime.Now.Year);
+            {//si ha seleccionado si, hay que aceptar siguiente asignacion
+                Object[] datos = new Object[4];//crea objeto de datos
+                datos[0] = Session["Cedula"].ToString();//cedula del becaio
+                datos[1] = encargado;//cedula encargado
+                datos[2] = siguientePeriodo(1);//siguiente periodo
+                datos[3] = retornarAnno(Convert.ToInt32(Session["Periodo"].ToString()), DateTime.Now.Year);//anno
                 //modificar la asignacion
                 cb.aceptarSiguienteAsignacion(datos);
             }
             //agrego el comentario final del becario
             cb.comentarioFinal(Session["Cedula"].ToString(), encargado, txtComentFin.Text);
-            commonService.cerrarPopUp("siguienteAsig");
+            commonService.cerrarPopUp("siguienteAsig");//cierra la ventana emergente
         }
     }
 
+    //retorna el a;o  para la siguiente asignacion dependiendo del periodo
     protected int retornarAnno(int periodo, int anno)
     {
         int resultado = -1;
@@ -312,22 +308,25 @@ public partial class ControlDeHoras : System.Web.UI.Page
         return resultado;
     }
 
+    //cuando se cambia de pagina en el grid
     protected void gridControlHorasBecario_PageIndexChanging(object sender, GridViewPageEventArgs e)
     {
-        DataTable tablaHorasReportadas = crearTablaHorasReportadas();
+        DataTable tablaHorasReportadas = crearTablaHorasReportadas();//se crea la tabla
+        //obtiene el encargado
         String cedEncargado = this.cb.getCedulaEncargado(Session["Cedula"].ToString(), Convert.ToInt32(Session["Periodo"].ToString()));
-        infoActual = cb.horasReportadas(Session["Cedula"].ToString(), cedEncargado);
-        DataRow newRow;
+        infoActual = cb.horasReportadas(Session["Cedula"].ToString(), cedEncargado);//guarda los reportes
+        DataRow newRow;//nueva fila
+        //cantidad de horas que faltan
         int cantidadHoras = this.cb.getHoras(Session["Cedula"].ToString(), this.cb.getCedulaEncargado(Session["Cedula"].ToString(), Convert.ToInt32(Session["Periodo"].ToString())), Convert.ToInt32(Session["Periodo"].ToString()));
         if (infoActual.Rows.Count > 0)
-        {
+        {//si hay reportes
             foreach (DataRow r in infoActual.Rows)
-            {
+            {//por cada reporte de horas
                 newRow = tablaHorasReportadas.NewRow();
-                newRow["Fecha"] = r[3].ToString();
-                newRow["Cantidad Horas"] = r[2].ToString();
+                newRow["Fecha"] = r[3].ToString();//obtiene la fecha
+                newRow["Cantidad Horas"] = r[2].ToString();//obtiene la cantidad de horas
                 switch (Convert.ToInt32(r[4].ToString()))
-                {
+                {//el estado del reporte
                     case 0: newRow["Estado"] = "Pendiente";
                         break;
                     case 1: newRow["Estado"] = "Rechazada";
@@ -340,7 +339,7 @@ public partial class ControlDeHoras : System.Web.UI.Page
                 { //horas aceptadas
                     cantidadHoras -= Convert.ToInt32(r[2].ToString());
                 }
-                tablaHorasReportadas.Rows.Add(newRow);
+                tablaHorasReportadas.Rows.Add(newRow);//agrega al grid
             }
         }
         this.gridControlHorasBecario.DataSource = tablaHorasReportadas;
