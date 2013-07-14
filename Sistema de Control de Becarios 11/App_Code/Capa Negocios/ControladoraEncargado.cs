@@ -162,4 +162,42 @@ public class ControladoraEncargado
         return controladoraBDEncargado.consultarEncargados();
     }
 
+
+    public String obtenerCorreoEncargado(String cedulaEncargado)
+    {
+        return controladoraBDEncargado.obtenerCorreoEncargado(cedulaEncargado);
+    }
+
+
+    public String eliminaAsignacionesActuales(string cedEncargado, int ped, int año)
+    {
+        contAsig = new ControladoraAsignaciones();
+        return contAsig.eliminaAsignacionesDeEncargado(cedEncargado, ped, año);
+    }
+
+    
+
+    public Boolean tieneAsignaciones(string cedEncargado) {
+
+        Boolean resultado;
+
+        int año = cs.getAñoActual();
+        int periodo = cs.getPeriodoActual();
+        contAsig = new ControladoraAsignaciones();
+        int cantidadAsignaciones = contAsig.contarBecariosAsignados(cedEncargado, año, periodo); ;
+
+        if (cantidadAsignaciones == 0)
+        {
+            resultado = false;
+        }
+        else
+        {
+            resultado = true;
+        }
+
+        return resultado;
+    
+    }
+
+
 }

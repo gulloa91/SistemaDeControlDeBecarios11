@@ -322,7 +322,6 @@ public class ControladoraAsignaciones
     */
     public String buscarCorreoEncargado(String cedulaEncargado)
     {
-
         return controladoraEncargado.obtenerCorreoEncargado(cedulaEncargado);
     }
 
