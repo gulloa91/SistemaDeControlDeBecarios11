@@ -13,6 +13,7 @@ public class ControladoraBDEncargado
 
     /**  Atributos de la Clase **/
     private EncargadoTableAdapter adapter;
+    private CorreosEncargadosTableAdapter adapterCorreos;
 
     /** EFECTO: Constructor de la clase. Inicializa el "TableAdapter"
      ** REQUIERE: Nada
@@ -20,6 +21,7 @@ public class ControladoraBDEncargado
     public ControladoraBDEncargado()
     {
         adapter = new EncargadoTableAdapter();
+        adapterCorreos = new CorreosEncargadosTableAdapter();
     }
 
     /** EFECTO: Inserta el Encargado "encargado" en la BD con el id "idEncargado"
@@ -121,4 +123,24 @@ public class ControladoraBDEncargado
         return this.adapter.obtenerEncargadoPorCedula(cedula);
 
     }
+
+
+
+    public String obtenerCorreoEncargado(String ced)
+    {
+
+        String resultado = "-1";
+
+        try
+        {
+            resultado = (String)(this.adapterCorreos.obtenerCorreoEncargado(ced) );
+        }
+        catch (SqlException e)
+        {
+
+        }
+        return resultado;
+    }
+
+
 }

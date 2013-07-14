@@ -32,6 +32,7 @@
             $("#PopUpEliminar").dialog({
                 autoOpen: false,
                 modal: false,
+                width: 400,
                 appendTo: "form",
                 open: function () {
                     $("#tabs").tabs("destroy");
@@ -91,8 +92,10 @@
             $('#tabsP a[href="#tabsP-2"]').click();
         }
 
-        function abrirPopUpEliminar() {
+        function abrirPopUpEliminar(mensaje) {
             $("#PopUpEliminar").dialog("open");
+            $("#PopUpEliminar").text(mensaje);
+            $("#PopUpEliminar").dialog({ title:"Eliminar Becario" });
         }
 
 

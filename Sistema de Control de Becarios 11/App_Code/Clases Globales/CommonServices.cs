@@ -36,6 +36,12 @@ public class CommonServices
         correrJavascript("abrirPopUp('" + popUpId + "', '" + titulo + "');");
     }
 
+
+    public void abrirPopUpPersonalizado(String popUpId, String titulo,String mensaje)
+    {
+       correrJavascript("abrirPopUpPersonalizado('" + popUpId + "', '" + titulo + "','" + mensaje + "');");
+    }
+
     public void cerrarPopUp(String popUpId)
     {
         correrJavascript("cerrarPopUp('" + popUpId + "');");

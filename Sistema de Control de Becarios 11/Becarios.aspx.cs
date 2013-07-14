@@ -159,9 +159,22 @@ public partial class Becarios : System.Web.UI.Page
    */
 
 
-    //Metodo que se invoca al dar click en el botón aceptar del 'popUp'
+
+    /* Requiere: n/a
+    * 
+    *  Efectúa: Metodo que se invoca al dar click en el botón "aceptar" del 'popUp'
+    *           Recolecta todos los datos ingresados por el usuario, luego ordena a la controladora insertar o modificar un becario según sea el caso.
+    *          En caso de ser nuevo becario , genera el nombre de usuario y contrasena e invoca al método que crea la cuenta.
+    *          Luego, muestra los mensajes de aviso correspondientes.
+    *          Por último, envía un correo al nuevo becario indicándole cuales son sus credenciales.
+    *
+    *  Modifica: Crea una nuevo becario en la base de datos y una nueva cuenta de usuario, ó cambia los datos de un becario ya existente.
+    */
     protected void btnInvisible1_Click(object sender, EventArgs e)
     {
+
+        if (camposPerfilVacios(0) == true)
+        {
 
             TextInfo miTexto = CultureInfo.CurrentCulture.TextInfo;
 
@@ -178,7 +191,7 @@ public partial class Becarios : System.Web.UI.Page
             datos[7] = this.txtCel.Text;
             datos[8] = this.txtOtroTel.Text;
             datos[9] = this.txtCorreo.Text;
-            
+
 
             string resultado = "";
             string resultadoPerfil = "";
@@ -191,15 +204,19 @@ public partial class Becarios : System.Web.UI.Page
             TextInfo currentInfo = currentCulture.TextInfo;
             string cedula = this.txtCedula.Text;
             string nombre = this.txtNombre.Text.ToLower();
+            
+            char[] delim = {' '};
+            string[] nombreSeparado = nombre.Split(delim);
+
             string apellido = this.txtApellido1.Text.ToLower();
             string apellido2 = this.txtApellido2.Text;
             string correo = this.txtCorreo.Text;
 
             int lg = cedula.Length - 3;
             string ced = cedula.Substring(lg, 3);
-            string usuario = nombre + "." + apellido + ced;
+            string usuario = nombreSeparado[0] + "." + apellido + ced;
             string pass = commonService.getContrasena(nombre, apellido, ced);
-            
+
             string nombreCompleto = (currentInfo.ToTitleCase(nombre) + " " + currentInfo.ToTitleCase(apellido) + " " + currentInfo.ToTitleCase(apellido2)).Trim();
 
 
@@ -214,7 +231,7 @@ public partial class Becarios : System.Web.UI.Page
                         resultadoPerfil = controladoraBecarios.guardarPerfilBecario(listaLocalLenguajes, listaLocalIdiomas, listaLocalAreasInteres, listaLocalCualidades, this.txtCedula.Text);
                         resultadoCreacionCuenta = crearCuenta(cedula, ced, nombre, apellido, correo, usuario, pass, nombreCompleto);
 
-                    
+
                     } break;
                 case 2: //Modificar Datos Personales y Perfil
                     {
@@ -222,80 +239,98 @@ public partial class Becarios : System.Web.UI.Page
                         string mensaje = controladoraBecarios.eliminarPerfilBecario(this.txtCedula.Text);
                         if (mensaje.Equals("Exito"))
                         {
-                          resultadoPerfil = controladoraBecarios.guardarPerfilBecario(listaLocalLenguajes, listaLocalIdiomas, listaLocalAreasInteres, listaLocalCualidades, this.txtCedula.Text);
+                            resultadoPerfil = controladoraBecarios.guardarPerfilBecario(listaLocalLenguajes, listaLocalIdiomas, listaLocalAreasInteres, listaLocalCualidades, this.txtCedula.Text);
                         }
                     } break;
             }
 
 
-            bool noCerrarVentana=false;
-            switch (resultado) {
+            bool noCerrarVentana = false;
+            switch (resultado)
+            {
 
 
-                case "Exito": 
+                case "Exito":
                     {
 
                         if (modoEjecucion == 1) // un insertar
                         {
 
-                          if ((resultadoCreacionCuenta.Equals("Exito")) && ((resultadoPerfil.Equals("Exito")) || (resultadoPerfil.Equals("-1"))))
-                          {                          
-                              commonService.mensajeJavascript("El becario ha sido ingresado correctamente y su cuenta ha sido creada","Éxito");
-                          }
-                          else if (!(resultadoCreacionCuenta.Equals("Exito")))
-                          {
-                             commonService.mensajeJavascript("El becario ha sido ingresado correctamente pero hubo un problema al crear la cuenta", "Aviso");                     
-                          }
-                          else if (!(resultadoPerfil.Equals("Exito")))
-                          {
-                              commonService.mensajeJavascript("El becario ha sido ingresado correctamente pero hubo un problema al guardar la información del perfil", "Aviso");                                  
-                          }
-                     
+                            if ((resultadoCreacionCuenta.Equals("Exito")) && ((resultadoPerfil.Equals("Exito")) || (resultadoPerfil.Equals("-1"))))
+                            {
+                                commonService.mensajeJavascript("El becario ha sido ingresado correctamente y su cuenta ha sido creada", "Éxito");
+                            }
+                            else if (!(resultadoCreacionCuenta.Equals("Exito")))
+                            {
+                                commonService.mensajeJavascript("El becario ha sido ingresado correctamente pero hubo un problema al crear la cuenta", "Aviso");
+                            }
+                            else if (!(resultadoPerfil.Equals("Exito")))
+                            {
+                                commonService.mensajeJavascript("El becario ha sido ingresado correctamente pero hubo un problema al guardar la información del perfil", "Aviso");
+                            }
+
                         }
                         else if (((resultadoPerfil.Equals("Exito")) || (resultadoPerfil.Equals("-1")))) // un modificar
                         {
                             commonService.mensajeJavascript("Se ha modificado correctamente la información solcitada", "Éxito");
                             resultado = "ExitoUpate";
                         }
-                        else {
-                          commonService.mensajeJavascript("Se ha modificado correctamente la información personal pero ha habido un problema al actualizar el perfil del becario", "Aviso");
-                          resultado = "ExitoUpate";
+                        else
+                        {
+                            commonService.mensajeJavascript("Se ha modificado correctamente la información personal pero ha habido un problema al actualizar el perfil del becario", "Aviso");
+                            resultado = "ExitoUpate";
                         }
-                
-                    }break;
-                case "Error1": 
+
+                    } break;
+                case "Error1":
                     {
                         commonService.mensajeJavascript("Ya existe un becario con la cédula digitada", "ERROR");
+                        arreglarTabs();
                         noCerrarVentana = true;
 
-                    }break;
-                default: 
+                    } break;
+                default:
                     {
-                        commonService.mensajeJavascript("No fue posible modificar al becario.", "ERROR");    
-                    }break;
+                        commonService.mensajeJavascript("No fue posible modificar al becario.", "ERROR");
+                    } break;
             }
 
-           
-        llenarGridBecarios(1);
-        habilitarBotonesPrincipales(true);
 
-        if (noCerrarVentana == false)
-        {
-            correrJavascript("cerrarPopUp();");
+            llenarGridBecarios(1);
+            habilitarBotonesPrincipales(true);
+
+
+            if (noCerrarVentana == false)
+            {
+                correrJavascript("cerrarPopUp();");
+            }
+
+            if (resultado == "Exito")
+            {
+
+                // Abrir mensaje de mandar correo
+                commonService.mensajeEspera("Enviando correo de confirmación al becari@", "Enviando correo");
+
+                this.btnInvisibleEnviarCorreo.CommandArgument = correo + "," + nombreCompleto + "," + pass + "," + usuario;
+                commonService.correrJavascript("$('.btnInvisibleEnviarCorreo').click();");
+            }
+
+        }
+        else {
+
+          commonService.mensajeJavascript("Aún hay datos escritos en algún grid del perfil, debe borrar esta información o presionar el botón con el signo  \\+  para guardarla ", "AVISO");
+          arreglarTabs();
         }
 
-        if (resultado == "Exito")
-        {
 
-            // Abrir mensaje de mandar correo
-            commonService.mensajeEspera("Enviando correo de confirmación al becari@", "Enviando correo");
-             
-            this.btnInvisibleEnviarCorreo.CommandArgument = correo + "," + nombreCompleto + "," + pass + "," + usuario;
-            commonService.correrJavascript("$('.btnInvisibleEnviarCorreo').click();");
-        }
     }
 
-    //Enviar correo
+
+
+    /* Requiere: n/a
+       Efectúa: Envía un correo
+    *  Modifica: n/a
+    */
     protected void btnInvisibleEnviarCorreo_Click(object sender, EventArgs e)
     {
         Button btn = (Button)sender;
@@ -311,38 +346,52 @@ public partial class Becarios : System.Web.UI.Page
         commonService.cerrarMensajeEspera();
     }
 
-    //Método que se invoca al confirmar la eliminación de un becario
+
+
+
+    /* Requiere: Se debe haber seleccionado un becario
+       Efectúa: Método que se invoca al confirmar la eliminación de un becario.
+    *           Elimina el becario seleccionado y cualquier asignación que tuviera este en el semestre actual.
+    *           
+    *  Modifica: n/a
+    */
     protected void btnInvisible2_Click(object sender, EventArgs e)
     {
 
-        
-        Object[] datos = new Object[1];
-
-        datos[0] = this.txtCedula.Text;
-
-        string resultado = controladoraBecarios.ejecutar(3,datos,null);
-        this.gridBecarios.SelectedIndex = -1;
-
-        correrJavascript("cerrarPopUp();");
-
-        if (resultado.Equals("Exito"))
+        string resultadoEliminarAsignación = "-1";
+        if (controladoraBecarios.tieneAsignacion(listaBecarios[rowIndex].cedula) == true)
         {
-            commonService.mensajeJavascript("Se ha eliminado correctamente al becario", "Éxito");
+           resultadoEliminarAsignación =  eliminaAsignacion();
+        }
+
+        if ((resultadoEliminarAsignación.Equals("-1"))||(resultadoEliminarAsignación.Equals("Exito")))
+        {
+
+            Object[] datos = new Object[1];
+            datos[0] = this.txtCedula.Text;
+
+            string resultado = controladoraBecarios.ejecutar(3, datos, null);
+            this.gridBecarios.SelectedIndex = -1;
+
+            correrJavascript("cerrarPopUp();");
+
+            if (resultado.Equals("Exito"))
+            {
+                commonService.mensajeJavascript("Se ha eliminado correctamente el becario", "Éxito");
+            }
+            else
+            {
+                commonService.mensajeJavascript("Se ha producido un error al eliminar el becario", "Error");
+            }
+
+            llenarGridBecarios(1);
         }
         else {
-
-            if (resultado.Equals("ErrorA"))
-            {
-                commonService.mensajeJavascript("No se puede eliminar el becario seleccionado porque tiene una asignación en el presente ciclo lectivo", "Error");
-            }
-            else {
-                commonService.mensajeJavascript("No se ha podido al eliminar el becario por un error de la base de datos", "Error");
-            }       
+            commonService.mensajeJavascript("No se pudo eliminar al becario porque hubo un problema al eliminar la asignación", "Error");
         }
-       
-        llenarGridBecarios(1);
 
     }
+
 
 
     //Método que se invoca el dar click al botón 'cancelar' del 'popUp'
@@ -352,9 +401,12 @@ public partial class Becarios : System.Web.UI.Page
     }
 
 
-
-    // Método que se invoca al dar click al botón 'insertar'
-    // Abre el popUp que permite ingresar el nuevo becario , limpia y habilita los campos
+    /* Requiere: n/a.
+       Efectúa: Método que se invoca al dar click al botón 'insertar'
+    *           Abre el popUp que permite ingresar el nuevo becario , limpia y habilita los campos.
+    *           
+    *  Modifica: n/a
+    */
     protected void btnInsertarEncargado_Click(object sender, EventArgs e)
     {
 
@@ -381,7 +433,12 @@ public partial class Becarios : System.Web.UI.Page
     }
 
 
-    //Metodo que pide llenar el grid pero bajo un criterio de selección (búsqueda) expresado por el usuario
+
+    /* Requiere: n/a.
+       Efectúa: Metodo que pide llenar el grid pero bajo un criterio de selección (búsqueda) expresado por el usuario
+    *           
+    *  Modifica: n/a
+    */  
     protected void btnBuscarBecario_Click(object sender, EventArgs e)
     {
 
@@ -391,15 +448,18 @@ public partial class Becarios : System.Web.UI.Page
 
 
 
-    // Método que se invoca al dar click al botón 'modificar' en la vista completa
-    // Toma los datos actuales y luego habilita los campos para editarlos
+    /* Requiere: Se debe haber seleccionado un becario del grid principal.
+    * 
+    *   Efectúa: Método que se invoca al dar click al botón 'modificar' en la vista completa.
+    *            Guarda los datos actuales y luego habilita los campos para editarlos.
+     *            
+    *  Modifica: n/a.
+    */
     protected void btnModificarBecario_Click(object sender, EventArgs e)
     {
 
-      
-        correrJavascript("destruirTabsVistaCompleta();");
-        correrJavascript("crearTabsVistaCompleta();");
 
+        arreglarTabs();
 
         guardarDatosActuales(1);
 
@@ -424,11 +484,27 @@ public partial class Becarios : System.Web.UI.Page
 
 
 
-    // Activa el 'popUp' para confirmar la eliminación
+    /* Requiere: n/a.
+    * 
+    *   Efectúa: Activa el 'popUp' para confirmar la eliminación.
+    *            Verifica si el becario seleccionado tiene una asignación actualmente ya que en caso afirmartivo debe advertir al usuario.
+    *            
+    *  Modifica: n/a
+    */
     protected void btnEliminarBecario_Click(object sender, EventArgs e)
     {
-        correrJavascript("abrirPopUpEliminar();");
-    }
+
+        if (controladoraBecarios.tieneAsignacion( listaBecarios[rowIndex].cedula ) == true)
+        {
+            correrJavascript("abrirPopUpEliminar('Este becario becario tiene una asignación en el presente semestre por lo que al eliminarlo se eliminará también la asignación , ¿ está seguro de que desea continuar ? ');");
+        }
+        else {
+
+          correrJavascript("abrirPopUpEliminar('¿ Está seguro de que desea eliminar el becario seleccionado ? ');");
+        }
+
+
+   }
 
     /*
     * -----------------------------------------------------------------------
@@ -437,7 +513,12 @@ public partial class Becarios : System.Web.UI.Page
     */
 
 
-    //Muestra u oculta botones
+    /* Requiere: n/a.
+    * 
+    *   Efectúa: Muestra u oculta botones.
+    *            
+    *  Modifica: n/a
+    */
     protected void mostrarBotonesPrincipales(Boolean mostrar)
     {
         if (mostrar)
@@ -462,7 +543,13 @@ public partial class Becarios : System.Web.UI.Page
     }
 
 
-    //Habilita o deshabiita botones
+
+    /*  Requiere: n/a.
+    * 
+    *   Efectúa: Habilita o deshabiita botones.
+    *            
+    *   Modifica: n/a
+    */
     protected void habilitarBotonesPrincipales(Boolean habilitar)
     {
 
@@ -489,7 +576,14 @@ public partial class Becarios : System.Web.UI.Page
     }
 
 
-    //Habilita o deshabiita campos
+
+    /*  Requiere: n/a.
+    * 
+    *   Efectúa: Habilita o deshabiita campos.
+    *            El parámetro "p" le indica si usar los campos de la vista completa ( 0 ) o parcial ( cualquier otro número )
+    *            
+    *   Modifica: n/a
+    */
     protected void habilitarCampos(Boolean habilitar,int p)
     {
 
@@ -556,6 +650,14 @@ public partial class Becarios : System.Web.UI.Page
     }
 
 
+
+    /*  Requiere: n/a.
+    * 
+    *   Efectúa: Limpia los campos de datos.
+    *            El parámetro "p" le indica si usar los campos de la vista completa ( 0 ) o parcial ( cualquier otro número )
+    *            
+    *   Modifica: n/a
+    */
     protected void vaciarCampos(int p)
     {
 
@@ -587,6 +689,47 @@ public partial class Becarios : System.Web.UI.Page
 
 
 
+
+    /*  Requiere: n/a.
+    * 
+    *   Efectúa: Ordena eliminar cualquier asignación del presente semestre donde participe el becario 
+    *            
+    *   Modifica: n/a
+    */
+    public String eliminaAsignacion(){
+
+        string ced = listaBecarios[rowIndex].cedula;
+        int año = commonService.getAñoActual();
+        int periodo = commonService.getPeriodoActual();
+        return controladoraBecarios.eliminarAsignacion(ced, periodo, año);
+    }
+
+
+
+
+    /*  Requiere: n/a.
+    * 
+    *   Efectúa: Arregla las tabs , sea de la vista parcial o de la vista completa.
+    *            
+    *   Modifica: n/a
+    */
+    public void arreglarTabs(){
+
+       int tipoPerfil =  Convert.ToInt32(Session["TipoPerfil"]);
+       if (tipoPerfil == 0) //administrador --> vista completa
+       {
+          correrJavascript("destruirTabsVistaCompleta();");
+          correrJavascript("crearTabsVistaCompleta();");  
+       }
+       else {  //  becario --> vista parcial
+
+         correrJavascript("destruyeTabsP();");
+         correrJavascript("crearTabsP();");
+       }
+
+    }
+
+
  /*
  * -----------------------------------------------------------------------
  * METODOS DE BECARIO
@@ -594,7 +737,13 @@ public partial class Becarios : System.Web.UI.Page
  */
 
 
-    //Se guardan los datos actuales --> 1 : datos de la vista administrador , otro numero : datos de la vista de becario
+
+    /*  Requiere: n/a.
+    * 
+    *   Efectúa: Se guardan los datos actuales --> 1 : datos de la vista administrador , otro numero : datos de la vista de becario
+    *            
+    *   Modifica: n/a.
+    */
     protected void guardarDatosActuales(int vista) {
 
 
@@ -634,8 +783,13 @@ public partial class Becarios : System.Web.UI.Page
     }
 
 
-    //Pide la lista de becarios existentes ( los que cumplen con un criterio de búsqueda) y
-    // asigna dicha lista como fuente de datos del grid
+
+    /*  Requiere: n/a.
+    * 
+    *   Efectúa: Llena el grid principal de becarios ( de la vista completa )
+    *            Pide la lista de becarios existentes ( los que cumplen con un criterio de búsqueda) y asigna dicha lista como fuente de datos del grid
+    *   Modifica: Cambia todos los datos de "listaBecarios".
+    */
     protected void llenarGridBecarios(int modo) 
     {
 
@@ -657,7 +811,13 @@ public partial class Becarios : System.Web.UI.Page
     }
 
 
-    //Crea una tabla con los campos que se van a desplegar
+
+    /*  Requiere: n/a.
+    * 
+    *   Efectúa: Crea una tabla con los campos que se van a desplegar en el grid
+    *   
+    *  Modifica: n/a.
+    */
     protected DataTable crearTablaBecarios()
     {
 
@@ -676,7 +836,7 @@ public partial class Becarios : System.Web.UI.Page
 
         column = new DataColumn();
         column.DataType = System.Type.GetType("System.String");
-        column.ColumnName = "Correo";
+        column.ColumnName = "Correo Electrónico";
         dt.Columns.Add(column);
 
         column = new DataColumn();
@@ -689,7 +849,13 @@ public partial class Becarios : System.Web.UI.Page
     }
 
 
-    //Pide una tabla y la llena con los datos de la lista de becarios previamente completada
+
+    /*  Requiere: n/a.
+    * 
+    *   Efectúa: Pide una tabla y la llena con los datos de la lista de becarios previamente llenada.
+    *   
+    *  Modifica: n/a.
+    */
     private DataTable llenarTablaBecarios()
     {
 
@@ -705,7 +871,7 @@ public partial class Becarios : System.Web.UI.Page
                  newRow = tabla.NewRow();
                  newRow["Nombre Completo"] = listaBecarios[i].nombre + " " + listaBecarios[i].apellido1 + " " + listaBecarios[i].apellido2;
                  newRow["Carné"] = listaBecarios[i].carne;
-                 newRow["Correo"] = listaBecarios[i].correo;
+                 newRow["Correo Electrónico"] = listaBecarios[i].correo;
                  newRow["Teléfono Celular"] = listaBecarios[i].telefonoCelular;
 
                  tabla.Rows.InsertAt(newRow, i);
@@ -720,7 +886,7 @@ public partial class Becarios : System.Web.UI.Page
             newRow = tabla.NewRow();
             newRow["Nombre Completo"] = "-";
             newRow["Carné"] = "-";
-            newRow["Correo"] = "-";
+            newRow["Correo Electrónico"] = "-";
             newRow["Teléfono Celular"] = "-";
             tabla.Rows.InsertAt(newRow, 0);
             this.gridBecarios.Columns[0].Visible = false;
@@ -732,8 +898,13 @@ public partial class Becarios : System.Web.UI.Page
 
 
 
-    //Carga los campos de texto con los datos de determinado becario
-   // Modo =  0 : campos de la vista completa , en cualquier otro caso campos de la vista parcial 
+    /*  Requiere: Se debe haber seleccionado un becario del grid ( "rowIndex" debe representar un valor válido )
+    * 
+    *   Efectúa: Carga los campos de texto con los datos de determinado becario.
+    *            Modo =  0 : campos de la vista completa , en cualquier otro caso campos de la vista parcial.
+    *            
+    *   Modifica: LLena todos los campos de texto de la interfaz.
+    */
     protected void cargarCamposBecario(int modo) {
 
 
@@ -766,19 +937,31 @@ public partial class Becarios : System.Web.UI.Page
 
 
 
-    //Arregla los encabezados del grid
+
+    /*  Requiere: n/a.
+    * 
+    *   Efectúa: Arregla los encabezados del grid.
+    *            
+    *   Modifica: n/a.
+    */
     private void headersCorrectosGridBecarios()
     {
         this.gridBecarios.HeaderRow.BackColor = System.Drawing.Color.FromArgb(4562432);
         this.gridBecarios.HeaderRow.ForeColor = System.Drawing.Color.White;
         this.gridBecarios.HeaderRow.Cells[1].Text = "Nombre Completo";
         this.gridBecarios.HeaderRow.Cells[2].Text = "Carné";
-        this.gridBecarios.HeaderRow.Cells[3].Text = "Correo";
+        this.gridBecarios.HeaderRow.Cells[3].Text = "Correo Electrónico";
         this.gridBecarios.HeaderRow.Cells[4].Text = "Teléfono Celular";
     }
 
 
-    //Controla la paginación del grid
+
+    /*  Requiere: n/a.
+    * 
+    *   Efectúa: Controla la paginación del grid.
+    *            
+    *   Modifica: n/a.
+    */
     protected void gridBecarios_PageIndexChanging(object sender, GridViewPageEventArgs e)
     {
         this.gridBecarios.PageIndex = e.NewPageIndex;
@@ -788,7 +971,13 @@ public partial class Becarios : System.Web.UI.Page
     }
 
 
-    //Controla la selección de becarios en el grid
+    /*  Requiere: n/a.
+    * 
+    *   Efectúa: Controla la selección de becarios en el grid.
+    *            Carga todos los datos correspondientes tanto datos personales como del perfil.
+    *            
+    *   Modifica: Asigna a "rowIndex" un valor válido.
+    */
     protected void gridBecarios_RowCommand(object sender, GridViewCommandEventArgs e)
     {
         switch(e.CommandName){
@@ -826,8 +1015,14 @@ public partial class Becarios : System.Web.UI.Page
     }
 
 
-    
-    //Pide crear una cuenta para un becario 
+
+
+    /*  Requiere: Todos los parámetros deben tener valor y ninguno puede ser nulo.
+    * 
+    *   Efectúa: Crea una cuenta para un becario y le asocia el perfil correspondiente.
+    *            
+    *   Modifica: n/a.
+    */
     protected string crearCuenta( string cedula, string ced, string nombre, string apellido, string correo, string usuario, string pass, string nombreCompleto){
 
         string resultado = "Exito";
@@ -839,8 +1034,8 @@ public partial class Becarios : System.Web.UI.Page
         datos[3] = cedula;
 
         Object[] datosPerfil = new Object[2];
-        datosPerfil[0] = nombre + "." + apellido + ced;
-        datosPerfil[1]="Becario"; // REVISAR !!!
+        datosPerfil[0] = usuario;
+        datosPerfil[1]="Becario"; 
 
         string r1 = controladoraCuentas.ejecutar(1,datos,null);
         string r2;
@@ -870,7 +1065,13 @@ public partial class Becarios : System.Web.UI.Page
      */
 
 
-    //limpia las las lista locales para evitar conflictos y quita avisos
+
+    /*  Requiere: n/a.
+    * 
+    *   Efectúa: Limpia las las lista locales donde se almacena la información del perfil del becario para evitar conflictos, y quita avisos
+    *            
+    *   Modifica: Borra todos los datos de las listas locales.
+    */
     protected void limpiarListasPerfil()
     {
 
@@ -882,7 +1083,13 @@ public partial class Becarios : System.Web.UI.Page
     }
 
 
-    //llena las listas locales donde se guarda la información del perfil del becario
+
+    /*  Requiere: n/a.
+    * 
+    *   Efectúa: Llena las listas locales donde se guarda la información del perfil del becario.
+    *            
+    *   Modifica: Todos los datos que tuvieran las lista se borran y se llenan con nuevos.
+    */
     protected void llenarListasPerfil(String cedBecario)
     {
 
@@ -894,7 +1101,13 @@ public partial class Becarios : System.Web.UI.Page
     }
 
 
-    //llena los grid del perfil del becario
+
+    /*  Requiere: n/a.
+    * 
+    *   Efectúa: Llena los grid del perfil del becario
+    *            
+    *   Modifica: n/a.
+    */
     protected void llenarGridsPerfil()
     {
         lblAvisoPerfil.Visible = false;
@@ -905,7 +1118,13 @@ public partial class Becarios : System.Web.UI.Page
     }
 
 
-    //verifica si ya se insertaron los datos personales necesarios para poder ingresar información del perfil
+
+    /*  Requiere: n/a.
+    * 
+    *   Efectúa: Verifica si ya se insertaron los datos personales necesarios para poder ingresar información del perfil
+    *            
+    *   Modifica: n/a.
+    */
     protected bool datosPersonalesVacios(){ 
     
        bool retorno = false;
@@ -920,7 +1139,59 @@ public partial class Becarios : System.Web.UI.Page
     }
 
 
-    //habilita los campos de texto del los grids y los botones de agregar para editar el perfil
+
+
+    /*  Requiere: n/a.
+    * 
+    *   Efectúa: Verifica si se dejaron datos en los campos de texto en los grids del perfil.
+    *            
+    *   Modifica: n/a.
+    */
+    public Boolean camposPerfilVacios(int p)
+    {
+
+
+        TextBox txtBoxLeng;
+        TextBox txtBoxIdioma;
+        TextBox txtBoxIntereses;
+        TextBox txtBoxCualidades;
+
+        Boolean retorno = false;
+        if (p == 0)
+        {
+
+            txtBoxLeng = (TextBox)gridLenguajesProg.FooterRow.Cells[0].FindControl("txtNuevoLenguaje");
+            txtBoxIdioma = (TextBox)gridIdiomas.FooterRow.Cells[0].FindControl("txtNuevoIdioma");
+            txtBoxIntereses = (TextBox)gridAreasInteres.FooterRow.Cells[0].FindControl("txtNuevaAreaInteres");
+            txtBoxCualidades = (TextBox)gridCualidades.FooterRow.Cells[0].FindControl("txtNuevaCualidad");
+            
+        }
+        else {
+
+            txtBoxLeng = (TextBox)gridLenguajesProgP.FooterRow.Cells[0].FindControl("txtNuevoLenguajeParcial");
+            txtBoxIdioma = (TextBox)gridIdiomasP.FooterRow.Cells[0].FindControl("txtNuevoIdiomaParcial");
+            txtBoxIntereses = (TextBox)gridAreasInteresP.FooterRow.Cells[0].FindControl("txtNuevaAreaInteresParcial");
+            txtBoxCualidades = (TextBox)gridCualidadesP.FooterRow.Cells[0].FindControl("txtNuevaCualidadParcial");
+        }
+
+
+        if ((txtBoxLeng.Text.Equals("")) && (txtBoxIdioma.Text.Equals("")) && (txtBoxIntereses.Text.Equals("")) && (txtBoxCualidades.Text.Equals("")))
+        {
+            retorno = true;
+        }
+
+
+        return retorno;
+    }
+
+
+
+    /*  Requiere: n/a.
+    * 
+    *   Efectúa: Habilita los campos de texto del los grids y los botones de agregar para editar el perfil.
+    *            
+    *   Modifica: n/a.
+    */
     protected void habilitarEdicionPefil(Boolean habilitar, int p)
     {
 
@@ -1003,6 +1274,16 @@ public partial class Becarios : System.Web.UI.Page
     }
 
 
+
+
+    /*  Requiere: n/a.
+    * 
+    *   Efectúa: Controla la eliminación de datos de los grid del perfil.
+    *            Primero verifica cual es el grid que se esta modificando, determina el indice de la fila y 
+    *            procede a eliminar el dato correspondiente de la lista local, para finalmente actualizar el grid.
+    *            
+    *   Modifica: Remueve de la lista local correspondiente el dato que está en la posición "indiceFila" .
+    */
     protected void eliminaDatosPerfil_RowCommand(object sender, GridViewCommandEventArgs e)
     {
 
@@ -1049,7 +1330,16 @@ public partial class Becarios : System.Web.UI.Page
     }
 
 
-    //controla la inserción de nuevos atributos a los grids del perfil
+
+
+    /*  Requiere: n/a.
+    * 
+    *   Efectúa: Controla la inserción de nuevos atributos a los grids del perfil.
+    *            Primero verifica cual es el grid que se esta modificando, lee el dato ingresado en el campo de texto y 
+    *            procede a insertarlo en la lista local correspondiente, para finalmente actualizar el grid.
+    *            
+    *   Modifica: Inserta nuevos datos en las lista locales de los perfiles .
+    */
     protected void nuevoAtributoDePerfil_click(object sender, EventArgs e)
     {
 
@@ -1118,8 +1408,17 @@ public partial class Becarios : System.Web.UI.Page
     }
 
 
+
     /**GRID DE LENGUAJES DE PROGRAMACION**/
-  
+
+    /*  Requiere: La lista local "listaLocalLenguajes" debe estar debidamente instanciada .
+    * 
+    *   Efectúa: Llena el grid de "Lenguajes de Programación". 
+    *            Primero crea una tabla que llena con los datos de la lista llamada "listaLocalLenguajes" para luego
+    *            asignar dicha tabla como fuente de datos del grid.
+    *            
+    *   Modifica: n/a.
+    */
     protected void llenarGridLenguajes()
     {
 
@@ -1158,7 +1457,11 @@ public partial class Becarios : System.Web.UI.Page
 
 
 
-    //controla la paginacion del grid de lenguajes de programacion
+
+    /*  Requiere: n/a.
+    *   Efectúa: Controla la paginacion del grid "Lenguajes de Programación".
+    *   Modifica: n/a.
+    */
     protected void gridLenguajesProg_PageIndexChanging(object sender, GridViewPageEventArgs e)
     {
        this.gridLenguajesProg.PageIndex = e.NewPageIndex;
@@ -1170,6 +1473,14 @@ public partial class Becarios : System.Web.UI.Page
 
     /**GRID DE IDIOMAS**/
 
+    /*  Requiere: La lista local "listaLocalIdiomas" debe estar debidamente instanciada .
+    * 
+    *   Efectúa: Llena el grid de "Idiomas". 
+    *            Primero crea una tabla que llena con los datos de la lista llamada "listaLocalIdiomas" para luego
+    *            asignar dicha tabla como fuente de datos del grid.
+    *            
+    *   Modifica: n/a.
+    */
     protected void llenarGridIdiomas()
     {
 
@@ -1207,7 +1518,10 @@ public partial class Becarios : System.Web.UI.Page
 
 
 
-    //controla la paginacion del grid de idiomas
+    /*  Requiere: n/a.
+    *   Efectúa: Controla la paginacion del grid "Idiomas".
+    *   Modifica: n/a.
+    */
     protected void gridIdiomas_PageIndexChanging(object sender, GridViewPageEventArgs e)
     {
         this.gridIdiomas.PageIndex = e.NewPageIndex;
@@ -1220,6 +1534,14 @@ public partial class Becarios : System.Web.UI.Page
 
     /**GRID DE AREAS DE INTERÉS**/
 
+    /*  Requiere: La lista local "listaLocalAreasInteres" debe estar debidamente instanciada .
+    * 
+    *   Efectúa: Llena el grid de "Áreas de Interés". 
+    *            Primero crea una tabla que llena con los datos de la lista llamada "listaLocalAreasInteres" para luego
+    *            asignar dicha tabla como fuente de datos del grid.
+    *            
+    *   Modifica: n/a.
+    */
     protected void llenarGridAreasInteres()
     {
 
@@ -1257,7 +1579,10 @@ public partial class Becarios : System.Web.UI.Page
 
 
 
-    //controla la paginacion del grid de áreas de interés
+    /*  Requiere: n/a.
+    *   Efectúa: Controla la paginacion del grid "Áreas de Interés"
+    *   Modifica: n/a.
+    */
     protected void gridAreasInteres_PageIndexChanging(object sender, GridViewPageEventArgs e)
     {
         this.gridAreasInteres.PageIndex = e.NewPageIndex;
@@ -1269,6 +1594,14 @@ public partial class Becarios : System.Web.UI.Page
 
     /**GRID DE CUALIDADES PERSONALES**/
 
+    /*  Requiere: La lista local "listaLocalCualidades" debe estar debidamente instanciada .
+    * 
+    *   Efectúa: Llena el grid de "Aptitudes". 
+    *            Primero crea una tabla que llena con los datos de la lista llamada "listaLocalCualidades" para luego
+    *            asignar dicha tabla como fuente de datos del grid.
+    *            
+    *   Modifica: n/a.
+    */
     protected void llenarGridCualidades()
     {
 
@@ -1305,7 +1638,11 @@ public partial class Becarios : System.Web.UI.Page
     }
 
 
-    //controla la paginacion del grid de cualidades personales
+
+    /*  Requiere: n/a.
+    *   Efectúa: Controla la paginacion del grid "Aptitudes"
+    *   Modifica: n/a.
+    */
     protected void gridCualidades_PageIndexChanging(object sender, GridViewPageEventArgs e)
     {
         this.gridCualidades.PageIndex = e.NewPageIndex;
@@ -1369,8 +1706,13 @@ public partial class Becarios : System.Web.UI.Page
 */
 
 
-    // Método que se invoca al dar click al botón 'modificar' en la vista parcial 
-    // Toma los datos actuales y luego habilita los campos para editarlos
+
+
+    /*  Requiere: n/a.
+    *   Efectúa: Método que se invoca al dar click al botón 'modificar' en la vista parcial.
+    *             Guarda los datos actuales y luego habilita los campos para editarlos
+    *   Modifica: n/a.
+    */
     protected void btnModificarBecarioParcial_Click(object sender, EventArgs e)
     {
 
@@ -1402,8 +1744,12 @@ public partial class Becarios : System.Web.UI.Page
     }
 
 
-    //Método que se invoca al dar click al botón 'CANCELAR' en la vista parcial 
-    //Vacia campos
+
+    /*  Requiere: n/a.
+    *   Efectúa: Método que se invoca al dar click al botón 'CANCELAR' en la vista parcial.
+    *            Vuelve a cargar los datos anteriores para eliminar las modificiones y deshabilita los campos.
+    *   Modifica: n/a.
+    */
     protected void btnCancelarP_Click(object sender, EventArgs e)
     {
 
@@ -1433,54 +1779,69 @@ public partial class Becarios : System.Web.UI.Page
     }
 
 
-    //Método que se invoca al dar click al botón 'ACEPTAR' en la vista parcial 
-    //Toma los datos ingresados y pide modificar la información del becario correspondiente
+
+    /*  Requiere: n/a.
+    *   Efectúa: Método que se invoca al dar click al botón 'ACEPTAR' en la vista parcial.
+    *            Toma los datos ingresados y pide modificar la información del becario correspondiente
+    *   Modifica: n/a.
+    */
     protected void btnAceptarP_Click(object sender, EventArgs e)
     {
 
-        correrJavascript("destruyeTabsP();");
-        correrJavascript("crearTabsP();");
 
-        TextInfo miTexto = CultureInfo.CurrentCulture.TextInfo;
-
-        Object[] datos;
-
-        datos = new Object[10];
-        datos[0] = "";
-        datos[1] = miTexto.ToTitleCase(this.txtNombreP.Text.ToLower());
-        datos[2] = miTexto.ToTitleCase(this.txtApellido1P.Text.ToLower());
-        datos[3] = miTexto.ToTitleCase(this.txtApellido2P.Text.ToLower());
-        datos[4] = this.txtCarneP.Text;
-        datos[5] = this.txtCedulaP.Text;
-        datos[6] = this.txtTelFijoP.Text;
-        datos[7] = this.txtCelularP.Text;
-        datos[8] = this.txtOtroTelP.Text;
-        datos[9] = this.txtCorreoP.Text;
-
-
-
-        string resultado = controladoraBecarios.ejecutar(2, datos, datosViejos);
-        string resultadoPerfil="";
-
-        if (resultado.Equals("Exito"))
+        if (camposPerfilVacios(1) == true)
         {
-            string mensaje = controladoraBecarios.eliminarPerfilBecario(cedulaBecarioActual);
-            resultadoPerfil = controladoraBecarios.guardarPerfilBecario(listaLocalLenguajes, listaLocalIdiomas, listaLocalAreasInteres, listaLocalCualidades, cedulaBecarioActual);              
-        }
-        else
-        {
-            commonService.mensajeJavascript("Se producido un error. Favor intentar más tarde", "Error");
-        }
 
-        if (resultadoPerfil.Equals("Exito")){
-            commonService.mensajeJavascript("Se ha modificado correctamente la información", "Éxito");
+            arreglarTabs();
+
+            TextInfo miTexto = CultureInfo.CurrentCulture.TextInfo;
+
+            Object[] datos;
+
+            datos = new Object[10];
+            datos[0] = "";
+            datos[1] = miTexto.ToTitleCase(this.txtNombreP.Text.ToLower());
+            datos[2] = miTexto.ToTitleCase(this.txtApellido1P.Text.ToLower());
+            datos[3] = miTexto.ToTitleCase(this.txtApellido2P.Text.ToLower());
+            datos[4] = this.txtCarneP.Text;
+            datos[5] = this.txtCedulaP.Text;
+            datos[6] = this.txtTelFijoP.Text;
+            datos[7] = this.txtCelularP.Text;
+            datos[8] = this.txtOtroTelP.Text;
+            datos[9] = this.txtCorreoP.Text;
+
+
+
+            string resultado = controladoraBecarios.ejecutar(2, datos, datosViejos);
+            string resultadoPerfil = "";
+
+            if (resultado.Equals("Exito"))
+            {
+                string mensaje = controladoraBecarios.eliminarPerfilBecario(cedulaBecarioActual);
+                resultadoPerfil = controladoraBecarios.guardarPerfilBecario(listaLocalLenguajes, listaLocalIdiomas, listaLocalAreasInteres, listaLocalCualidades, cedulaBecarioActual);
+            }
+            else
+            {
+                commonService.mensajeJavascript("Se producido un error. Favor intentar más tarde", "Error");
+            }
+
+            if (resultadoPerfil.Equals("Exito"))
+            {
+                commonService.mensajeJavascript("Se ha modificado correctamente la información", "Éxito");
+            }
+
+
+            habilitarCampos(false, 1);
+            habilitarEdicionPefil(false, 1);
+            mostrarBotonesSecundariosP(false);
+            mostrarBotonesPrincipales(true);
+
         }
-        
-      
-        habilitarCampos(false, 1);
-        habilitarEdicionPefil(false, 1);
-        mostrarBotonesSecundariosP(false);
-        mostrarBotonesPrincipales(true);
+        else {
+
+          commonService.mensajeJavascript("Aún hay datos escritos en algún grid del perfil, debe borrar esta información o presionar el botón con el signo  \\+  para guardarla ", "AVISO");
+          arreglarTabs();
+        }
 
     }
 
@@ -1493,6 +1854,10 @@ public partial class Becarios : System.Web.UI.Page
 */
 
 
+    /*  Requiere: n/a.
+    *   Efectúa: Muestra u oculta los botones de la vista parcial.          
+    *   Modifica: n/a.
+    */
     protected void mostrarBotonesSecundariosP(Boolean mostrar){
 
         if (mostrar)
@@ -1513,13 +1878,18 @@ public partial class Becarios : System.Web.UI.Page
     }
 
 
+
+    /*  Requiere: n/a.
+    *   Efectúa: Consulta cuales son los datos los datos del becario que esta usando el sistema para cargar 
+    *            los campos con los datos personales y datos del perfil correspondientes.          
+    *   Modifica: n/a.
+    */
     protected void consultarDatosBecarioLogueado()
     {
 
         string usuario = Session["Cuenta"].ToString();
         cedulaBecarioActual = controladoraBecarios.obtieneCedulaDeUsuario(usuario);
         Becario becarioActual = controladoraBecarios.obtenerBecarioPorCedula(cedulaBecarioActual);
-
         
         listaBecarios.Clear();
         listaBecarios.Add(becarioActual);
@@ -1540,6 +1910,10 @@ public partial class Becarios : System.Web.UI.Page
 
 
 
+    /*  Requiere: n/a.
+    *   Efectúa: Llena los grids del perfil del becario en la vista parcial                 
+    *   Modifica: n/a.
+    */
     protected void llenarGridsPerfil_vistaParcial()
     {
 
@@ -1550,6 +1924,16 @@ public partial class Becarios : System.Web.UI.Page
     }
 
 
+
+
+    /*  Requiere: n/a.
+    * 
+    *   Efectúa: Controla la inserción de nuevos atributos a los grids del perfil del becario en la vista parcial .
+    *            Primero verifica cual es el grid que se esta modificando, lee el dato ingresado en el campo de texto y 
+    *            procede a insertarlo en la lista local correspondiente, para finalmente actualizar el grid.
+    *            
+    *   Modifica: Inserta nuevos datos en las lista locales de los perfiles .
+    */
     protected void nuevoAtributoDePerfilParcial_click(object sender, EventArgs e)
     {
 
@@ -1612,6 +1996,15 @@ public partial class Becarios : System.Web.UI.Page
     }
 
 
+
+    /*  Requiere: n/a.
+    * 
+    *   Efectúa: Controla la eliminación de datos de los grid del perfil en la vista parcial.
+    *            Primero verifica cual es el grid que se esta modificando, determina el indice de la fila y 
+    *            procede a eliminar el dato correspondiente de la lista local, para finalmente actualizar el grid.
+    *            
+    *   Modifica: Remueve de la lista local correspondiente el dato que está en la posición "indiceFila" .
+    */
     protected void eliminaDatosPerfilParcial_RowCommand(object sender, GridViewCommandEventArgs e)
     {
 
@@ -1657,7 +2050,17 @@ public partial class Becarios : System.Web.UI.Page
     }
 
 
+
     /**GRID DE LENGUAJES DE PROGRAMACION**/
+
+    /*  Requiere: La lista local "listaLocalLenguajes" debe estar debidamente instanciada .
+    * 
+    *   Efectúa: Llena el grid de "Lenguajes de Programación" de la vista parcial. 
+    *            Primero crea una tabla que llena con los datos de la lista llamada "listaLocalLenguajes" para luego
+    *            asignar dicha tabla como fuente de datos del grid.
+    *            
+    *   Modifica: n/a.
+    */
     protected void llenarGridLenguajesParcial()
     {
 
@@ -1697,7 +2100,31 @@ public partial class Becarios : System.Web.UI.Page
 
 
 
+
+
+    /*  Requiere: n/a.
+    *   Efectúa: Controla la paginacion del grid "Lenguajes de Programación" de la vista parcial.
+    *   Modifica: n/a.
+    */
+    protected void gridLenguajesProgParcial_PageIndexChanging(object sender, GridViewPageEventArgs e)
+    {
+        this.gridLenguajesProgP.PageIndex = e.NewPageIndex;
+        this.gridLenguajesProgP.DataBind();
+        llenarGridLenguajesParcial();
+    }
+
+
+
     /**GRID DE IDIOMAS**/
+
+    /*  Requiere: La lista local "listaLocalIdiomas" debe estar debidamente instanciada .
+    * 
+    *   Efectúa: Llena el grid de "Idiomas" de la vista parcial. 
+    *            Primero crea una tabla que llena con los datos de la lista llamada "listaLocalIdiomas" para luego
+    *            asignar dicha tabla como fuente de datos del grid.
+    *            
+    *   Modifica: n/a.
+    */
     protected void llenarGridIdiomasParcial()
     {
 
@@ -1734,6 +2161,32 @@ public partial class Becarios : System.Web.UI.Page
     }
 
 
+
+
+
+    /*  Requiere: n/a.
+    *   Efectúa: Controla la paginacion del grid "Idiomas" de la vista parcial.
+    *   Modifica: n/a.
+    */
+    protected void gridIdiomasParcial_PageIndexChanging(object sender, GridViewPageEventArgs e)
+    {
+        this.gridIdiomasP.PageIndex = e.NewPageIndex;
+        this.gridIdiomasP.DataBind();
+        llenarGridIdiomasParcial();
+    }
+
+
+
+    /**GRID DE ÁREAS DE INTERÉS**/
+
+    /*  Requiere: La lista local "listaLocalAreasInteres" debe estar debidamente instanciada .
+    * 
+    *   Efectúa: Llena el grid de "Áreas de Interés" de la vista parcial. 
+    *            Primero crea una tabla que llena con los datos de la lista llamada "listaLocalAreasInteres" para luego
+    *            asignar dicha tabla como fuente de datos del grid.
+    *            
+    *   Modifica: n/a.
+    */
     protected void llenarGridAreasInteresParcial() { 
     
         DataTable dt = new DataTable();
@@ -1770,6 +2223,29 @@ public partial class Becarios : System.Web.UI.Page
 
 
 
+    /*  Requiere: n/a.
+    *   Efectúa: Controla la paginacion del grid "Áreas de Interés" de la vista parcial.
+    *   Modifica: n/a.
+    */
+    protected void gridInteresParcial_PageIndexChanging(object sender, GridViewPageEventArgs e)
+    {
+        this.gridAreasInteresP.PageIndex = e.NewPageIndex;
+        this.gridAreasInteresP.DataBind();
+        llenarGridAreasInteresParcial();
+    }
+
+
+
+    /**GRID DE APTITUDES ( CUALIDADES PERSONALES) **/
+
+    /*  Requiere: La lista local "listaLocalCualidades" debe estar debidamente instanciada .
+    * 
+    *   Efectúa: Llena el grid de "Cualidades" de la vista parcial. 
+    *            Primero crea una tabla que llena con los datos de la lista llamada "listaLocalCualidades" para luego
+    *            asignar dicha tabla como fuente de datos del grid.
+    *            
+    *   Modifica: n/a.
+    */
     protected void llenarGridCualidadesParcial(){
 
 
@@ -1807,7 +2283,16 @@ public partial class Becarios : System.Web.UI.Page
     }
 
 
-   
+    /*  Requiere: n/a.
+     *   Efectúa: Controla la paginacion del grid "Aptitudes" de la vista parcial.
+     *   Modifica: n/a.
+     */
+    protected void gridCualidadesParcial_PageIndexChanging(object sender, GridViewPageEventArgs e)
+    {
+        this.gridCualidadesP.PageIndex = e.NewPageIndex;
+        this.gridCualidadesP.DataBind();
+        llenarGridCualidadesParcial();
+    }
 
 
 }

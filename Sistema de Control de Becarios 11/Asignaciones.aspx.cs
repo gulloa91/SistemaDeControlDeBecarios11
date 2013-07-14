@@ -149,8 +149,13 @@ public partial class Asignaciones : System.Web.UI.Page
 */
 
 
-    // Click del botón Insertar Asignacion
-    protected void btnInsertarAsignacion_Click(object sender, EventArgs e)
+
+    /* Requiere: n/a
+       Efectúa: Método que se invoca con al dar click en el botón "Insertar" de Asignacion
+     *          Prepara la interfaz para la inserción de una nueva asignación. Abre el popUp.
+     * Modifica: n/a
+     */
+    protected void btnInsertarAsignacion_Click(object sender, EventArgs e)      // 
     {
 
         
@@ -180,7 +185,13 @@ public partial class Asignaciones : System.Web.UI.Page
     }
 
 
-    //Click del botón aceptar del popUp
+
+    /*   Requiere: n/a
+         Efectúa: Método que se invoca con al dar click en el botón "aceptar" del popUp
+     *            Recolecta los datos digitados por el usuario y ordena a la controladora insertar una nueva asignación
+     *            También controla la inserción de comentarios de la dirección a asignaciones ya existentes
+     *   Modifica: Almacena una nueva asignación en la base de datos, y actualiza la lista local donde se guardan todas las asignaciones existentes.
+     */
     protected void btnInvisibleAceptarAsignacion_Click(object sender, EventArgs e)
     {
 
@@ -210,7 +221,7 @@ public partial class Asignaciones : System.Web.UI.Page
         }
 
 
-        if (modoEjecucion == 1 || modoEjecucion == 2)
+        if (modoEjecucion == 1 || modoEjecucion == 2) //se inserta nueva asignación
         {
 
             string mensajeResultado = controladoraAsignaciones.ejecutar(1, datos, "");
@@ -220,6 +231,18 @@ public partial class Asignaciones : System.Web.UI.Page
             if (mensajeResultado.Equals("Exito"))
             {
                 commonService.mensajeJavascript("Se ha creado correctamente una nueva asignación", "Éxito");
+
+                // Correo para avisar al becario que se acaba de asignarle un encargado
+                string correoBecario = controladoraAsignaciones.buscarCorreoBecario( datos[0].ToString() );
+                string mensajeB = "Se le informa que la Dirección de la ECCI acaba de asignarle un encargado para trabajar en sus horas beca de este semestre. Favor ingresar lo más pronto posible al sistema y confirmar esta asignación";
+                servicioCorreo.enviarCorreo(correoBecario, "Mensaje del Sistema de Control de Becarios 11", mensajeB);
+
+
+                // Correo para avisar al encargado que se le acaba de asignar un becario
+                string correoEncargado = controladoraAsignaciones.buscarCorreoEncargado(datos[1].ToString());
+                string mensajeE = "Se le informa que la Dirección de la ECCI acaba de asignarle un becario 11 para el presente semestre. Favor ingresar lo más pronto posible al sistema y confirmar esta asignación";
+                servicioCorreo.enviarCorreo(correoEncargado, "Mensaje del Sistema de Control de Becarios 11", mensajeE);
+
             }
             else
             {
@@ -228,7 +251,7 @@ public partial class Asignaciones : System.Web.UI.Page
         }
 
 
-        //comentario de la dirección
+        //cuando la dirección escribe un comentario
         if (modoEjecucion == 3) {
 
            commonService.cerrarPopUp("PopUpAsignacion");
@@ -250,11 +273,17 @@ public partial class Asignaciones : System.Web.UI.Page
     }
 
 
-    // Click del botón eliminar asignación
+
+    /*  Requiere: Se tiene que haber consultado una asignación
+        Efectúa: Método que se invoca con al dar click en el botón "eliminar" del popUp.
+    *            Guarda los datos de la asignación que tiene que eliminar y muestra un mensaje para que el usuario confirme la eliminación
+    *          
+    *   Modifica: n/a.
+    */
     protected void btnEliminarAsignacion_Click(object sender, EventArgs e)
     {
 
-        datosViejos = new Object[9];
+        datosViejos = new Object[12];
 
         datosViejos[0] = dropDownBecariosPopUp.SelectedValue;
         datosViejos[1] = dropDownEncargadosPopUp.SelectedValue;
@@ -265,12 +294,20 @@ public partial class Asignaciones : System.Web.UI.Page
         datosViejos[6] = txtInfoDeUbicacion.Text;
         datosViejos[7] = listaAsignaciones[rowIndex].Estado;
         datosViejos[8] = listaAsignaciones[rowIndex].Activo;
+        datosViejos[9] = txtComentarioBecario.Text;
+        datosViejos[10] = txtComentarioEncargado.Text;
+        datosViejos[11] = txtComentarioDireccion.Text;
         commonService.abrirPopUp("PopUpEliminarAsignacion", "Eliminar Asignación");
     }
 
 
 
-    // Click de confirmación de la eliminación ( botón invisible)
+    /* Requiere: n/a
+     * Efectúa: Método que se invoca al confimar la eliminación de un asignación
+     *          Guarda los datos de la asignación que tiene que eliminar y muestra un mensaje para que el usuario confirme la eliminación
+     *          
+     *  Modifica: Se borra la asignación de la base de datos y actualiza la lista local donde se guardan todas las asignaciones existentes.
+     */
     protected void btnInvisibleEliminarAsignacion_Click(object sender, EventArgs e)
     {
 
@@ -279,10 +316,10 @@ public partial class Asignaciones : System.Web.UI.Page
 
         if (resultado.Equals("Exito"))
         {
-            commonService.mensajeJavascript("La asignación se eliminó correctamente", "Eliminado"); // Obviamente se tiene que cambiar con el resultado de vd
+            commonService.mensajeJavascript("La asignación se eliminó correctamente", "Eliminado"); 
         }
         else {
-            commonService.mensajeJavascript("Se ha producido un error en la eliminación", "Error"); // Obviamente se tiene que cambiar con el resultado de vd
+            commonService.mensajeJavascript("Se ha producido un error en la eliminación", "Error"); 
         }
 
         llenarListaAsignaciones();
@@ -290,8 +327,13 @@ public partial class Asignaciones : System.Web.UI.Page
     }
 
 
-
-    // Click del botón modificar asignación
+    /* Requiere: Se debe haber consultado ( seleccionado ) una asignación
+    *  Efectúa:  Método que se invoca con al dar click en el botón " cambiar asignación"
+    *            Verifica si la asignación es "rechazada por becario" ó "rechazada por becario" y en caso positivo habilita los campos y carga los dropdown       
+    *       
+    * 
+    *  Modifica: n/a .
+    */
     protected void btnModificarAsignacion_Click(object sender, EventArgs e)
     {
 
@@ -335,7 +377,13 @@ public partial class Asignaciones : System.Web.UI.Page
        
     }
 
-    // Click del botón para ver los becarios asignados a determinado encargado
+
+   /*  Requiere: Se debe haber seleccionado un encargado del "dropdown list"
+   *   Efectúa:  Muestra cuales son los becarios que tiene asignados actualmente el encargado seleccionado
+   *             Invoca al método que llena el grid de "becarios asignados" y abre el popUp donde se muestra dicho grid     
+   *      
+   *   Modifica: n/a .
+   */
     protected void btnCantidadBecariosDeEncargado_Click(object sender, EventArgs e)
     {
 
@@ -346,7 +394,13 @@ public partial class Asignaciones : System.Web.UI.Page
     }
 
 
-    //
+
+    /*  Requiere: Se debe haber seleccionado una asignación del grid
+    *   Efectúa:  Implementa la funcionalidad de los comentarios de la dirección para asignaciones ya existentes
+    *             Guarda la información de la asignación actual ( para saber poesteriormente a quien pertenece el comentario ) y habilita el campo de texto correspondiente
+    *      
+    *   Modifica: n/a .
+    */
     protected void btnComentarioDireccion_click(object sender, EventArgs e)
     {
 
@@ -373,6 +427,9 @@ public partial class Asignaciones : System.Web.UI.Page
     }
 
 
+
+
+
     /*
     * ------------------------------
     *    BÚSQUEDAS
@@ -380,7 +437,11 @@ public partial class Asignaciones : System.Web.UI.Page
     */
 
 
-    // BUSCAR CLICK
+    /*  Requiere: n/a
+    *   Efectúa:  Implementa la funcionalidad de búsqueda por texto libre
+    *             
+    *   Modifica: n/a .
+    */
     protected void btnBuscar_Click(object sender, EventArgs e)
     {
 
@@ -425,7 +486,11 @@ public partial class Asignaciones : System.Web.UI.Page
 
 
 
-
+    /*  Requiere: n/a.
+    *   Efectúa:  Carga los "dropdown list" para las búsquedas
+    *             
+    *  Modifica: n/a .
+    */
     protected void cargarDropDownsBusquedas(){
 
 
@@ -470,14 +535,24 @@ public partial class Asignaciones : System.Web.UI.Page
     }
 
 
-    //Método que se invoca a al seleccionar un año para las búsuqedas
+    /*  Requiere: n/a.
+    *   Efectúa:  Método que se invoca al seleccionar un año para las búsuqedas
+    *             
+    *   Modifica: n/a .
+    */
     protected void dropDownAnio_SelectedIndexChanged(object sender, EventArgs e)
     {
         busquedaPorAño();
     }
 
-    
-    //buscador de año 
+
+    /*  Requiere: n/a.
+    *   Efectúa: Implementa la búsuqeda por año
+    *            Primero selecciona las que asignaciones cumplen con el criterio del año seleccionado , luego verifica de esas 
+    *           cuales no cumplen los otros criterios selecionados por el usuario para removerlas al final    
+    *             
+    *   Modifica: n/a .
+    */
     protected void busquedaPorAño()
     {
 
@@ -585,13 +660,26 @@ public partial class Asignaciones : System.Web.UI.Page
     }
 
 
-    //Método que se invoca a al seleccionar un ciclo para las búsuqedas
+
+    /*  Requiere: n/a.
+    *   Efectúa: Método que se invoca a al seleccionar un ciclo para las búsuqedas.
+    *             
+    *   Modifica: n/a .
+    */
     protected void dropDownCiclo_SelectedIndexChanged(object sender, EventArgs e)
     {
         busquedaPorCiclo();
     }
 
-    //buscador de ciclo
+
+
+    /*  Requiere: n/a.
+    *   Efectúa: Implementa la búsuqeda por ciclo
+    *            Primero selecciona las asignaciones que cumplen con el criterio del ciclo seleccionado , luego verifica de esas 
+    *            cuales no cumplen los otros criterios selecionados por el usuario para removerlas al final    
+    *             
+    *   Modifica: n/a .
+    */
     protected void busquedaPorCiclo()
     {
 
@@ -700,14 +788,25 @@ public partial class Asignaciones : System.Web.UI.Page
     }
 
 
-    //Método que se invoca a al seleccionar un estado para las búsuqedas
+    /*  Requiere: n/a.
+    *   Efectúa: Método que se invoca a al seleccionar un estado para las búsuqedas.
+    *             
+    *   Modifica: n/a .
+    */
     protected void dropDownEstado_SelectedIndexChanged(object sender, EventArgs e)
     {
         busquedaPorEstado();
     }
-    
 
-    //buscador de estado
+
+
+    /*  Requiere: n/a.
+    *   Efectúa: Implementa la búsuqeda por estado
+    *            Primero selecciona las asignaciones tienen el estado seleccionado , luego verifica de esas 
+    *            cuales no cumplen los otros criterios selecionados por el usuario para removerlas al final    
+    *             
+    *   Modifica: n/a .
+    */
     protected void busquedaPorEstado()
     {
 
@@ -816,13 +915,24 @@ public partial class Asignaciones : System.Web.UI.Page
 
 
 
+    /*  Requiere: n/a.
+    *   Efectúa: Método que se invoca a al seleccionar un encargado para las búsuqedas.
+    *             
+    *   Modifica: n/a .
+    */
     protected void dropDownBusquedaEncargado_SelectedIndexChanged(object sender, EventArgs e)
     {
         busquedaPorEncargado();
     }
 
 
-    //buscador de encargado
+    /*  Requiere: n/a.
+    *   Efectúa: Implementa la búsuqeda por encargado
+    *            Primero selecciona las asignaciones que involucran al encargado seleccionado , luego verifica de esas 
+    *            cuales no cumplen los otros criterios selecionados por el usuario para removerlas al final    
+    *             
+    *   Modifica: n/a .
+    */
     protected void busquedaPorEncargado() {
 
         List<Asignacion> asignacionesParaRemover = new List<Asignacion>();
@@ -930,23 +1040,6 @@ public partial class Asignaciones : System.Web.UI.Page
     }
 
 
-    //metodo q actualiza el botón de cantidad de becarios cuando se selecciona un encargado
-    protected void seleccionaEncargado_dropDownPopUp(object sender, EventArgs e)
-    {
-
-        /** Comentarios **/
-        commonService.correrJavascript("$('#container_comentarios_encargadoybecario').css('display','none');");
-        
-
-        string cedEncargadoSeleccionado = dropDownEncargadosPopUp.SelectedValue;
-
-        int cantidadBecariosAsignados = controladoraAsignaciones.contarBecariosAsignados(cedEncargadoSeleccionado, añoActual, periodoActual);
-
-        this.btnCantidadBecariosDeEncargado.Text = "Becarios asignados : " + cantidadBecariosAsignados;
-        this.btnCantidadBecariosDeEncargado.Enabled = true;
-    }
-
-
  /*
  * ----------------------------------------
  *   AUXILIARES - MOSTRAR BOTONES Y OTROS
@@ -954,7 +1047,11 @@ public partial class Asignaciones : System.Web.UI.Page
  */
 
 
-    //Define que botones se van a mostrar
+    /*  Requiere: n/a.
+    *   Efectúa: Define que botones se van a mostrar
+    *             
+    *   Modifica: n/a .
+    */
     protected void mostrarBotonesPrincipales(Boolean mostrar)
     {
         if (mostrar)
@@ -971,6 +1068,13 @@ public partial class Asignaciones : System.Web.UI.Page
         }
     }
 
+
+
+    /*  Requiere: n/a.
+    *   Efectúa: Habilita o deshabilita los campos de datos
+    *             
+    *   Modifica: n/a .
+    */
     protected void habilitarContenidoAsignacion(Boolean mostrar)
     {
         if (mostrar)
@@ -993,6 +1097,13 @@ public partial class Asignaciones : System.Web.UI.Page
         }
     }
 
+
+
+    /*  Requiere: n/a.
+    *   Efectúa: Limpia el contenido de los campos de datos
+    *             
+    *   Modifica: n/a .
+    */
     protected void limpiarContenidoAsignacion()
     {
 
@@ -1008,7 +1119,11 @@ public partial class Asignaciones : System.Web.UI.Page
 
 
 
-
+    /*  Requiere: n/a.
+    *   Efectúa: Método auxiliar para interpretar el ciclo y mostrarlo como se acostumbra ( números romanos )
+    *             
+    *   Modifica: n/a .
+    */
     protected string convertirANumeroRomano(int num){
 
         string retorno = "";
@@ -1028,6 +1143,7 @@ public partial class Asignaciones : System.Web.UI.Page
     }
 
 
+
     /*Estados de la Asignación :
      * 
      * 1 : Aceptada
@@ -1038,6 +1154,13 @@ public partial class Asignaciones : System.Web.UI.Page
      * 6 : Rechazada por el encargado.
      * 7 : Finalizada
      * */
+
+
+    /*  Requiere: n/a.
+    *   Efectúa: Método auxiliar para interpretar el estado de una asignación
+    *             
+    *   Modifica: n/a .
+    */
     protected String interpretaEstado(int estado, bool activo){
 
         string respuesta = "";
@@ -1092,14 +1215,13 @@ public partial class Asignaciones : System.Web.UI.Page
     }
 
 
-  /*
-   * ------------------------------
-   *       VARIOS
-   * ------------------------------
-   */
-
-
-    protected void determinaSemestreActual() {
+    /*  Requiere: n/a.
+    *   Efectúa: Método auxiliar que determina en que semestre estamos
+    *             
+    *   Modifica: n/a .
+    */
+    protected void determinaSemestreActual()
+    {
 
         DateTime fecha = DateTime.Now;
         añoActual = fecha.Year;
@@ -1111,34 +1233,69 @@ public partial class Asignaciones : System.Web.UI.Page
         {
             periodoActual = 1;
         }
-        else {
+        else
+        {
 
             if ((mes >= 8) && (mes <= 12))
             {
                 periodoActual = 2;
             }
-            else {
+            else
+            {
                 periodoActual = 3;
             }
         }
-    
+
+    }
+
+
+  /*
+   * ------------------------------
+   *       VARIOS
+   * ------------------------------
+   */
+
+
+
+    /* Requiere: Se debe seleccionar un encargado del "drpodown list" de encargados que aparece en el popUp
+    *  Efectúa: Actualiza el botón de cantidad de becarios cuando se selecciona un encargado
+    *           Pide a la controladora el datos de cuantos becarios tiene asignados actualmente el encargado y actualiza el texto del botón 
+    *  Modifica: n/a .
+    */
+    protected void seleccionaEncargado_dropDownPopUp(object sender, EventArgs e)
+    {
+
+        /** Comentarios **/
+        commonService.correrJavascript("$('#container_comentarios_encargadoybecario').css('display','none');");
+
+
+        string cedEncargadoSeleccionado = dropDownEncargadosPopUp.SelectedValue;
+
+        int cantidadBecariosAsignados = controladoraAsignaciones.contarBecariosAsignados(cedEncargadoSeleccionado, añoActual, periodoActual);
+
+        this.btnCantidadBecariosDeEncargado.Text = "Becarios asignados : " + cantidadBecariosAsignados;
+        this.btnCantidadBecariosDeEncargado.Enabled = true;
     }
 
 
 
-
+    /* Requiere: n/a.
+    *  Efectúa:  Llena "listalistaAsignaciones" con todas las asiganciones existentes.
+    *  Modifica: Cambia todos los valores existentes en "listalistaAsignaciones".
+    */
     protected void llenarListaAsignaciones()
     {
        listaAsignaciones = controladoraAsignaciones.consultarTablaAsignacionesCompleta();
     }
 
 
-    // Llenar tabla con todas las asignaciones existentes
+    /* Requiere: Se debe proporcionar una lista que es la fuente de los datos.
+    *  Efectúa:  Llena el grid principal con la lista de asignaciones recibida por parámetro.
+    *            Primero se crea una tabla que se llena con la lista y se asigna dicha tabla como la fuente de datos del grid.  
+    *  Modifica: n/a.
+    */
     protected void llenarGridAsignaciones( List<Asignacion> listaDatos )
     {
-
-
-        //listaAsignaciones = controladoraAsignaciones.consultarTablaAsignacionesCompleta();
 
         DataTable tablaAsignaciones = crearTablaAsignaciones();
         DataRow newRow;
@@ -1177,6 +1334,10 @@ public partial class Asignaciones : System.Web.UI.Page
 
 
 
+   /* Requiere: n/a.
+   *  Efectúa: Crea la tabla que sirve como fuente de datos del grid
+   *  Modifica: n/a.
+   */
     protected DataTable crearTablaAsignaciones()
     {
 
@@ -1212,7 +1373,12 @@ public partial class Asignaciones : System.Web.UI.Page
     }
 
 
-    //carga el dropdown con los becarios que estan pendientes de asignacion en el ciclo lectivo actual
+
+
+    /*  Requiere: n/a.
+     *  Efectúa:  Carga el dropdown con los becarios que estan pendientes de asignacion en el ciclo lectivo actual
+     *  Modifica: n/a.
+     */
     protected void cargarDropDownBecarios() {
 
 
@@ -1235,7 +1401,7 @@ public partial class Asignaciones : System.Web.UI.Page
 
         this.dropDownBecariosPopUp.DataBind();
        
-    }
+   }
 
 
 
@@ -1245,13 +1411,16 @@ public partial class Asignaciones : System.Web.UI.Page
     }
 
 
-    //carga el dropdown de encargados con todos los encargados existentes
-    // el parámetro "aux" sirve para saber cual dropdown de encargados llenar: 1-> el del popUp , cualquier otro número -> el de búsquedas
+
+
+    /*  Requiere: n/a.
+    *  Efectúa:  Carga el dropdown de encargados con todos los encargados existentes.
+    *            El parámetro "aux" sirve para saber cual dropdown de encargados llenar: 1-> el del popUp , cualquier otro número -> el de búsquedas  
+    *  Modifica: n/a.
+    */
     protected void cargarDropDownEncargados(int aux) 
     {
 
-
-        //EncargadoDataSet.EncargadoDataTable tablaEncargados = controladoraAsignaciones.obtenerEncargadosCompletos();
         ListItem item;
 
         this.dropDownEncargadosPopUp.Items.Clear();
@@ -1283,7 +1452,12 @@ public partial class Asignaciones : System.Web.UI.Page
 
 
 
-    // Seleccionar tupla del grid de asignaciones con la flecha
+
+    /*  Requiere: n/a.
+    *  Efectúa:  Controla la selección de asignaciones del grid principal.
+    *            Determina cual es la fila seleccionada y pide que se carguen los datos de dicha asignación 
+    *  Modifica: n/a.
+    */
     protected void GridAsignaciones_RowCommand(object sender, GridViewCommandEventArgs e)
     {
         switch (e.CommandName)
@@ -1316,7 +1490,10 @@ public partial class Asignaciones : System.Web.UI.Page
 
 
 
-    //Carga los campos correspondientes de una asignación seleccionada por el usuario
+    /* Requiere: Se debe haber seleccionado alguna tupla del grid.
+    *  Efectúa:  Carga los campos correspondientes de una asignación seleccionada por el usuario.
+    *  Modifica: Llena todos los campos de datos con la información de la asignación seleccioanda.
+    */
     protected void cargarCamposAsignacion(){
 
 
@@ -1349,14 +1526,17 @@ public partial class Asignaciones : System.Web.UI.Page
         int cantidadBecariosAsignados = controladoraAsignaciones.contarBecariosAsignados(cedEncargado, añoActual, periodoActual);
 
         this.btnCantidadBecariosDeEncargado.Text = "Becarios asignados : " + cantidadBecariosAsignados;
-        this.btnCantidadBecariosDeEncargado.Enabled = false;
+     
 
 
     }
 
 
 
-    // Llenar el grid que muestra los becarios asignados actualmente a determinado encargado
+    /* Requiere: n/a.
+    *  Efectúa: Llena el grid que muestra los becarios asignados actualmente a determinado encargado.
+    *  Modifica: n/a.
+    */
     protected void llenarGridBecariosAsigandosAEncargado()
     {
 
@@ -1401,7 +1581,11 @@ public partial class Asignaciones : System.Web.UI.Page
 
 
 
-    // Le da formato a las columnas del grid que muestra los becarios asignados actualmente a determinado encargado
+
+    /* Requiere: n/a.
+    *  Efectúa: Le da formato a las columnas del grid que muestra los becarios asignados actualmente a determinado encargado.
+    *  Modifica: n/a.
+    */
     protected DataTable crearTablaBecariosAsigandosAEncargado()
     {
 
@@ -1431,7 +1615,12 @@ public partial class Asignaciones : System.Web.UI.Page
         return dt;
     }
 
-    // Aplica nombre a las columnas así como color
+
+
+    /* Requiere: n/a.
+    *  Efectúa: Aplica nombre a las columnas así como color.
+    *  Modifica: n/a.
+    */
     private void HeadersCorrectosAsignaciones()
     {
         this.GridAsignaciones.HeaderRow.BackColor = System.Drawing.Color.FromArgb(4562432);
@@ -1443,7 +1632,10 @@ public partial class Asignaciones : System.Web.UI.Page
         this.GridAsignaciones.HeaderRow.Cells[5].Text = "Estado";
     }
 
-    // Aplica nombre a las columnas así como color
+    /* Requiere: n/a.
+    *  Efectúa: Aplica nombre a las columnas así como color.
+    *  Modifica: n/a.
+    */
     private void HeadersCorrectosBecariosAsigandosAEncargado()
     {
         gridBecariosAsignadosAEncargado.HeaderRow.BackColor = System.Drawing.Color.FromArgb(4562432);
@@ -1454,7 +1646,12 @@ public partial class Asignaciones : System.Web.UI.Page
         gridBecariosAsignadosAEncargado.HeaderRow.Cells[3].Text = "Celular";
     }
 
-    //Controla la paginación del grid
+
+
+    /* Requiere: n/a.
+    *  Efectúa: Controla la paginación del grid.
+    *  Modifica: n/a.
+    */
     protected void gridAsignaciones_PageIndexChanging(object sender, GridViewPageEventArgs e)
     {
         this.GridAsignaciones.PageIndex = e.NewPageIndex;       
@@ -1464,6 +1661,9 @@ public partial class Asignaciones : System.Web.UI.Page
     }
 
 
+
+
+
     /***************************************************************************
      * 
      *                       VISTA BECARIO
@@ -1471,7 +1671,12 @@ public partial class Asignaciones : System.Web.UI.Page
      * **************************************************************************/
 
 
-    //consulta en la BD los datos que se ocupan sobre la asignación del becario logueado actualmente
+
+
+    /* Requiere: n/a.
+    *  Efectúa: Consulta en la BD los datos que se ocupan sobre la asignación del becario logueado actualmente
+    *  Modifica: Proporciona valor a "datosDeAsignacionDeBecario".
+    */
     protected void consultaDatosDeAsignacion() {
 
        string usuario = Session["Cuenta"].ToString();
@@ -1480,6 +1685,11 @@ public partial class Asignaciones : System.Web.UI.Page
     }
 
 
+
+    /* Requiere: n/a.
+    *  Efectúa: Muestra al becario un aviso para indicarle cual es el estado actual de su asignación.
+    *  Modifica: Modifica el texto del aviso para el becario.
+    */
     protected void actualizarEstadoAsignacionVistaBecario(int estadoAsignacion)
     {
        
@@ -1514,6 +1724,11 @@ public partial class Asignaciones : System.Web.UI.Page
 
     }
 
+
+    /* Requiere: n/a.
+    *  Efectúa: Acualiza la información que se le muestra al becario cuando ingresa al módulo de asignaciones.
+    *  Modifica: n/a .
+    */
     protected void llenarInfoVistaBecario()
     {
 
@@ -1550,7 +1765,13 @@ public partial class Asignaciones : System.Web.UI.Page
     }
 
 
-   // Aceptar asignación el becario
+
+    /* Requiere: n/a.
+    *  Efectúa:  Método que se invoca cuando un becario acepta su asignación.
+    *            Cambia el estado de la asignación y envía los correos de notificación necesarios.
+    *           
+    *  Modifica: Cambia el estado de la asignación según corresponda .
+    */
    protected void btnAceptarAsignacionBecario_Click(object sender, EventArgs e)
    {
 
@@ -1571,7 +1792,7 @@ public partial class Asignaciones : System.Web.UI.Page
        {
            if (nuevoEstado == 1)
            {
-               commonService.mensajeJavascript("Usted ha aceptado la asignación satisfactoriamente y su encargado ha sido notficado. La asignación ha quedado completa por lo que ya puede empezar a realizar sus horas.", "Aviso");
+               commonService.mensajeJavascript("Usted ha aceptado la asignación satisfactoriamente y su encargado ha sido notficado. La asignación ha quedado confirmada por lo que ya puede empezar a realizar sus horas.", "Aviso");
              
              //CORREO A ENCARGADO !!
              string correoEncargado = datosDeAsignacionDeBecario[0][7].ToString();
@@ -1594,14 +1815,22 @@ public partial class Asignaciones : System.Web.UI.Page
        esconderBotonesVistaBecario(true);
    }
 
-   // Abrir confirmación de rechazo de asignación
+
+
+   /*  Requiere: n/a.
+    *  Efectúa: Muestra el aviso de confirmación cuando se rechaza la  asignación         
+    *  Modifica: n/a.
+    */
    protected void btnCancelarAsignacionBecario_Click(object sender, EventArgs e)
    {
        commonService.abrirPopUp("PopUpConfirmarRechazoBecario", "Rechazar Asignación");
    }
 
 
-   // Click de rechazar asignación para el becario
+   /*  Requiere: n/a.
+   *  Efectúa:  Cambia el estado de la asignación y envía un correo de notificación a dirección.        
+   *  Modifica: Cambia el estado de la asignación a "rechazada por el becario".
+   */
    protected void btnInvisibleConfirmarRechazo_Click(object sender, EventArgs e)
    {
        commonService.cerrarPopUp("PopUpConfirmarRechazoBecario");
@@ -1632,6 +1861,11 @@ public partial class Asignaciones : System.Web.UI.Page
 
    }
 
+
+   /*  Requiere: n/a.
+   *   Efectúa: Método euxiliar para esconder o mostrar los botones.        
+   *   Modifica: n/a.
+   */
    protected void esconderBotonesVistaBecario(Boolean esconder)
    {
        if (esconder)
@@ -1663,7 +1897,12 @@ public partial class Asignaciones : System.Web.UI.Page
      */
 
 
-    // Aceptar Asignación - Vista Encargado
+   /* Requiere: n/a.
+    *  Efectúa:  Método que se invoca cuando un encargado acepta una asignación.
+    *            Cambia el estado de la asignación y envía los correos de notificación necesarios.
+    *           
+    *  Modifica: Cambia el estado de la asignación según corresponda .
+    */
     protected void btnInvisibleAceptarAsignacionEncargado_Click(object sender, EventArgs e)
     {
 
@@ -1707,7 +1946,14 @@ public partial class Asignaciones : System.Web.UI.Page
         
     }
 
-    // Rechazar Asignación - Vista Encargado
+
+
+    /* Requiere: n/a.
+     *  Efectúa:  Método que se invoca cuando un encargado rechaza una asignación.
+     *            Cambia el estado de la asignación y envía los correos de notificación necesarios.
+     *           
+     *  Modifica: Cambia el estado de la asignación a "rechazada por el encargado" .
+     */
     protected void btnInvisibleRechazarAsignacionEncargado_Click(object sender, EventArgs e)
     {
 
@@ -1747,7 +1993,11 @@ public partial class Asignaciones : System.Web.UI.Page
     }
 
 
-    // Botón de buscar
+
+   /*  Requiere: n/a.
+    *  Efectúa:  Controla las búsquedas para el grid de asiganciones en vista de encargado.        
+    *  Modifica: n/a .
+    */
     protected void btnBuscarVistaEncargado_Click(object sender, EventArgs e)
     {
 
@@ -1801,7 +2051,11 @@ public partial class Asignaciones : System.Web.UI.Page
     }
 
 
-
+    /*  Requiere: n/a.
+     *  Efectúa:  Pide a la controladora que le busque todas las asignaciones 
+     *            del encargado logueado actualmente y llena la lista local correspondiente con esta información.        
+     *  Modifica: Cambia todos los elementos de "lstBecariosAsignadosEncargado" .
+     */
     protected void llenarListaBecariosAsignados()
     {
 
@@ -1813,7 +2067,12 @@ public partial class Asignaciones : System.Web.UI.Page
     }
 
 
-    // Llenar tabla con todas las asignaciones del encargado logueado actualmente
+
+    /*  Requiere: Se debe proporcionar una lista que es la fuente de los datos.
+     *  Efectúa:  Llena el grid principal de la vista de encargado con la lista de asignaciones recibida por parámetro.
+     *            Primero se crea una tabla que se llena con la lista y se asigna dicha tabla como la fuente de datos del grid.  
+     *  Modifica: n/a.
+     */
     protected void llenarGridaBecariosAsignadosVistaEncargado(List<Object[]> listaDatos)
     {
 
@@ -1854,10 +2113,13 @@ public partial class Asignaciones : System.Web.UI.Page
         this.headersCorrectosBecariosAsignadosVistaEncargado();
     }
 
-   
 
 
-    // Le da formato a las columnas del Grid
+
+    /*  Requiere: n/a.
+     *  Efectúa:  Le da formato a las columnas del Grid
+     *  Modifica: n/a.
+     */
     protected DataTable crearTablaBecariosAsignadosVistaEncargado()
     {
 
@@ -1893,7 +2155,11 @@ public partial class Asignaciones : System.Web.UI.Page
     }
 
 
-    // Aplica nombre a las columnas así como color
+
+    /*  Requiere: n/a.
+     *  Efectúa:   Aplica nombre a las columnas así como color
+     *  Modifica: n/a.
+     */
     private void headersCorrectosBecariosAsignadosVistaEncargado()
     {
         gridBecariosAsignadosVistaEncargado.HeaderRow.BackColor = System.Drawing.Color.FromArgb(4562432);
@@ -1907,6 +2173,11 @@ public partial class Asignaciones : System.Web.UI.Page
 
 
 
+
+    /*  Requiere: n/a.
+    *  Efectúa:   Controla la selección de tuplas del grid de la vista de encargado.
+    *  Modifica: n/a.
+    */
     protected void GridBecariosAsignadosVistaEncargado_RowCommand(object sender, GridViewCommandEventArgs e)
     {
         switch (e.CommandName)

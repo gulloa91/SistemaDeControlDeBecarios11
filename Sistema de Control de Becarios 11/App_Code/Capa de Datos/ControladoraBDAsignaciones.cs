@@ -27,6 +27,13 @@ public class ControladoraBDAsignaciones
 
 
 
+
+    /* Requiere: Un objeto tipo asignación debidamente creado y no nulo.
+    * 
+    *  Efectúa: Inserta una nueva asignación en la base de datos.
+    * 
+    *  Modifica: n/a.
+    */
     public String insertarAsignacion( Asignacion asignacion){
 
         String returnValue = "Exito";
@@ -52,6 +59,12 @@ public class ControladoraBDAsignaciones
 
 
 
+    /* Requiere: Un objeto tipo asignación debidamente creado y no nulo.
+    * 
+    *  Efectúa: Elimina una asignación de la base de datos.
+    * 
+    *  Modifica: n/a.
+    */
     public String eliminarAsignacion(Asignacion asig)
     {
         string returnValue = "Exito";
@@ -71,6 +84,12 @@ public class ControladoraBDAsignaciones
 
 
 
+    /* Requiere: Los datos "llave" de una asignación existente.
+    * 
+    *  Efectúa: Modifica el estado de una asignación existente.
+    * 
+    *  Modifica: n/a.
+    */
     public String actualizarEstadoDeAsignacion(int nuevoEstado, String cedBecario, String cedEncargado, int periodo, int año)
     {
         string returnValue = "Exito";
@@ -90,6 +109,12 @@ public class ControladoraBDAsignaciones
 
 
 
+    /* Requiere: Un objeto tipo asignación debidamente creado y no nulo, y el comentario a insertar.
+    * 
+    *  Efectúa: Inserta el comentario de la dirección de una asignación existente.
+    * 
+    *  Modifica: n/a.
+    */
     public String insertarComentarioDireccion(String comentario, Asignacion asignacion)
     {
         string returnValue = "Exito";
@@ -108,6 +133,15 @@ public class ControladoraBDAsignaciones
     }
 
 
+
+
+
+    /* Requiere: n/a.
+    * 
+    *  Efectúa: Consulta todas las asignaciones existente en la base de datos.
+    * 
+    *  Modifica: n/a.
+    */
     public AsignacionesDataSet.AsignadoADataTable consultarAsignaciones()
     {
 
@@ -117,6 +151,13 @@ public class ControladoraBDAsignaciones
     }
 
 
+
+    /* Requiere: n/a.
+    * 
+    *  Efectúa: Consulta cuales becarios no tienen una asignación en determinado perido y año 
+    * 
+    *  Modifica: n/a.
+    */
     public AsignacionesDataSet.BecarioSinAsignacionDataTable consultarBecariosSinAsignacion(int periodo, int año)
     {
 
@@ -130,6 +171,13 @@ public class ControladoraBDAsignaciones
     }
 
 
+
+    /* Requiere: n/a.
+    * 
+    *  Efectúa: Cuenta cuantos becarios tiene asignados el encargado con cédula "ced" en un determinado periodo y año 
+    * 
+    *  Modifica: n/a.
+    */
     public int contarBecariosAsignados(string ced, int año, int perido)
     {
 
@@ -138,6 +186,13 @@ public class ControladoraBDAsignaciones
     }
 
 
+
+    /* Requiere: n/a.
+     * 
+     *  Efectúa: Consulta cuales son los becarios que tiene asignados el encargado con cédula "cedEncargado" en un determinado periodo y año 
+     * 
+     *  Modifica: n/a.
+     */
     public AsignacionesDataSet.BecariosAsignadosAEncargadoDataTable consultarBecariosAsignadosAEncargado(string cedEncargado, int año, int perido)
     {
 
@@ -148,6 +203,12 @@ public class ControladoraBDAsignaciones
     }
 
 
+    /* Requiere: n/a.
+     * 
+     *  Efectúa:  Pone una asignación en estado "inactiva". 
+     * 
+     *  Modifica: n/a.
+     */
     public void dejarAsignacionInactiva(string cedBecario, string cedEncargado, int año, int periodo)
     {
 
@@ -155,14 +216,71 @@ public class ControladoraBDAsignaciones
     }
 
 
+
+    /* Requiere: n/a.
+     * 
+     *  Efectúa: Consulta cual es el encargado a cargo del becario con cédula "cedBecario" en un determinado periodo y año . 
+     * 
+     *  Modifica: n/a.
+     */
     public AsignacionesDataSet.EncargadoDeBecarioDataTable buscarEncargadoDeBecario(string cedBecario, int año, int periodo)
     {
 
         AsignacionesDataSet.EncargadoDeBecarioDataTable dt = new AsignacionesDataSet.EncargadoDeBecarioDataTable();
         adapterEncargadoDeBecario.Fill(dt, cedBecario, periodo, año);
+        return dt; 
+    }
 
-        return dt;
-    
+
+
+    /* Requiere: n/a.
+     * 
+     *  Efectúa: Elimina la asignación del becario con cédula "cedBecario" en un determinado periodo y año . 
+     * 
+     *  Modifica: n/a.
+     */
+    public String eliminaAsignacionDeBecario(string cedBecario, int ped, int año)
+    {
+
+        string resultado = "Exito";
+
+        try
+        {
+            this.adapterAsignaciones.eliminaAsignacionDeBecario(cedBecario, ped, año);         
+        }
+        catch (SqlException e)
+        {
+            resultado = "Error";
+
+        }
+
+        return resultado;
+    }
+
+
+
+    /*  Requiere: n/a.
+     * 
+     *  Efectúa: Elimina todas las asignaciones del encargado con cédula "cedEncargado" en un determinado periodo y año . 
+     * 
+     *  Modifica: n/a.
+     */
+    public String eliminaAsignacionesDeEncargado(string cedEncargado, int ped, int año)
+    {
+
+        string resultado = "Exito";
+
+        try
+        {
+            this.adapterAsignaciones.eliminaAsignacionesEncargado(cedEncargado,ped,año);
+        }
+        catch (SqlException e)
+        {
+            resultado = "Error";
+
+        }
+
+        return resultado;
     }
 
 

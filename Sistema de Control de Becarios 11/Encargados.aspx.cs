@@ -183,24 +183,34 @@ public partial class Encargados : System.Web.UI.Page
         encargado[8] = lsEncargados[rowIndex].Puesto;
         encargado[9] = lsEncargados[rowIndex].Activo;
 
-        string mensajeResultado = controladora.ejecutar(modo, null, encargado);
-        if (mensajeResultado == "Exito")
+        string resultadoEliminarAsignación = "-1";
+        if (controladora.tieneAsignaciones(lsEncargados[rowIndex].Cedula) == true)
         {
-            commonService.mensajeJavascript("¡Encargado elimando!", "Confirmación");
-            commonService.correrJavascript("$('#PopUpEncargado').dialog('close');");
-            this.llenarGridEncargados(1);
+            resultadoEliminarAsignación = eliminaAsignaciones();
         }
-        else
+
+
+        if ((resultadoEliminarAsignación.Equals("-1")) || (resultadoEliminarAsignación.Equals("Exito")))
         {
-            if (mensajeResultado.Equals("ErrorAsignacion"))
+
+            string mensajeResultado = controladora.ejecutar(modo, null, encargado);
+            if (mensajeResultado == "Exito")
             {
-              commonService.mensajeJavascript("El encargado seleccionado no puede ser eliminado porque tiene una o más asignaciones en el presente ciclo lectivo", "ERROR");
+                commonService.mensajeJavascript("El encargado ha sido eliminado correctamente", "Aviso");
+                commonService.correrJavascript("$('#PopUpEncargado').dialog('close');");
+                this.llenarGridEncargados(1);
             }
-            else
-            {
-                commonService.mensajeJavascript("¡No fue posible eliminar el encargado!", "ERROR");
+            else {
+                commonService.mensajeJavascript("Se ha producido un error al eliminar el encargado", "Error");
             }
+
+        }else{
+          
+            commonService.mensajeJavascript("No se pudo eliminar al encargado porque hubo un problema al eliminar las asignaciones", "Error");
         }
+
+       
+        
     }
 
     /*
@@ -245,15 +255,33 @@ public partial class Encargados : System.Web.UI.Page
     // ELIMINAR CLICK
     protected void btnEliminarEncargado_Click(object sender, EventArgs e)
     {
+        //commonService.abrirPopUp("PopUpEliminarEncargado", "Eliminar Encargado");
         modo = 2;
-        commonService.abrirPopUp("PopUpEliminarEncargado", "Eliminar Encargado");
+        if (controladora.tieneAsignaciones(lsEncargados[rowIndex].Cedula) == true)
+        {
+          commonService.abrirPopUpPersonalizado("PopUpEliminarEncargado", "Eliminar Encargado", "Este encargado tiene una o más asignaciones en el presente semestre por lo que al eliminarlo se eliminarán también dichas asignaciones , ¿ está seguro de que desea continuar ? ");   
+        }
+        else {
+          commonService.abrirPopUpPersonalizado("PopUpEliminarEncargado", "Eliminar Encargado", "¿ Está seguro de que desea eliminar al encargado seleccionado ? ");
+        }
+       
     }
 
     // BUSCAR CLICK
     protected void btnBuscar_Click(object sender, EventArgs e)
     {
         this.llenarGridEncargados(2);
-    }      
+    }
+
+
+    public String eliminaAsignaciones()
+    {
+        string ced = lsEncargados[rowIndex].Cedula;
+        int año = commonService.getAñoActual();
+        int periodo = commonService.getPeriodoActual();
+        return controladora.eliminaAsignacionesActuales(ced, periodo, año);
+    }
+
 
     /*
     * -----------------------------------------------------------------------

@@ -24,7 +24,19 @@ public class ControladoraBecarios
         
     }
 
-    public String ejecutar(int accion, Object[] datos, Object[] datosViejos) //1 insertar 2 modificar 3 eliminar
+
+
+
+
+    /* Requiere: Dos arreglos con los datos completos de un becario. Puede haber uno que sea nulo.
+    * 
+    *  Efectúa: Controla la inserción, modificación y eliminación de becarios.
+    *           Crea un nuevo becario con los datos recibidos por parámetro y luego le pide a la controladora de la BD realizar la operación correspondiente.
+    *           Devuelve una hilera de caracteres que indica si la operación realizada tuvo éxito.
+    * 
+    *  Modifica: n/a.
+    */
+    public String ejecutar(int accion, Object[] datos, Object[] datosViejos) //acción --> 1: insertar, 2: modificar, 3:eliminar
     {
         Becario becarioNuevo;
         Becario becarioViejo;
@@ -44,26 +56,22 @@ public class ControladoraBecarios
                 } break;
             case 3: //Eliminar
                 {
-
-                    int año = cs.getAñoActual();
-                    int periodo = cs.getPeriodoActual();
-                    contAsig = new ControladoraAsignaciones();
-                    List<Object[]> asignacion = contAsig.consultarAsignacionDeBecario(datos[0].ToString(), año, periodo);
-
-                    if (asignacion.Count == 0)
-                    {
-                        mensajeResultado = controladoraBDBecario.eliminarBecario(datos[0].ToString());
-                    }
-                    else {
-                        mensajeResultado = "ErrorA";
-                    }
+                 mensajeResultado = controladoraBDBecario.eliminarBecario(datos[0].ToString());
                 } break;
         }
         return mensajeResultado;
     }
 
 
-    //consulta todos los becarios existentes y devuelve una lista
+
+
+    /* Requiere: n/a.
+    * 
+    *  Efectúa: Consulta todos los becarios existentes y devuelve una lista con estos.
+    *           Se llena una tabla con el resultado de la consulta devuelta por la controladora de la BD y se llena una lista con las tuplas del resultado.
+    * 
+    *  Modifica: Crea una nueva lista de becarios, la llena y la retorna.
+    */
     public List<Becario> consultarTablaBecario()
     {
         BecariosDataSet.BecarioDataTable tabla = controladoraBDBecario.consultarBecarios();
@@ -90,6 +98,14 @@ public class ControladoraBecarios
 
 
 
+
+    /* Requiere: n/a.
+    * 
+    *  Efectúa: Consulta cuales becarios cumplen con determinado criterio de búsqueda y devuelve una lista con estos.
+    *           Se llena una tabla con el resultado de la consulta devuelta por la controladora de la BD y se llena una lista con las tuplas del resultado.
+    * 
+    *  Modifica: Crea una nueva lista de becarios, la llena y la retorna.
+    */
     public List<Becario> consultarPorBusqueda(String textoABuscar)
     {
 
@@ -116,6 +132,15 @@ public class ControladoraBecarios
         return listaB;
     }
 
+
+
+    /* Requiere: Una cédula en formato válido.
+    * 
+    *  Efectúa: Solicita a la controladora de la BD buscar el becario que tiene una cédula determinada.
+    *           Se crea un objeto becario con el resultado devuelto por la controladora de la BD y se retorna.
+    * 
+    *  Modifica: n/a.
+    */
     public Becario obtenerBecarioPorCedula(String cedula)
     {
         BecariosDataSet.BecarioDataTable tabla = controladoraBDBecario.obtenerBecarioPorCedula(cedula);
@@ -134,6 +159,14 @@ public class ControladoraBecarios
     }
 
 
+
+
+    /* Requiere: Una nombre de usuario válido.
+    * 
+    *  Efectúa: Solicita a la controladora de cuentas por la cédula del becario con determinado nombre de usuario.
+    *           
+    *  Modifica: n/a.
+    */
     public String obtieneCedulaDeUsuario(String usuario)
     {
 
@@ -142,7 +175,59 @@ public class ControladoraBecarios
     }
 
 
+    /* Requiere: Una cédula válida.
+    * 
+    *  Efectúa: Solicita a la controladora de BD el correo del becario con determinada cédula.
+    *           
+    *  Modifica: n/a.
+    */
+    public String obtenerCorreoBecario(String cedulaBecario){
 
+        return controladoraBDBecario.obtenerCorreoBecario(cedulaBecario);
+    }
+
+
+
+    /* Requiere: Una carné válido.
+    * 
+    *  Efectúa: Solicita a la controladora de BD la cédula del becario con determinado carné.
+    *           
+    *  Modifica: n/a.
+    */
+    public String consultarCedulaByCarne(String carne)
+    {
+        String resultado = "";
+        DataTable dt = controladoraBDBecario.consultarCedulaByCarne(carne);
+        resultado = dt.Rows[0][0].ToString();
+        return resultado;
+    }
+
+
+
+    /* Requiere: Una cédula válida.
+    * 
+    *  Efectúa: Solicita a la controladora de BD el nombre completo del becario con determinada cédula.
+    *           
+    *  Modifica: n/a.
+    */
+    public String obtenerNombrePorCedula(String cedula)
+    {
+        return controladoraBDBecario.obtenerNombrePorCedula(cedula);
+    }
+
+
+
+
+    //**PERFIL de becario**//
+
+
+    /* Requiere: n/a.
+    * 
+    *  Efectúa: Solicita a la controladora de la BD guardar cada uno de los datos de cada una de las lista que guardan el perfil del becario.
+    *           Se itera por cada lista solicitando guardar dato por dato.
+    * 
+    *  Modifica: n/a.
+    */
     public String guardarPerfilBecario(List<String> listaLenguajesProg, List<String> listaIdiomas, List<String> listaIntereses, List<String> listaCualidades, String cedBecario)
     {
 
@@ -175,6 +260,12 @@ public class ControladoraBecarios
 
 
 
+    /* Requiere: Una cédula válido de un becario que exista en la base datos.
+     * 
+     *  Efectúa: Solicita a la controladora de la BD eliminar el perfil de un becario.
+     *           
+     *  Modifica: n/a.
+     */
     public String eliminarPerfilBecario(String cedBecario)
     {
 
@@ -187,6 +278,14 @@ public class ControladoraBecarios
     }
 
 
+
+    /* Requiere: n/a.
+     * 
+     *  Efectúa: Solicita a la controladora de la BD buscar cuales son los lenguajes de programación que pertenecen al perfil de determinado becario.
+     *           Primero crea una tabla con los resultado de la consulta para luego llenar una lista con las tuplas del resultado.     
+     * 
+     *  Modifica: Crea  y retorna una lista con los lenguajes de programación que conoce el becario solicitado.
+     */
     public List<String> consultarLenguajes(string ced)
     {
 
@@ -203,6 +302,14 @@ public class ControladoraBecarios
     }
 
 
+
+    /* Requiere: n/a.
+     * 
+     *  Efectúa: Solicita a la controladora de la BD buscar cuales son los idiomas que pertenecen al perfil de determinado becario.
+     *           Primero crea una tabla con los resultado de la consulta para luego llenar una lista con las tuplas del resultado.     
+     * 
+     *  Modifica: Crea  y retorna una lista con los idiomas que conoce el becario solicitado.
+     */
     public List<String> consultarIdiomas(string ced)
     {
 
@@ -219,6 +326,13 @@ public class ControladoraBecarios
     }
 
 
+    /* Requiere: n/a.
+    * 
+    *  Efectúa: Solicita a la controladora de la BD buscar cuales son las áreas de interés que pertenecen al perfil de determinado becario.
+    *           Primero crea una tabla con los resultado de la consulta para luego llenar una lista con las tuplas del resultado.     
+    * 
+    *  Modifica: Crea  y retorna una lista con las áreas de interés del becario solicitado.
+    */
     public List<String> consultarAreasInteres(string ced)
     {
 
@@ -236,6 +350,14 @@ public class ControladoraBecarios
 
 
 
+
+    /* Requiere: n/a.
+    * 
+    *  Efectúa: Solicita a la controladora de la BD buscar cuales son las cualidades ( aptitudes) que pertenecen al perfil de determinado becario.
+    *           Primero crea una tabla con los resultado de la consulta para luego llenar una lista con las tuplas del resultado.     
+    * 
+    *  Modifica: Crea  y retorna una lista con cualidades ( aptitudes) del becario solicitado.
+    */
     public List<String> consultarCualidades(string ced)
     {
 
@@ -251,18 +373,51 @@ public class ControladoraBecarios
         return listaCualidades;
     }
 
-    //-----Agrego Beto------
-    public String consultarCedulaByCarne(String carne)
-    {
-        String resultado = "";
-        DataTable dt = controladoraBDBecario.consultarCedulaByCarne(carne);
-        resultado = dt.Rows[0][0].ToString();
+
+
+
+    /* Requiere: n/a.
+    * 
+    *  Efectúa: Pregunta a la controladora de asignaciones si el becario con cédula "cedBecario" tiene alguna 
+     *          asignación en el semestre actual .     
+    * 
+    *  Modifica: n/a.
+    */
+    public Boolean tieneAsignacion(string cedBecario){
+
+        Boolean resultado;
+
+        int año = cs.getAñoActual();
+        int periodo = cs.getPeriodoActual();
+        contAsig = new ControladoraAsignaciones();
+        List<Object[]> asignacion = contAsig.consultarAsignacionDeBecario(cedBecario, año, periodo);
+
+        if (asignacion.Count == 0)
+        {
+            resultado = false;
+        }
+        else
+        {
+            resultado = true;
+        }
+
         return resultado;
     }
 
-    public String obtenerNombrePorCedula(String cedula)
-    {
-        return controladoraBDBecario.obtenerNombrePorCedula(cedula);
+
+
+    /* Requiere: n/a.
+    * 
+    *  Efectúa: Pide a la controladora de asignaciones eliminar cualquier asignación del becario con cédula "cedBecario" 
+    *           en el semestre actual .     
+    * 
+    *  Modifica: n/a.
+    */
+    public String eliminarAsignacion(string cedBecario, int ped, int año){
+
+        contAsig = new ControladoraAsignaciones();
+        return contAsig.eliminaAsignacionDeBecario(cedBecario,ped,año);
     }
+
 
 }

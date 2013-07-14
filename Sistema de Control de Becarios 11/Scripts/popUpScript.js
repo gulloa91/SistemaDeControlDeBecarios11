@@ -71,6 +71,14 @@ function abrirPopUp(popUpId, titulo) {
     $("#" + popUpId).dialog({ title: titulo });
 }
 
+
+function abrirPopUpPersonalizado(popUpId, titulo, mensaje) {
+    $("#" + popUpId).dialog("open");
+    $("#" + popUpId).text(mensaje);
+    $("#" + popUpId).dialog({ title: titulo });
+}
+
+
 function cerrarPopUp(popUpId) {
     $("#" + popUpId).dialog("close");
 }

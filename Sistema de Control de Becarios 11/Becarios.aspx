@@ -38,7 +38,7 @@
                     <asp:Button ID="btnInvisible1" CssClass="btnInvisible1 invisible" runat="server" Text="" 
                         onclick="btnInvisible1_Click" CausesValidation="true" />
                         <asp:Button ID="btnInvisible2" CssClass="btnInvisible2 invisible" runat="server" Text="" 
-                        onclick="btnInvisible2_Click" />
+                        onclick="btnInvisible2_Click" CausesValidation="false" />
                     <asp:Button ID="btnInvisible3" CssClass="btnInvisible3 invisible" runat="server" Text="" 
                         onclick="btnInvisible3_Click" CausesValidation="false" />
                     <asp:Button ID="btnInvisibleEnviarCorreo" CssClass="btnInvisibleEnviarCorreo invisible" runat="server" Text="" 
@@ -269,7 +269,8 @@
 
                                     <div>
                                       <span class="lblBecario">Cédula<span style="color: Red;">*</span></span>
-                                      <asp:TextBox ID="txtCedula" runat="server" CssClass="txtBecario"></asp:TextBox>                               
+                                      <asp:TextBox ID="txtCedula" runat="server" CssClass="txtBecario"></asp:TextBox>
+                                      <span style="font-size:11px; display:block">(Ejm:101110222  )</span>                               
                                     </div>
 
                                     <div style="width: 89%; font-size:12px">                       
@@ -326,7 +327,7 @@
                                 <div class="wrap_becario">
 
                                     <div>       
-                                      <span class="lblBecario">Teléfono Móvil</span>
+                                      <span class="lblBecario">Teléfono Celular</span>
                                       <asp:TextBox ID="txtCel" runat="server" CssClass="txtBecario"></asp:TextBox>
                                      <span style="font-size:11px; display:block">(Ejm:8800-0000)</span>
                                    </div>
@@ -895,7 +896,7 @@
                         <div style= "margin-top: 20px;margin-left: 20px;">
                             <asp:GridView ID="gridLenguajesProgP" runat="server" AutoGenerateColumns="False" ShowFooter="True"
                               CellPadding ="7" CssClass="grid_becario_perfil" onrowcommand="eliminaDatosPerfilParcial_RowCommand"
-                              ForeColor="#333333" GridLines="Vertical">
+                              ForeColor="#333333" GridLines="Vertical" AllowPaging="true" onpageindexchanging="gridLenguajesProgParcial_PageIndexChanging" PageSize="3"  PagerStyle-CssClass="pagerGlobal">
 
                              <AlternatingRowStyle BackColor="White" />
                              <Columns>
@@ -939,7 +940,7 @@
 
                          <asp:GridView ID="gridIdiomasP" CssClass="grid_becario_perfil" runat="server" AutoGenerateColumns="False" ShowFooter="True"
                            CellPadding="7"  onrowcommand="eliminaDatosPerfilParcial_RowCommand"
-                           ForeColor="#333333" GridLines="Vertical">
+                           ForeColor="#333333" GridLines="Vertical" AllowPaging="true" onpageindexchanging="gridIdiomasParcial_PageIndexChanging" PageSize="3"  PagerStyle-CssClass="pagerGlobal">
 
                           <AlternatingRowStyle BackColor="White" />
                            <Columns>
@@ -988,7 +989,7 @@
 
                           <asp:GridView ID="gridAreasInteresP" CssClass="grid_becario_perfil" runat="server" AutoGenerateColumns="False" ShowFooter="True"
                             CellPadding="7" onrowcommand="eliminaDatosPerfilParcial_RowCommand"
-                            ForeColor="#333333" GridLines="Vertical">
+                            ForeColor="#333333" GridLines="Vertical" AllowPaging="true" onpageindexchanging="gridInteresParcial_PageIndexChanging" PageSize="3"  PagerStyle-CssClass="pagerGlobal">
 
                             <AlternatingRowStyle BackColor="White" />
                             <Columns>
@@ -1033,7 +1034,7 @@
 
                          <asp:GridView ID="gridCualidadesP" CssClass="grid_becario_perfil" runat="server" AutoGenerateColumns="False" ShowFooter="True"
                           CellPadding="7" onrowcommand="eliminaDatosPerfilParcial_RowCommand"
-                          ForeColor="#333333" GridLines="Vertical">
+                          ForeColor="#333333" GridLines="Vertical"  AllowPaging="true" onpageindexchanging="gridCualidadesParcial_PageIndexChanging" PageSize="3"  PagerStyle-CssClass="pagerGlobal" >
 
                          <AlternatingRowStyle BackColor="White" />
                          <Columns>
