@@ -20,9 +20,6 @@ public class ControladoraBDControlDeHoras
         adapterAsignadoA = new AsignadoATableAdapter();
     }
 
-    //-----------------------------------------
-    //Inicia parte de Beto
-
     public String insertarReporte(ControlDeHoras controlDeHoras)
     {
         String resultado = "";
@@ -51,6 +48,7 @@ public class ControladoraBDControlDeHoras
         return resultado;
     }
 
+    // Se encarga de modificar un reporte de horas en la base de datos. Es decir, cambia un reporte de horas pendiente a aceptado o rechazado.
     public String modificarReporteEncargado(ControlDeHoras controlDeHorasViejo, ControlDeHoras controlDeHorasNuevo)
     {
         String resultado = "";
@@ -65,6 +63,7 @@ public class ControladoraBDControlDeHoras
         return resultado;
     }
 
+    // Retorna todos los becarios que hayan hecho reportes hacia un encargado. El listado se ve determinado por el tipo de horas a consultar (rechazados, aceptados o pendientes) indicados en la variable tipo
     public DataTable consultarReportesBecarios(string idEncargado, int tipo)
     {
         DataTable dt = new DataTable();
@@ -72,6 +71,7 @@ public class ControladoraBDControlDeHoras
         return dt;
     }
 
+    // Retorna todos los reportes de horas realizados por un becario hacia un encargado. Estos reportes pueden ser pendientes, rechazados o aceptados (indicados en la variable tipo)
     public DataTable consultarReportesHorasBecarios(string idEncargado, string idBecario, int tipo)
     {
         DataTable dt = new DataTable();
@@ -79,6 +79,7 @@ public class ControladoraBDControlDeHoras
         return dt;
     }
 
+    // Se encarga de insertar en la base de datos un comentario que el encargado efectua hacia un becario cuando le rechaza un reporte de horas.
     public String insertarComentarioEncargado(Comentario comentario)
     {
         String resultado = "";
@@ -93,6 +94,7 @@ public class ControladoraBDControlDeHoras
         return resultado;
     }
 
+    //Obtiene el total de horas que un encargado le ha aceptado a un becario.
     public int obtenerTotalHoras(String cedulaEncargado, String cedulaBecario, int estado)
     {
         int resultado = 0;
@@ -107,6 +109,7 @@ public class ControladoraBDControlDeHoras
         return resultado;
     }
 
+    // Retorna el total de horas que le fueron asignadas a un becario en un periodo de un determinado año.
     public int horasAsignadasBecario(String cedulaEncargado, String cedulaBecario, int periodo, int año)
     {
         int resultado = 0;
@@ -120,7 +123,8 @@ public class ControladoraBDControlDeHoras
         }
         return resultado;
     }
-
+    
+    // Se encarga de finalizar la asignacion entre un becario y un encargado, cuando el becario cumple con las horas asignadas
     public String finalizarAsignacion(Object[] datos)
     {
         String resultado = "";
@@ -135,6 +139,7 @@ public class ControladoraBDControlDeHoras
         return resultado;
     }
 
+    // Se encarga de crear una nueva asignacion entre un becario y un encargado.
     public String crearAsignacion(Object[] datos)
     {
         String resultado = "";
@@ -149,6 +154,7 @@ public class ControladoraBDControlDeHoras
         return resultado;
     }
 
+    // Se encarga de retornar todos los becarios que tengan horas pendientes de revisar por un encargado especifico.
     public int totalBecariosPendientes(String cedulaEncargado, int estado)
     {
         int resultado = -1;

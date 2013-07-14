@@ -5,12 +5,16 @@ using System.Web;
 
 public class Cuentas
 {
+    /*
+     * Atributos correspondientes a la entidad de cuenta
+     */ 
     private String nombreUsuario;
     private String contrasenna;
     Nullable<DateTime> ultimoAcceso;
     private String cedulaUsuario;
     CommonServices cs;
 
+    // Constructor para inicializar las variables
     public Cuentas(Object [] datos) {
         cs = new CommonServices(null);
         this.nombreUsuario = cs.procesarStringDeUI(datos[0].ToString());
@@ -26,6 +30,10 @@ public class Cuentas
         this.cedulaUsuario = cs.procesarStringDeUI(datos[3].ToString());
     }
 
+
+    /*
+     * Metodos set y get para acceder a los datos desde otras clases
+     */
     public String NombreUsuario
     {
         get { return nombreUsuario; }

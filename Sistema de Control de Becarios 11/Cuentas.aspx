@@ -85,8 +85,8 @@
                             <tr>
                                 <td class="auto-style2">&nbsp;</td>
                                 <td class="auto-style6">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                    <asp:Button ID="btnEliminarCuenta" runat="server" CssClass="boton ui-widget ui-state-default ui-corner-all ui-button-text-only" onclick="btnEliminarCuenta_Click" Text="Eliminar" Width="139px" />
                                     <asp:Button ID="btnModificarCuenta" runat="server" CssClass="boton ui-widget ui-state-default ui-corner-all ui-button-text-only" onclick="btnModificarCuenta_Click" Text="Modificar" Width="135px" />
+                                    <asp:Button ID="btnEliminarCuenta" runat="server" CssClass="boton ui-widget ui-state-default ui-corner-all ui-button-text-only" onclick="btnEliminarCuenta_Click" Text="Eliminar" Width="139px" />
                                 </td>
                                 <td>&nbsp;</td>
                             </tr>
