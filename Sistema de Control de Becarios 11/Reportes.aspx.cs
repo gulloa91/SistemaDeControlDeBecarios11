@@ -24,6 +24,9 @@ public partial class Reportes : System.Web.UI.Page
     private static List<EncargadoAtrasado> lsEncargadosAtrasados = new List<EncargadoAtrasado>();
     private static List<BecarioInactivo> lsBecariosInactivos = new List<BecarioInactivo>();
 
+    //EFECTO: Carga la pagina correctamente
+    //REQUIERE: N/A
+    //RETORNA: N/A
     protected void Page_Load(object sender, EventArgs e)
     {
         controladoraReportes = new ControladoraReportes();
@@ -32,8 +35,10 @@ public partial class Reportes : System.Web.UI.Page
         controladoraEncargados = new ControladoraEncargado();
         MultiViewReportes.ActiveViewIndex = 0;
     }
-    
-    // Click del Menu
+
+    //EFECTO: Determina el ciclo de ejecución al seleccionar alguna de las entradas del menú de reportes
+    //REQUIERE: Haber seleccionado alguna entrada del menú
+    //RETORNA: N/A
     protected void MenuListaReportes_MenuItemClick(object sender, MenuEventArgs e)
     {
         lsObject.Clear();
@@ -127,6 +132,9 @@ public partial class Reportes : System.Web.UI.Page
         }
     }
 
+    //EFECTO: LLena el grid de reportes segun el reporte que se haya seleccionado
+    //REQUIERE: Haber seleccinado algun reporte del menú de reportes
+    //RETORNA: N/A
     protected void llenarGridReportes(int caso)
     {
         DataTable tablaReporte;
@@ -404,6 +412,9 @@ public partial class Reportes : System.Web.UI.Page
         this.headersCorrectosTablaReporte();
     }
 
+    //EFECTO: Crea la tabla correspondiente al reportes, que va a servir de fuente de datos para el grid
+    //REQUIERE: Haber seleccionado algun reporte del menú de reportes
+    //RETORNA: Un DataTable con las columnas correspondientes al reporte seleccionado
     protected DataTable crearTabla(int reporte)
     {
         DataTable dt = new DataTable();
@@ -659,22 +670,29 @@ public partial class Reportes : System.Web.UI.Page
         return dt;
     }
 
+    //EFECTO: Establece el formaro correcto para el header del grid
+    //REQUIERE: N/A
+    //RETORNA: N/A
     protected void headersCorrectosTablaReporte()
     {
         this.GridViewReporte.HeaderRow.BackColor = System.Drawing.Color.FromArgb(4562432);
         this.GridViewReporte.HeaderRow.ForeColor = System.Drawing.Color.White;
     }
 
-    //Paging del Grid
+    //EFECTO: Establece la paginacion del grid, establecioendo un máximo de 15 filas por página
+    //REQUIERE: N/A
+    //RETORNA: N/A
     protected void GridReportes_PageIndexChanging(object sender, GridViewPageEventArgs e)
     {
         this.GridViewReporte.PageIndex = e.NewPageIndex;
         this.GridViewReporte.DataBind();
         this.headersCorrectosTablaReporte();
         mostrarGrid();
-    } 
+    }
 
-    //Botón buscar (Generar el Reporte)
+    //EFECTO: Define la información a mostrar al seleccionar un reporte del menú de reportes
+    //REQUIERE: Haber seleccionado algun reporte del menú de reportes
+    //RETORNA: N/A
     protected void mostrarGrid()
     {
         // Mostrar Grid:
@@ -983,6 +1001,9 @@ public partial class Reportes : System.Web.UI.Page
 
     }
 
+    //EFECTO: Ciclo de ejecución al presionar el botón buscar
+    //REQUIERE: Haber seleccionado algun reporte del menú de reportes
+    //RETORNA: N/A
     protected void btnBuscar_Click(object sender, EventArgs e) 
     {
         switch (tipoReporte)

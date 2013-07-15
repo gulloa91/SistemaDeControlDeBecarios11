@@ -16,7 +16,11 @@ public class ControladoraBDReportes
     private SiglaUATableAdapter adapterSiglaUA;
     private ActividadEncargadoTableAdapter adapterReporte5;
     private ActividadBecariosTableAdapter adapterReporte4;
-	public ControladoraBDReportes()
+	
+    //EFECTO: Constructor de la clase. Inicializa los adaptadores de base de datos
+    //REQUIERE: N/A
+    //RETORNA: N/A
+    public ControladoraBDReportes()
 	{
         adapterReporte1 = new AsignacionBecarioEncargadoTableAdapter();
         adapterReporte2 = new BecarioTableAdapter();
@@ -27,6 +31,10 @@ public class ControladoraBDReportes
 	}
 
     //Consultas para Reporte1
+
+    //EFECTO: Genera la consulta a la base de datos del reporte de los becarios que han finalizado sus horas
+    //REQUIERE: N/A
+    //RETORNA: Un DataTable con la columnas correspondientes al reporte
     public DataTable reportarBecariosConHorasFinalizadas(string criterioDeBusqueda, int periodo, string año)
     {
         DataTable dt = new DataTable();
@@ -34,6 +42,9 @@ public class ControladoraBDReportes
         return dt;
     }
 
+    //EFECTO: Genera la consulta a la base de datos del reporte de los becarios pendientes de horas
+    //REQUIERE: N/A
+    //RETORNA: Un DataTable con la columnas correspondientes al reporte
     public DataTable reportarBecariosPendientesDeHoras(string criterioDeBusqueda, int periodo, string año)
     {
         DataTable dt = new DataTable();
@@ -42,6 +53,10 @@ public class ControladoraBDReportes
     }
 
     //Consultas para Reporte2
+
+    //EFECTO: Genera la consulta a la base de datos del reporte de los becarios que no han sido asignados pero que si fueron asignados en el periodo anterior
+    //REQUIERE: N/A
+    //RETORNA: Un DataTable con la columnas correspondientes al reporte
     public DataTable reportarBecariosNoAsignados(string criterioBusquedaGeneral, int periodo, string año, int añoAnterior, int periodoAnterior)
     {
         DataTable dt = new DataTable();
@@ -49,6 +64,9 @@ public class ControladoraBDReportes
         return dt;
     }
 
+    //EFECTO: Genera la consulta a la base de datos del reporte de los becarios que no han sido asignados pero que si fueron asignados en el periodo anterior ni tras anterior
+    //REQUIERE: N/A
+    //RETORNA: Un DataTable con la columnas correspondientes al reporte
     public DataTable reportarBecariosNoAsignados2(string criterioBusquedaGeneral, int periodo, string año, int añoAnterior, int periodoAnterior, int añoTrasAnterior, int periodoTrasAnterior)
     {
         DataTable dt = new DataTable();
@@ -56,6 +74,9 @@ public class ControladoraBDReportes
         return dt;
     }
 
+    //EFECTO: Genera la consulta a la base de datos del reporte de los becarios que no han sido asignados pero que si fueron asignados en el periodo anterior, tras anterior ni tras tras anterior
+    //REQUIERE: N/A
+    //RETORNA: Un DataTable con la columnas correspondientes al reporte
     public DataTable reportarBecariosNoAsignados3(string criterioBusquedaGeneral, int periodo, string año, int añoAnterior, int periodoAnterior, int añoTrasAnterior, int periodoTrasAnterior, int añoTrasTrasAnterior, int periodoTrasTrasAnterior)
     {
         DataTable dt = new DataTable();
@@ -63,6 +84,9 @@ public class ControladoraBDReportes
         return dt;
     }
 
+    //EFECTO: Genera la consulta a la base de datos del reporte de los becarios que no han sido asignados y que no han sido asignados nunca
+    //REQUIERE: N/A
+    //RETORNA: Un DataTable con la columnas correspondientes al reporte
     public DataTable reportarBecariosNoAsignados4(string criterioBusquedaGeneral)
     {
         DataTable dt = new DataTable();
@@ -71,6 +95,10 @@ public class ControladoraBDReportes
     }
 
     //Consultas para Reorte3
+
+    //EFECTO: Genera la consulta a la base de datos de las unidades académicas existentes
+    //REQUIERE: N/A
+    //RETORNA: Un DataTable con la columnas correspondientes al reporte
     public DataTable optenerUnidadesAcademicas()
     {
         DataTable dt = new DataTable();
@@ -78,6 +106,9 @@ public class ControladoraBDReportes
         return dt;
     }
 
+    //EFECTO: Genera la consulta a la base de datos del reporte de los becarios asigandos a una unidad académica específica
+    //REQUIERE: N/A
+    //RETORNA: Un DataTable con la columnas correspondientes al reporte
     public DataTable reportarBecariosPorUnidadAcademica(string criterioBusquedaGeneral, int periodo, string año, string siglaUA)
     {
         DataTable dt = new DataTable();
@@ -86,6 +117,10 @@ public class ControladoraBDReportes
     }
 
     //Consultas para Reporte4
+
+    //EFECTO: Genera la consulta a la base de datos del reporte de los becarios Inactivos
+    //REQUIERE: N/A
+    //RETORNA: Un DataTable con la columnas correspondientes al reporte
     public DataTable llenarBecariosInactivos(string criterioBusqueda, int año, int periodo, DateTime fechaUltimoReporte)
     {
         DataTable dt = new DataTable();
@@ -94,6 +129,10 @@ public class ControladoraBDReportes
     }
 
     //Consultas para Reporte5
+
+    //EFECTO: Genera la consulta a la base de datos del reporte de los encargados que están atrasados con sus reportes de horas
+    //REQUIERE: N/A
+    //RETORNA: Un DataTable con la columnas correspondientes al reporte
     public DataTable llenarEncargadosAtrasados(string criterioBusqueda, int año, int semestre, DateTime fechaUltimoReporte)
     {
         DataTable dt = new DataTable();
@@ -102,6 +141,10 @@ public class ControladoraBDReportes
     }
 
     //Consultas para Reporte6
+
+    //EFECTO: Genera la consulta a la base de datos del reporte del historial de asignaciones de un becario
+    //REQUIERE: N/A
+    //RETORNA: Un DataTable con la columnas correspondientes al reporte
     public DataTable reportarHistorialDeAsignacionesBecario(string criterioBusqueda, string cedula) 
     {
         DataTable dt = new DataTable();
@@ -110,6 +153,10 @@ public class ControladoraBDReportes
     }
 
      //Consultas para Reporte7
+
+    //EFECTO: Genera la consulta a la base de datos del reporte del historial de anotaciones de un encargado
+    //REQUIERE: N/A
+    //RETORNA: Un DataTable con la columnas correspondientes al reporte
     public DataTable reportarHistorialDeAnotacionesEncargado(string criterioBusqueda, string cedula) 
     {
         DataTable dt = new DataTable();
