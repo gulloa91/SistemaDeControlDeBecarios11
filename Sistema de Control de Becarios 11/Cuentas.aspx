@@ -91,7 +91,7 @@
                                 <td>&nbsp;</td>
                             </tr>
                             <tr>
-                                <td class="auto-style2">Usuario</td>
+                                <td class="auto-style2">Usuario<span style="color:red">*</span></td>
                                 <td class="auto-style6">
                                     <asp:TextBox ID="txtUsuario" runat="server" Width="323px" CausesValidation="true" MaxLength="50"></asp:TextBox>
                                     <asp:TextBox ID="txtFechaAux" runat="server" Width="323px" CausesValidation="false" Enabled ="false" Visible ="false"></asp:TextBox>
@@ -103,7 +103,7 @@
                             </tr>
                             <tr>
                                 <td class="auto-style2">
-                                    Contraseña</td>
+                                    Contraseña<span style="color:red">*</span></td>
                                 <td class="auto-style6">
                                     <asp:TextBox ID="cntUsuario" runat="server" Width="320px" CausesValidation="true" type="password" MaxLength="50"></asp:TextBox>
                                     <asp:RequiredFieldValidator ID="RequiredFieldValidatorCnt" runat="server" ErrorMessage="* Contraseña de usuario requerida" ControlToValidate="cntUsuario" Display="Dynamic"></asp:RequiredFieldValidator>
@@ -114,7 +114,7 @@
                                     &nbsp;</td>
                             </tr>
                             <tr>
-                                <td class="auto-style2">Confirmar Contraseña</td>
+                                <td class="auto-style2">Confirmar Contraseña<span style="color:red">*</span></td>
                                 <td class="auto-style6">
                                     <asp:TextBox ID="cofCntUsuario" runat="server" Width="320px" type="password" MaxLength="50"></asp:TextBox>
                                     <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ErrorMessage="* Contraseña de usuario requerida" ControlToValidate="cofCntUsuario" Display="Dynamic"></asp:RequiredFieldValidator>
@@ -126,7 +126,7 @@
                                 <td>&nbsp;</td>
                             </tr>
                             <tr>
-                                <td class="auto-style2">Asignar perfil</td>
+                                <td class="auto-style2">Asignar perfil<span style="color:red">*</span></td>
                                 <td class="auto-style6">
                                     <asp:DropDownList ID="drpDownPerfiles" runat="server" 
                                         onselectedindexchanged="drpDownPerfiles_SelectedIndexChanged" AutoPostBack="true"></asp:DropDownList>
