@@ -15,35 +15,35 @@ using iTextSharp.text.pdf;
 /// </summary>
 public class GeneradorPDF
 {
+	private String nombreUsuario;
     private String Receptor;
     private String Emisor;
     private String Iniciales;
     private int cntHoras;
-    private int Ciclo;
-    private String Semestre;
+	private int ciclo;
+    private String periodo;
     private int Anno;
-    private String UnidadAcademica;
     protected BaseFont basePie = BaseFont.CreateFont(BaseFont.TIMES_ITALIC, BaseFont.WINANSI, BaseFont.NOT_EMBEDDED);
     AsignacionesDataSetTableAdapters.AsignadoA1TableAdapter adapterAs = new AsignacionesDataSetTableAdapters.AsignadoA1TableAdapter();
     ControladoraBecarios cb = new ControladoraBecarios();
 
     public GeneradorPDF() { }
 
-    public GeneradorPDF(string receptor, string emisor, string iniciales, int cntHoras, int ciclo, string semestre, int anno, string unidadAcadémica)
+    public GeneradorPDF(string nombreUsuario, string receptor, string emisor, string iniciales, int cntHoras, int ciclo, string preiodo, int anno)
 	{
+		this.nombreUsuario = nombreUsuario;
         this.Receptor = receptor;
         this.Emisor = emisor;
         this.Iniciales = iniciales;
         this.cntHoras = cntHoras;
-        this.Ciclo = ciclo;
-        this.Semestre = semestre;
+		this.ciclo = ciclo;
+        this.periodo = preiodo;
         this.Anno = anno;
-        this.UnidadAcademica = unidadAcadémica;
 	}
 
     public void generarInforme(){
         Document document = new Document(PageSize.LETTER);
-        PdfWriter writer = PdfWriter.GetInstance(document, new FileStream("C:/Users/ryuzaki1792/Desktop/machote.PDF", FileMode.OpenOrCreate));
+		PdfWriter writer = PdfWriter.GetInstance(document, new FileStream("PDFs/machote " + nombreUsuario + ".PDF", FileMode.OpenOrCreate));
         document.Open();
         crearEncabezado(document, writer);
         document.Add(new Paragraph(" "));
@@ -72,11 +72,11 @@ public class GeneradorPDF
         // dejo un espaciado de un renglon
         document.Add(new Paragraph(" "));
         p.Clear();
-        p.Add("Me permito informarle que los siguientes estudiantes cumplieron con sus "+this.cntHoras.ToString()+" horas becario 11 en el "+this.Semestre+" semestre del "+this.Anno.ToString()+" en esta Unidad Académica.");
+        p.Add("Me permito informarle que los siguientes estudiantes cumplieron con sus "+this.cntHoras.ToString()+" horas becario 11 en el "+this.periodo+" período del "+this.Anno.ToString()+" en esta Unidad Académica.");
         document.Add(p);
         // dejo un espaciado de un renglon
         document.Add(new Paragraph(" "));
-        DataTable dt = adapterAs.obtenerBecariosFinalizados(this.cntHoras,this.Ciclo,this.Anno);
+        DataTable dt = adapterAs.obtenerBecariosFinalizados(this.cntHoras,this.ciclo,this.Anno);
         if (dt.Rows.Count > 0)
         {
             if (dt.Rows.Count <= 12)
@@ -206,7 +206,7 @@ public class GeneradorPDF
     public void crearFirma(Document doc) {
         Paragraph p = new Paragraph();
         p.Add("Atentamente,\n\n\n");
-        p.Add("Licda. Milena Zúñiga Cárdenas\n");
+        p.Add(this.Emisor + "\n");
         p.Add("Jefe Administrativa");
         p.Font = FontFactory.GetFont(BaseFont.TIMES_ROMAN, 13);
         p.Font.SetStyle(iTextSharp.text.Font.NORMAL);
@@ -215,7 +215,7 @@ public class GeneradorPDF
     }
 
     public Image colocarImagenUCR(Document doc){
-        Image imagen = Image.GetInstance("C:/Users/ryuzaki1792/Desktop/UCR-Escudo-Colores.png");
+		Image imagen = Image.GetInstance("../../Images/UCR-Escudo-Colores.png");
         imagen.Alignment = Image.TEXTWRAP;
         imagen.ScaleAbsolute(75f, 75f);
         imagen.SetAbsolutePosition(40, doc.PageSize.Height - 100);
@@ -224,7 +224,7 @@ public class GeneradorPDF
 
     public Image colocarImagenECCI(Document doc)
     {
-        Image imagen = Image.GetInstance("C:/Users/ryuzaki1792/Desktop/logoEcci.jpg");
+		Image imagen = Image.GetInstance("../../Images/logoEcci.jpg");
         imagen.Alignment = Image.TEXTWRAP;
         imagen.ScaleAbsolute(75f, 75f);
         imagen.SetAbsolutePosition(doc.Right - 95, doc.PageSize.Height - 100);
@@ -264,7 +264,7 @@ public class GeneradorPDF
     }
 
     private Image colocarImagenAcreditacion(Document doc) {
-        Image imagen = Image.GetInstance("C:/Users/ryuzaki1792/Desktop/acreditacion.png");
+		Image imagen = Image.GetInstance("../../Images/acreditacion.png");
         imagen.Alignment = Image.TEXTWRAP;
         imagen.ScaleAbsolute(75f, 75f);
         imagen.SetAbsolutePosition((float)(doc.PageSize.Width / 2),40);
