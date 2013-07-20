@@ -5,6 +5,7 @@
     setPopUpVerBecariosAsignados();
     setPopUpAceptarRechazarBecarios();
     setDeletePopUp("PopUpEliminarAsignacion", "btnInvisible2");
+    setPopUp("PopUpAyuda", "btnInvisible1");
     $("#PopUpAsignacion").dialog("option", "width", 600);
 });
 

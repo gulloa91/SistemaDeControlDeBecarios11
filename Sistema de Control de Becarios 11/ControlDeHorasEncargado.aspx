@@ -40,7 +40,7 @@
 
                     <asp:Button ID="btnInvisibleAsignacion2" 
                         CssClass="invisible" runat="server" Text="" 
-                        onclick="btnInvisibleAsignacion2_Click" ValidationGroup="comentObl" />
+                        onclick="btnInvisibleAsignacion2_Click" ValidationGroup="comentObl" />                    
 
                     <asp:TextBox ID="cedulaTemporal" runat="server" Visible="false" Text=""></asp:TextBox>
                     <!-- Cuerpo -->
@@ -52,6 +52,15 @@
                         <span style="width: 100%; font-weight: bold; font-size: 16px; float: left; margin: 0px 0 5px 0; text-align:left;">Becarios con horas pendientes de revisar. Por favor seleccione uno para empezar a revisar sus horas.</span>
                         <span style="width: 12%; font-weight: bold; font-size: 16px; float: left; margin: 0px 0 5px 0; text-align:left;">Seleccione una opción</span>
                         <asp:DropDownList ID="drpDownOpc" runat="server" AutoPostBack="true" OnSelectedIndexChanged="drpDownOpc_SelectedIndexChanged"></asp:DropDownList>
+                        
+                        <!-- Ayuda -->
+                        <div class="ayuda" style="float:right; width:10%">     
+                            <asp:Button ID="btnAyudaVistaAdministrador" runat="server" Text="Ayuda" 
+                                CssClass="boton ui-widget ui-state-default ui-corner-all ui-button-text-only" 
+                                onclick="btnAyuda_Click" CausesValidation="false"/>
+                        </div>
+
+                        
                         <!-- Grid con Becarios con horas pendientes de revisar -->
                         <div style="float: left; width: 100%;">
                             <asp:GridView ID="GridBecariosConHorasPendientes" 
@@ -138,5 +147,13 @@
 
     </asp:MultiView>
     
+    <div id="PopUpAyuda">
+        <asp:UpdatePanel runat="server" ID="UpdatePanelAyuda">
+            <ContentTemplate>
+                <asp:Label ID ="lblAyuda" runat="server" CssClass="Ayuda" Text="Ayuda"></asp:Label>
+            </ContentTemplate>
+        </asp:UpdatePanel>                
+    </div>
+
 </asp:Content>
 

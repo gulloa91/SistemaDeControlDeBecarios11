@@ -207,6 +207,13 @@ public partial class ControlDeHorasEncargado : System.Web.UI.Page
         llenarGridViewHoraYFechaBecario(this.drpDownOpc.SelectedIndex);
     }
 
+    // AYUDA CLICK
+    protected void btnAyuda_Click(object sender, EventArgs e)
+    {
+        commonService.abrirPopUp("PopUpAyuda", "Ayuda");
+        commonService.esconderPrimerBotonDePopUp("PopUpAyuda");
+    }
+
     protected void crearAsignacion(int periodo, int anno)
     {
         Object[] datos = new Object[5]; // becario periodo a;o encargado totalHoras

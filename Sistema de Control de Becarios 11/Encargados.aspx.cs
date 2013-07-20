@@ -253,7 +253,14 @@ public partial class Encargados : System.Web.UI.Page
     protected void btnBuscar_Click(object sender, EventArgs e)
     {
         this.llenarGridEncargados(2);
-    }      
+    }
+
+    // AYUDA CLICK
+    protected void btnAyuda_Click(object sender, EventArgs e)
+    {
+        commonService.abrirPopUp("PopUpAyuda", "Ayuda");
+        commonService.esconderPrimerBotonDePopUp("PopUpAyuda");
+    }
 
     /*
     * -----------------------------------------------------------------------

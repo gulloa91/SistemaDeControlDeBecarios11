@@ -233,6 +233,13 @@ public partial class Cuentas : System.Web.UI.Page
         commonService.abrirPopUp("PopUpEliminar", "Eliminar Cuenta");
     }
 
+    // AYUDA CLICK
+    protected void btnAyuda_Click(object sender, EventArgs e)
+    {
+        commonService.abrirPopUp("PopUpAyuda", "Ayuda");
+        commonService.esconderPrimerBotonDePopUp("PopUpAyuda");
+    }
+
 //--------------------------------------------
 
     protected void llenarDrpDown() {

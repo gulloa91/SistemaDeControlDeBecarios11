@@ -1,4 +1,5 @@
 ﻿$(document).ready(function () {
+            setPopUp("PopUpAyuda", "btnInvisible1");
 
             $("#PopUp").dialog({
                 autoOpen: false,

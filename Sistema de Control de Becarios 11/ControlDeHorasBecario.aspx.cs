@@ -122,6 +122,13 @@ public partial class ControlDeHoras : System.Web.UI.Page
         
     }
 
+    // AYUDA CLICK
+    protected void btnAyuda_Click(object sender, EventArgs e)
+    {
+        commonService.abrirPopUp("PopUpAyuda", "Ayuda");
+        commonService.esconderPrimerBotonDePopUp("PopUpAyuda");
+    }
+
     /* Crear tabla */
     protected void llenarGridHorasReportadas()
     {

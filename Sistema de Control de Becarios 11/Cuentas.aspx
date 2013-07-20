@@ -50,6 +50,15 @@
                                 CssClass="boton ui-widget ui-state-default ui-corner-all ui-button-text-only" 
                                 onclick="btnInsertarCuenta_Click" CausesValidation="false"/>
                         </div>
+
+                        <!-- Ayuda -->
+                        <div class="insertar" style="float:right; width:10%">     
+                            <div style="width: 100%; float:left; font-weight: bold; font-size: 16px; border-bottom: 1px solid #fff; margin-bottom: 5px;">Ayuda</div>                       
+                            <asp:Button ID="btnAyudaVistaAdministrador" runat="server" Text="Ayuda" 
+                                CssClass="boton ui-widget ui-state-default ui-corner-all ui-button-text-only" 
+                                onclick="btnAyuda_Click" CausesValidation="false"/>
+                        </div>
+
                         <asp:GridView ID="GridViewCuentas" runat="server" CssClass="tabla_cuentas" AllowPaging="true" PageSize="15" OnRowCommand="GridViewCuentas_RowCommand" OnPageIndexChanging="GridViewCuentas_PageIndexChanging" PagerStyle-CssClass="pagerGlobal" AutoGenerateColumns="false">
                             <Columns>
                                 <asp:ButtonField CommandName="seleccionarPosibleCuenta" CausesValidation="false" ButtonType="Image" Visible="true" ImageUrl="Images/arrow-right.png"/>
@@ -150,7 +159,13 @@
                 ¿Seguro que desea eliminar?
             </div>
         </asp:View>
-        <asp:View ID="viewEncBec" runat="server">
+        <asp:View ID="viewEncBec" runat="server"> 
+             <!-- Ayuda -->
+            <div class="Ayuda" style="float:right">     
+                <asp:Button ID="btnAyudaVistaParcial" runat="server" Text="Ayuda" 
+                    CssClass="boton ui-widget ui-state-default ui-corner-all ui-button-text-only" 
+                    onclick="btnAyuda_Click" CausesValidation="false"/>
+            </div> 
             <div id="containerCuentaPers">
                 <div id="pnlBtnMod">
                     <asp:Button ID="btnModPers" runat="server" CssClass="boton ui-widget ui-state-default ui-corner-all ui-button-text-only" onclick="btnModificarCuentaPers_Click" Text="Modificar" Width="135px" CausesValidation="false" />
@@ -161,6 +176,7 @@
                         <asp:AsyncPostBackTrigger ControlID="btnAcepPers" EventName="Click" />
                     </Triggers>
                     <ContentTemplate>
+                       
                         <div id="infCuenta">
                             <div id="pnlUsuarioPers" class="cont">
                                     <asp:Label ID="lblUsuarioPers" runat="server" Text="Usuario" CssClass="etiq"></asp:Label>
@@ -203,6 +219,15 @@
             <h2 style="color: Red; text-align:center;">Lo sentimos. Usted no tiene acceso a esta sección.</h2>      
         </asp:View>
     </asp:MultiView>
+
+    <div id="PopUpAyuda">
+        <asp:UpdatePanel runat="server" ID="UpdatePanelAyuda">
+            <ContentTemplate>
+                <asp:Label ID ="lblAyuda" runat="server" CssClass="Ayuda" Text="Ayuda"></asp:Label>
+            </ContentTemplate>
+        </asp:UpdatePanel>                
+    </div>
+
 </asp:Content>
 
 

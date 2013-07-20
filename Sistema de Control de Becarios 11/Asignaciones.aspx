@@ -43,6 +43,8 @@
                         <!-- Título -->
                         <span style="width: 100%; font-weight: bold; font-size: 24px; float: left; margin: 20px 0 5px 0; text-align:center;">Módulo para administración de Asignaciones</span>
                         <span style="width: 100%; font-weight: normal; font-style:italic; font-size: 16px; float: left; margin: 5px 0 20px 0; text-align:center; border-bottom: 2px solid #414141; padding-bottom: 5px; ">Por medio de este módulo se pueden insertar, modificar, eliminar y consultar todas las asignaciones entre un encargado y un becario.</span>
+                                                                      
+                                          
 
                         <!-- Buscador -->
                         <div class="buscadorAsignacion">
@@ -92,7 +94,7 @@
                                 <asp:Button ID="btnBuscar" runat="server" Text="Buscar" CausesValidation="false" CssClass="boton ui-widget ui-state-default ui-corner-all ui-button-text-only" OnClick="btnBuscar_Click" />
                             </div>
                         </div>
-
+                        
                         <!-- Insertar -->
                         <div class="insertar" style="margin-bottom: 20px;">
                             <div style="width: 100%; float:left; font-weight: bold; font-size: 16px; border-bottom: 1px solid #fff; margin-bottom: 5px;">Nueva Asignación</div>
@@ -100,6 +102,13 @@
                             <asp:Button ID="btnInsertarAsignacion" runat="server" Text="Nuevo" 
                                 CssClass="boton ui-widget ui-state-default ui-corner-all ui-button-text-only" 
                                 CausesValidation="false" onclick="btnInsertarAsignacion_Click"/>
+                        </div>
+
+                        <!-- Ayuda -->
+                        <div class="Ayuda" style="float:right; width:10%; margin-bottom:1%">     
+                            <asp:Button ID="btnAyudaVistaAdministrador" runat="server" Text="Ayuda" 
+                                CssClass="boton ui-widget ui-state-default ui-corner-all ui-button-text-only" 
+                                onclick="btnAyuda_Click" CausesValidation="false"/>
                         </div>
 
                         <!-- Grid -->
@@ -264,6 +273,13 @@
                     <span style="width: 100%; font-weight: bold; font-size: 24px; float: left; margin: 20px 0 5px 0; text-align:center;">Becarios Asignados</span>
                     <span style="width: 100%; font-weight: normal; font-style:italic; font-size: 16px; float: left; margin: 5px 0 20px 0; text-align:center; border-bottom: 2px solid #414141; padding-bottom: 5px;">Consulte los becarios que tiene bajo tutela. Acepte o rechace las asignaciones que tenga pendientes. </span>
                     
+                    <!-- Ayuda -->
+                    <div class="Ayudar" style="float:right; width:10%">     
+                        <asp:Button ID="btnAyudarVistaEncargado" runat="server" Text="Ayuda" 
+                            CssClass="boton ui-widget ui-state-default ui-corner-all ui-button-text-only" 
+                            onclick="btnAyuda_Click" CausesValidation="false"/>
+                    </div>
+
                     <!-- Buscador -->
                     <div class="buscadorAsignacion" style="width: 20%; margin-bottom: 20px;">
                         <div style="width: 100%; float:left; font-weight: bold; font-size: 16px; border-bottom: 1px solid #fff; margin-bottom: 5px;">Buscar:</div>
@@ -335,6 +351,13 @@
                         CssClass="btnInvisibleConfirmarRechazo invisible" runat="server" Text="" 
                         onclick="btnInvisibleConfirmarRechazo_Click" />
 
+                    <!-- Ayuda -->
+                    <div class="Ayudar" style="float:right; width:10%">     
+                        <asp:Button ID="btnAyudarVistaBecario" runat="server" Text="Ayuda" 
+                            CssClass="boton ui-widget ui-state-default ui-corner-all ui-button-text-only" 
+                            onclick="btnAyuda_Click" CausesValidation="false"/>
+                    </div>
+
                     <div style="width: 40%; float: left; border: 2px solid #414141; margin: 4% 24%; padding: 2% 6%; border-radius: 5px; background-color: #D8D8BF;">
                         
                         <div style="width: 100%; float: left; text-align: center; font-weight: bold; font-size: 1.2em;margin-bottom:30px">
@@ -391,6 +414,14 @@
         </asp:View>
 
     </asp:MultiView>
+
+    <div id="PopUpAyuda">
+        <asp:UpdatePanel runat="server" ID="UpdatePanelAyuda">
+            <ContentTemplate>
+                <asp:Label ID ="lblAyuda" runat="server" CssClass="Ayuda" Text="Ayuda"></asp:Label>
+            </ContentTemplate>
+        </asp:UpdatePanel>                
+     </div>
 
 </asp:Content>
 

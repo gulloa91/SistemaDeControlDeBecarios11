@@ -6,6 +6,9 @@
 
     setPopUpAsignarBecario("popUpConfirmar", "MainContent_btnInvisibleAsignacion", "MainContent_btnInvisibleAsignacion2");
     //setDeletePopUp("PopUpEliminarAsignacion", "btnInvisible2");
+
+    setPopUp("PopUpAyuda", "btnInvisible1");
+
     $("#popUpConfirmar").dialog("option", "width", 600);
 });
 

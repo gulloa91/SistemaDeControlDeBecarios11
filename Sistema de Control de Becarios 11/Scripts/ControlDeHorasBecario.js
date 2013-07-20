@@ -1,5 +1,7 @@
 ﻿$(document).ready(function () {
     setPopUp("PopUpCtrlBecario", "btnInvisibleEnviarReporte");
+    setPopUp("PopUpAyuda", "btnInvisible1");
+
     $("#PopUpCtrlBecario").dialog("option", "width", 600);
     $(".dateText").datepicker();
 

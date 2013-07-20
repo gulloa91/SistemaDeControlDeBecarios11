@@ -90,6 +90,15 @@
                             <asp:Button ID="btnInsertarBecarios" runat="server" Text="Reportar" CssClass="boton ui-widget ui-state-default ui-corner-all ui-button-text-only"
                                 OnClick="btnReportarHoras_Click" CausesValidation="false" />
                         </div>
+
+                        <!-- Ayuda -->
+                        <div class="insertar" style="float:right; width:10%">     
+                            <div style="width: 100%; float:left; font-weight: bold; font-size: 16px; border-bottom: 1px solid #fff; margin-bottom: 5px;">Ayuda</div>                       
+                            <asp:Button ID="btnAyudaVistaAdministrador" runat="server" Text="Ayuda" 
+                                CssClass="boton ui-widget ui-state-default ui-corner-all ui-button-text-only" 
+                                onclick="btnAyuda_Click" CausesValidation="false"/>
+                        </div>
+
                         <!-- Horas restantes -->
                         <div class="horasRestantes">
                             <div style="width: 100%; float: left; font-weight: bold; font-size: 16px; border-bottom: 1px solid #fff; margin-bottom: 5px;">
@@ -180,17 +189,25 @@
 
         </asp:View>
         <!-- Consulta de Becarios relacionados con el Encargado -->
-        <asp:View ID="VistaEncargado" runat="server">
+        <asp:View ID="VistaEncargado" runat="server">            
             <div id="PopUpAceptarAsignacionEncargado">
             </div>
         </asp:View>
         <!-- Consulta de Encargados relacionados con ese Becario -->
-        <asp:View ID="VistaBecario" runat="server">
+        <asp:View ID="VistaBecario" runat="server">            
         </asp:View>
         <!-- Sin acceso al módulo -->
         <asp:View ID="VistaSinPermiso" runat="server">
             <h2 style="color: Red; text-align: center;">Lo sentimos. Usted no tiene acceso a esta sección.</h2>
         </asp:View>
     </asp:MultiView>
+
+    <div id="PopUpAyuda">
+        <asp:UpdatePanel runat="server" ID="UpdatePanelAyuda">
+            <ContentTemplate>
+                <asp:Label ID ="lblAyuda" runat="server" CssClass="Ayuda" Text="Ayuda"></asp:Label>
+            </ContentTemplate>
+        </asp:UpdatePanel>                
+    </div>
 
 </asp:Content>

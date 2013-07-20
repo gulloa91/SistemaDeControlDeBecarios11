@@ -129,6 +129,13 @@ public partial class Perfiles : System.Web.UI.Page
         commonService.abrirPopUp("PopUp", "Insertar Nuevo Perfil");
     }
 
+    // AYUDA CLICK
+    protected void btnAyuda_Click(object sender, EventArgs e)
+    {
+        commonService.abrirPopUp("PopUpAyuda", "Ayuda");
+        commonService.esconderPrimerBotonDePopUp("PopUpAyuda");
+    }
+
     public void llenarGridPerfiles()
     {//se llena el grid con los perfiles en la base de datos
         this.gridPerfiles.DataSource = llenarTablaPerfiles();//creo la tabla

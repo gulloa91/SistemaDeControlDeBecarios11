@@ -372,6 +372,13 @@ public partial class Asignaciones : System.Web.UI.Page
         commonService.mostrarPrimerBotonDePopUp("PopUpAsignacion");
     }
 
+    // AYUDA CLICK
+    protected void btnAyuda_Click(object sender, EventArgs e)
+    {
+        commonService.abrirPopUp("PopUpAyuda", "Ayuda");
+        commonService.esconderPrimerBotonDePopUp("PopUpAyuda");
+    }
+
 
     /*
     * ------------------------------

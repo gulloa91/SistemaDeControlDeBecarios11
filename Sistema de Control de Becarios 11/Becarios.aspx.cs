@@ -430,6 +430,13 @@ public partial class Becarios : System.Web.UI.Page
         correrJavascript("abrirPopUpEliminar();");
     }
 
+    // AYUDA CLICK
+    protected void btnAyuda_Click(object sender, EventArgs e)
+    {
+        commonService.abrirPopUp("PopUpAyuda", "Ayuda");
+        commonService.esconderPrimerBotonDePopUp("PopUpAyuda");
+    }
+
     /*
     * -----------------------------------------------------------------------
     * AUXILIARES
