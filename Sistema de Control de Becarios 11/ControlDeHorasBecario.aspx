@@ -191,5 +191,11 @@
             <h2 style="color: Red; text-align: center;">Lo sentimos. Usted no tiene acceso a esta sección.</h2>
         </asp:View>
     </asp:MultiView>
-
+    <div id="PopUpAyuda">
+        <asp:UpdatePanel runat="server" ID="UpdatePanelAyuda">
+            <ContentTemplate>
+                <asp:Label ID ="lblAyuda" runat="server" CssClass="Ayuda" Text="Ayuda"></asp:Label>
+            </ContentTemplate>
+        </asp:UpdatePanel>                
+    </div>
 </asp:Content>

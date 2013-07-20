@@ -426,7 +426,16 @@ public partial class Asignaciones : System.Web.UI.Page
         commonService.mostrarPrimerBotonDePopUp("PopUpAsignacion");
     }
 
-
+    // AYUDA CLICK
+    /* Efectúa: Carga la ventana emergente de ayuda.
+    * Requiere: N/A
+    * Modifica: N/A
+    * */
+    protected void btnAyuda_Click(object sender, EventArgs e)
+    {
+        commonService.abrirPopUp("PopUpAyuda", "Ayuda");
+        commonService.esconderPrimerBotonDePopUp("PopUpAyuda");
+    }
 
 
 

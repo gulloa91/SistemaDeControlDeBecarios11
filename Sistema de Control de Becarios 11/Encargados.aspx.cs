@@ -273,7 +273,12 @@ public partial class Encargados : System.Web.UI.Page
         this.llenarGridEncargados(2);
     }
 
-
+    // AYUDA CLICK
+    protected void btnAyuda_Click(object sender, EventArgs e)
+    {
+        commonService.abrirPopUp("PopUpAyuda", "Ayuda");
+        commonService.esconderPrimerBotonDePopUp("PopUpAyuda");
+    }
     public String eliminaAsignaciones()
     {
         string ced = lsEncargados[rowIndex].Cedula;

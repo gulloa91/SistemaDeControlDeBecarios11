@@ -463,6 +463,17 @@ public partial class ControlDeHorasEncargado : System.Web.UI.Page
             }
         }
     }
+    
+    // AYUDA CLICK
+    /* Efectúa: Carga la ventana emergente de ayuda.
+    * Requiere: N/A
+    * Modifica: N/A
+    * */
+    protected void btnAyuda_Click(object sender, EventArgs e)
+    {
+        commonService.abrirPopUp("PopUpAyuda", "Ayuda");
+        commonService.esconderPrimerBotonDePopUp("PopUpAyuda");
+    }
 
     /* Efectúa: Crea un comentario en la base de datos del encargado hacia el becario. Para control de historial principalmente.
     * Requiere: N/A

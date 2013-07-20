@@ -135,6 +135,13 @@ public partial class Perfiles : System.Web.UI.Page
         commonService.abrirPopUp("PopUp", "Insertar Nuevo Perfil");//abre la ventana emergente
     }
 
+    // AYUDA CLICK
+    protected void btnAyuda_Click(object sender, EventArgs e)
+    {
+        commonService.abrirPopUp("PopUpAyuda", "Ayuda");
+        commonService.esconderPrimerBotonDePopUp("PopUpAyuda");
+    }
+
     //llena el grid
     public void llenarGridPerfiles()
     {//se llena el grid con los perfiles en la base de datos

@@ -262,6 +262,17 @@ public partial class Cuentas : System.Web.UI.Page
         commonService.abrirPopUp("PopUpEliminar", "Eliminar Cuenta"); // activo la ventana emergente del eliminar
     }
 
+    // AYUDA CLICK
+    /* Efectúa: Carga la ventana emergente de ayuda.
+     * Requiere: N/A
+     * Modifica: N/A
+     * */
+    protected void btnAyuda_Click(object sender, EventArgs e)
+    {
+        commonService.abrirPopUp("PopUpAyuda", "Ayuda");
+        commonService.esconderPrimerBotonDePopUp("PopUpAyuda");
+    }
+
 //--------------------------------------------
 
     /* Efectúa: Se encarga de llenar el dropdown de los perfiles. Además guarda en una lista el permiso de cada perfil,  

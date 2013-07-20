@@ -118,6 +118,17 @@ public partial class ControlDeHoras : System.Web.UI.Page
         
     }
 
+    // AYUDA CLICK
+    /* Efectúa: Carga la ventana emergente de ayuda.
+    * Requiere: N/A
+    * Modifica: N/A
+    * */
+    protected void btnAyuda_Click(object sender, EventArgs e)
+    {
+        commonService.abrirPopUp("PopUpAyuda", "Ayuda");
+        commonService.esconderPrimerBotonDePopUp("PopUpAyuda");
+    }
+
     /* llena tabla */
     protected void llenarGridHorasReportadas()
     {
