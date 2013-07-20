@@ -54,6 +54,15 @@
                                 CssClass="boton ui-widget ui-state-default ui-corner-all ui-button-text-only" 
                                 onclick="btnInsertarEncargado_Click" CausesValidation="false"/>
                         </div>
+
+                        <!-- Ayuda -->
+                        <div class="insertar" style="float:right; width:10%">     
+                            <div style="width: 100%; float:left; font-weight: bold; font-size: 16px; border-bottom: 1px solid #fff; margin-bottom: 5px;">Ayuda</div>                       
+                            <asp:Button ID="btnAyudaVistaAdministrador" runat="server" Text="Ayuda" 
+                                CssClass="boton ui-widget ui-state-default ui-corner-all ui-button-text-only" 
+                                onclick="btnAyuda_Click" CausesValidation="false"/>
+                        </div>
+
                         <asp:GridView ID="GridEncargados"  runat="server" CssClass="table_css" 
                             GridLines="Both" AllowPaging="True" RowStyle-HorizontalAlign="Center" RowStyle-VerticalAlign="Middle"
                                     PageSize="15" 
@@ -237,6 +246,11 @@
                 </Triggers>
                 <ContentTemplate>
                 <div style="width: 40%; padding: 2% 0%; float: left;" >
+                    <div style="width: 35%; float: right; margin-left: 2%;">                            
+                            <asp:Button ID="btnAyudaVistaParcial" runat="server" Text="Ayuda" 
+                                CssClass="boton ui-widget ui-state-default ui-corner-all ui-button-text-only" 
+                                onclick="btnAyuda_Click" CausesValidation="false"/>
+                   </div>
                     <div style="width: 35%; float: right;">
                         <asp:Button ID="btnModificarEncargadoP" runat="server" Text="Modificar" Visible="true"
                             CssClass="boton ui-widget ui-state-default ui-corner-all ui-button-text-only" 
@@ -398,7 +412,13 @@
         </asp:View>
     </asp:MultiView>
     
-    
+    <div id="PopUpAyuda">
+        <asp:UpdatePanel runat="server" ID="UpdatePanelAyuda">
+            <ContentTemplate>
+                <asp:Label ID ="lblAyuda" runat="server" CssClass="Ayuda" Text="Ayuda"></asp:Label>
+            </ContentTemplate>
+        </asp:UpdatePanel>                
+    </div>
     
 </asp:Content>
 

@@ -102,6 +102,13 @@
                                 CausesValidation="false" onclick="btnInsertarAsignacion_Click"/>
                         </div>
 
+                         <!-- Ayuda -->
+                        <div class="Ayuda" style="float:right; width:10%; margin-bottom:1%">     
+                            <asp:Button ID="btnAyudaVistaAdministrador" runat="server" Text="Ayuda" 
+                                CssClass="boton ui-widget ui-state-default ui-corner-all ui-button-text-only" 
+                                onclick="btnAyuda_Click" CausesValidation="false"/>
+                        </div>
+
                         <!-- Grid -->
                         <div style="float: left; width: 100%;">
                             <asp:GridView ID="GridAsignaciones"  runat="server" CssClass="table_css" 
@@ -287,6 +294,13 @@
                         </div>
                     </div>
 
+                    <!-- Ayuda -->
+                        <div class="Ayudar" style="float:right; width:10%">     
+                            <asp:Button ID="btnAyudarVistaEncargado" runat="server" Text="Ayuda" 
+                                CssClass="boton ui-widget ui-state-default ui-corner-all ui-button-text-only" 
+                                onclick="btnAyuda_Click" CausesValidation="false"/>
+                        </div>
+
                     <!-- Grid con Becarios asignados y por asignar -->
                     <asp:GridView ID="gridBecariosAsignadosVistaEncargado" CssClass="table_css centerText" runat="server" 
                         onrowcommand="GridBecariosAsignadosVistaEncargado_RowCommand">
@@ -334,6 +348,13 @@
                     <asp:Button ID="btnInvisibleConfirmarRechazo" 
                         CssClass="btnInvisibleConfirmarRechazo invisible" runat="server" Text="" 
                         onclick="btnInvisibleConfirmarRechazo_Click" />
+
+                    <!-- Ayuda -->
+                    <div class="Ayudar" style="float:right; width:10%">     
+                        <asp:Button ID="btnAyudarVistaBecario" runat="server" Text="Ayuda" 
+                            CssClass="boton ui-widget ui-state-default ui-corner-all ui-button-text-only" 
+                            onclick="btnAyuda_Click" CausesValidation="false"/>
+                    </div>
 
                     <div style="width: 40%; float: left; border: 2px solid #414141; margin: 4% 24%; padding: 2% 6%; border-radius: 5px; background-color: #D8D8BF;">
                         
@@ -391,6 +412,12 @@
         </asp:View>
 
     </asp:MultiView>
-
+<div id="PopUpAyuda">
+        <asp:UpdatePanel runat="server" ID="UpdatePanelAyuda">
+            <ContentTemplate>
+                <asp:Label ID ="lblAyuda" runat="server" CssClass="Ayuda" Text="Ayuda"></asp:Label>
+            </ContentTemplate>
+        </asp:UpdatePanel>                
+    </div>
 </asp:Content>
 

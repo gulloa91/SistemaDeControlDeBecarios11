@@ -65,6 +65,14 @@
                                 CssClass="boton ui-widget ui-state-default ui-corner-all ui-button-text-only" 
                                 onclick="btnInsertarEncargado_Click" CausesValidation="false" />
                         </div>
+
+                         <!-- Ayuda -->
+                        <div class="insertar" style="float:right; width:10%">     
+                            <div style="width: 100%; float:left; font-weight: bold; font-size: 16px; border-bottom: 1px solid #fff; margin-bottom: 5px;">Ayuda</div>                       
+                            <asp:Button ID="btnAyudaVistaAdministrador" runat="server" Text="Ayuda" 
+                                CssClass="boton ui-widget ui-state-default ui-corner-all ui-button-text-only" 
+                                onclick="btnAyuda_Click" CausesValidation="false"/>
+                        </div>
                          
                          <!-- GRID BECARIOS -->
                         <div id="divGridBecarios">
@@ -626,6 +634,12 @@
 
    <!-- ****VISTA PARCIAL **** -->
    <asp:View ID="VistaParcial" runat="server">
+        <!-- Ayuda -->
+        <div class="Ayuda" style="float:right">     
+            <asp:Button ID="btnAyudaVistaParcial" runat="server" Text="Ayuda" 
+                CssClass="boton ui-widget ui-state-default ui-corner-all ui-button-text-only" 
+                onclick="btnAyuda_Click" CausesValidation="false"/>
+        </div> 
 
       <div id="tabsP" style="width: 90%; margin:0 5% ; margin-top:1%; float: left;" >
 
@@ -1105,6 +1119,12 @@
 
   </asp:MultiView>
 
-
+<div id="PopUpAyuda">
+        <asp:UpdatePanel runat="server" ID="UpdatePanelAyuda">
+            <ContentTemplate>
+                <asp:Label ID ="lblAyuda" runat="server" CssClass="Ayuda" Text="Ayuda"></asp:Label>
+            </ContentTemplate>
+        </asp:UpdatePanel>                
+    </div>
 </asp:Content>
 

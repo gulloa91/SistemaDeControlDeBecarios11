@@ -2,6 +2,9 @@
 
     setPopUpHorasBecario("PopUpControlDeHorasEncargado", "MainContent_btnInvisibleEnviarRevision", "MainContent_btnInvisibleCancelarRevision");
     //setDeletePopUp("PopUpEliminarAsignacion", "btnInvisible2");
+
+    setPopUp("PopUpAyuda", "btnInvisible1");
+
     $("#PopUpControlDeHorasEncargado").dialog("option", "width", 600);
 
     setPopUpAsignarBecario("popUpConfirmar", "MainContent_btnInvisibleAsignacion", "MainContent_btnInvisibleAsignacion2");
