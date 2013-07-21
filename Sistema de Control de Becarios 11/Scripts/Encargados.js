@@ -2,6 +2,7 @@
 
     setPopUp("PopUpEncargado", "btnInvisible1");
     setDeletePopUp("PopUpEliminarEncargado", "btnInvisible2");
-    setPopUp("PopUpAyuda", "btnInvisible1");
+    setPopUpAyuda("PopUpAyudaAdmin");
+    setPopUpAyuda("PopUpAyudaParcial");
 
 });

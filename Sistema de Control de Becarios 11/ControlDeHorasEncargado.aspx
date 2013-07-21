@@ -53,11 +53,9 @@
                         <span style="width: 12%; font-weight: bold; font-size: 16px; float: left; margin: 0px 0 5px 0; text-align:left;">Seleccione una opción</span>
                         <asp:DropDownList ID="drpDownOpc" runat="server" AutoPostBack="true" OnSelectedIndexChanged="drpDownOpc_SelectedIndexChanged"></asp:DropDownList>
                         <!-- Ayuda -->
-                        <div class="ayuda" style="float:right; width:10%">     
-                            <asp:Button ID="btnAyudaVistaAdministrador" runat="server" Text="Ayuda" 
-                                CssClass="boton ui-widget ui-state-default ui-corner-all ui-button-text-only" 
-                                onclick="btnAyuda_Click" CausesValidation="false"/>
-                        </div>
+                        <div class="Ayuda" style="float:right">     
+                            <input type="button" value="Ayuda" class="boton ui-widget ui-state-default ui-corner-all ui-button-text-only" id="Button2" onclick="$('#PopUpAyudaParcialEncargado').dialog('open');" />
+                        </div> 
                         <!-- Grid con Becarios con horas pendientes de revisar -->
                         <div style="float: left; width: 100%;">
                             <asp:GridView ID="GridBecariosConHorasPendientes" 
@@ -143,10 +141,10 @@
         </asp:View>
 
     </asp:MultiView>
-    <div id="PopUpAyuda">
-        <asp:UpdatePanel runat="server" ID="UpdatePanelAyuda">
+    <div id="PopUpAyudaParcialEncargado">
+        <asp:UpdatePanel runat="server" ID="UpdatePanel2">
             <ContentTemplate>
-                <asp:Label ID ="lblAyuda" runat="server" CssClass="Ayuda" Text="Ayuda"></asp:Label>
+                <iframe style="width: 99%; height: 500px;" src="HTMLS%20Ayuda/Perfil%20Encargado/Control%20de%20Horas/Encargado%20-%20Control%20de%20Horas.htm"></iframe>
             </ContentTemplate>
         </asp:UpdatePanel>                
     </div>

@@ -1,5 +1,8 @@
 ﻿$(document).ready(function () {
-    setPopUp("PopUpAyuda", "btnInvisible1");
+    setPopUpAyuda("PopUpAyudaAdmin");
+    setPopUpAyuda("PopUpAyudaParcialBecario");
+    setPopUpAyuda("PopUpAyudaParcialEncargado");
+
     setPopUp("PopUpAsignacion", "btnInvisible1");
     setPopUp("PopUpConfirmarRechazoBecario", "btnInvisibleConfirmarRechazo");
     setPopUpVerBecariosAsignados();

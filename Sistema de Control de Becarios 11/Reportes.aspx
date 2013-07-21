@@ -1,6 +1,7 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.master" AutoEventWireup="true" CodeFile="Reportes.aspx.cs" Inherits="Reportes" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" Runat="Server">
+    <script src="Scripts/Reportes.js" type="text/javascript"></script>
     <link href="Styles/Reportes.css" rel="stylesheet" type="text/css" />
     <script type="text/javascript">
         $(document).ready(function () {
@@ -53,6 +54,11 @@
                                     </asp:MenuItem>
                                 </Items>
                             </asp:Menu>
+                        </div>
+
+                         <!-- Ayuda -->
+                        <div class="ayuda" style="float:right; width:10%; margin-bottom:1%">                        
+                            <input type="button" value="Ayuda" class="boton ui-widget ui-state-default ui-corner-all ui-button-text-only" id="Button1" onclick="$('#PopUpAyudaAdmin').dialog('open');" />
                         </div>
 
                         <!-- Ventana reportes -->
@@ -149,10 +155,10 @@
 
     </asp:MultiView>
 
-    <div id="PopUpAyuda">
+    <div id="PopUpAyudaAdmin">
         <asp:UpdatePanel runat="server" ID="UpdatePanelAyuda">
             <ContentTemplate>
-                <asp:Label ID ="lblAyuda" runat="server" CssClass="Ayuda" Text="Ayuda"></asp:Label>
+                <iframe style="width: 99%; height: 500px;" src="HTMLS%20Ayuda/Perfil%20Admin/Reportes/Admin%20-%20Reportes.htm"></iframe>
             </ContentTemplate>
         </asp:UpdatePanel>                
     </div>

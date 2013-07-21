@@ -13,12 +13,18 @@ public class ControladoraReportes
 
     private CommonServices cs;
 
+    //EFECTO: Constructor de la clase. Inicializa la controladora BD reportes.
+    //REQUIERE: Haber seleccionado algun reporte del menú de reportes
+    //RETORNA: N/A
 	public ControladoraReportes()
 	{
         cs = new CommonServices(null);
         controladoraBDReportes = new ControladoraBDReportes();
 	}
 
+    //EFECTO: Hace la consulta la controladora BD reportes del reporte solicitado
+    //REQUIERE: N/A
+    //RETORNA: Lista con la informacion de la entidad correspondiente. Cada tupla se representa por Object[]
     public List<Object[]> reporteBecarios(int tipoReporte, string criterioBusquedaGeneral, string criterio1, string criterio2, string criterio3, string criterio4, string criterio5)
     {
         List<Object[]> lsOject = new List<Object[]>();
@@ -299,6 +305,9 @@ public class ControladoraReportes
         return lsOject;
     }
 
+    //EFECTO: Retorna todas las Uidades Acedémicas a las cuales se les ha asignado un becario
+    //REQUIERE: N/A
+    //RETORNA: Lista con las Unidades Acedémicas
     public List<string> optenerUnidadesAcademicas()
     {
         List<string> lsSiglasUA = new List<string>();
@@ -311,6 +320,9 @@ public class ControladoraReportes
         return lsSiglasUA;
     }
 
+    //EFECTO:  Genera la consulta a la controlodaro de base de datos sobre los encargados que están atrasados en su reporte de horas
+    //REQUIERE: N/A
+    //RETORNA: Lista con los encargados solicitados
     public List<EncargadoAtrasado> llenarEncargadosAtrasados(string criterioBusqueda, int año, int semestre, DateTime fechaUltimoReporte)
     {
         List<EncargadoAtrasado> lista = new List<EncargadoAtrasado>();
@@ -332,6 +344,9 @@ public class ControladoraReportes
         return lista;
     }
 
+    //EFECTO: Genera la consulta a la controladora BD reportes del historial de asignaciones de un becario
+    //REQUIERE: N/A
+    //RETORNA: Lista con las asignaciones solicitadas
     public List<Object[]> reportarHistorialDeAsignacionesBecario(string criterioBusqueda, string cedula) 
     {
         List<Object[]> lsObject = new List<Object[]>();
@@ -372,6 +387,9 @@ public class ControladoraReportes
         return lsObject;
     }
 
+    //EFECTO: Genera la consulta a la controladora BD reportes del historial de anotaciones de un encargado
+    //REQUIERE: N/A
+    //RETORNA: Lista con las anotaciones solicitadas
     public List<Object[]> reportarHistorialDeAnotacionesEncargado(string criterioBusqueda, string cedula)
     {
         List<Object[]> lsObject = new List<Object[]>();
@@ -412,6 +430,9 @@ public class ControladoraReportes
         return lsObject;
     }
 
+    //EFECTO: Genera la consulta a la controladora BD reportes de becarios inactivos en un lapso
+    //REQUIERE: N/A
+    //RETORNA: Lista con los becarios solicitadas
     public List<BecarioInactivo> llenarBecariosInactivos(string criterioBusqueda, int año, int periodo, DateTime fechaUltimoReporte)
     {
         List<BecarioInactivo> lista = new List<BecarioInactivo>();
