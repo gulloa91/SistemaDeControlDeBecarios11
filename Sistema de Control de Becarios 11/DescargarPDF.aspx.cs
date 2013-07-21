@@ -28,6 +28,9 @@ public partial class DescargarPDF : System.Web.UI.Page
 		respuesta.AddHeader("Content-Disposition", "attachment; filename=" + nombreArchivo + ";");
 		respuesta.TransmitFile(ruta+nombreArchivo);
 		respuesta.Flush();
+
+		System.IO.File.Delete(ruta + nombreArchivo);
+
 		respuesta.End();
 	}
 }
