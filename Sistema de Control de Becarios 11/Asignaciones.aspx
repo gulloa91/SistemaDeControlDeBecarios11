@@ -103,10 +103,8 @@
                         </div>
 
                          <!-- Ayuda -->
-                        <div class="Ayuda" style="float:right; width:10%; margin-bottom:1%">     
-                            <asp:Button ID="btnAyudaVistaAdministrador" runat="server" Text="Ayuda" 
-                                CssClass="boton ui-widget ui-state-default ui-corner-all ui-button-text-only" 
-                                onclick="btnAyuda_Click" CausesValidation="false"/>
+                        <div class="ayuda" style="float:right; width:10%; margin-bottom:1%">                        
+                            <input type="button" value="Ayuda" class="boton ui-widget ui-state-default ui-corner-all ui-button-text-only" id="Button1" onclick="$('#PopUpAyudaAdmin').dialog('open');" />
                         </div>
 
                         <!-- Grid -->
@@ -295,11 +293,9 @@
                     </div>
 
                     <!-- Ayuda -->
-                        <div class="Ayudar" style="float:right; width:10%">     
-                            <asp:Button ID="btnAyudarVistaEncargado" runat="server" Text="Ayuda" 
-                                CssClass="boton ui-widget ui-state-default ui-corner-all ui-button-text-only" 
-                                onclick="btnAyuda_Click" CausesValidation="false"/>
-                        </div>
+                    <div class="Ayuda" style="float:right">     
+                        <input type="button" value="Ayuda" class="boton ui-widget ui-state-default ui-corner-all ui-button-text-only" id="Button2" onclick="$('#PopUpAyudaParcialEncargado').dialog('open');" />
+                    </div> 
 
                     <!-- Grid con Becarios asignados y por asignar -->
                     <asp:GridView ID="gridBecariosAsignadosVistaEncargado" CssClass="table_css centerText" runat="server" 
@@ -350,11 +346,9 @@
                         onclick="btnInvisibleConfirmarRechazo_Click" />
 
                     <!-- Ayuda -->
-                    <div class="Ayudar" style="float:right; width:10%">     
-                        <asp:Button ID="btnAyudarVistaBecario" runat="server" Text="Ayuda" 
-                            CssClass="boton ui-widget ui-state-default ui-corner-all ui-button-text-only" 
-                            onclick="btnAyuda_Click" CausesValidation="false"/>
-                    </div>
+                    <div class="Ayuda" style="float:right">     
+                        <input type="button" value="Ayuda" class="boton ui-widget ui-state-default ui-corner-all ui-button-text-only" id="Button3" onclick="$('#PopUpAyudaParcialBecario').dialog('open');" />
+                    </div> 
 
                     <div style="width: 40%; float: left; border: 2px solid #414141; margin: 4% 24%; padding: 2% 6%; border-radius: 5px; background-color: #D8D8BF;">
                         
@@ -412,10 +406,26 @@
         </asp:View>
 
     </asp:MultiView>
-<div id="PopUpAyuda">
+    <div id="PopUpAyudaAdmin">
         <asp:UpdatePanel runat="server" ID="UpdatePanelAyuda">
             <ContentTemplate>
-                <asp:Label ID ="lblAyuda" runat="server" CssClass="Ayuda" Text="Ayuda"></asp:Label>
+                <iframe style="width: 99%; height: 500px;" src="HTMLS%20Ayuda/Perfil%20Admin/Asignaciones/Admin%20-%20Asignaciones.htm"></iframe>
+            </ContentTemplate>
+        </asp:UpdatePanel>                
+    </div>
+
+    <div id="PopUpAyudaParcialEncargado">
+        <asp:UpdatePanel runat="server" ID="UpdatePanel2">
+            <ContentTemplate>
+                <iframe style="width: 99%; height: 500px;" src="HTMLS%20Ayuda/Perfil%20Encargado/Asignaciones/Encargado%20-%20Asignaciones.htm"></iframe>
+            </ContentTemplate>
+        </asp:UpdatePanel>                
+    </div>
+
+    <div id="PopUpAyudaParcialBecario">
+        <asp:UpdatePanel runat="server" ID="UpdatePanel1">
+            <ContentTemplate>
+                <iframe style="width: 99%; height: 500px;" src="HTMLS%20Ayuda/Perfil%20Becario/Asignaciones/Becario%20-%20Asignaciones.htm"></iframe>
             </ContentTemplate>
         </asp:UpdatePanel>                
     </div>

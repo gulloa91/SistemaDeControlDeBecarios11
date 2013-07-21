@@ -55,12 +55,10 @@
                                 onclick="btnInsertarEncargado_Click" CausesValidation="false"/>
                         </div>
 
-                        <!-- Ayuda -->
+                         <!-- Ayuda -->
                         <div class="insertar" style="float:right; width:10%">     
                             <div style="width: 100%; float:left; font-weight: bold; font-size: 16px; border-bottom: 1px solid #fff; margin-bottom: 5px;">Ayuda</div>                       
-                            <asp:Button ID="btnAyudaVistaAdministrador" runat="server" Text="Ayuda" 
-                                CssClass="boton ui-widget ui-state-default ui-corner-all ui-button-text-only" 
-                                onclick="btnAyuda_Click" CausesValidation="false"/>
+                            <input type="button" value="Ayuda" class="boton ui-widget ui-state-default ui-corner-all ui-button-text-only" id="Button1" onclick="$('#PopUpAyudaAdmin').dialog('open');" />
                         </div>
 
                         <asp:GridView ID="GridEncargados"  runat="server" CssClass="table_css" 
@@ -246,11 +244,10 @@
                 </Triggers>
                 <ContentTemplate>
                 <div style="width: 40%; padding: 2% 0%; float: left;" >
-                    <div style="width: 35%; float: right; margin-left: 2%;">                            
-                            <asp:Button ID="btnAyudaVistaParcial" runat="server" Text="Ayuda" 
-                                CssClass="boton ui-widget ui-state-default ui-corner-all ui-button-text-only" 
-                                onclick="btnAyuda_Click" CausesValidation="false"/>
-                   </div>
+                    <!-- Ayuda -->                          
+                    <div class="Ayuda" style="width: 35%; float: right; margin-left: 2%;">     
+                        <input type="button" value="Ayuda" class="boton ui-widget ui-state-default ui-corner-all ui-button-text-only" id="Button2" onclick="$('#PopUpAyudaParcial').dialog('open');" />
+                    </div> 
                     <div style="width: 35%; float: right;">
                         <asp:Button ID="btnModificarEncargadoP" runat="server" Text="Modificar" Visible="true"
                             CssClass="boton ui-widget ui-state-default ui-corner-all ui-button-text-only" 
@@ -412,10 +409,18 @@
         </asp:View>
     </asp:MultiView>
     
-    <div id="PopUpAyuda">
+    <div id="PopUpAyudaAdmin">
         <asp:UpdatePanel runat="server" ID="UpdatePanelAyuda">
             <ContentTemplate>
-                <asp:Label ID ="lblAyuda" runat="server" CssClass="Ayuda" Text="Ayuda"></asp:Label>
+                <iframe style="width: 99%; height: 500px;" src="HTMLS%20Ayuda/Perfil%20Admin/Encargado/Admin%20-%20Encargado.htm"></iframe>
+            </ContentTemplate>
+        </asp:UpdatePanel>                
+    </div>
+
+    <div id="PopUpAyudaParcial">
+        <asp:UpdatePanel runat="server" ID="UpdatePanel2">
+            <ContentTemplate>
+                <iframe style="width: 99%; height: 500px;" src="HTMLS%20Ayuda/Perfil%20Encargado/Encargado/Encargado%20-%20Encargado.htm"></iframe>
             </ContentTemplate>
         </asp:UpdatePanel>                
     </div>

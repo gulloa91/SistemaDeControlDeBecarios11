@@ -1115,7 +1115,7 @@
 
   </asp:MultiView>
 
-<div id="PopUpAyudaAdmin">
+    <div id="PopUpAyudaAdmin">
         <asp:UpdatePanel runat="server" ID="UpdatePanelAyuda">
             <ContentTemplate>
                 <iframe style="width: 99%; height: 500px;" src="HTMLS%20Ayuda/Perfil%20Admin/Becario/Admin%20-%20Becario.htm"></iframe>

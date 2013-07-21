@@ -21,11 +21,19 @@
         <asp:View ID="View1" runat="server">
             <asp:UpdatePanel ID="panelVacio" runat="server">
                 <Triggers>
-                </Triggers>
+                </Triggers>                
+                    
                 <ContentTemplate>
                     <asp:Button ID="btnInvisibleAsignacion" ValidationGroup="asig" CssClass="invisible btnInvisibleAsig"
                         runat="server" Text="Button" OnClick="btnInvisibleAsignacion_Click" />
+
+                    <!-- Ayuda -->
+                    <div class="Ayuda" style="float:right">     
+                        <input type="button" value="Ayuda" class="boton ui-widget ui-state-default ui-corner-all ui-button-text-only" id="Button1" onclick="$('#PopUpAyudaParcialBecario').dialog('open');" />
+                    </div> 
+
                     <h2 style="color: Red; text-align: center;">La asignación para el presente periodo no está aceptada aun, o está finalizada.</h2>
+                    
                 </ContentTemplate>
             </asp:UpdatePanel>
             <div id="siguienteAsig" style="height: 176px; margin: 20px;">
@@ -33,6 +41,10 @@
                     <Triggers>
                     </Triggers>
                     <ContentTemplate>
+                        <!-- Ayuda -->
+                        <div class="Ayuda" style="float:right">     
+                            <input type="button" value="Ayuda" class="boton ui-widget ui-state-default ui-corner-all ui-button-text-only" id="Button2" onclick="$('#PopUpAyudaParcialEncargado').dialog('open');" />
+                        </div> 
                         <div style="width: 100%; float: left;">
                             ¿Desea continuar con el mismo Encargado el siguiente periodo?
                         </div>
@@ -191,10 +203,10 @@
             <h2 style="color: Red; text-align: center;">Lo sentimos. Usted no tiene acceso a esta sección.</h2>
         </asp:View>
     </asp:MultiView>
-    <div id="PopUpAyuda">
-        <asp:UpdatePanel runat="server" ID="UpdatePanelAyuda">
+    <div id="PopUpAyudaParcialBecario">
+        <asp:UpdatePanel runat="server" ID="UpdatePanel2">
             <ContentTemplate>
-                <asp:Label ID ="lblAyuda" runat="server" CssClass="Ayuda" Text="Ayuda"></asp:Label>
+                <iframe style="width: 99%; height: 500px;" src="HTMLS%20Ayuda/Perfil%20Becario/Control%20de%20Horas/Becario%20-%20Control%20de%20Horas.htm"></iframe>
             </ContentTemplate>
         </asp:UpdatePanel>                
     </div>
