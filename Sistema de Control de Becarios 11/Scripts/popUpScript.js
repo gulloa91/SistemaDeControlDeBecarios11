@@ -40,6 +40,23 @@ function setPopUp(popUpId, aceptarClick) {
     }).parent().css('z-index', '1005');
 }
 
+/** Función que se encarga de crear un Pop Up de Ayuda**/
+function setPopUpAyuda(popUpId) {
+
+    $("#" + popUpId).dialog({
+        autoOpen: false,
+        modal: true,
+        appendTo: "form",
+        width: 650,
+        buttons: {
+            "Cerrar": function () {
+                $(this).dialog("close");
+            }
+
+        }
+    }).parent().css('z-index', '1005');
+}
+
 /** Función para iteracción base del popUp de eliminar **/
 function setDeletePopUp( popUpId, aceptarClick ){
     $("#" + popUpId).dialog({

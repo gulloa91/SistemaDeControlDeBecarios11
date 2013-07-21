@@ -69,9 +69,7 @@
                          <!-- Ayuda -->
                         <div class="insertar" style="float:right; width:10%">     
                             <div style="width: 100%; float:left; font-weight: bold; font-size: 16px; border-bottom: 1px solid #fff; margin-bottom: 5px;">Ayuda</div>                       
-                            <asp:Button ID="btnAyudaVistaAdministrador" runat="server" Text="Ayuda" 
-                                CssClass="boton ui-widget ui-state-default ui-corner-all ui-button-text-only" 
-                                onclick="btnAyuda_Click" CausesValidation="false"/>
+                            <input type="button" value="Ayuda" class="boton ui-widget ui-state-default ui-corner-all ui-button-text-only" id="Button1" onclick="$('#PopUpAyudaAdmin').dialog('open');" />
                         </div>
                          
                          <!-- GRID BECARIOS -->
@@ -636,9 +634,7 @@
    <asp:View ID="VistaParcial" runat="server">
         <!-- Ayuda -->
         <div class="Ayuda" style="float:right">     
-            <asp:Button ID="btnAyudaVistaParcial" runat="server" Text="Ayuda" 
-                CssClass="boton ui-widget ui-state-default ui-corner-all ui-button-text-only" 
-                onclick="btnAyuda_Click" CausesValidation="false"/>
+            <input type="button" value="Ayuda" class="boton ui-widget ui-state-default ui-corner-all ui-button-text-only" id="Button2" onclick="$('#PopUpAyudaParcial').dialog('open');" />
         </div> 
 
       <div id="tabsP" style="width: 90%; margin:0 5% ; margin-top:1%; float: left;" >
@@ -1119,10 +1115,18 @@
 
   </asp:MultiView>
 
-<div id="PopUpAyuda">
+<div id="PopUpAyudaAdmin">
         <asp:UpdatePanel runat="server" ID="UpdatePanelAyuda">
             <ContentTemplate>
-                <asp:Label ID ="lblAyuda" runat="server" CssClass="Ayuda" Text="Ayuda"></asp:Label>
+                <iframe style="width: 99%; height: 500px;" src="HTMLS%20Ayuda/Perfil%20Admin/Becario/Admin%20-%20Becario.htm"></iframe>
+            </ContentTemplate>
+        </asp:UpdatePanel>                
+    </div>
+
+    <div id="PopUpAyudaParcial">
+        <asp:UpdatePanel runat="server" ID="UpdatePanel2">
+            <ContentTemplate>
+                <iframe style="width: 99%; height: 500px;" src="HTMLS%20Ayuda/Perfil%20Becario/Becario/Becario%20-%20Becario.htm"></iframe>
             </ContentTemplate>
         </asp:UpdatePanel>                
     </div>
