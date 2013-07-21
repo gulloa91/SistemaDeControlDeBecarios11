@@ -16,6 +16,7 @@ public class ControladoraBDReportes
     private SiglaUATableAdapter adapterSiglaUA;
     private ActividadEncargadoTableAdapter adapterReporte5;
     private ActividadBecariosTableAdapter adapterReporte4;
+	private AsignadoATableAdapter adapterAsignaciones;
 	public ControladoraBDReportes()
 	{
         adapterReporte1 = new AsignacionBecarioEncargadoTableAdapter();
@@ -23,7 +24,7 @@ public class ControladoraBDReportes
         adapterSiglaUA = new SiglaUATableAdapter();
         adapterReporte5 = new ActividadEncargadoTableAdapter();
         adapterReporte4 = new ActividadBecariosTableAdapter();
-
+		adapterAsignaciones = new AsignadoATableAdapter();
 	}
 
     //Consultas para Reporte1
@@ -117,4 +118,11 @@ public class ControladoraBDReportes
         return dt;
     }
 
+
+	public DataTable obtenerCantidadesDeHorasCompletadas(string periodo, string año)
+	{
+		DataTable dt = new DataTable();
+		dt = adapterAsignaciones.obtenerCantidadesDeHorasFinalizadas(Int32.Parse(año), Int32.Parse(periodo));
+		return dt;
+	}
 }

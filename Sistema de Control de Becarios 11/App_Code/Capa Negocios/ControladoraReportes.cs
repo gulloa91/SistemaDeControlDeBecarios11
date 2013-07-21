@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Data;
+using System.Web.UI.WebControls;
 
 /// <summary>
 /// Descripción breve de ControladoraReportes
@@ -434,4 +435,15 @@ public class ControladoraReportes
         }
         return lista;
     }
+
+	public List<ListItem> obtenerCantidadesDeHorasCompletadas(string periodo, string año)
+	{
+		List<ListItem> cantidadesHoras = new List<ListItem>();
+		DataTable dt = controladoraBDReportes.obtenerCantidadesDeHorasCompletadas(periodo, año);
+		for (int i = 0; i < dt.Rows.Count; ++i)
+		{
+			cantidadesHoras.Add(new ListItem(dt.Rows[i]["TotalHoras"].ToString(), i.ToString()));
+		}
+		return cantidadesHoras;
+	}
 }

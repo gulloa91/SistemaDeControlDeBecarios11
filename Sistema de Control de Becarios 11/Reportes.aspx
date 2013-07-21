@@ -8,9 +8,41 @@
 			$("a.level1:contains('Reportes')").addClass("item_active");
 		});
 	</script>
+	<script type="text/javascript">
+		function IniciarSolicitud() {
+			var iframe = document.createElement("iframe");
+
+			//Aquí se le envía la carpeta donde está corriendo el servicio actualmente. Debe tener permisos de escritura
+			var ruta = "C:/Users/Tino/GitHub/SistemaDeControlDeBecarios11/Sistema de Control de Becarios 11/PDFs/";
+			var periodo = $("[id*='DropDownListCriterio2'] :selected").val();
+			var ciclo = 0;
+			switch (periodo) {
+				case "0":
+					ciclo = 3;
+					break;
+				case "1":
+					ciclo = 2;
+					break;
+				case "2":
+					ciclo = 1;
+					break;
+			}
+
+			var destinatario = $("[id*='txtDestinatario']").val();
+			var remitente = $("[id*='txtRemitente']").val();
+			var iniciales = $("[id*='txtIniciales']").val();
+			var cantHoras = $("[id*='ddlCantHoras'] :selected").text();
+			var año = $("[id*='lblAño']").text();
+
+			iframe.src = "DescargarPDF.aspx?ruta=" + ruta + "&destinatario=" + destinatario + "&remitente=" + remitente + "&iniciales=" + iniciales + "&cantHoras=" + cantHoras + "&ciclo=" + ciclo + "&periodo=" + periodo + "&año=" + año;
+			iframe.style.display = "none";
+			document.body.appendChild(iframe);
+		}
+	</script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" Runat="Server">
 	<asp:ScriptManager ID="ScriptManager" runat="server">
+		
 	</asp:ScriptManager>
 	<asp:MultiView ID="MultiViewReportes" runat="server">
 
@@ -19,13 +51,15 @@
 
 			<asp:UpdatePanel ID="UpdateInfo" runat="server">
 				<Triggers>
-					
+					<asp:AsyncPostBackTrigger ControlID="btnPopUpGenerarPDF" EventName="Click" />
 				</Triggers>
 
 				<ContentTemplate>
 					<!-- Botones Invisibles --> 
 					<asp:Button ID="btnInvisible1" 
 						CssClass="btnInvisible1 invisible" runat="server" Text="" />
+					<asp:Button ID="btnInvisGenerarPDF" CssClass="btnInvisGenerarPDF invisible" runat="server"
+							onClientClick="IniciarSolicitud()" CausesValidation="true" ValidationGroup="vldPopUpPDF" />
 
 					<!-- Cuerpo -->
 					<div style="width: 100%; float: left;">
@@ -124,8 +158,8 @@
 												<!-- BTN Generar PDF -->
 												<div style="float: left; margin-right: 1%;">
 													<br />
-													<asp:Button ID="btnPopUpGenerarPDF" runat="server" Text="Generar PDF" OnClick="btnPopUpGenerarPDF_Click"
-														CausesValidation="false" CssClass="boton ui-widget ui-state-default ui-corner-all ui-button-text-only" Visible="true"/>
+													<asp:Button ID="btnPopUpGenerarPDF" runat="server" Text="Generar PDF" CausesValidation="false"
+														onClick="btnPopUpGenerarPDF_Click" CssClass="boton ui-widget ui-state-default ui-corner-all ui-button-text-only" Visible="false" />
 												</div>
 											</div>
 										</div>
@@ -155,10 +189,6 @@
 						<asp:AsyncPostBackTrigger ControlID="btnInvisGenerarPDF" EventName="Click" />
 					</Triggers>
 					<ContentTemplate>
-						<!-- Botón oculto -->
-						<asp:Button ID="btnInvisGenerarPDF" CssClass="btnInvisible1 invisible" runat="server"
-							OnClick="btnInvisGenerarPDF_Click" />
-
 						<!-- cuerpo del PopUp -->
 						<div>
 							<div>
@@ -175,21 +205,17 @@
 							</div>
 							<div>
 								<span>Cantidad de horas:</span>
-								<asp:TextBox runat="server" ID="txtCantHoras"></asp:TextBox>
+								<!-- Llenado por programación -->
+								<asp:DropDownList ID="ddlCantHoras" runat="server">
+								</asp:DropDownList>
 							</div>
 							<div>
 								<span>Período:</span>
-								<asp:DropDownList ID="ddlPeriodoPDF" runat="server">
-									<asp:ListItem Value="1" Text="I Período"></asp:ListItem>
-									<asp:ListItem Value="2" Text="II Período"></asp:ListItem>
-									<asp:ListItem Value="3" Text="III Período"></asp:ListItem>
-								</asp:DropDownList>
+								<asp:Label ID="lblPeriodo" runat="server" Text=""></asp:Label>
 							</div>
 							<div>
 								<span>Año:</span>
-								<!-- Llenado por programación -->
-								<asp:DropDownList ID="ddlAñoDPF" runat="server">
-								</asp:DropDownList>
+								<asp:Label ID="lblAño" runat="server" Text=""></asp:Label>
 							</div>
 						</div>
 					</ContentTemplate>

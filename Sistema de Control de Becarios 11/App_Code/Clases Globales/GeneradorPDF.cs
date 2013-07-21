@@ -15,7 +15,7 @@ using iTextSharp.text.pdf;
 /// </summary>
 public class GeneradorPDF
 {
-	private String nombreUsuario;
+	private String rutaCarpetaPDFs;
     private String Receptor;
     private String Emisor;
     private String Iniciales;
@@ -29,9 +29,9 @@ public class GeneradorPDF
 
     public GeneradorPDF() { }
 
-    public GeneradorPDF(string nombreUsuario, string receptor, string emisor, string iniciales, int cntHoras, int ciclo, string preiodo, int anno)
+    public GeneradorPDF(string ruta, string receptor, string emisor, string iniciales, int cntHoras, int ciclo, string preiodo, int anno)
 	{
-		this.nombreUsuario = nombreUsuario;
+		rutaCarpetaPDFs = ruta;
         this.Receptor = receptor;
         this.Emisor = emisor;
         this.Iniciales = iniciales;
@@ -41,9 +41,11 @@ public class GeneradorPDF
         this.Anno = anno;
 	}
 
-    public void generarInforme(){
+	//NOTA: para que este método funcione, debe existir una carpeta llamada "PDF" al mismo nivel del ejecutable
+    public string generarInforme(){
         Document document = new Document(PageSize.LETTER);
-		PdfWriter writer = PdfWriter.GetInstance(document, new FileStream("PDFs/machote " + nombreUsuario + ".PDF", FileMode.OpenOrCreate));
+		string nombreCompletoArchivo = "Reporte Becarios Finalizados" + DateTime.Now.ToString("dd_MM_yyyy-HH_mm_ss_fffff") + ".PDF";
+		PdfWriter writer = PdfWriter.GetInstance(document, new FileStream(rutaCarpetaPDFs + nombreCompletoArchivo, FileMode.OpenOrCreate));
         document.Open();
         crearEncabezado(document, writer);
         document.Add(new Paragraph(" "));
@@ -173,6 +175,7 @@ public class GeneradorPDF
         crearFirma(document);
         crearPieDePagina(document, writer);
         document.Close();
+		return nombreCompletoArchivo;
     }
 
     public PdfPTable retornarTabla() {
@@ -215,7 +218,7 @@ public class GeneradorPDF
     }
 
     public Image colocarImagenUCR(Document doc){
-		Image imagen = Image.GetInstance("../../Images/UCR-Escudo-Colores.png");
+		Image imagen = Image.GetInstance(rutaCarpetaPDFs + "Images/UCR-Escudo-Colores.png");
         imagen.Alignment = Image.TEXTWRAP;
         imagen.ScaleAbsolute(75f, 75f);
         imagen.SetAbsolutePosition(40, doc.PageSize.Height - 100);
@@ -224,7 +227,7 @@ public class GeneradorPDF
 
     public Image colocarImagenECCI(Document doc)
     {
-		Image imagen = Image.GetInstance("../../Images/logoEcci.jpg");
+		Image imagen = Image.GetInstance(rutaCarpetaPDFs + "Images/logoEcci.jpg");
         imagen.Alignment = Image.TEXTWRAP;
         imagen.ScaleAbsolute(75f, 75f);
         imagen.SetAbsolutePosition(doc.Right - 95, doc.PageSize.Height - 100);
@@ -264,7 +267,7 @@ public class GeneradorPDF
     }
 
     private Image colocarImagenAcreditacion(Document doc) {
-		Image imagen = Image.GetInstance("../../Images/acreditacion.png");
+		Image imagen = Image.GetInstance(rutaCarpetaPDFs + "Images/acreditacion.png");
         imagen.Alignment = Image.TEXTWRAP;
         imagen.ScaleAbsolute(75f, 75f);
         imagen.SetAbsolutePosition((float)(doc.PageSize.Width / 2),40);

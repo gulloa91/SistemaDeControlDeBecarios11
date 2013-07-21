@@ -6,6 +6,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Data;
 using System.Collections;
+using System.IO;
 
 public partial class Reportes : System.Web.UI.Page
 {
@@ -38,6 +39,7 @@ public partial class Reportes : System.Web.UI.Page
 	protected void MenuListaReportes_MenuItemClick(object sender, MenuEventArgs e)
 	{
 		lsObject.Clear();
+		btnPopUpGenerarPDF.Visible = false;
 
 		switch (e.Item.Text)
 		{
@@ -50,8 +52,7 @@ public partial class Reportes : System.Web.UI.Page
 					indexUltimaAsignacion = 0;
 
 					tipoReporte = 1;
-					mostrarGrid();                   
-
+					mostrarGrid();
 				} break;
 
 			// REPORTE 2
@@ -63,8 +64,7 @@ public partial class Reportes : System.Web.UI.Page
 					indexUltimaAsignacion = 1;
 
 					tipoReporte = 2;
-					mostrarGrid();                  
-
+					mostrarGrid();
 				} break;
 
 			// REPORTE 3
@@ -77,8 +77,7 @@ public partial class Reportes : System.Web.UI.Page
 					indexUltimaAsignacion = 0;
 
 					tipoReporte = 3;
-					mostrarGrid();                                       
-
+					mostrarGrid();
 				} break;
 
 			// REPORTE 4 Y 5
@@ -107,15 +106,13 @@ public partial class Reportes : System.Web.UI.Page
 						tipoReporte = 5;
 						mostrarGrid();                        
 					}
-
 				} break;
 
 			// REPORTE 6
 			case "Asignaciones de un Becario":
 				{
 					tipoReporte = 6;
-					mostrarGrid(); 
-					
+					mostrarGrid();
 				} break;
 
 			// REPORTE 7
@@ -123,7 +120,6 @@ public partial class Reportes : System.Web.UI.Page
 				{
 					tipoReporte = 7;
 					mostrarGrid();
-
 				} break;
 		}
 	}
@@ -1002,7 +998,7 @@ public partial class Reportes : System.Web.UI.Page
 					lsObject = controladoraReportes.reporteBecarios(tipoReporte, criterioDeBusqueda, estado, periodo, año, null, null);
 
 					mostrarGrid();
-
+					btnPopUpGenerarPDF.Visible = true;
 				} break;
 			case 2:
 				{
@@ -1121,53 +1117,48 @@ public partial class Reportes : System.Web.UI.Page
 		}
 	}
 
-	protected void btnInvisGenerarPDF_Click(object sender, EventArgs e)
-	{
-		int ciclo = 1;
-		string numeroPeriodo = "I";
-		switch (ddlPeriodoPDF.SelectedValue)
-		{
-			case "II Período":
-				ciclo = 2;
-				numeroPeriodo = "II";
-				break;
-			case "III Período":
-				ciclo = 3;
-				numeroPeriodo = "III";
-				break;
-		}
-		generadorPDF = new GeneradorPDF((string) Session["Nombre"], commonService.procesarStringDeUI(txtDestinatario.Text), commonService.procesarStringDeUI(txtRemitente.Text), commonService.procesarStringDeUI(txtIniciales.Text), Int32.Parse(txtCantHoras.Text), ciclo, numeroPeriodo, Int32.Parse(ddlPeriodoPDF.SelectedValue));
-		generadorPDF.generarInforme();
-		commonService.cerrarPopUp("PopUpPDF");
-		commonService.mensajeJavascript("Su reporte se ha generado", "Reporte generado");
-	}
-
 	//Se invoca al hacer clic en el botón "Generar PDF" de la vista principal
 	protected void btnPopUpGenerarPDF_Click(object sender, EventArgs e)
 	{
-		commonService.abrirPopUp("popUpPDF", "Generar PDF");
-		inicializarCamposPopUpPDF();
+		if (inicializarCamposPopUpPDF())
+			commonService.abrirPopUp("popUpPDF", "Generar PDF");
+		else
+			commonService.mensajeJavascript("No hay becarios que hayan completado horas para el año y período elegidos", "Atención"); //Reportar que no hay becarios para actualizar
 	}
 
-	protected void inicializarCamposPopUpPDF()
+	protected bool inicializarCamposPopUpPDF()
 	{
-		txtDestinatario.Text = "";
-		txtRemitente.Text = "";
-		txtIniciales.Text = "";
-		txtCantHoras.Text = "";
-
-		//Llenar dropdown de años
-		Hashtable año = new Hashtable();
-		DateTime hoy = DateTime.Now;
-		año.Add(5, hoy.Year.ToString());
-		año.Add(4, (hoy.Year - 1).ToString());
-		año.Add(3, (hoy.Year - 2).ToString());
-		año.Add(2, (hoy.Year - 3).ToString());
-		año.Add(1, (hoy.Year - 4).ToString());
-		año.Add(0, (hoy.Year - 5).ToString());
-		ddlAñoDPF.DataTextField = "Value";
-		ddlAñoDPF.DataValueField = "Key";
-		ddlAñoDPF.DataSource = año;
-		ddlAñoDPF.DataBind();
+		switch (DropDownListCriterio2.SelectedValue)
+		{
+			case "0":
+				lblPeriodo.Text = "3";
+				break;
+			case "1":
+				lblPeriodo.Text = "2";
+				break;
+			case "2":
+				lblPeriodo.Text = "1";
+				break;
+		}
+		List<ListItem> listaCantidadHoras = controladoraReportes.obtenerCantidadesDeHorasCompletadas(lblPeriodo.Text, DropDownListCriterio3.SelectedItem.Text);
+		if (listaCantidadHoras.Count > 0)
+		{
+			lblAño.Text = DropDownListCriterio3.SelectedItem.Text;
+			txtDestinatario.Text = "";
+			txtRemitente.Text = "";
+			txtIniciales.Text = "";
+			ddlCantHoras.DataSource = listaCantidadHoras;
+			ddlCantHoras.DataTextField = "Text";
+			ddlCantHoras.DataValueField = "Value";
+			ddlCantHoras.DataBind();
+			return true;
+		}
+		else
+			return false;
 	}
 }
+
+
+/*	*Agregar validadores
+	*Arreglar CSS
+	*/
