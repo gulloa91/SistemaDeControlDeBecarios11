@@ -1,5 +1,7 @@
 ﻿$(document).ready(function () {
-            setPopUp("PopUpAyuda", "btnInvisible1");
+    setPopUp("PopUpAyuda", "btnInvisible1");
+    setPopUpAyuda("PopUpAyudaAdmin");
+    setPopUpAyuda("PopUpAyudaParcial");
 
             $("#PopUp").dialog({
                 autoOpen: false,

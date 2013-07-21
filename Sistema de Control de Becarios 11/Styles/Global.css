@@ -16,7 +16,7 @@ body
 }
 
 .item_active{
-	background: #000 !important;
+	background: #c73828 !important;
     border-bottom: 2px solid red;
 }
 

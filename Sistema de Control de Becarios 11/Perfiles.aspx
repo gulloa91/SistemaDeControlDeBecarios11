@@ -58,9 +58,7 @@
                 <!-- Ayuda -->
                 <div class="insertar" style="float:right; width:10%">     
                     <div style="width: 100%; float:left; font-weight: bold; font-size: 16px; border-bottom: 1px solid #fff; margin-bottom: 5px;">Ayuda</div>                       
-                    <asp:Button ID="btnAyudaVistaAdministrador" runat="server" Text="Ayuda" 
-                        CssClass="boton ui-widget ui-state-default ui-corner-all ui-button-text-only" 
-                        onclick="btnAyuda_Click" CausesValidation="false"/>
+                    <input type="button" value="Ayuda" class="boton ui-widget ui-state-default ui-corner-all ui-button-text-only" id="Button1" onclick="$('#PopUpAyuda').dialog('open');" />
                 </div>
                 <asp:GridView ID="gridPerfiles" CssClass="globalTable" runat="server" 
                     OnPageIndexChanging="gridPerfiles_PageIndexChanging" 
@@ -198,7 +196,7 @@
     <div id="PopUpAyuda">
         <asp:UpdatePanel runat="server" ID="UpdatePanelAyuda">
             <ContentTemplate>
-                <asp:Label ID ="lblAyuda" runat="server" CssClass="Ayuda" Text="Ayuda"></asp:Label>
+                <iframe style="width: 99%; height: 500px;" src="HTMLS%20Ayuda/Perfil%20Admin/Perfiles/Admin%20-%20Perfil.htm"></iframe>
             </ContentTemplate>
         </asp:UpdatePanel>                
     </div>

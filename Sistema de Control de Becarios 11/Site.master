@@ -27,13 +27,13 @@
                 <div class="header">
             
                     <div id="LogoECCI">
-                        <img src="Images/logo_ecci.png" alt="Logo ECCI" />
+                        <img src="Images/firma_ucr.png" alt="Logo ECCI" />
                     </div>
                     <div id="LogoSistema">
                         <img src="Images/logo.png" alt="Logo Sistema" />
                     </div>
                     <div id="LogoUCR">
-                        <img src="Images/firma_ucr.png" alt="Logo UCR" />
+                        <img src="Images/logo_ecci.png" alt="Logo UCR" />
                     </div>
                     <div id="Menu_Container">
                         <div class ="pnlCerrarSesion">
