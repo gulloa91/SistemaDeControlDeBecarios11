@@ -1,6 +1,6 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.master" AutoEventWireup="true" CodeFile="Reportes.aspx.cs" Inherits="Reportes" %>
 
-<asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" Runat="Server">
+<asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="Server">
 	<script src="Scripts/Reportes.js" type="text/javascript"></script>
 	<link href="Styles/Reportes.css" rel="stylesheet" type="text/css" />
 	<script type="text/javascript">
@@ -40,9 +40,8 @@
 		}
 	</script>
 </asp:Content>
-<asp:Content ID="Content2" ContentPlaceHolderID="MainContent" Runat="Server">
+<asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="Server">
 	<asp:ScriptManager ID="ScriptManager" runat="server">
-		
 	</asp:ScriptManager>
 	<asp:MultiView ID="MultiViewReportes" runat="server">
 
@@ -55,23 +54,23 @@
 				</Triggers>
 
 				<ContentTemplate>
-					<!-- Botones Invisibles --> 
-					<asp:Button ID="btnInvisible1" 
+					<!-- Botones Invisibles -->
+					<asp:Button ID="btnInvisible1"
 						CssClass="btnInvisible1 invisible" runat="server" Text="" />
 					<asp:Button ID="btnInvisGenerarPDF" CssClass="btnInvisGenerarPDF invisible" runat="server"
-							onClientClick="IniciarSolicitud()" CausesValidation="true" ValidationGroup="vldPopUpPDF" />
+						OnClientClick="IniciarSolicitud()" CausesValidation="true" ValidationGroup="vldPopUpPDF" />
 
 					<!-- Cuerpo -->
 					<div style="width: 100%; float: left;">
 
 						<!-- Título -->
-						<span style="width: 100%; font-weight: bold; font-size: 24px; float: left; margin: 20px 0 5px 0; text-align:center;">Módulo de Reportes</span>
-						<span style="width: 100%; font-weight: normal; font-style:italic; font-size: 16px; float: left; margin: 5px 0 20px 0; text-align:center; border-bottom: 2px solid #414141; padding-bottom: 5px;">Le permite ver diferentes reportes de la actividad entre encargados y becarios.</span>
-					
+						<span style="width: 100%; font-weight: bold; font-size: 24px; float: left; margin: 20px 0 5px 0; text-align: center;">Módulo de Reportes</span>
+						<span style="width: 100%; font-weight: normal; font-style: italic; font-size: 16px; float: left; margin: 5px 0 20px 0; text-align: center; border-bottom: 2px solid #414141; padding-bottom: 5px;">Le permite ver diferentes reportes de la actividad entre encargados y becarios.</span>
+
 						<!-- Menu reportes -->
 						<div id="Menu_Container" style="width: 15%; float: left;">
-							<asp:Menu ID="MenuListaReportes" CssClass="menu_reportes" runat="server" 
-								onmenuitemclick="MenuListaReportes_MenuItemClick" SkipLinkText="">
+							<asp:Menu ID="MenuListaReportes" CssClass="menu_reportes" runat="server"
+								OnMenuItemClick="MenuListaReportes_MenuItemClick" SkipLinkText="">
 								<Items>
 									<asp:MenuItem Text="Becarios">
 										<asp:MenuItem Text="Con horas finalizadas" ToolTip="Consultar Becarios que han finalizado sus horas"></asp:MenuItem>
@@ -100,17 +99,17 @@
 									<!-- Tipo de reporte -->
 									<asp:Label ID="lblReporteActivo" runat="server" CssClass="lblReporteActivo" Text="Por favor seleccione del menu el reporte que desee ver."></asp:Label>
 
-									<div id="wrapperDeLaInfo" style="display:none;">
+									<div id="wrapperDeLaInfo" style="display: none;">
 
 										<!-- Criterios de Búsqueda -->
 										<div style="float: left; width: 96%; padding: 2%;">
 											<div style="float: left;">
 
-												<div style="width: 100%; float:left; font-weight: bold; font-size: 16px; border-bottom: 1px solid #fff; margin-bottom: 5px;">Buscar:</div>
+												<div style="width: 100%; float: left; font-weight: bold; font-size: 16px; border-bottom: 1px solid #fff; margin-bottom: 5px;">Buscar:</div>
 												<!-- TXT Buscar -->
 												<div style="float: left; margin-right: 10px; width: 120px;">
 													<br />
-													<asp:TextBox ID="txtBuscarGeneral" onkeydown = "enterBuscar(event, 'MainContent_btnBuscar');" CssClass="inputElement" runat="server"></asp:TextBox>
+													<asp:TextBox ID="txtBuscarGeneral" onkeydown="enterBuscar(event, 'MainContent_btnBuscar');" CssClass="inputElement" runat="server"></asp:TextBox>
 												</div>
 
 												<!-- DRP Criterio 1 -->
@@ -141,14 +140,14 @@
 													</asp:DropDownList>
 												</div>
 
-												 <!-- DRP Criterio 5 -->
+												<!-- DRP Criterio 5 -->
 												<div id="criterio5" style="float: left; margin-right: 10px; width: 180px;">
 													<asp:Label ID="lblCriterio5" CssClass="inputElement" runat="server" Text=""></asp:Label>
 													<asp:DropDownList CssClass="inputElement" ID="DropDownListCriterio5" runat="server">
 													</asp:DropDownList>
 												</div>
 												<!-- Se puede hasta Criterio 5 más o menos ... -->
-												
+
 												<!-- BTN Buscar -->
 												<div style="float: left; margin-right: 1%;">
 													<br />
@@ -159,18 +158,17 @@
 												<div style="float: left; margin-right: 1%;">
 													<br />
 													<asp:Button ID="btnPopUpGenerarPDF" runat="server" Text="Generar PDF" CausesValidation="false"
-														onClick="btnPopUpGenerarPDF_Click" CssClass="boton ui-widget ui-state-default ui-corner-all ui-button-text-only" Visible="false" />
+														OnClick="btnPopUpGenerarPDF_Click" CssClass="boton ui-widget ui-state-default ui-corner-all ui-button-text-only" Visible="false" />
 												</div>
 											</div>
 										</div>
 
 										<!-- Grid -->
 										<div style="float: left; width: 96%; margin: 0 2%;">
-											<asp:GridView ID="GridViewReporte" CssClass="table_css" 
-												GridLines="Both" AllowPaging="True" RowStyle-HorizontalAlign="Center" onpageindexchanging="GridReportes_PageIndexChanging"
-												RowStyle-VerticalAlign="Middle" PageSize="15" 
-												PagerStyle-CssClass="pagerGlobal"  runat="server">
-
+											<asp:GridView ID="GridViewReporte" CssClass="table_css"
+												GridLines="Both" AllowPaging="True" RowStyle-HorizontalAlign="Center" OnPageIndexChanging="GridReportes_PageIndexChanging"
+												RowStyle-VerticalAlign="Middle" PageSize="15"
+												PagerStyle-CssClass="pagerGlobal" runat="server">
 											</asp:GridView>
 										</div>
 									</div>
@@ -180,7 +178,7 @@
 					</div>
 
 				</ContentTemplate>
-			</asp:UpdatePanel>            
+			</asp:UpdatePanel>
 
 			<!-- PopUp para generación de PDF -->
 			<div id="popUpPDF">
@@ -190,32 +188,41 @@
 					</Triggers>
 					<ContentTemplate>
 						<!-- cuerpo del PopUp -->
-						<div>
+						<div style="width: 96%; padding: 2%; float: left; background: #D8D8BF; border-radius: 5px;">
 							<div>
-								<span>Destinatario:</span>
-								<asp:TextBox runat="server" ID="txtDestinatario"></asp:TextBox>
+								<span>Destinatario:*</span>
+								<asp:TextBox runat="server" ID="txtDestinatario" Width="100%"></asp:TextBox>
+								<asp:RequiredFieldValidator Display="Dynamic" ControlToValidate="txtDestinatario" ID="RequiredFieldValidator1" runat="server" ErrorMessage="*Destinatario requerido"></asp:RequiredFieldValidator>
+								<asp:RegularExpressionValidator ValidationExpression="^[a-zA-ZñÑáéíóúÁÉÍÓÚüÜ\ |., ]{1,50}$" Display="Dynamic" ControlToValidate="txtDestinatario" ID="RegularExpressionValidator1" runat="server" ErrorMessage="*Se han escrito caracteres inválidos"></asp:RegularExpressionValidator>
 							</div>
 							<div>
-								<span>Remitente:</span>
-								<asp:TextBox runat="server" ID="txtRemitente"></asp:TextBox>
+								<span>Remitente:*</span>
+								<asp:TextBox runat="server" ID="txtRemitente" Width="100%"></asp:TextBox>
+								<asp:RequiredFieldValidator Display="Dynamic" ControlToValidate="txtRemitente" ID="RequiredFieldValidator2" runat="server" ErrorMessage="*Remitente requerido"></asp:RequiredFieldValidator>
+								<asp:RegularExpressionValidator Display="Dynamic" ControlToValidate="txtRemitente" ValidationExpression="^[a-zA-ZñÑáéíóúÁÉÍÓÚüÜ\ |., ]{1,50}$" ID="RegularExpressionValidator3" runat="server" ErrorMessage="*Se han escrito caracteres inválidos"></asp:RegularExpressionValidator>
+							</div>
+							<div style="width: 50%; float: left;">
+								<div>
+									<span style="display: block">Iniciales:*</span>
+									<asp:TextBox runat="server" ID="txtIniciales"></asp:TextBox>
+									<asp:RequiredFieldValidator Display="Dynamic" ControlToValidate="txtIniciales" ID="RequiredFieldValidator3" runat="server" ErrorMessage="*Iniciales requeridas"></asp:RequiredFieldValidator>
+									<asp:RegularExpressionValidator  ValidationExpression="^[A-ZÑÁÉÍÓÚÜ]{1,50}$" Display="Dynamic" ControlToValidate="txtIniciales" ID="RegularExpressionValidator2" runat="server" ErrorMessage="*Sólo mayúsculas"></asp:RegularExpressionValidator>
+								</div>
+								<div>
+									<span style="display: block">Cantidad de horas:</span>
+									<!-- Llenado por programación -->
+									<asp:DropDownList ID="ddlCantHoras" runat="server"></asp:DropDownList>
+								</div>
 							</div>
 							<div>
-								<span>Iniciales:</span>
-								<asp:TextBox runat="server" ID="txtIniciales"></asp:TextBox>
-							</div>
-							<div>
-								<span>Cantidad de horas:</span>
-								<!-- Llenado por programación -->
-								<asp:DropDownList ID="ddlCantHoras" runat="server">
-								</asp:DropDownList>
-							</div>
-							<div>
-								<span>Período:</span>
-								<asp:Label ID="lblPeriodo" runat="server" Text=""></asp:Label>
-							</div>
-							<div>
-								<span>Año:</span>
-								<asp:Label ID="lblAño" runat="server" Text=""></asp:Label>
+								<div style="width: 50%; float: left;">
+									<span style="display: block">Período:</span>
+									<asp:Label ID="lblPeriodo" runat="server" Text=""></asp:Label>
+								</div>
+								<div style="width: 50%; float: left;">
+									<span style="display: block">Año:</span>
+									<asp:Label ID="lblAño" runat="server" Text=""></asp:Label>
+								</div>
 							</div>
 						</div>
 					</ContentTemplate>
@@ -225,7 +232,7 @@
 
 		<!-- Sin acceso al módulo -->
 		<asp:View ID="VistaSinPermiso" runat="server">
-			<h2 style="color: Red; text-align:center;">Lo sentimos. Usted no tiene acceso a esta sección.</h2>
+			<h2 style="color: Red; text-align: center;">Lo sentimos. Usted no tiene acceso a esta sección.</h2>
 		</asp:View>
 
 	</asp:MultiView>
