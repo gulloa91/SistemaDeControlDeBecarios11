@@ -1171,8 +1171,8 @@ public partial class Reportes : System.Web.UI.Page
 		if (listaCantidadHoras.Count > 0)
 		{
 			lblAño.Text = DropDownListCriterio3.SelectedItem.Text;
-			txtDestinatario.Text = "";
-			txtRemitente.Text = "";
+            txtDestinatario.Text = "Lic. Andrey Fallas Alvarado";
+            txtRemitente.Text = "Licda. Milena Zúñiga Cárdenas";
 			txtIniciales.Text = "";
 			ddlCantHoras.DataSource = listaCantidadHoras;
 			ddlCantHoras.DataTextField = "Text";
