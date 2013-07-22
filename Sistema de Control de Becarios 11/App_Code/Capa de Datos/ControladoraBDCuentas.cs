@@ -6,6 +6,7 @@ using System.Data;
 using System.Data.SqlClient;
 using DataSetCuentasTableAdapters;
 using DataSetCuentasPerfilesQuitarTableAdapters;
+using AsignacionesDataSetTableAdapters;
 
 public class ControladoraBDCuentas
 {
@@ -14,6 +15,7 @@ public class ControladoraBDCuentas
     EncargadoTableAdapter adapterEncargado;
     Cuenta_PerfilTableAdapter adapterCuenta_Perfil;
     DataTable1TableAdapter adapterNombreCuenta;
+    AsignadoA1TableAdapter adapterAsignaciones;
 
     //Constructor encargado de inicializar los adapter
 	public ControladoraBDCuentas()
@@ -23,6 +25,7 @@ public class ControladoraBDCuentas
         adapterBecario = new BecarioTableAdapter();
         adapterEncargado = new EncargadoTableAdapter();
         adapterNombreCuenta = new DataTable1TableAdapter();
+        adapterAsignaciones = new AsignadoA1TableAdapter();
 	}
 
     /* Efectúa: Se encarga de ejecutar la inserción en la tabla cuentas de la base de datos.
@@ -271,6 +274,16 @@ public class ControladoraBDCuentas
     public DataTable retornarNombreCuentaPorCedula(String cedula) {
         DataTable dt = new DataTable();
         dt = adapterNombreCuenta.obtenerNombrePorCedulaCuenta(cedula);
+        return dt;
+    }
+
+    /* Efectua: Revisa si existen cuentas con asignaciones pendientes
+     * Requiere: N/A
+     * Modifica: N/A
+     */
+    public DataTable revisarAsignaciones(String cedula) {
+        DataTable dt = new DataTable();
+        dt = adapterAsignaciones.revisarAsignaciones(cedula);
         return dt;
     }
 

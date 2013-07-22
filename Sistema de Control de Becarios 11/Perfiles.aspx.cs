@@ -44,7 +44,6 @@ public partial class Perfiles : System.Web.UI.Page
                          {
                              llenarGridPerfiles();//se llena el grid con los perfiles de la base de datos
                          }
-
                          habilitarBotones(false);//se deshabilitan los botones
                          commonService = new CommonServices(UpdateInfo);//instancia de servicios comunes
                      } break;
@@ -130,7 +129,7 @@ public partial class Perfiles : System.Web.UI.Page
     {
         modo = 1;//insertar
         vaciarCampos();//se vacian los campos para insertar un nuevo perfil
-        this.radioAdministrador.Checked = true;
+        //this.radioAdministrador.Checked = true;
         habilitarCampos(true);//habilita los para ingresarlos
         commonService.abrirPopUp("PopUp", "Insertar Nuevo Perfil");//abre la ventana emergente
     }
@@ -285,9 +284,9 @@ public partial class Perfiles : System.Web.UI.Page
         this.radioCuentaCompleta.Checked = false;
         this.radioCuentaParcial.Checked = false;
         this.checkPerfiles.Checked = false;
-        this.radioSinAccesoBecario.Checked = true;
-        this.radioSinAccesoEncargado.Checked = true;
-        this.radioSinCuenta.Checked = true;
+        this.radioSinAccesoBecario.Checked = false;
+        this.radioSinAccesoEncargado.Checked = false;
+        this.radioSinCuenta.Checked = false;
         this.noControlHoras.Checked = false;
     }
 
@@ -346,38 +345,43 @@ public partial class Perfiles : System.Web.UI.Page
         }
         this.txtNombrePerfil.Text = this.gridPerfiles.Rows[indice].Cells[1].Text;//pone el nombre del perfil
         nombreAnterior = this.txtNombrePerfil.Text;//guarda el nombre anterior
-        
     }
 
     public void siElimina(object sender, EventArgs e)
     {//confirmacion del usuario para eliminar un perfil
-        commonService.cerrarPopUp("PopUp");//cierro el popUp con los datos
-        Object[] datos = new Object[16];//creo el objeto de datos
-        datos[0] = this.txtNombrePerfil.Text;//guardo el nombre
-        //guardo los permisos que se van a eliminar
-        datos[3] = (this.radioBecarioCompleto.Checked) ? "1" : "0";
-        datos[4] = (this.radioBecarioParcial.Checked) ? "2" : "0";
-        datos[5] = (this.radioEncargadoCompleto.Checked) ? "3" : "0";
-        datos[6] =  (this.radioEncargadoParcial.Checked) ? "4" : "0";
-        datos[7] = (this.radioControlBecario.Checked) ? "5" : "0";
-        datos[8] = (this.radioControlEncargado.Checked) ? "6" : "0";
-        datos[9] = (this.checkReportes.Checked) ? "7" : "0";
-        datos[10] = (this.radioAsignacionCompleta.Checked) ? "8" : "0";
-        datos[11] = (this.radioAsignacionEncargado.Checked) ? "9" : "0";
-        datos[12] = (this.radioAsignacionBecario.Checked) ? "10" : "0";
-        datos[13] = (this.radioCuentaCompleta.Checked) ? "11" : "0";
-        datos[15] = (this.radioCuentaParcial.Checked) ? "12" : "0";
-        datos[14] = (this.checkPerfiles.Checked) ? "13" : "0";
-        String result = cp.ejecutar(3, datos);//ejectuo la accion de eliminar el perfil
-        if (result.Equals(""))
-        {//mesaje de exito
-            commonService.mensajeJavascript("Se ha eliminado el perfil correctamente", "Eliminacion");
+        if (!nombreAnterior.Equals("Administrador"))
+        {
+            commonService.cerrarPopUp("PopUp");//cierro el popUp con los datos
+            Object[] datos = new Object[16];//creo el objeto de datos
+            datos[0] = this.txtNombrePerfil.Text;//guardo el nombre
+            //guardo los permisos que se van a eliminar
+            datos[3] = (this.radioBecarioCompleto.Checked) ? "1" : "0";
+            datos[4] = (this.radioBecarioParcial.Checked) ? "2" : "0";
+            datos[5] = (this.radioEncargadoCompleto.Checked) ? "3" : "0";
+            datos[6] = (this.radioEncargadoParcial.Checked) ? "4" : "0";
+            datos[7] = (this.radioControlBecario.Checked) ? "5" : "0";
+            datos[8] = (this.radioControlEncargado.Checked) ? "6" : "0";
+            datos[9] = (this.checkReportes.Checked) ? "7" : "0";
+            datos[10] = (this.radioAsignacionCompleta.Checked) ? "8" : "0";
+            datos[11] = (this.radioAsignacionEncargado.Checked) ? "9" : "0";
+            datos[12] = (this.radioAsignacionBecario.Checked) ? "10" : "0";
+            datos[13] = (this.radioCuentaCompleta.Checked) ? "11" : "0";
+            datos[15] = (this.radioCuentaParcial.Checked) ? "12" : "0";
+            datos[14] = (this.checkPerfiles.Checked) ? "13" : "0";
+            String result = cp.ejecutar(3, datos);//ejectuo la accion de eliminar el perfil
+            if (result.Equals(""))
+            {//mesaje de exito
+                commonService.mensajeJavascript("Se ha eliminado el perfil correctamente", "Eliminacion");
+            }
+            else
+            {//mensaje de error
+                commonService.mensajeJavascript(result, "Error en la eliminacion");
+            }
+            llenarGridPerfiles();//lana nuevamente el grid con los nuevos perfiles
         }
-        else
-        {//mensaje de error
-            commonService.mensajeJavascript(result, "Error en la eliminacion");
+        else {
+            commonService.mensajeJavascript("No se puede eliminar el perfil de administrador","Error");
         }
-        llenarGridPerfiles();//lana nuevamente el grid con los nuevos perfiles
     }
 
     protected void gridPerfiles_PageIndexChanging(object sender, GridViewPageEventArgs e)
@@ -520,8 +524,8 @@ public partial class Perfiles : System.Web.UI.Page
     {
 
         switch(e.CommandName){//seleccion
-
             case "seleccionarPosiblePerfil": {//seleccion de fila
+                modo = 4;
                 vaciarCampos();//vaciamos los campos del popUp
                 habilitarCampos(false);//se deshabilitan los campos, asi al inicio no puede modificar
                 habilitarBotones(true);//habilito botones de eliminar y modificar
@@ -535,5 +539,42 @@ public partial class Perfiles : System.Web.UI.Page
         
         }
     
+    }
+    protected void radioAdministrador_CheckedChanged(object sender, EventArgs e)
+    {
+        String temp = txtNombrePerfil.Text;
+        vaciarCampos();
+        txtNombrePerfil.Text = temp;
+        radioSinAccesoBecario.Checked = false;
+        radioBecarioCompleto.Checked = true;
+        radioEncargadoCompleto.Checked = true;
+        radioAsignacionCompleta.Checked = true;
+        checkPerfiles.Checked = true;
+        checkReportes.Checked = true;
+        radioCuentaCompleta.Checked = true;
+    }
+
+    protected void radioEncargado_CheckedChanged(object sender, EventArgs e)
+    {
+        String temp = txtNombrePerfil.Text;
+        vaciarCampos();
+        txtNombrePerfil.Text = temp;
+        radioSinAccesoBecario.Checked = true;
+        radioEncargadoParcial.Checked = true;
+        radioControlEncargado.Checked = true;
+        radioAsignacionEncargado.Checked = true;
+        radioCuentaParcial.Checked = true;
+    }
+
+    protected void radioBecario_CheckedChanged(object sender, EventArgs e)
+    {
+        String temp = txtNombrePerfil.Text;
+        vaciarCampos();
+        txtNombrePerfil.Text = temp;
+        radioSinAccesoEncargado.Checked = true;
+        radioBecarioParcial.Checked = true;
+        radioControlBecario.Checked = true;
+        radioAsignacionBecario.Checked = true;
+        radioCuentaParcial.Checked = true;
     }
 }
