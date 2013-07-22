@@ -167,7 +167,7 @@ WHERE        (Nombre = @NombreAnterior)</CommandText>
   <xs:element name="DataSet" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:Generator_DataSetName="DataSet" msprop:Generator_UserDSName="DataSet">
     <xs:complexType>
       <xs:choice minOccurs="0" maxOccurs="unbounded">
-        <xs:element name="Perfil" msprop:Generator_TableClassName="PerfilDataTable" msprop:Generator_TableVarName="tablePerfil" msprop:Generator_RowChangedName="PerfilRowChanged" msprop:Generator_TablePropName="Perfil" msprop:Generator_RowDeletingName="PerfilRowDeleting" msprop:Generator_RowChangingName="PerfilRowChanging" msprop:Generator_RowEvHandlerName="PerfilRowChangeEventHandler" msprop:Generator_RowDeletedName="PerfilRowDeleted" msprop:Generator_RowClassName="PerfilRow" msprop:Generator_UserTableName="Perfil" msprop:Generator_RowEvArgName="PerfilRowChangeEvent">
+        <xs:element name="Perfil" msprop:Generator_TableClassName="PerfilDataTable" msprop:Generator_TableVarName="tablePerfil" msprop:Generator_TablePropName="Perfil" msprop:Generator_RowDeletingName="PerfilRowDeleting" msprop:Generator_RowChangingName="PerfilRowChanging" msprop:Generator_RowEvHandlerName="PerfilRowChangeEventHandler" msprop:Generator_RowDeletedName="PerfilRowDeleted" msprop:Generator_UserTableName="Perfil" msprop:Generator_RowChangedName="PerfilRowChanged" msprop:Generator_RowEvArgName="PerfilRowChangeEvent" msprop:Generator_RowClassName="PerfilRow">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="Nombre" msprop:Generator_ColumnVarNameInTable="columnNombre" msprop:Generator_ColumnPropNameInRow="Nombre" msprop:Generator_ColumnPropNameInTable="NombreColumn" msprop:Generator_UserColumnName="Nombre">
@@ -181,7 +181,7 @@ WHERE        (Nombre = @NombreAnterior)</CommandText>
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="Perfil_Permiso" msprop:Generator_TableClassName="Perfil_PermisoDataTable" msprop:Generator_TableVarName="tablePerfil_Permiso" msprop:Generator_RowChangedName="Perfil_PermisoRowChanged" msprop:Generator_TablePropName="Perfil_Permiso" msprop:Generator_RowDeletingName="Perfil_PermisoRowDeleting" msprop:Generator_RowChangingName="Perfil_PermisoRowChanging" msprop:Generator_RowEvHandlerName="Perfil_PermisoRowChangeEventHandler" msprop:Generator_RowDeletedName="Perfil_PermisoRowDeleted" msprop:Generator_RowClassName="Perfil_PermisoRow" msprop:Generator_UserTableName="Perfil_Permiso" msprop:Generator_RowEvArgName="Perfil_PermisoRowChangeEvent">
+        <xs:element name="Perfil_Permiso" msprop:Generator_TableClassName="Perfil_PermisoDataTable" msprop:Generator_TableVarName="tablePerfil_Permiso" msprop:Generator_TablePropName="Perfil_Permiso" msprop:Generator_RowDeletingName="Perfil_PermisoRowDeleting" msprop:Generator_RowChangingName="Perfil_PermisoRowChanging" msprop:Generator_RowEvHandlerName="Perfil_PermisoRowChangeEventHandler" msprop:Generator_RowDeletedName="Perfil_PermisoRowDeleted" msprop:Generator_UserTableName="Perfil_Permiso" msprop:Generator_RowChangedName="Perfil_PermisoRowChanged" msprop:Generator_RowEvArgName="Perfil_PermisoRowChangeEvent" msprop:Generator_RowClassName="Perfil_PermisoRow">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="NombrePerfil" msprop:Generator_ColumnVarNameInTable="columnNombrePerfil" msprop:Generator_ColumnPropNameInRow="NombrePerfil" msprop:Generator_ColumnPropNameInTable="NombrePerfilColumn" msprop:Generator_UserColumnName="NombrePerfil">
@@ -209,7 +209,7 @@ WHERE        (Nombre = @NombreAnterior)</CommandText>
   </xs:element>
   <xs:annotation>
     <xs:appinfo>
-      <msdata:Relationship name="FK__Perfil_Pe__Nombr__1F98B2C1" msdata:parent="Perfil" msdata:child="Perfil_Permiso" msdata:parentkey="Nombre" msdata:childkey="NombrePerfil" msprop:Generator_UserChildTable="Perfil_Permiso" msprop:Generator_ChildPropName="GetPerfil_PermisoRows" msprop:Generator_UserRelationName="FK__Perfil_Pe__Nombr__1F98B2C1" msprop:Generator_RelationVarName="relationFK__Perfil_Pe__Nombr__1F98B2C1" msprop:Generator_UserParentTable="Perfil" msprop:Generator_ParentPropName="PerfilRow" />
+      <msdata:Relationship name="FK__Perfil_Pe__Nombr__1F98B2C1" msdata:parent="Perfil" msdata:child="Perfil_Permiso" msdata:parentkey="Nombre" msdata:childkey="NombrePerfil" msprop:Generator_UserChildTable="Perfil_Permiso" msprop:Generator_ChildPropName="GetPerfil_PermisoRows" msprop:Generator_UserRelationName="FK__Perfil_Pe__Nombr__1F98B2C1" msprop:Generator_ParentPropName="PerfilRow" msprop:Generator_RelationVarName="relationFK__Perfil_Pe__Nombr__1F98B2C1" msprop:Generator_UserParentTable="Perfil" />
     </xs:appinfo>
   </xs:annotation>
 </xs:schema>

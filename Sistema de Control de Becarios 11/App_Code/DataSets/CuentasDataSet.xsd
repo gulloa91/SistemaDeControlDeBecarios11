@@ -246,7 +246,7 @@ Where(Cedula=@Cedula);</CommandText>
   <xs:element name="DataSetCuentas" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:Generator_DataSetName="DataSetCuentas" msprop:Generator_UserDSName="DataSetCuentas">
     <xs:complexType>
       <xs:choice minOccurs="0" maxOccurs="unbounded">
-        <xs:element name="Cuenta" msprop:Generator_TableClassName="CuentaDataTable" msprop:Generator_TableVarName="tableCuenta" msprop:Generator_TablePropName="Cuenta" msprop:Generator_RowDeletingName="CuentaRowDeleting" msprop:Generator_RowChangingName="CuentaRowChanging" msprop:Generator_RowEvHandlerName="CuentaRowChangeEventHandler" msprop:Generator_RowDeletedName="CuentaRowDeleted" msprop:Generator_UserTableName="Cuenta" msprop:Generator_RowChangedName="CuentaRowChanged" msprop:Generator_RowEvArgName="CuentaRowChangeEvent" msprop:Generator_RowClassName="CuentaRow">
+        <xs:element name="Cuenta" msprop:Generator_TableClassName="CuentaDataTable" msprop:Generator_TableVarName="tableCuenta" msprop:Generator_RowChangedName="CuentaRowChanged" msprop:Generator_TablePropName="Cuenta" msprop:Generator_RowDeletingName="CuentaRowDeleting" msprop:Generator_RowChangingName="CuentaRowChanging" msprop:Generator_RowEvHandlerName="CuentaRowChangeEventHandler" msprop:Generator_RowDeletedName="CuentaRowDeleted" msprop:Generator_RowClassName="CuentaRow" msprop:Generator_UserTableName="Cuenta" msprop:Generator_RowEvArgName="CuentaRowChangeEvent">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="Nombre" msprop:Generator_ColumnVarNameInTable="columnNombre" msprop:Generator_ColumnPropNameInRow="Nombre" msprop:Generator_ColumnPropNameInTable="NombreColumn" msprop:Generator_UserColumnName="Nombre">
@@ -274,7 +274,7 @@ Where(Cedula=@Cedula);</CommandText>
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="Encargado" msprop:Generator_TableClassName="EncargadoDataTable" msprop:Generator_TableVarName="tableEncargado" msprop:Generator_RowChangedName="EncargadoRowChanged" msprop:Generator_TablePropName="Encargado" msprop:Generator_RowDeletingName="EncargadoRowDeleting" msprop:Generator_RowChangingName="EncargadoRowChanging" msprop:Generator_RowEvHandlerName="EncargadoRowChangeEventHandler" msprop:Generator_RowDeletedName="EncargadoRowDeleted" msprop:Generator_RowClassName="EncargadoRow" msprop:Generator_UserTableName="Encargado" msprop:Generator_RowEvArgName="EncargadoRowChangeEvent">
+        <xs:element name="Encargado" msprop:Generator_TableClassName="EncargadoDataTable" msprop:Generator_TableVarName="tableEncargado" msprop:Generator_TablePropName="Encargado" msprop:Generator_RowDeletingName="EncargadoRowDeleting" msprop:Generator_RowChangingName="EncargadoRowChanging" msprop:Generator_RowEvHandlerName="EncargadoRowChangeEventHandler" msprop:Generator_RowDeletedName="EncargadoRowDeleted" msprop:Generator_UserTableName="Encargado" msprop:Generator_RowChangedName="EncargadoRowChanged" msprop:Generator_RowEvArgName="EncargadoRowChangeEvent" msprop:Generator_RowClassName="EncargadoRow">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="nombreCompleto" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnnombreCompleto" msprop:Generator_ColumnPropNameInRow="nombreCompleto" msprop:Generator_ColumnPropNameInTable="nombreCompletoColumn" msprop:Generator_UserColumnName="nombreCompleto" minOccurs="0">
@@ -294,7 +294,7 @@ Where(Cedula=@Cedula);</CommandText>
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="Becario" msprop:Generator_TableClassName="BecarioDataTable" msprop:Generator_TableVarName="tableBecario" msprop:Generator_RowChangedName="BecarioRowChanged" msprop:Generator_TablePropName="Becario" msprop:Generator_RowDeletingName="BecarioRowDeleting" msprop:Generator_RowChangingName="BecarioRowChanging" msprop:Generator_RowEvHandlerName="BecarioRowChangeEventHandler" msprop:Generator_RowDeletedName="BecarioRowDeleted" msprop:Generator_RowClassName="BecarioRow" msprop:Generator_UserTableName="Becario" msprop:Generator_RowEvArgName="BecarioRowChangeEvent">
+        <xs:element name="Becario" msprop:Generator_TableClassName="BecarioDataTable" msprop:Generator_TableVarName="tableBecario" msprop:Generator_TablePropName="Becario" msprop:Generator_RowDeletingName="BecarioRowDeleting" msprop:Generator_RowChangingName="BecarioRowChanging" msprop:Generator_RowEvHandlerName="BecarioRowChangeEventHandler" msprop:Generator_RowDeletedName="BecarioRowDeleted" msprop:Generator_UserTableName="Becario" msprop:Generator_RowChangedName="BecarioRowChanged" msprop:Generator_RowEvArgName="BecarioRowChangeEvent" msprop:Generator_RowClassName="BecarioRow">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="nombreCompleto" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnnombreCompleto" msprop:Generator_ColumnPropNameInRow="nombreCompleto" msprop:Generator_ColumnPropNameInTable="nombreCompletoColumn" msprop:Generator_UserColumnName="nombreCompleto" minOccurs="0">
@@ -314,7 +314,7 @@ Where(Cedula=@Cedula);</CommandText>
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="DataTable1" msprop:Generator_TableClassName="DataTable1DataTable" msprop:Generator_TableVarName="tableDataTable1" msprop:Generator_TablePropName="DataTable1" msprop:Generator_RowDeletingName="DataTable1RowDeleting" msprop:Generator_RowChangingName="DataTable1RowChanging" msprop:Generator_RowEvHandlerName="DataTable1RowChangeEventHandler" msprop:Generator_RowDeletedName="DataTable1RowDeleted" msprop:Generator_UserTableName="DataTable1" msprop:Generator_RowChangedName="DataTable1RowChanged" msprop:Generator_RowEvArgName="DataTable1RowChangeEvent" msprop:Generator_RowClassName="DataTable1Row">
+        <xs:element name="DataTable1" msprop:Generator_TableClassName="DataTable1DataTable" msprop:Generator_TableVarName="tableDataTable1" msprop:Generator_RowChangedName="DataTable1RowChanged" msprop:Generator_TablePropName="DataTable1" msprop:Generator_RowDeletingName="DataTable1RowDeleting" msprop:Generator_RowChangingName="DataTable1RowChanging" msprop:Generator_RowEvHandlerName="DataTable1RowChangeEventHandler" msprop:Generator_RowDeletedName="DataTable1RowDeleted" msprop:Generator_RowClassName="DataTable1Row" msprop:Generator_UserTableName="DataTable1" msprop:Generator_RowEvArgName="DataTable1RowChangeEvent">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="NombreCompleto" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnNombreCompleto" msprop:Generator_ColumnPropNameInRow="NombreCompleto" msprop:Generator_ColumnPropNameInTable="NombreCompletoColumn" msprop:Generator_UserColumnName="NombreCompleto" minOccurs="0">
