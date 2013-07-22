@@ -34,7 +34,7 @@
 			var cantHoras = $("[id*='ddlCantHoras'] :selected").text();
 			var año = $("[id*='lblAño']").text();
 
-			iframe.src = "DescargarPDF.aspx?ruta=" + ruta + "&destinatario=" + destinatario + "&remitente=" + remitente + "&iniciales=" + iniciales + "&cantHoras=" + cantHoras + "&ciclo=" + ciclo + "&periodo=" + periodo + "&año=" + año;
+			iframe.src = "DescargarPDF.aspx?&destinatario=" + destinatario + "&remitente=" + remitente + "&iniciales=" + iniciales + "&cantHoras=" + cantHoras + "&ciclo=" + ciclo + "&periodo=" + periodo + "&año=" + año;
 			iframe.style.display = "none";
 			document.body.appendChild(iframe);
 		}
