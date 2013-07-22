@@ -6,23 +6,25 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Data;
 using System.Collections;
+using System.IO;
 
 public partial class Reportes : System.Web.UI.Page
 {
-    ControladoraReportes controladoraReportes;
-    ControladoraBecarios controladoraBecarios;
-    ControladoraEncargado controladoraEncargados;
-    private static CommonServices commonService;
-    private static int tipoReporte = -1;
-    private static List<Object[]> lsObject = new List<Object[]>(); 
-    static int indexEstado = 0;
-    static int indexPeriodo = 0;
-    static int indexAño = 6;
-    static int indexUltimaAsignacion = 0;
-    static int indexBecario = 0;
-    static int indexEncargado = 0;
-    private static List<EncargadoAtrasado> lsEncargadosAtrasados = new List<EncargadoAtrasado>();
-    private static List<BecarioInactivo> lsBecariosInactivos = new List<BecarioInactivo>();
+	ControladoraReportes controladoraReportes;
+	ControladoraBecarios controladoraBecarios;
+	ControladoraEncargado controladoraEncargados;
+	GeneradorPDF generadorPDF;
+	private static CommonServices commonService;
+	private static int tipoReporte = -1;
+	private static List<Object[]> lsObject = new List<Object[]>(); 
+	static int indexEstado = 0;
+	static int indexPeriodo = 0;
+	static int indexAño = 6;
+	static int indexUltimaAsignacion = 0;
+	static int indexBecario = 0;
+	static int indexEncargado = 0;
+	private static List<EncargadoAtrasado> lsEncargadosAtrasados = new List<EncargadoAtrasado>();
+	private static List<BecarioInactivo> lsBecariosInactivos = new List<BecarioInactivo>();
 
     //EFECTO: Carga la pagina correctamente
     //REQUIERE: N/A
@@ -42,6 +44,7 @@ public partial class Reportes : System.Web.UI.Page
     protected void MenuListaReportes_MenuItemClick(object sender, MenuEventArgs e)
     {
         lsObject.Clear();
+	btnPopUpGenerarPDF.Visible = false;
 
         switch (e.Item.Text)
         {
@@ -1022,6 +1025,7 @@ public partial class Reportes : System.Web.UI.Page
                     lsObject = controladoraReportes.reporteBecarios(tipoReporte, criterioDeBusqueda, estado, periodo, año, null, null);
 
                     mostrarGrid();
+			btnPopUpGenerarPDF.Visible = true;
 
                 } break;
             case 2:
@@ -1134,11 +1138,51 @@ public partial class Reportes : System.Web.UI.Page
                     string criterioBusqueda = "%" + this.txtBuscarGeneral.Text + "%";
                     string cedulaBecario = this.DropDownListCriterio1.SelectedValue.ToString();
 
-                    lsObject = controladoraReportes.reportarHistorialDeAnotacionesEncargado(criterioBusqueda, cedulaBecario);
-                    
-                    mostrarGrid();
-                } break;
-        }
-    }
-   
+					lsObject = controladoraReportes.reportarHistorialDeAnotacionesEncargado(criterioBusqueda, cedulaBecario);
+					
+					mostrarGrid();
+				} break;
+		}
+	}
+
+	//Se invoca al hacer clic en el botón "Generar PDF" de la vista principal
+	protected void btnPopUpGenerarPDF_Click(object sender, EventArgs e)
+	{
+		if (inicializarCamposPopUpPDF())
+			commonService.abrirPopUp("popUpPDF", "Generar PDF");
+		else
+			commonService.mensajeJavascript("No hay becarios que hayan completado horas para el año y período elegidos", "Atención"); //Reportar que no hay becarios para actualizar
+	}
+
+	protected bool inicializarCamposPopUpPDF()
+	{
+		switch (DropDownListCriterio2.SelectedValue)
+		{
+			case "0":
+				lblPeriodo.Text = "3";
+				break;
+			case "1":
+				lblPeriodo.Text = "2";
+				break;
+			case "2":
+				lblPeriodo.Text = "1";
+				break;
+		}
+		List<ListItem> listaCantidadHoras = controladoraReportes.obtenerCantidadesDeHorasCompletadas(lblPeriodo.Text, DropDownListCriterio3.SelectedItem.Text);
+		if (listaCantidadHoras.Count > 0)
+		{
+			lblAño.Text = DropDownListCriterio3.SelectedItem.Text;
+			txtDestinatario.Text = "";
+			txtRemitente.Text = "";
+			txtIniciales.Text = "";
+			ddlCantHoras.DataSource = listaCantidadHoras;
+			ddlCantHoras.DataTextField = "Text";
+			ddlCantHoras.DataValueField = "Value";
+			ddlCantHoras.DataBind();
+			return true;
+		}
+		else
+			return false;
+	}
 }
+
