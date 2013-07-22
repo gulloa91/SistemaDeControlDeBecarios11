@@ -859,9 +859,9 @@ public partial class Reportes : System.Web.UI.Page
 
                     //llenar criterio de selección 1
                     Hashtable semestre = new Hashtable();
-                    semestre.Add(0, "III - Periodo");
-                    semestre.Add(1, "II  - Periodo");
-                    semestre.Add(2, "I   - Periodo");
+                    semestre.Add(0, "3");
+                    semestre.Add(1, "2");
+                    semestre.Add(2, "1");
                     this.DropDownListCriterio1.DataTextField = "Value";
                     this.DropDownListCriterio1.DataValueField = "Key";
                     this.DropDownListCriterio1.DataSource = semestre;
