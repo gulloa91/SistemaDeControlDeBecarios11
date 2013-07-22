@@ -375,14 +375,6 @@
                     <!--PERFIL DEL BECARIO-->
 	                <div id="tabs-2" style= "width:96%; padding: 0 2%;" class="pruebaCss">
 
-                       <div style="width: 96%; padding: 2%; float: left;" >
-
-                            <div style="width: 20%; float: right;">
-                                <asp:Button ID="btnModificarBecarioPerfil" runat="server" Text="Modificar" 
-                                 CssClass="boton ui-widget ui-state-default ui-corner-all ui-button-text-only" 
-                                 onclick="btnModificarBecario_Click" />
-                            </div>
-                        </div>                
 
                      <div style="width: 95%; padding: 0 2%; float: left; background: #D8D8BF; border-radius: 5px;">
 
@@ -399,7 +391,7 @@
                              <asp:AsyncPostBackTrigger ControlID="btnAgregaAreaInteres" EventName="Click" />
                              <asp:AsyncPostBackTrigger ControlID="btnAgregaCualidad" EventName="Click" />
                              <asp:AsyncPostBackTrigger ControlID="btnInvisible3" EventName="Click" />
-                             <asp:AsyncPostBackTrigger ControlID="btnModificarBecarioPerfil" EventName="Click" />
+                            
                          </Triggers>
                            
                          <ContentTemplate>
@@ -870,11 +862,6 @@
            <!--PERFIL DEL BECARIO : vista parcial-->
            <div id="tabsP-2" style= "width:96% ;" >
 
-              <div style="width: 12%; float: right; margin-bottom:1% ; margin-top:1%;">
-                 <asp:Button ID="btnModificarBecarioPerfilP" runat="server" Text="Modificar" 
-                  CssClass="boton ui-widget ui-state-default ui-corner-all ui-button-text-only" 
-                    onclick="btnModificarBecarioParcial_Click" />
-               </div>
 
            <div style="width: 96%; padding: 0 2%; float: left; background: #D8D8BF; border-radius: 5px;">
    
