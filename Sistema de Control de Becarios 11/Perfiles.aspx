@@ -75,6 +75,9 @@
             <Triggers>
                 <asp:AsyncPostBackTrigger ControlID="btnInvisible2" EventName="Click" />
                 <asp:AsyncPostBackTrigger ControlID="btnModificarEncargado" />
+                <asp:AsyncPostBackTrigger ControlID="radioAdministrador" />
+                <asp:AsyncPostBackTrigger ControlID="radioBecario" />
+                <asp:AsyncPostBackTrigger ControlID="radioEncargado" />
             </Triggers>
             <ContentTemplate>
                 <div id="perfil_content">
