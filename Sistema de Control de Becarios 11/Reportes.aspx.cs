@@ -13,7 +13,6 @@ public partial class Reportes : System.Web.UI.Page
 	ControladoraReportes controladoraReportes;
 	ControladoraBecarios controladoraBecarios;
 	ControladoraEncargado controladoraEncargados;
-	GeneradorPDF generadorPDF;
 	private static CommonServices commonService;
 	private static int tipoReporte = -1;
 	private static List<Object[]> lsObject = new List<Object[]>(); 

@@ -31,7 +31,7 @@ public class GeneradorPDF
 
     public GeneradorPDF(string ruta, string receptor, string emisor, string iniciales, int cntHoras, int ciclo, string preiodo, int anno)
 	{
-		rutaCarpetaPDFs = ruta;
+		rutaCarpetaPDFs = ruta + "\\PDFs\\";
         this.Receptor = receptor;
         this.Emisor = emisor;
         this.Iniciales = iniciales;
