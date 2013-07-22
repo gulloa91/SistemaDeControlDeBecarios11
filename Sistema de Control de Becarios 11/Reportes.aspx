@@ -1,31 +1,64 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.master" AutoEventWireup="true" CodeFile="Reportes.aspx.cs" Inherits="Reportes" %>
 
-<asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" Runat="Server">
-    <script src="Scripts/Reportes.js" type="text/javascript"></script>
-    <link href="Styles/Reportes.css" rel="stylesheet" type="text/css" />
-    <script type="text/javascript">
-        $(document).ready(function () {
-            $("a.level1:contains('Reportes')").addClass("item_active");
-        });
-    </script>
+<asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="Server">
+	<script src="Scripts/Reportes.js" type="text/javascript"></script>
+	<link href="Styles/Reportes.css" rel="stylesheet" type="text/css" />
+	<script type="text/javascript">
+		$(document).ready(function () {
+			$("a.level1:contains('Reportes')").addClass("item_active");
+		});
+	</script>
+	<script type="text/javascript">
+		function IniciarSolicitud() {
+			var iframe = document.createElement("iframe");
+
+			//Aquí se le envía la carpeta donde está corriendo el servicio actualmente. Debe tener permisos de escritura
+			var ruta = "C:/Users/Tino/GitHub/SistemaDeControlDeBecarios11/Sistema de Control de Becarios 11/PDFs/";
+			var periodo = $("[id*='DropDownListCriterio2'] :selected").val();
+			var ciclo = 0;
+			switch (periodo) {
+				case "0":
+					ciclo = 3;
+					break;
+				case "1":
+					ciclo = 2;
+					break;
+				case "2":
+					ciclo = 1;
+					break;
+			}
+
+			var destinatario = $("[id*='txtDestinatario']").val();
+			var remitente = $("[id*='txtRemitente']").val();
+			var iniciales = $("[id*='txtIniciales']").val();
+			var cantHoras = $("[id*='ddlCantHoras'] :selected").text();
+			var año = $("[id*='lblAño']").text();
+
+			iframe.src = "DescargarPDF.aspx?ruta=" + ruta + "&destinatario=" + destinatario + "&remitente=" + remitente + "&iniciales=" + iniciales + "&cantHoras=" + cantHoras + "&ciclo=" + ciclo + "&periodo=" + periodo + "&año=" + año;
+			iframe.style.display = "none";
+			document.body.appendChild(iframe);
+		}
+	</script>
 </asp:Content>
-<asp:Content ID="Content2" ContentPlaceHolderID="MainContent" Runat="Server">
-    <asp:ScriptManager ID="ScriptManager" runat="server">
-    </asp:ScriptManager>
-    <asp:MultiView ID="MultiViewReportes" runat="server">
+<asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="Server">
+	<asp:ScriptManager ID="ScriptManager" runat="server">
+	</asp:ScriptManager>
+	<asp:MultiView ID="MultiViewReportes" runat="server">
 
-        <!-- Consulta de Encargados relacionados con ese Becario -->
-        <asp:View ID="VistaReportes" runat="server">
+		<!-- Consulta de Encargados relacionados con ese Becario -->
+		<asp:View ID="VistaReportes" runat="server">
 
-            <asp:UpdatePanel ID="UpdateInfo" runat="server">
-                <Triggers>
-            
-                </Triggers>
+			<asp:UpdatePanel ID="UpdateInfo" runat="server">
+				<Triggers>
+					<asp:AsyncPostBackTrigger ControlID="btnPopUpGenerarPDF" EventName="Click" />
+				</Triggers>
 
-                <ContentTemplate>
-                    <!-- Botones Invisibles --> 
-                    <asp:Button ID="btnInvisible1" 
-                        CssClass="btnInvisible1 invisible" runat="server" Text="" />
+				<ContentTemplate>
+					<!-- Botones Invisibles -->
+					<asp:Button ID="btnInvisible1"
+						CssClass="btnInvisible1 invisible" runat="server" Text="" />
+					<asp:Button ID="btnInvisGenerarPDF" CssClass="btnInvisGenerarPDF invisible" runat="server"
+						OnClientClick="IniciarSolicitud()" CausesValidation="true" ValidationGroup="vldPopUpPDF" />
 
                     <!-- Cuerpo -->
                     <div style="width: 100%; float: left;">
@@ -125,6 +158,12 @@
                                                     <br />
                                                     <asp:Button ID="btnBuscar" runat="server" Text="Buscar" OnClick="btnBuscar_Click" CausesValidation="false" CssClass="boton ui-widget ui-state-default ui-corner-all ui-button-text-only" />
                                                 </div>
+						<!-- BTN Generar PDF -->
+												<div style="float: left; margin-right: 1%;">
+													<br />
+													<asp:Button ID="btnPopUpGenerarPDF" runat="server" Text="Generar PDF" CausesValidation="false"
+														OnClick="btnPopUpGenerarPDF_Click" CssClass="boton ui-widget ui-state-default ui-corner-all ui-button-text-only" Visible="false" />
+												</div>
 
                                             </div>
                                         </div>
@@ -144,9 +183,58 @@
                         </asp:UpdatePanel>
                     </div>
 
-                </ContentTemplate>
-            </asp:UpdatePanel>            
-        </asp:View>
+				</ContentTemplate>
+			</asp:UpdatePanel>
+
+			<!-- PopUp para generación de PDF -->
+			<div id="popUpPDF">
+				<asp:UpdatePanel runat="server" ID="updatePopUp">
+					<Triggers>
+						<asp:AsyncPostBackTrigger ControlID="btnInvisGenerarPDF" EventName="Click" />
+					</Triggers>
+					<ContentTemplate>
+						<!-- cuerpo del PopUp -->
+						<div style="width: 96%; padding: 2%; float: left; background: #D8D8BF; border-radius: 5px;">
+							<div>
+								<span>Destinatario:*</span>
+								<asp:TextBox runat="server" ID="txtDestinatario" Width="100%"></asp:TextBox>
+								<asp:RequiredFieldValidator Display="Dynamic" ControlToValidate="txtDestinatario" ID="RequiredFieldValidator1" runat="server" ErrorMessage="*Destinatario requerido"></asp:RequiredFieldValidator>
+								<asp:RegularExpressionValidator ValidationExpression="^[a-zA-ZñÑáéíóúÁÉÍÓÚüÜ\ |., ]{1,50}$" Display="Dynamic" ControlToValidate="txtDestinatario" ID="RegularExpressionValidator1" runat="server" ErrorMessage="*Se han escrito caracteres inválidos"></asp:RegularExpressionValidator>
+							</div>
+							<div>
+								<span>Remitente:*</span>
+								<asp:TextBox runat="server" ID="txtRemitente" Width="100%"></asp:TextBox>
+								<asp:RequiredFieldValidator Display="Dynamic" ControlToValidate="txtRemitente" ID="RequiredFieldValidator2" runat="server" ErrorMessage="*Remitente requerido"></asp:RequiredFieldValidator>
+								<asp:RegularExpressionValidator Display="Dynamic" ControlToValidate="txtRemitente" ValidationExpression="^[a-zA-ZñÑáéíóúÁÉÍÓÚüÜ\ |., ]{1,50}$" ID="RegularExpressionValidator3" runat="server" ErrorMessage="*Se han escrito caracteres inválidos"></asp:RegularExpressionValidator>
+							</div>
+							<div style="width: 50%; float: left;">
+								<div>
+									<span style="display: block">Iniciales:*</span>
+									<asp:TextBox runat="server" ID="txtIniciales"></asp:TextBox>
+									<asp:RequiredFieldValidator Display="Dynamic" ControlToValidate="txtIniciales" ID="RequiredFieldValidator3" runat="server" ErrorMessage="*Iniciales requeridas"></asp:RequiredFieldValidator>
+									<asp:RegularExpressionValidator  ValidationExpression="^[A-ZÑÁÉÍÓÚÜ]{1,50}$" Display="Dynamic" ControlToValidate="txtIniciales" ID="RegularExpressionValidator2" runat="server" ErrorMessage="*Sólo mayúsculas"></asp:RegularExpressionValidator>
+								</div>
+								<div>
+									<span style="display: block">Cantidad de horas:</span>
+									<!-- Llenado por programación -->
+									<asp:DropDownList ID="ddlCantHoras" runat="server"></asp:DropDownList>
+								</div>
+							</div>
+							<div>
+								<div style="width: 50%; float: left;">
+									<span style="display: block">Período:</span>
+									<asp:Label ID="lblPeriodo" runat="server" Text=""></asp:Label>
+								</div>
+								<div style="width: 50%; float: left;">
+									<span style="display: block">Año:</span>
+									<asp:Label ID="lblAño" runat="server" Text=""></asp:Label>
+								</div>
+							</div>
+						</div>
+					</ContentTemplate>
+				</asp:UpdatePanel>
+			</div>
+		</asp:View>
 
         <!-- Sin acceso al módulo -->
         <asp:View ID="VistaSinPermiso" runat="server">
