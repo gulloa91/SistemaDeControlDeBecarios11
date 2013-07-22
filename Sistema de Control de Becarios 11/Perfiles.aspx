@@ -75,6 +75,9 @@
             <Triggers>
                 <asp:AsyncPostBackTrigger ControlID="btnInvisible2" EventName="Click" />
                 <asp:AsyncPostBackTrigger ControlID="btnModificarEncargado" />
+                <asp:AsyncPostBackTrigger ControlID="radioAdministrador" />
+                <asp:AsyncPostBackTrigger ControlID="radioBecario" />
+                <asp:AsyncPostBackTrigger ControlID="radioEncargado" />
             </Triggers>
             <ContentTemplate>
                 <div id="perfil_content">
@@ -105,9 +108,9 @@
                     <!--RADIO BUTTONS PARA EL TIPO DE PERFIL-->
                     <div id="radioTipo">
                         <span>Tipo de Perfil:</span>
-                        <asp:RadioButton ID="radioAdministrador" runat="server" Text="Administrador" GroupName="tipo" Enabled="False"/>
-                        <asp:RadioButton ID="radioEncargado" runat="server" Text="Encargado" GroupName="tipo" Enabled="False" />
-                        <asp:RadioButton ID="radioBecario" runat="server" Text="Becario" GroupName="tipo" Enabled="False" />
+                        <asp:RadioButton ID="radioAdministrador" runat="server" Text="Administrador" GroupName="tipo" Enabled="False" OnCheckedChanged="radioAdministrador_CheckedChanged" AutoPostBack="True"/>
+                        <asp:RadioButton ID="radioEncargado" runat="server" Text="Encargado" GroupName="tipo" Enabled="False" OnCheckedChanged="radioEncargado_CheckedChanged" AutoPostBack="True" />
+                        <asp:RadioButton ID="radioBecario" runat="server" Text="Becario" GroupName="tipo" Enabled="False" OnCheckedChanged="radioBecario_CheckedChanged" AutoPostBack="True" />
                     </div>
                     <!-- PERMISOS -->
                     <div id="perfil_permisos">

@@ -79,6 +79,7 @@ public class ControladoraPerfiles
                     }
                 }
                 retorno = cp.modNom(datos[0].ToString(),datos[2].ToString());
+                if (retorno != "") return retorno;
                 retorno = cp.modificarTipo(datos[0].ToString(), datos[1].ToString());
                 break;
 
@@ -94,6 +95,8 @@ public class ControladoraPerfiles
                 }
                 //de ultimo elimino el perfil de la tabla perfiles
                 cp.eliminaPerfil(cs.procesarStringDeUI(datos[0].ToString()));
+                break;
+            default:
                 break;
 
         }
