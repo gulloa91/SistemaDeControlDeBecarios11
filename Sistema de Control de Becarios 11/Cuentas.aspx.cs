@@ -13,7 +13,6 @@ public partial class Cuentas : System.Web.UI.Page
     private ControladoraCuentas controladoraCuentas = new ControladoraCuentas();
     private ControladoraPerfiles controladoraPerfiles = new ControladoraPerfiles();
     private ControladoraBecarios cb = new ControladoraBecarios();
-    private ControladoraAsignaciones controladoraAsignacions = new ControladoraAsignaciones();
     private static List<int> lsTipoCuentasDrp = new List<int>();
     private static Object [] datosOriginales = new Object[4]; // datos usados para modificar la cuenta, contienen los valores viejos de la cuenta
     private static Object [] datosOriginalesAsociacion = new Object[2]; // datos usados para modificar la asociacion de una cuenta a un perfil, contiene los datos viejos de la asociacion
@@ -150,59 +149,44 @@ public partial class Cuentas : System.Web.UI.Page
      * */
     protected void btnInvisible2_Click(object sender, EventArgs e) //eliminar una cuenta
     {
-        if (this.txtUsuario.Text != "Administrador") // reviso que no sea el administrador del sistema
+        if ((string)(Session["Cuenta"]) != this.txtUsuario.Text) // condicion para evitar borrar la cuenta activa
         {
-            if (!(controladoraCuentas.revisarAsignaciones(cb.obtieneCedulaDeUsuario(this.txtUsuario.Text)))) // reviso que la cuenta no tenga asignaciones activas o que esten pendientes de aceptar
+            String mensaje = "-1";
+            if (modo != 2)
             {
-                if ((string)(Session["Cuenta"]) != this.txtUsuario.Text) // condicion para evitar borrar la cuenta activa
+                commonService.cerrarPopUp("PopUp");//cierro el popUp con los datos
+                datosOriginales[0] = this.txtUsuario.Text;
+                datosOriginales[1] = this.cntUsuario.Text;
+                datosOriginales[2] = this.txtFechaAux.Text;
+                int drpIndex = this.drpDownPerfiles.SelectedIndex;
+                if (lsTipoCuentasDrp[drpIndex] == 1 || lsTipoCuentasDrp[drpIndex] == 2)
                 {
-                    String mensaje = "-1";
-                    if (modo != 2)
-                    {
-                        commonService.cerrarPopUp("PopUp");//cierro el popUp con los datos
-                        datosOriginales[0] = this.txtUsuario.Text;
-                        datosOriginales[1] = this.cntUsuario.Text;
-                        datosOriginales[2] = this.txtFechaAux.Text;
-                        int drpIndex = this.drpDownPerfiles.SelectedIndex;
-                        if (lsTipoCuentasDrp[drpIndex] == 1 || lsTipoCuentasDrp[drpIndex] == 2)
-                        {
-                            datosOriginales[3] = cb.obtieneCedulaDeUsuario(this.txtUsuario.Text); // en caso de ser becario o encargado
-                        }
-                        else
-                        {
-                            datosOriginales[3] = "000000000"; // en caso de ser administrador
-                        }
-                        datosOriginalesAsociacion[0] = this.txtUsuario.Text;
-                        datosOriginalesAsociacion[1] = this.drpDownPerfiles.SelectedItem.Text;
-                        mensaje = controladoraCuentas.ejecutarAsociacion(3, datosOriginalesAsociacion, null); //borro primero la asociacion
-                        if (mensaje == "")
-                        {
-                            mensaje = controladoraCuentas.ejecutar(3, datosOriginales, null); // elimino la cuenta
-                            commonService.mensajeJavascript(mensaje, "Atención");
-                        }
-                    }
-                    else
-                    {
-                        mensaje = controladoraCuentas.ejecutarAsociacion(3, datosOriginalesAsociacion, null);
-                        if (mensaje == "")
-                        {
-                            mensaje = controladoraCuentas.ejecutar(3, datosOriginales, null);
-                            commonService.mensajeJavascript(mensaje, "Atención");
-                        }
-                    }
-                    llenarGridCuentas(); // actualizo el grid de cuentas
+                    datosOriginales[3] = cb.obtieneCedulaDeUsuario(this.txtUsuario.Text); // en caso de ser becario o encargado
                 }
-                else
+                else {
+                    datosOriginales[3] = "000000000"; // en caso de ser administrador
+                }
+                datosOriginalesAsociacion[0] = this.txtUsuario.Text;
+                datosOriginalesAsociacion[1] = this.drpDownPerfiles.SelectedItem.Text;
+                mensaje = controladoraCuentas.ejecutarAsociacion(3, datosOriginalesAsociacion, null); //borro primero la asociacion
+                if (mensaje == "")
                 {
-                    commonService.mensajeJavascript("No se puede eliminar la cuenta activa.", "Atención");
+                    mensaje = controladoraCuentas.ejecutar(3, datosOriginales, null); // elimino la cuenta
+                    commonService.mensajeJavascript(mensaje, "Atención");
                 }
             }
             else {
-                commonService.mensajeJavascript("No se puede eliminar una cuenta que tenga asignaciones activas o pendientes de aceptar.", "Atención");
+                mensaje = controladoraCuentas.ejecutarAsociacion(3, datosOriginalesAsociacion, null);
+                if (mensaje == "")
+                {
+                    mensaje = controladoraCuentas.ejecutar(3, datosOriginales, null);
+                    commonService.mensajeJavascript(mensaje, "Atención");
+                }
             }
+            llenarGridCuentas(); // actualizo el grid de cuentas
         }
         else {
-            commonService.mensajeJavascript("No se puede eliminar la cuenta de Administrador del Sistema.", "Atención");
+            commonService.mensajeJavascript("No se puede eliminar la cuenta activa.", "Atención");
         }
     }
 

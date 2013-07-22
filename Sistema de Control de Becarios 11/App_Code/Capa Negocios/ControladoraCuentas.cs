@@ -191,17 +191,4 @@ public class ControladoraCuentas
         return resultado;
     }
 
-    /* Efectúa: Llama a la controladora de base de datos cuentas para revisar si existen cuentas asociadas a asignaciones pendientes o activas.
-    * Requiere: N/A.
-    * Modifica: N/A.
-    */
-
-    public Boolean revisarAsignaciones(String cedula) {
-        DataTable dt = controladoraBDCuentas.revisarAsignaciones(cedula);
-        Boolean resultado = false;
-        if(dt.Rows.Count>0){
-            resultado = true;
-        }
-        return resultado;
-    }
 }
