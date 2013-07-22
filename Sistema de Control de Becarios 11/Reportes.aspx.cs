@@ -859,9 +859,9 @@ public partial class Reportes : System.Web.UI.Page
 
                     //llenar criterio de selección 1
                     Hashtable semestre = new Hashtable();
-                    semestre.Add(0, "3");
-                    semestre.Add(1, "2");
-                    semestre.Add(2, "1");
+                    semestre.Add(0, "III - Periodo");
+                    semestre.Add(1, "II  - Periodo");
+                    semestre.Add(2, "I   - Periodo");
                     this.DropDownListCriterio1.DataTextField = "Value";
                     this.DropDownListCriterio1.DataValueField = "Key";
                     this.DropDownListCriterio1.DataSource = semestre;
@@ -918,9 +918,9 @@ public partial class Reportes : System.Web.UI.Page
 
                     //llenar criterio de selección 1
                     Hashtable periodo = new Hashtable();
-                    periodo.Add(0, "3");
-                    periodo.Add(1, "2");
-                    periodo.Add(2, "1");
+                    periodo.Add(0, "III - Periodo");
+                    periodo.Add(1, "II - Periodo");
+                    periodo.Add(2, "I - Periodo");
                     this.DropDownListCriterio1.DataTextField = "Value";
                     this.DropDownListCriterio1.DataValueField = "Key";
                     this.DropDownListCriterio1.DataSource = periodo;
