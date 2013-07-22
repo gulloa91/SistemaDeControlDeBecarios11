@@ -55,6 +55,11 @@
                     <asp:Button ID="btnInsertarEncargado" runat="server" Text="Nuevo" CssClass="boton ui-widget ui-state-default ui-corner-all ui-button-text-only"
                         OnClick="clickBotonInsertar" CausesValidation="False" />
                 </div>
+                <!-- Ayuda -->
+                <div class="insertar" style="float:right; width:10%">     
+                    <div style="width: 100%; float:left; font-weight: bold; font-size: 16px; border-bottom: 1px solid #fff; margin-bottom: 5px;">Ayuda</div>                       
+                    <input type="button" value="Ayuda" class="boton ui-widget ui-state-default ui-corner-all ui-button-text-only" id="Button1" onclick="$('#PopUpAyuda').dialog('open');" />
+                </div>
                 <asp:GridView ID="gridPerfiles" CssClass="globalTable" runat="server" 
                     OnPageIndexChanging="gridPerfiles_PageIndexChanging" 
                     onrowcommand="gridPerfiles_RowCommand" AllowPaging="True" PageSize="15" PagerStyle-CssClass="pagerGlobal">
@@ -70,6 +75,9 @@
             <Triggers>
                 <asp:AsyncPostBackTrigger ControlID="btnInvisible2" EventName="Click" />
                 <asp:AsyncPostBackTrigger ControlID="btnModificarEncargado" />
+                <asp:AsyncPostBackTrigger ControlID="radioAdministrador" />
+                <asp:AsyncPostBackTrigger ControlID="radioBecario" />
+                <asp:AsyncPostBackTrigger ControlID="radioEncargado" />
             </Triggers>
             <ContentTemplate>
                 <div id="perfil_content">
@@ -100,9 +108,9 @@
                     <!--RADIO BUTTONS PARA EL TIPO DE PERFIL-->
                     <div id="radioTipo">
                         <span>Tipo de Perfil:</span>
-                        <asp:RadioButton ID="radioAdministrador" runat="server" Text="Administrador" GroupName="tipo" Enabled="False"/>
-                        <asp:RadioButton ID="radioEncargado" runat="server" Text="Encargado" GroupName="tipo" Enabled="False" />
-                        <asp:RadioButton ID="radioBecario" runat="server" Text="Becario" GroupName="tipo" Enabled="False" />
+                        <asp:RadioButton ID="radioAdministrador" runat="server" Text="Administrador" GroupName="tipo" Enabled="False" OnCheckedChanged="radioAdministrador_CheckedChanged" AutoPostBack="True"/>
+                        <asp:RadioButton ID="radioEncargado" runat="server" Text="Encargado" GroupName="tipo" Enabled="False" OnCheckedChanged="radioEncargado_CheckedChanged" AutoPostBack="True" />
+                        <asp:RadioButton ID="radioBecario" runat="server" Text="Becario" GroupName="tipo" Enabled="False" OnCheckedChanged="radioBecario_CheckedChanged" AutoPostBack="True" />
                     </div>
                     <!-- PERMISOS -->
                     <div id="perfil_permisos">
@@ -188,4 +196,11 @@
             <h2 style="color: Red; text-align:center;">Lo sentimos. Usted no tiene acceso a esta sección.</h2>      
         </asp:View>
         </asp:MultiView>
+    <div id="PopUpAyuda">
+        <asp:UpdatePanel runat="server" ID="UpdatePanelAyuda">
+            <ContentTemplate>
+                <iframe style="width: 99%; height: 500px;" src="HTMLS%20Ayuda/Perfil%20Admin/Perfiles/Admin%20-%20Perfil.htm"></iframe>
+            </ContentTemplate>
+        </asp:UpdatePanel>                
+    </div>
 </asp:Content>
