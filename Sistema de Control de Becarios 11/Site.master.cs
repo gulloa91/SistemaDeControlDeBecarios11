@@ -186,7 +186,7 @@ public partial class SiteMaster : System.Web.UI.MasterPage
 
 	protected void btnCerrarSesion_Click(object sender, EventArgs e)
 	{
-		Session.Remove("Nombre");
+        Session["Nombre"] = "";
 		Response.Redirect("~/Default.aspx");
 	}
 }
