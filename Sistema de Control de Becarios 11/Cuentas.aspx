@@ -101,7 +101,6 @@
                                 <td class="auto-style2">Usuario<span style="color:red">*</span></td>
                                 <td class="auto-style6">
                                     <asp:TextBox ID="txtUsuario" runat="server" Width="323px" CausesValidation="true" MaxLength="50"></asp:TextBox>
-                                    <asp:TextBox ID="txtFechaAux" runat="server" Width="323px" CausesValidation="false" Enabled ="false" Visible ="false"></asp:TextBox>
                                     <asp:RequiredFieldValidator ID="RequiredFieldValidatorUser" runat="server" ErrorMessage="* Campo Requerido" ControlToValidate="txtUsuario" Display="Dynamic"></asp:RequiredFieldValidator>
                                     <asp:RegularExpressionValidator ID="rxvUsuario" runat="server" ErrorMessage="El nombre de usuario no puede contener caracteres blancos, comillas dobles o sencillas"
 						        ValidationExpression="([^\s&quot;' ])+" ControlToValidate="txtUsuario" Display="Dynamic"/>
