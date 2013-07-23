@@ -98,7 +98,7 @@ public partial class Cuentas : System.Web.UI.Page
         if(modo==1 || modo==2){
             datos[0] = this.txtUsuario.Text;
             datos[1] = this.cntUsuario.Text;
-			datos[2] = Session["FechaÚltimoIngreso"];
+            datos[2] = this.txtFechaAux.Text;
             if (lsTipoCuentasDrp[this.drpDownPerfiles.SelectedIndex] != 1 && lsTipoCuentasDrp[this.drpDownPerfiles.SelectedIndex] != 2)
             {
                 datos[3] = "000000000"; // si es administrador no necesita cedula, se usa el default
@@ -162,7 +162,7 @@ public partial class Cuentas : System.Web.UI.Page
                         commonService.cerrarPopUp("PopUp");//cierro el popUp con los datos
                         datosOriginales[0] = this.txtUsuario.Text;
                         datosOriginales[1] = this.cntUsuario.Text;
-						datosOriginales[2] = Session["FechaÚltimoIngreso"];
+                        datosOriginales[2] = this.txtFechaAux.Text;
                         int drpIndex = this.drpDownPerfiles.SelectedIndex;
                         if (lsTipoCuentasDrp[drpIndex] == 1 || lsTipoCuentasDrp[drpIndex] == 2)
                         {
@@ -242,7 +242,7 @@ public partial class Cuentas : System.Web.UI.Page
         // guardo los datos antes de modificar
         datosOriginales[0] = this.txtUsuario.Text;
         datosOriginales[1] = this.cntUsuario.Text;
-		datosOriginales[2] = Session["FechaÚltimoIngreso"];
+        datosOriginales[2] = this.txtFechaAux.Text;
         datosOriginales[3] = cb.obtieneCedulaDeUsuario(this.txtUsuario.Text); 
         // guardo los datos de la asociacion vieja
         datosOriginalesAsociacion[0] = this.txtUsuario.Text;
@@ -384,8 +384,8 @@ public partial class Cuentas : System.Web.UI.Page
             this.txtUsuario.Text = "";
             this.cntUsuario.Text = "";
             this.cofCntUsuario.Text = "";
+            this.txtFechaAux.Text = "";
             this.txtNombrePersona.Text = "";
-			Session["FechaÚltimoIngreso"] = null;
         }
     }
 
@@ -526,7 +526,7 @@ public partial class Cuentas : System.Web.UI.Page
                    foreach(DataRow r in dt.Rows){
                        // lleno los campos de texto con los datos de la tupla seleccionada
                        this.txtUsuario.Text = commonService.procesarStringDeUI(r[0].ToString());
-					   Session["FechaÚltimoIngreso"] = (DateTime)r[2];
+                       this.txtFechaAux.Text = r[2].ToString();
                        this.cntUsuario.Text = commonService.procesarStringDeUI(r[1].ToString());
                        this.cofCntUsuario.Text = commonService.procesarStringDeUI(r[1].ToString());
                        this.txtNombrePersona.Text = controladoraCuentas.retornarNombreCuentaPorCedula(commonService.procesarStringDeUI(r[3].ToString()));

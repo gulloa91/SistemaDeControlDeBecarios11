@@ -129,7 +129,15 @@ public partial class SiteMaster : System.Web.UI.MasterPage
 	{
 		//MultiViewSiteMaster.SetActiveView(VistaPrincipal);
 		Boolean usuarioValido = controladoraCuentas.validarUsuario(this.txtUsuario.Text, this.txtContrasena.Text);
-        Session["UltimoAcceso"] = DateTime.Now;
+        DateTime fecha = DateTime.Now;
+        String aux = fecha.ToString("dd-MM-yyyy H:mm:ss");
+        Session["UltimoAcceso"] = aux;
+        try
+        {
+            fecha = Convert.ToDateTime(aux);
+        }catch(Exception ex){
+            fecha = DateTime.Now;
+        }
 
 		if (usuarioValido)
 		{
@@ -145,7 +153,7 @@ public partial class SiteMaster : System.Web.UI.MasterPage
 			Session["ListaPermisos"] = listaPermisos;
             Session["Cuenta"] = this.txtUsuario.Text;
             Session["TipoPerfil"] = tipoPerfil;
-			controladoraCuentas.actualizarFechaIngresoCuenta((DateTime) Session["UltimoAcceso"], this.txtUsuario.Text);
+            controladoraCuentas.actualizarFechaIngresoCuenta(fecha, this.txtUsuario.Text);
 
 			if ( tipoUsuario == 1)
 			{
@@ -176,7 +184,6 @@ public partial class SiteMaster : System.Web.UI.MasterPage
 			Session["Nombre"] = nombre;
 			Session["Apellido1"] = apellido1;
             Session["Cedula"] = cedulaUsuario;
-			Session.Remove("UltimoAcceso");
 			Response.Redirect("~/Default.aspx");
 		}
 		else {
@@ -186,7 +193,8 @@ public partial class SiteMaster : System.Web.UI.MasterPage
 
 	protected void btnCerrarSesion_Click(object sender, EventArgs e)
 	{
-		Session.Remove("Nombre");
+		string nombreUsuario = "";
+		Session["Nombre"] = nombreUsuario;
 		Response.Redirect("~/Default.aspx");
 	}
 }

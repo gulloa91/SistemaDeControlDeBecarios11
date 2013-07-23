@@ -19,9 +19,9 @@ public class Cuentas
         cs = new CommonServices(null);
         this.nombreUsuario = cs.procesarStringDeUI(datos[0].ToString());
         this.contrasenna = cs.procesarStringDeUI(datos[1].ToString());
-        if (datos[2] != null)
+        if (datos[2].ToString() != String.Empty)
         {
-            this.ultimoAcceso = (Nullable<DateTime>) datos[2];
+            this.ultimoAcceso = Convert.ToDateTime(datos[2].ToString());
         }
         else
         {
