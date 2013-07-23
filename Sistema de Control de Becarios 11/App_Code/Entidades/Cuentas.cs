@@ -19,14 +19,7 @@ public class Cuentas
         cs = new CommonServices(null);
         this.nombreUsuario = cs.procesarStringDeUI(datos[0].ToString());
         this.contrasenna = cs.procesarStringDeUI(datos[1].ToString());
-        if (datos[2] != null)
-        {
-            this.ultimoAcceso = (Nullable<DateTime>) datos[2];
-        }
-        else
-        {
-            this.ultimoAcceso = null;
-        }
+        this.ultimoAcceso = (Nullable<DateTime>) datos[2];
         this.cedulaUsuario = cs.procesarStringDeUI(datos[3].ToString());
     }
 

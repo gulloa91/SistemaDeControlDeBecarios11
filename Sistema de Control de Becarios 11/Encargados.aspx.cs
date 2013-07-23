@@ -635,7 +635,7 @@ public partial class Encargados : System.Web.UI.Page
         Object[] datos = new Object[4];
         datos[0] = usuario;//this.txtUsuario.Text;
         datos[1] = pass;  //this.cntUsuario.Text;
-        datos[2] = "";
+        datos[2] = new DateTime?();
         datos[3] = cedula;
 
         Object[] datosPerfil = new Object[2];
