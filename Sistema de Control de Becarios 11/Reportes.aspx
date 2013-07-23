@@ -13,7 +13,6 @@
 			var iframe = document.createElement("iframe");
 
 			//Aquí se le envía la carpeta donde está corriendo el servicio actualmente. Debe tener permisos de escritura
-			var ruta = "C:/Users/Tino/GitHub/SistemaDeControlDeBecarios11/Sistema de Control de Becarios 11/PDFs/";
 			var periodo = $("[id*='DropDownListCriterio2'] :selected").val();
 			var ciclo = 0;
 			switch (periodo) {
@@ -163,6 +162,16 @@
 													<br />
 													<asp:Button ID="btnPopUpGenerarPDF" runat="server" Text="Generar PDF" CausesValidation="false"
 														OnClick="btnPopUpGenerarPDF_Click" CssClass="boton ui-widget ui-state-default ui-corner-all ui-button-text-only" Visible="false" />
+												</div>
+                                                <div style="float: left; margin-right: 1%;">
+													<br />
+													<asp:Button ID="btnGenerarPDFHistorialAsignacionesBecario" runat="server" Text="Generar PDF" CausesValidation="false"
+														OnClick="btnGenerarPDFHistorialAsignacionesBecario_Click" CssClass="boton ui-widget ui-state-default ui-corner-all ui-button-text-only" Visible="false" />
+												</div>
+                                                <div style="float: left; margin-right: 1%;">
+													<br />
+													<asp:Button ID="btnGenerarPDFHistorialAsignacionesEncargado" runat="server" Text="Generar PDF" CausesValidation="false"
+														OnClick="btnGenerarPDFHistorialAsignacionesEncargado_Click" CssClass="boton ui-widget ui-state-default ui-corner-all ui-button-text-only" Visible="false" />
 												</div>
 
                                             </div>
