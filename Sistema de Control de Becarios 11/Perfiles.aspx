@@ -119,7 +119,7 @@
                                 <asp:RadioButton ID="radioBecarioCompleto" CssClass="perfil_radio" runat="server"
                                     GroupName="Becarios" Text="Becario Completo" Enabled="False" />
                                 <span class="perfil_mensaje">Muestra toda la vista del becario, es decir, la lista de
-                                    todos los becarios en el sistema. </span>
+                                    todos los becarios en el sistema, además poder insertar, modificar, eliminar y consultar todos los becarios. </span>
                                 <asp:RadioButton ID="radioBecarioParcial" CssClass="perfil_radio" runat="server"
                                     GroupName="Becarios" Text="Becario Parcial" Enabled="False" />
                                 <span class="perfil_mensaje">Muestra sólo la información principal del usuario que está
@@ -131,7 +131,7 @@
                                 <asp:RadioButton ID="radioEncargadoCompleto" CssClass="perfil_radio" runat="server"
                                     GroupName="Encargados" Text="Encargado Completo" Enabled="False" />
                                 <span class="perfil_mensaje">Muestra toda la vista del Encargado, es decir, la lista
-                                    de todos los Encargados en el sistema.</span>
+                                    de todos los Encargados en el sistema, además poder insertar, modificar, eliminar y consultar todos los encargados.</span>
                                 <asp:RadioButton ID="radioEncargadoParcial" CssClass="perfil_radio" runat="server"
                                     GroupName="Encargados" Text="Encargado Parcial" Enabled="False" />
                                 <span class="perfil_mensaje">Muestra solo la información principal del usuario que está
@@ -143,10 +143,10 @@
                         <div id="perfil_permisos_col1" class="columna-perfil">
                             <div id="permisos_horas" class="borde_perfil">
                                 <asp:RadioButton ID="radioControlBecario" CssClass="perfil_radio" runat="server" Text="Control Horas Estudiante" Enabled="False" GroupName="ControlHoras"/>
-                                <span class="perfil_mensaje">Permite al becario las horas que cumplen para ser aprobadas</span>
+                                <span class="perfil_mensaje">Permite al becario reportar las horas que cumplen para ser aprobadas y consultar aquellos reportes que ha realizado</span>
                                 <asp:RadioButton ID="radioControlEncargado" Text="Control Horas Encargado" Enabled="False" CssClass="perfil_radio" runat="server" GroupName="ControlHoras"/>
                                 <span class="perfil_mensaje">Permite al encargado revisar las horas de los becarios
-                                    asignados a él</span>
+                                    asignados a él.</span>
                                 <asp:RadioButton ID="noControlHoras" Text="Sin Acceso Control de Horas" CssClass="perfil_radio" GroupName="ControlHoras" runat="server" />
                             
                             </div>
@@ -154,19 +154,19 @@
                                 <asp:RadioButton ID="radioAsignacionCompleta" CssClass="perfil_radio" runat="server"
                                     Text="Asignacion de horas Completa" Enabled="False" GroupName="radioAsignaciones"/>
                                 <span class="perfil_mensaje">Muestra la vista completa de asignación, es decir, tanto
-                                    de encargados como de Becarios.</span>
+                                    de encargados como de Becarios, puede crear asignaciones, modificarlas, eliminarlas y consultar todas aquellas en el sistema.</span>
                                 <asp:RadioButton ID="radioAsignacionEncargado" CssClass="perfil_radio" runat="server"
                                     Text="Asignación de horas Encargado" Enabled="False" GroupName="radioAsignaciones"/>
-                                <span class="perfil_mensaje">El Encargado puede aceptar/cancelar las asignaciones de los becarios.</span>
+                                <span class="perfil_mensaje">El Encargado puede aceptar/cancelar las asignaciones de los becarios que se le han asignado.</span>
                                 <asp:RadioButton ID="radioAsignacionBecario" CssClass="perfil_radio" runat="server"
                                     Text="Asignación de horas Becario" Enabled="False" GroupName="radioAsignaciones"/>
-                                <span class="perfil_mensaje">El Becario puede consultar y saber quién es su encargado en el actual semestre.</span>
+                                <span class="perfil_mensaje">El Becario puede consultar y saber quién es su encargado en el actual semestre, así como aceptar o rechazar la asignación.</span>
                             </div>
                         </div>
                         <div id="perfil_permisos_col2" class="columna-perfil">
                             <div id="cuentas_perfiles" class="borde_perfil">
                                 <asp:CheckBox ID="checkPerfiles" CssClass="perfil_radio" runat="server" Text="Vista Completa de Perfiles" />
-                                <span class="perfil_mensaje">Muestra la vista completa de creación de Perfiles del sistema.</span>
+                                <span class="perfil_mensaje">Muestra la vista completa de creación de Perfiles del sistema, los perfiles dan acceso a los distintos módulos del sistema.</span>
                             </div>
                             <div id="Cuentas_id" class="borde_perfil">
                                 <asp:RadioButton ID="radioCuentaCompleta" CssClass="perfil_radio" runat="server"
