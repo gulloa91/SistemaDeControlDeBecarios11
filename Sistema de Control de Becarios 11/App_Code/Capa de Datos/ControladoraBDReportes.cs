@@ -146,22 +146,38 @@ public class ControladoraBDReportes
     //EFECTO: Genera la consulta a la base de datos del reporte del historial de asignaciones de un becario
     //REQUIERE: N/A
     //RETORNA: Un DataTable con la columnas correspondientes al reporte
-    public DataTable reportarHistorialDeAsignacionesBecario(string criterioBusqueda, string cedula) 
+    public DataTable reportarHistorialDeAsignacionesBecario(string criterioBusqueda, string cedula, int tipo) 
     {
         DataTable dt = new DataTable();
-        dt = adapterReporte1.reportarHistorialDeAsignacionesBecario(criterioBusqueda, cedula);
+        if (tipo == 0)
+        {
+            dt = adapterReporte1.reportarHistorialDeAsignacionesBecario(criterioBusqueda, cedula);
+        }
+        else 
+        {
+            dt = adapterReporte1.reportarHistorialDeAsignacionesBecarioTodos(criterioBusqueda);
+        }
         return dt;
     }
+
 
      //Consultas para Reporte7
 
     //EFECTO: Genera la consulta a la base de datos del reporte del historial de anotaciones de un encargado
     //REQUIERE: N/A
     //RETORNA: Un DataTable con la columnas correspondientes al reporte
-    public DataTable reportarHistorialDeAnotacionesEncargado(string criterioBusqueda, string cedula) 
+    public DataTable reportarHistorialDeAsignacionesEncargado(string criterioBusqueda, string cedula, int tipo) 
     {
         DataTable dt = new DataTable();
-        dt = adapterReporte1.reportarHistorialDeAnotacionesEncargado(criterioBusqueda, cedula);
+        if (tipo == 0)
+        {
+            dt = adapterReporte1.reportarHistorialDeAsignacionesEncargado(criterioBusqueda, cedula);
+        }
+        else 
+        {
+            dt = adapterReporte1.reportarHistorialDeAsignacionesEncargadoTodos(criterioBusqueda);
+        }
+
         return dt;
     }
 

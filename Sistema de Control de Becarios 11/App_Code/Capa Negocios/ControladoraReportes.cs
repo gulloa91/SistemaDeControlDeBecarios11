@@ -324,10 +324,28 @@ public class ControladoraReportes
     //EFECTO:  Genera la consulta a la controlodaro de base de datos sobre los encargados que están atrasados en su reporte de horas
     //REQUIERE: N/A
     //RETORNA: Lista con los encargados solicitados
-    public List<EncargadoAtrasado> llenarEncargadosAtrasados(string criterioBusqueda, int año, int semestre, DateTime fechaUltimoReporte)
+    public List<EncargadoAtrasado> llenarEncargadosAtrasados(string criterioBusqueda, int año, string semestre, DateTime fechaUltimoReporte)
     {
         List<EncargadoAtrasado> lista = new List<EncargadoAtrasado>();
-        DataTable dt = controladoraBDReportes.llenarEncargadosAtrasados(criterioBusqueda, año, semestre, fechaUltimoReporte);
+
+        int periodo = 0;
+        switch (semestre)
+        {
+            case "I   - Periodo":
+                {
+                    periodo = 1;
+                } break;
+            case "II  - Periodo":
+                {
+                    periodo = 2;
+                } break;
+            case "III   - Periodo":
+                {
+                    periodo = 3;
+                } break;
+        }
+
+        DataTable dt = controladoraBDReportes.llenarEncargadosAtrasados(criterioBusqueda, año, periodo, fechaUltimoReporte);
         foreach (DataRow r in dt.Rows)
         {
             EncargadoAtrasado encargado = new EncargadoAtrasado();
@@ -348,10 +366,10 @@ public class ControladoraReportes
     //EFECTO: Genera la consulta a la controladora BD reportes del historial de asignaciones de un becario
     //REQUIERE: N/A
     //RETORNA: Lista con las asignaciones solicitadas
-    public List<Object[]> reportarHistorialDeAsignacionesBecario(string criterioBusqueda, string cedula) 
+    public List<Object[]> reportarHistorialDeAsignacionesBecario(string criterioBusqueda, string cedula, int tipo) 
     {
         List<Object[]> lsObject = new List<Object[]>();
-        DataTable dt = controladoraBDReportes.reportarHistorialDeAsignacionesBecario(criterioBusqueda, cedula) ;
+        DataTable dt = controladoraBDReportes.reportarHistorialDeAsignacionesBecario(criterioBusqueda, cedula, tipo) ;
         foreach (DataRow r in dt.Rows)
         {
             Object[] obj = new Object[23];
@@ -391,10 +409,10 @@ public class ControladoraReportes
     //EFECTO: Genera la consulta a la controladora BD reportes del historial de anotaciones de un encargado
     //REQUIERE: N/A
     //RETORNA: Lista con las anotaciones solicitadas
-    public List<Object[]> reportarHistorialDeAnotacionesEncargado(string criterioBusqueda, string cedula)
+    public List<Object[]> reportarHistorialDeAsignacionesEncargado(string criterioBusqueda, string cedula, int tipo)
     {
         List<Object[]> lsObject = new List<Object[]>();
-        DataTable dt = controladoraBDReportes.reportarHistorialDeAnotacionesEncargado(criterioBusqueda, cedula);
+        DataTable dt = controladoraBDReportes.reportarHistorialDeAsignacionesEncargado(criterioBusqueda, cedula, tipo);
         foreach (DataRow r in dt.Rows)
         {
             Object[] obj = new Object[23];
@@ -434,9 +452,27 @@ public class ControladoraReportes
     //EFECTO: Genera la consulta a la controladora BD reportes de becarios inactivos en un lapso
     //REQUIERE: N/A
     //RETORNA: Lista con los becarios solicitadas
-    public List<BecarioInactivo> llenarBecariosInactivos(string criterioBusqueda, int año, int periodo, DateTime fechaUltimoReporte)
+    public List<BecarioInactivo> llenarBecariosInactivos(string criterioBusqueda, int año, string semestre, DateTime fechaUltimoReporte)
     {
         List<BecarioInactivo> lista = new List<BecarioInactivo>();
+
+        int periodo = 0;
+        switch (semestre)
+        {
+            case "I   - Periodo":
+                {
+                    periodo = 1;
+                } break;
+            case "II  - Periodo":
+                {
+                    periodo = 2;
+                } break;
+            case "III   - Periodo":
+                {
+                    periodo = 3;
+                } break;
+        }
+
         DataTable dt = controladoraBDReportes.llenarBecariosInactivos(criterioBusqueda, año, periodo, fechaUltimoReporte);
         foreach (DataRow r in dt.Rows)
         {
