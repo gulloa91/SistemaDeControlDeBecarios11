@@ -2,16 +2,17 @@
 <xs:schema id="ReportesDataSet" targetNamespace="http://tempuri.org/ReportesDataSet.xsd" xmlns:mstns="http://tempuri.org/ReportesDataSet.xsd" xmlns="http://tempuri.org/ReportesDataSet.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
   <xs:annotation>
     <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
-      <DataSource DefaultConnectionIndex="2" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="3" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
         <Connections>
-          <Connection AppSettingsObjectName="Web.config" AppSettingsPropertyName="ingegsg2ConnectionString1" IsAppSettingsProperty="true" Modifier="Assembly" Name="ingegsg2ConnectionString1 (Web.config)" ParameterPrefix="@" PropertyReference="AppConfig.System.Configuration.ConfigurationManager.0.ConnectionStrings.ingegsg2ConnectionString1.ConnectionString" Provider="System.Data.SqlClient" />
-          <Connection AppSettingsObjectName="Web.config" AppSettingsPropertyName="ConnectionString" ConnectionStringObject="" IsAppSettingsProperty="true" Modifier="Assembly" Name="ConnectionString (Web.config)" ParameterPrefix="@" PropertyReference="AppConfig.System.Configuration.ConfigurationManager.0.ConnectionStrings.ConnectionString.ConnectionString" Provider="System.Data.SqlClient" />
+          <Connection AppSettingsObjectName="Web.config" AppSettingsPropertyName="ingegsg2ConnectionString1" ConnectionStringObject="" IsAppSettingsProperty="true" Modifier="Assembly" Name="ingegsg2ConnectionString1 (Web.config)" ParameterPrefix="@" PropertyReference="AppConfig.System.Configuration.ConfigurationManager.0.ConnectionStrings.ingegsg2ConnectionString1.ConnectionString" Provider="System.Data.SqlClient" />
+          <Connection AppSettingsObjectName="Web.config" AppSettingsPropertyName="ConnectionString" IsAppSettingsProperty="true" Modifier="Assembly" Name="ConnectionString (Web.config)" ParameterPrefix="@" PropertyReference="AppConfig.System.Configuration.ConfigurationManager.0.ConnectionStrings.ConnectionString.ConnectionString" Provider="System.Data.SqlClient" />
           <Connection AppSettingsObjectName="Web.config" AppSettingsPropertyName="ingegsg2ConnectionString" ConnectionStringObject="" IsAppSettingsProperty="true" Modifier="Assembly" Name="ingegsg2ConnectionString (Web.config)" ParameterPrefix="@" PropertyReference="AppConfig.System.Configuration.ConfigurationManager.0.ConnectionStrings.ingegsg2ConnectionString.ConnectionString" Provider="System.Data.SqlClient" />
+          <Connection AppSettingsObjectName="Web.config" AppSettingsPropertyName="ingegsg2ConnectionString3" ConnectionStringObject="" IsAppSettingsProperty="true" Modifier="Assembly" Name="ingegsg2ConnectionString3 (Web.config)" ParameterPrefix="@" PropertyReference="AppConfig.System.Configuration.ConfigurationManager.0.ConnectionStrings.ingegsg2ConnectionString3.ConnectionString" Provider="System.Data.SqlClient" />
         </Connections>
         <Tables>
           <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="AsignacionBecarioEncargadoTableAdapter" GeneratorDataComponentClassName="AsignacionBecarioEncargadoTableAdapter" Name="AsignacionBecarioEncargado" UserDataComponentName="AsignacionBecarioEncargadoTableAdapter">
             <MainSource>
-              <DbSource ConnectionRef="ingegsg2ConnectionString (Web.config)" DbObjectType="Unknown" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="false" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="false" UserGetMethodName="GetData" UserSourceName="Fill">
+              <DbSource ConnectionRef="ingegsg2ConnectionString3 (Web.config)" DbObjectType="Unknown" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="false" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="false" UserGetMethodName="GetData" UserSourceName="Fill">
                 <SelectCommand>
                   <DbCommand CommandType="Text" ModifiedByUser="true">
                     <CommandText>SELECT        b.Cedula AS CedulaB, b.Nombre AS NombreB, b.Apellido1 AS Apellido1B, b.Apellido2 AS Apellido2B, b.Correo AS CorreoB, b.Carne AS CarneB, 
@@ -52,7 +53,7 @@ FROM            Becario AS b INNER JOIN
               <Mapping SourceColumn="TotalHorasA" DataSetColumn="TotalHorasA" />
             </Mappings>
             <Sources>
-              <DbSource ConnectionRef="ingegsg2ConnectionString (Web.config)" DbObjectType="Unknown" GenerateMethods="Get" GenerateShortCommands="true" GeneratorGetMethodName="reportarBecariosConHorasFinalizadas" GetMethodModifier="Public" GetMethodName="reportarBecariosConHorasFinalizadas" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="reportarBecariosConHorasFinalizadas" UserSourceName="reportarBecariosConHorasFinalizadas">
+              <DbSource ConnectionRef="ingegsg2ConnectionString3 (Web.config)" DbObjectType="Unknown" GenerateMethods="Get" GenerateShortCommands="true" GeneratorGetMethodName="reportarBecariosConHorasFinalizadas" GetMethodModifier="Public" GetMethodName="reportarBecariosConHorasFinalizadas" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="reportarBecariosConHorasFinalizadas" UserSourceName="reportarBecariosConHorasFinalizadas">
                 <SelectCommand>
                   <DbCommand CommandType="Text" ModifiedByUser="true">
                     <CommandText>SELECT b.Cedula AS CedulaB, b.Nombre AS NombreB, b.Apellido1 AS Apellido1B, b.Apellido2 AS Apellido2B, b.Correo AS CorreoB, b.Carne AS CarneB, b.Telefono AS TelefonoB, b.Celular AS CelularB, b.OtroTel AS OtroTelB, b.Foto AS FotoB, b.Activo AS ActivoB, e.Cedula AS CedulaE, e.Nombre AS NombreE, e.Apellido1 AS Apellido1E, e.Apellido2 AS Apellido2E, e.Correo AS CorreoE, e.Telefono AS TelefonoE, e.Celular AS CelularE, e.OtroTel AS OtroTelE, e.Puesto AS PuestoE, e.Activo AS ActivoE,  a.TotalHoras AS TotalHorasA
@@ -78,7 +79,7 @@ ORDER BY Carne DESC</CommandText>
                   </DbCommand>
                 </SelectCommand>
               </DbSource>
-              <DbSource ConnectionRef="ingegsg2ConnectionString (Web.config)" DbObjectType="Unknown" GenerateMethods="Get" GenerateShortCommands="true" GeneratorGetMethodName="reportarBecariosPendientesDeHoras" GetMethodModifier="Public" GetMethodName="reportarBecariosPendientesDeHoras" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="reportarBecariosPendientesDeHoras" UserSourceName="reportarBecariosPendientesDeHoras">
+              <DbSource ConnectionRef="ingegsg2ConnectionString3 (Web.config)" DbObjectType="Unknown" GenerateMethods="Get" GenerateShortCommands="true" GeneratorGetMethodName="reportarBecariosPendientesDeHoras" GetMethodModifier="Public" GetMethodName="reportarBecariosPendientesDeHoras" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="reportarBecariosPendientesDeHoras" UserSourceName="reportarBecariosPendientesDeHoras">
                 <SelectCommand>
                   <DbCommand CommandType="Text" ModifiedByUser="true">
                     <CommandText>SELECT b.Cedula AS CedulaB, b.Nombre AS NombreB, b.Apellido1 AS Apellido1B, b.Apellido2 AS Apellido2B, b.Correo AS CorreoB, b.Carne AS CarneB, b.Telefono AS TelefonoB, b.Celular AS CelularB, b.OtroTel AS OtroTelB, b.Foto AS FotoB, b.Activo AS ActivoB, e.Cedula AS CedulaE, e.Nombre AS NombreE, e.Apellido1 AS Apellido1E, e.Apellido2 AS Apellido2E, e.Correo AS CorreoE, e.Telefono AS TelefonoE, e.Celular AS CelularE, e.OtroTel AS OtroTelE, e.Puesto AS PuestoE, e.Activo AS ActivoE,  a.TotalHoras AS TotalHorasA
@@ -104,7 +105,7 @@ ORDER BY Carne DESC</CommandText>
                   </DbCommand>
                 </SelectCommand>
               </DbSource>
-              <DbSource ConnectionRef="ingegsg2ConnectionString (Web.config)" DbObjectType="Unknown" GenerateMethods="Get" GenerateShortCommands="true" GeneratorGetMethodName="reportarBecariosPorUnidadAcademica" GetMethodModifier="Public" GetMethodName="reportarBecariosPorUnidadAcademica" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="reportarBecariosPorUnidadAcademica" UserSourceName="reportarBecariosPorUnidadAcademica">
+              <DbSource ConnectionRef="ingegsg2ConnectionString3 (Web.config)" DbObjectType="Unknown" GenerateMethods="Get" GenerateShortCommands="true" GeneratorGetMethodName="reportarBecariosPorUnidadAcademica" GetMethodModifier="Public" GetMethodName="reportarBecariosPorUnidadAcademica" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="reportarBecariosPorUnidadAcademica" UserSourceName="reportarBecariosPorUnidadAcademica">
                 <SelectCommand>
                   <DbCommand CommandType="Text" ModifiedByUser="true">
                     <CommandText>SELECT b.Cedula AS CedulaB, b.Nombre AS NombreB, b.Apellido1 AS Apellido1B, b.Apellido2 AS Apellido2B, b.Correo AS CorreoB, b.Carne AS CarneB, b.Telefono AS TelefonoB, b.Celular AS CelularB, b.OtroTel AS OtroTelB, b.Foto AS FotoB, b.Activo AS ActivoB, e.Cedula AS CedulaE, e.Nombre AS NombreE, e.Apellido1 AS Apellido1E, e.Apellido2 AS Apellido2E, e.Correo AS CorreoE, e.Telefono AS TelefonoE, e.Celular AS CelularE, e.OtroTel AS OtroTelE, e.Puesto AS PuestoE, e.Activo AS ActivoE,  a.TotalHoras AS TotalHorasA
@@ -132,7 +133,51 @@ order by b.Carne DESC</CommandText>
                   </DbCommand>
                 </SelectCommand>
               </DbSource>
-              <DbSource ConnectionRef="ingegsg2ConnectionString (Web.config)" DbObjectType="Unknown" GenerateMethods="Get" GenerateShortCommands="true" GeneratorGetMethodName="reportarHistorialDeAnotacionesEncargado" GetMethodModifier="Public" GetMethodName="reportarHistorialDeAnotacionesEncargado" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="reportarHistorialDeAnotacionesEncargado" UserSourceName="reportarHistorialDeAnotacionesEncargado">
+              <DbSource ConnectionRef="ingegsg2ConnectionString3 (Web.config)" DbObjectType="Unknown" GenerateMethods="Get" GenerateShortCommands="true" GeneratorGetMethodName="reportarHistorialDeAsignacionesBecario" GetMethodModifier="Public" GetMethodName="reportarHistorialDeAsignacionesBecario" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="reportarHistorialDeAsignacionesBecario" UserSourceName="reportarHistorialDeAsignacionesBecario">
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="true">
+                    <CommandText>SELECT        b.Cedula AS CedulaB, b.Nombre AS NombreB, b.Apellido1 AS Apellido1B, b.Apellido2 AS Apellido2B, b.Correo AS CorreoB, b.Carne AS CarneB, 
+                         b.Telefono AS TelefonoB, b.Celular AS CelularB, b.OtroTel AS OtroTelB, b.Foto AS FotoB, b.Activo AS ActivoB, e.Cedula AS CedulaE, e.Nombre AS NombreE, 
+                         e.Apellido1 AS Apellido1E, e.Apellido2 AS Apellido2E, e.Correo AS CorreoE, e.Telefono AS TelefonoE, e.Celular AS CelularE, e.OtroTel AS OtroTelE, 
+                         e.Puesto AS PuestoE, e.Activo AS ActivoE, a.TotalHoras AS TotalHorasA, a.Periodo, a.Año, a.ComentarioDeEncargado
+FROM            Becario AS b INNER JOIN
+                         AsignadoA AS a ON b.Cedula = a.CedulaBecario INNER JOIN
+                         Encargado AS e ON e.Cedula = a.CedulaEncargado
+WHERE        (b.Cedula LIKE @criterioDeBusqueda) AND (b.Cedula = @CedulaBecario) OR
+                         (b.Cedula = @CedulaBecario) AND (b.Nombre LIKE @criterioDeBusqueda) OR
+                         (b.Cedula = @CedulaBecario) AND (b.Apellido1 LIKE @criterioDeBusqueda) OR
+                         (b.Cedula = @CedulaBecario) AND (b.Apellido2 LIKE @criterioDeBusqueda) OR
+                         (b.Cedula = @CedulaBecario) AND (b.Carne LIKE @criterioDeBusqueda) OR
+                         (b.Cedula = @CedulaBecario) AND (b.Correo LIKE @criterioDeBusqueda)
+ORDER BY CarneB DESC
+</CommandText>
+                    <Parameters>
+                      <Parameter AllowDbNull="false" AutogeneratedName="criterioDeBusqueda" ColumnName="Cedula" DataSourceName="ingegsg2.dbo.Becario" DataTypeServer="varchar(15)" DbType="AnsiString" Direction="Input" ParameterName="@criterioDeBusqueda" Precision="0" ProviderType="VarChar" Scale="0" Size="15" SourceColumn="CedulaB" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="CedulaBecario" ColumnName="Cedula" DataSourceName="ingegsg2.dbo.Becario" DataTypeServer="varchar(15)" DbType="AnsiString" Direction="Input" ParameterName="@CedulaBecario" Precision="0" ProviderType="VarChar" Scale="0" Size="15" SourceColumn="CedulaB" SourceColumnNullMapping="false" SourceVersion="Current" />
+                    </Parameters>
+                  </DbCommand>
+                </SelectCommand>
+              </DbSource>
+              <DbSource ConnectionRef="ingegsg2ConnectionString3 (Web.config)" DbObjectType="Unknown" GenerateMethods="Get" GenerateShortCommands="true" GeneratorGetMethodName="reportarHistorialDeAsignacionesBecarioTodos" GetMethodModifier="Public" GetMethodName="reportarHistorialDeAsignacionesBecarioTodos" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="reportarHistorialDeAsignacionesBecarioTodos" UserSourceName="reportarHistorialDeAsignacionesBecarioTodos">
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="true">
+                    <CommandText>SELECT        b.Cedula AS CedulaB, b.Nombre AS NombreB, b.Apellido1 AS Apellido1B, b.Apellido2 AS Apellido2B, b.Correo AS CorreoB, b.Carne AS CarneB, 
+                         b.Telefono AS TelefonoB, b.Celular AS CelularB, b.OtroTel AS OtroTelB, b.Foto AS FotoB, b.Activo AS ActivoB, e.Cedula AS CedulaE, e.Nombre AS NombreE, 
+                         e.Apellido1 AS Apellido1E, e.Apellido2 AS Apellido2E, e.Correo AS CorreoE, e.Telefono AS TelefonoE, e.Celular AS CelularE, e.OtroTel AS OtroTelE, 
+                         e.Puesto AS PuestoE, e.Activo AS ActivoE, a.TotalHoras AS TotalHorasA, a.Periodo, a.Año, a.ComentarioDeEncargado
+FROM            Becario AS b INNER JOIN
+                         AsignadoA AS a ON b.Cedula = a.CedulaBecario INNER JOIN
+                         Encargado AS e ON e.Cedula = a.CedulaEncargado
+WHERE        (b.Cedula LIKE @criterioDeBusqueda) OR (b.Nombre LIKE @criterioDeBusqueda) OR (b.Apellido1 LIKE @criterioDeBusqueda) OR (b.Apellido2 LIKE @criterioDeBusqueda) OR (b.Carne LIKE @criterioDeBusqueda) OR (b.Correo LIKE @criterioDeBusqueda)
+ORDER BY CarneB DESC
+</CommandText>
+                    <Parameters>
+                      <Parameter AllowDbNull="false" AutogeneratedName="criterioDeBusqueda" ColumnName="Cedula" DataSourceName="ingegsg2.dbo.Becario" DataTypeServer="varchar(15)" DbType="AnsiString" Direction="Input" ParameterName="@criterioDeBusqueda" Precision="0" ProviderType="VarChar" Scale="0" Size="15" SourceColumn="CedulaB" SourceColumnNullMapping="false" SourceVersion="Current" />
+                    </Parameters>
+                  </DbCommand>
+                </SelectCommand>
+              </DbSource>
+              <DbSource ConnectionRef="ingegsg2ConnectionString3 (Web.config)" DbObjectType="Unknown" GenerateMethods="Get" GenerateShortCommands="true" GeneratorGetMethodName="reportarHistorialDeAsignacionesEncargado" GetMethodModifier="Public" GetMethodName="reportarHistorialDeAsignacionesEncargado" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="reportarHistorialDeAsignacionesEncargado" UserSourceName="reportarHistorialDeAsignacionesEncargado">
                 <SelectCommand>
                   <DbCommand CommandType="Text" ModifiedByUser="true">
                     <CommandText>SELECT        b.Cedula AS CedulaB, b.Nombre AS NombreB, b.Apellido1 AS Apellido1B, b.Apellido2 AS Apellido2B, b.Correo AS CorreoB, b.Carne AS CarneB, 
@@ -158,27 +203,24 @@ ORDER by e.Nombre</CommandText>
                   </DbCommand>
                 </SelectCommand>
               </DbSource>
-              <DbSource ConnectionRef="ingegsg2ConnectionString (Web.config)" DbObjectType="Unknown" GenerateMethods="Get" GenerateShortCommands="true" GeneratorGetMethodName="reportarHistorialDeAsignacionesBecario" GetMethodModifier="Public" GetMethodName="reportarHistorialDeAsignacionesBecario" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="reportarHistorialDeAsignacionesBecario" UserSourceName="reportarHistorialDeAsignacionesBecario">
+              <DbSource ConnectionRef="ingegsg2ConnectionString3 (Web.config)" DbObjectType="Unknown" GenerateMethods="Get" GenerateShortCommands="true" GeneratorGetMethodName="reportarHistorialDeAsignacionesEncargadoTodos" GetMethodModifier="Public" GetMethodName="reportarHistorialDeAsignacionesEncargadoTodos" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="reportarHistorialDeAsignacionesEncargadoTodos" UserSourceName="reportarHistorialDeAsignacionesEncargadoTodos">
                 <SelectCommand>
                   <DbCommand CommandType="Text" ModifiedByUser="true">
                     <CommandText>SELECT        b.Cedula AS CedulaB, b.Nombre AS NombreB, b.Apellido1 AS Apellido1B, b.Apellido2 AS Apellido2B, b.Correo AS CorreoB, b.Carne AS CarneB, 
                          b.Telefono AS TelefonoB, b.Celular AS CelularB, b.OtroTel AS OtroTelB, b.Foto AS FotoB, b.Activo AS ActivoB, e.Cedula AS CedulaE, e.Nombre AS NombreE, 
                          e.Apellido1 AS Apellido1E, e.Apellido2 AS Apellido2E, e.Correo AS CorreoE, e.Telefono AS TelefonoE, e.Celular AS CelularE, e.OtroTel AS OtroTelE, 
-                         e.Puesto AS PuestoE, e.Activo AS ActivoE, a.TotalHoras AS TotalHorasA, a.Periodo, a.Año, a.ComentarioDeEncargado
+                         e.Puesto AS PuestoE, e.Activo AS ActivoE, a.TotalHoras AS TotalHorasA, a.Periodo, a.Año, a.ComentarioDeBecario
 FROM            Becario AS b INNER JOIN
                          AsignadoA AS a ON b.Cedula = a.CedulaBecario INNER JOIN
                          Encargado AS e ON e.Cedula = a.CedulaEncargado
-WHERE        (b.Cedula LIKE @criterioDeBusqueda) AND (b.Cedula = @CedulaBecario) OR
-                         (b.Cedula = @CedulaBecario) AND (b.Nombre LIKE @criterioDeBusqueda) OR
-                         (b.Cedula = @CedulaBecario) AND (b.Apellido1 LIKE @criterioDeBusqueda) OR
-                         (b.Cedula = @CedulaBecario) AND (b.Apellido2 LIKE @criterioDeBusqueda) OR
-                         (b.Cedula = @CedulaBecario) AND (b.Carne LIKE @criterioDeBusqueda) OR
-                         (b.Cedula = @CedulaBecario) AND (b.Correo LIKE @criterioDeBusqueda)
-ORDER BY CarneB DESC
-</CommandText>
+WHERE
+(
+((b.Cedula LIKE @criterioDeBusqueda) OR (b.Nombre LIKE @criterioDeBusqueda) OR (b.Apellido1 LIKE @criterioDeBusqueda) OR  (b.Apellido2 LIKE @criterioDeBusqueda) OR (b.Carne LIKE @criterioDeBusqueda) OR (b.Correo LIKE @criterioDeBusqueda)) 
+
+)
+ORDER by e.Nombre</CommandText>
                     <Parameters>
                       <Parameter AllowDbNull="false" AutogeneratedName="criterioDeBusqueda" ColumnName="Cedula" DataSourceName="ingegsg2.dbo.Becario" DataTypeServer="varchar(15)" DbType="AnsiString" Direction="Input" ParameterName="@criterioDeBusqueda" Precision="0" ProviderType="VarChar" Scale="0" Size="15" SourceColumn="CedulaB" SourceColumnNullMapping="false" SourceVersion="Current" />
-                      <Parameter AllowDbNull="false" AutogeneratedName="CedulaBecario" ColumnName="Cedula" DataSourceName="ingegsg2.dbo.Becario" DataTypeServer="varchar(15)" DbType="AnsiString" Direction="Input" ParameterName="@CedulaBecario" Precision="0" ProviderType="VarChar" Scale="0" Size="15" SourceColumn="CedulaB" SourceColumnNullMapping="false" SourceVersion="Current" />
                     </Parameters>
                   </DbCommand>
                 </SelectCommand>
@@ -187,7 +229,7 @@ ORDER BY CarneB DESC
           </TableAdapter>
           <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="BecarioTableAdapter" GeneratorDataComponentClassName="BecarioTableAdapter" Name="Becario" UserDataComponentName="BecarioTableAdapter">
             <MainSource>
-              <DbSource ConnectionRef="ingegsg2ConnectionString (Web.config)" DbObjectName="ingegsg2.dbo.Becario" DbObjectType="Table" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="true" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="false" UserGetMethodName="GetData" UserSourceName="Fill">
+              <DbSource ConnectionRef="ingegsg2ConnectionString3 (Web.config)" DbObjectName="ingegsg2.dbo.Becario" DbObjectType="Table" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="true" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="false" UserGetMethodName="GetData" UserSourceName="Fill">
                 <DeleteCommand>
                   <DbCommand CommandType="Text" ModifiedByUser="false">
                     <CommandText>DELETE FROM [dbo].[Becario] WHERE (([Cedula] = @Original_Cedula))</CommandText>
@@ -255,7 +297,7 @@ ORDER BY CarneB DESC
               <Mapping SourceColumn="Activo" DataSetColumn="Activo" />
             </Mappings>
             <Sources>
-              <DbSource ConnectionRef="ingegsg2ConnectionString (Web.config)" DbObjectName="ingegsg2.dbo.Becario" DbObjectType="Table" GenerateMethods="Get" GenerateShortCommands="true" GeneratorGetMethodName="reportarBecariosNoAsignados" GetMethodModifier="Public" GetMethodName="reportarBecariosNoAsignados" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="reportarBecariosNoAsignados" UserSourceName="reportarBecariosNoAsignados">
+              <DbSource ConnectionRef="ingegsg2ConnectionString3 (Web.config)" DbObjectName="ingegsg2.dbo.Becario" DbObjectType="Table" GenerateMethods="Get" GenerateShortCommands="true" GeneratorGetMethodName="reportarBecariosNoAsignados" GetMethodModifier="Public" GetMethodName="reportarBecariosNoAsignados" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="reportarBecariosNoAsignados" UserSourceName="reportarBecariosNoAsignados">
                 <SelectCommand>
                   <DbCommand CommandType="Text" ModifiedByUser="true">
                     <CommandText>SELECT b.Cedula, b.Nombre, b.Apellido1,b.Apellido2,b.Correo,b.Carne,b.Telefono,b.Celular,b.OtroTel,b.Foto,b.Activo
@@ -276,7 +318,7 @@ order by b.Carne DESC</CommandText>
                   </DbCommand>
                 </SelectCommand>
               </DbSource>
-              <DbSource ConnectionRef="ingegsg2ConnectionString (Web.config)" DbObjectName="ingegsg2.dbo.Becario" DbObjectType="Table" GenerateMethods="Get" GenerateShortCommands="true" GeneratorGetMethodName="reportarBecariosNoAsignados2" GetMethodModifier="Public" GetMethodName="reportarBecariosNoAsignados2" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="reportarBecariosNoAsignados2" UserSourceName="reportarBecariosNoAsignados2">
+              <DbSource ConnectionRef="ingegsg2ConnectionString3 (Web.config)" DbObjectName="ingegsg2.dbo.Becario" DbObjectType="Table" GenerateMethods="Get" GenerateShortCommands="true" GeneratorGetMethodName="reportarBecariosNoAsignados2" GetMethodModifier="Public" GetMethodName="reportarBecariosNoAsignados2" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="reportarBecariosNoAsignados2" UserSourceName="reportarBecariosNoAsignados2">
                 <SelectCommand>
                   <DbCommand CommandType="Text" ModifiedByUser="true">
                     <CommandText>SELECT b.Cedula, b.Nombre, b.Apellido1,b.Apellido2,b.Correo,b.Carne,b.Telefono,b.Celular,b.OtroTel,b.Foto,b.Activo
@@ -301,7 +343,7 @@ order by b.Carne DESC</CommandText>
                   </DbCommand>
                 </SelectCommand>
               </DbSource>
-              <DbSource ConnectionRef="ingegsg2ConnectionString (Web.config)" DbObjectName="ingegsg2.dbo.Becario" DbObjectType="Table" GenerateMethods="Get" GenerateShortCommands="true" GeneratorGetMethodName="reportarBecariosNoAsignados3" GetMethodModifier="Public" GetMethodName="reportarBecariosNoAsignados3" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="reportarBecariosNoAsignados3" UserSourceName="reportarBecariosNoAsignados3">
+              <DbSource ConnectionRef="ingegsg2ConnectionString3 (Web.config)" DbObjectName="ingegsg2.dbo.Becario" DbObjectType="Table" GenerateMethods="Get" GenerateShortCommands="true" GeneratorGetMethodName="reportarBecariosNoAsignados3" GetMethodModifier="Public" GetMethodName="reportarBecariosNoAsignados3" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="reportarBecariosNoAsignados3" UserSourceName="reportarBecariosNoAsignados3">
                 <SelectCommand>
                   <DbCommand CommandType="Text" ModifiedByUser="true">
                     <CommandText>SELECT b.Cedula, b.Nombre, b.Apellido1,b.Apellido2,b.Correo,b.Carne,b.Telefono,b.Celular,b.OtroTel,b.Foto,b.Activo
@@ -331,7 +373,7 @@ order by b.Carne DESC</CommandText>
                   </DbCommand>
                 </SelectCommand>
               </DbSource>
-              <DbSource ConnectionRef="ingegsg2ConnectionString (Web.config)" DbObjectName="ingegsg2.dbo.Becario" DbObjectType="Table" GenerateMethods="Get" GenerateShortCommands="true" GeneratorGetMethodName="reportarBecariosNoAsignados4" GetMethodModifier="Public" GetMethodName="reportarBecariosNoAsignados4" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="reportarBecariosNoAsignados4" UserSourceName="reportarBecariosNoAsignados4">
+              <DbSource ConnectionRef="ingegsg2ConnectionString3 (Web.config)" DbObjectName="ingegsg2.dbo.Becario" DbObjectType="Table" GenerateMethods="Get" GenerateShortCommands="true" GeneratorGetMethodName="reportarBecariosNoAsignados4" GetMethodModifier="Public" GetMethodName="reportarBecariosNoAsignados4" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="reportarBecariosNoAsignados4" UserSourceName="reportarBecariosNoAsignados4">
                 <SelectCommand>
                   <DbCommand CommandType="Text" ModifiedByUser="true">
                     <CommandText>SELECT b.Cedula, b.Nombre, b.Apellido1,b.Apellido2,b.Correo,b.Carne,b.Telefono,b.Celular,b.OtroTel,b.Foto,b.Activo
@@ -350,7 +392,7 @@ order by b.Carne DESC</CommandText>
           </TableAdapter>
           <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="SiglaUATableAdapter" GeneratorDataComponentClassName="SiglaUATableAdapter" Name="SiglaUA" UserDataComponentName="SiglaUATableAdapter">
             <MainSource>
-              <DbSource ConnectionRef="ingegsg2ConnectionString (Web.config)" DbObjectName="ingegsg2.dbo.AsignadoA" DbObjectType="Table" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="false" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="false" UserGetMethodName="GetData" UserSourceName="Fill">
+              <DbSource ConnectionRef="ingegsg2ConnectionString3 (Web.config)" DbObjectName="ingegsg2.dbo.AsignadoA" DbObjectType="Table" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="false" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="false" UserGetMethodName="GetData" UserSourceName="Fill">
                 <SelectCommand>
                   <DbCommand CommandType="Text" ModifiedByUser="true">
                     <CommandText>SELECT DISTINCT SiglasUA  FROM dbo.AsignadoA</CommandText>
@@ -363,7 +405,7 @@ order by b.Carne DESC</CommandText>
               <Mapping SourceColumn="SiglasUA" DataSetColumn="SiglasUA" />
             </Mappings>
             <Sources>
-              <DbSource ConnectionRef="ingegsg2ConnectionString (Web.config)" DbObjectName="ingegsg2.dbo.AsignadoA" DbObjectType="Table" GenerateMethods="Get" GenerateShortCommands="true" GeneratorGetMethodName="optenerUnidadesAcademicas" GetMethodModifier="Public" GetMethodName="optenerUnidadesAcademicas" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="optenerUnidadesAcademicas" UserSourceName="optenerUnidadesAcademicas">
+              <DbSource ConnectionRef="ingegsg2ConnectionString3 (Web.config)" DbObjectName="ingegsg2.dbo.AsignadoA" DbObjectType="Table" GenerateMethods="Get" GenerateShortCommands="true" GeneratorGetMethodName="optenerUnidadesAcademicas" GetMethodModifier="Public" GetMethodName="optenerUnidadesAcademicas" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="optenerUnidadesAcademicas" UserSourceName="optenerUnidadesAcademicas">
                 <SelectCommand>
                   <DbCommand CommandType="Text" ModifiedByUser="true">
                     <CommandText>SELECT DISTINCT SiglasUA ComentarioDeDireccion FROM dbo.AsignadoA</CommandText>
@@ -375,7 +417,7 @@ order by b.Carne DESC</CommandText>
           </TableAdapter>
           <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="ActividadEncargadoTableAdapter" GeneratorDataComponentClassName="ActividadEncargadoTableAdapter" Name="ActividadEncargado" UserDataComponentName="ActividadEncargadoTableAdapter">
             <MainSource>
-              <DbSource ConnectionRef="ingegsg2ConnectionString (Web.config)" DbObjectType="Unknown" GenerateMethods="Get" GenerateShortCommands="false" GeneratorGetMethodName="obtenerEncargadosAtrasados" GetMethodModifier="Public" GetMethodName="obtenerEncargadosAtrasados" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="false" UserGetMethodName="obtenerEncargadosAtrasados" UserSourceName="obtenerEncargadosAtrasados">
+              <DbSource ConnectionRef="ingegsg2ConnectionString3 (Web.config)" DbObjectType="Unknown" GenerateMethods="Get" GenerateShortCommands="false" GeneratorGetMethodName="obtenerEncargadosAtrasados" GetMethodModifier="Public" GetMethodName="obtenerEncargadosAtrasados" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="false" UserGetMethodName="obtenerEncargadosAtrasados" UserSourceName="obtenerEncargadosAtrasados">
                 <SelectCommand>
                   <DbCommand CommandType="Text" ModifiedByUser="true">
                     <CommandText>SELECT DISTINCT E.Cedula, E.Nombre, E.Apellido1, E.Apellido2, CB.CantidadBecariosAsignados, FUI.FechaUltimoIngreso
@@ -415,7 +457,7 @@ ORDER BY FUI.FechaUltimoIngreso</CommandText>
           </TableAdapter>
           <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="ActividadBecariosTableAdapter" GeneratorDataComponentClassName="ActividadBecariosTableAdapter" Name="ActividadBecarios" UserDataComponentName="ActividadBecariosTableAdapter">
             <MainSource>
-              <DbSource ConnectionRef="ingegsg2ConnectionString (Web.config)" DbObjectType="Unknown" GenerateMethods="Get" GenerateShortCommands="false" GeneratorGetMethodName="obtenerBecariosInactivos" GetMethodModifier="Public" GetMethodName="obtenerBecariosInactivos" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="false" UserGetMethodName="obtenerBecariosInactivos" UserSourceName="obtenerBecariosInactivos">
+              <DbSource ConnectionRef="ingegsg2ConnectionString3 (Web.config)" DbObjectType="Unknown" GenerateMethods="Get" GenerateShortCommands="false" GeneratorGetMethodName="obtenerBecariosInactivos" GetMethodModifier="Public" GetMethodName="obtenerBecariosInactivos" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="false" UserGetMethodName="obtenerBecariosInactivos" UserSourceName="obtenerBecariosInactivos">
                 <SelectCommand>
                   <DbCommand CommandType="Text" ModifiedByUser="true">
                     <CommandText>SELECT DISTINCT B.Cedula, B.Nombre, B.Apellido1, B.Apellido2, A.HorasAsignadas, THFUI.HorasCompletadas, A.Encargado, THFUI.FechaUltimoIngreso
@@ -458,7 +500,7 @@ ORDER BY THFUI.FechaUltimoIngreso DESC</CommandText>
           </TableAdapter>
           <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="AsignadoATableAdapter" GeneratorDataComponentClassName="AsignadoATableAdapter" Name="AsignadoA" UserDataComponentName="AsignadoATableAdapter">
             <MainSource>
-              <DbSource ConnectionRef="ingegsg2ConnectionString (Web.config)" DbObjectName="ingegsg2.dbo.AsignadoA" DbObjectType="Table" GenerateMethods="Get" GenerateShortCommands="false" GeneratorGetMethodName="obtenerCantidadesDeHorasFinalizadas" GetMethodModifier="Public" GetMethodName="obtenerCantidadesDeHorasFinalizadas" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="false" UserGetMethodName="obtenerCantidadesDeHorasFinalizadas" UserSourceName="obtenerCantidadesDeHorasFinalizadas">
+              <DbSource ConnectionRef="ingegsg2ConnectionString3 (Web.config)" DbObjectName="ingegsg2.dbo.AsignadoA" DbObjectType="Table" GenerateMethods="Get" GenerateShortCommands="false" GeneratorGetMethodName="obtenerCantidadesDeHorasFinalizadas" GetMethodModifier="Public" GetMethodName="obtenerCantidadesDeHorasFinalizadas" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="false" UserGetMethodName="obtenerCantidadesDeHorasFinalizadas" UserSourceName="obtenerCantidadesDeHorasFinalizadas">
                 <SelectCommand>
                   <DbCommand CommandType="Text" ModifiedByUser="true">
                     <CommandText>SELECT DISTINCT TotalHoras
@@ -486,7 +528,7 @@ ORDER BY TotalHoras</CommandText>
   <xs:element name="ReportesDataSet" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:Generator_DataSetName="ReportesDataSet" msprop:Generator_UserDSName="ReportesDataSet">
     <xs:complexType>
       <xs:choice minOccurs="0" maxOccurs="unbounded">
-        <xs:element name="AsignacionBecarioEncargado" msprop:Generator_TableClassName="AsignacionBecarioEncargadoDataTable" msprop:Generator_TableVarName="tableAsignacionBecarioEncargado" msprop:Generator_TablePropName="AsignacionBecarioEncargado" msprop:Generator_RowDeletingName="AsignacionBecarioEncargadoRowDeleting" msprop:Generator_RowChangingName="AsignacionBecarioEncargadoRowChanging" msprop:Generator_RowEvHandlerName="AsignacionBecarioEncargadoRowChangeEventHandler" msprop:Generator_RowDeletedName="AsignacionBecarioEncargadoRowDeleted" msprop:Generator_UserTableName="AsignacionBecarioEncargado" msprop:Generator_RowChangedName="AsignacionBecarioEncargadoRowChanged" msprop:Generator_RowEvArgName="AsignacionBecarioEncargadoRowChangeEvent" msprop:Generator_RowClassName="AsignacionBecarioEncargadoRow">
+        <xs:element name="AsignacionBecarioEncargado" msprop:Generator_TableClassName="AsignacionBecarioEncargadoDataTable" msprop:Generator_TableVarName="tableAsignacionBecarioEncargado" msprop:Generator_RowChangedName="AsignacionBecarioEncargadoRowChanged" msprop:Generator_TablePropName="AsignacionBecarioEncargado" msprop:Generator_RowDeletingName="AsignacionBecarioEncargadoRowDeleting" msprop:Generator_RowChangingName="AsignacionBecarioEncargadoRowChanging" msprop:Generator_RowEvHandlerName="AsignacionBecarioEncargadoRowChangeEventHandler" msprop:Generator_RowDeletedName="AsignacionBecarioEncargadoRowDeleted" msprop:Generator_RowClassName="AsignacionBecarioEncargadoRow" msprop:Generator_UserTableName="AsignacionBecarioEncargado" msprop:Generator_RowEvArgName="AsignacionBecarioEncargadoRowChangeEvent">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="CedulaB" msprop:Generator_ColumnVarNameInTable="columnCedulaB" msprop:Generator_ColumnPropNameInRow="CedulaB" msprop:Generator_ColumnPropNameInTable="CedulaBColumn" msprop:Generator_UserColumnName="CedulaB">
@@ -628,7 +670,7 @@ ORDER BY TotalHoras</CommandText>
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="SiglaUA" msprop:Generator_TableClassName="SiglaUADataTable" msprop:Generator_TableVarName="tableSiglaUA" msprop:Generator_RowChangedName="SiglaUARowChanged" msprop:Generator_TablePropName="SiglaUA" msprop:Generator_RowDeletingName="SiglaUARowDeleting" msprop:Generator_RowChangingName="SiglaUARowChanging" msprop:Generator_RowEvHandlerName="SiglaUARowChangeEventHandler" msprop:Generator_RowDeletedName="SiglaUARowDeleted" msprop:Generator_RowClassName="SiglaUARow" msprop:Generator_UserTableName="SiglaUA" msprop:Generator_RowEvArgName="SiglaUARowChangeEvent">
+        <xs:element name="SiglaUA" msprop:Generator_TableClassName="SiglaUADataTable" msprop:Generator_TableVarName="tableSiglaUA" msprop:Generator_TablePropName="SiglaUA" msprop:Generator_RowDeletingName="SiglaUARowDeleting" msprop:Generator_RowChangingName="SiglaUARowChanging" msprop:Generator_RowEvHandlerName="SiglaUARowChangeEventHandler" msprop:Generator_RowDeletedName="SiglaUARowDeleted" msprop:Generator_UserTableName="SiglaUA" msprop:Generator_RowChangedName="SiglaUARowChanged" msprop:Generator_RowEvArgName="SiglaUARowChangeEvent" msprop:Generator_RowClassName="SiglaUARow">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="SiglasUA" msprop:Generator_ColumnVarNameInTable="columnSiglasUA" msprop:Generator_ColumnPropNameInRow="SiglasUA" msprop:Generator_ColumnPropNameInTable="SiglasUAColumn" msprop:Generator_UserColumnName="SiglasUA" minOccurs="0">
@@ -641,7 +683,7 @@ ORDER BY TotalHoras</CommandText>
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="Becario" msprop:Generator_TableClassName="BecarioDataTable" msprop:Generator_TableVarName="tableBecario" msprop:Generator_RowChangedName="BecarioRowChanged" msprop:Generator_TablePropName="Becario" msprop:Generator_RowDeletingName="BecarioRowDeleting" msprop:Generator_RowChangingName="BecarioRowChanging" msprop:Generator_RowEvHandlerName="BecarioRowChangeEventHandler" msprop:Generator_RowDeletedName="BecarioRowDeleted" msprop:Generator_RowClassName="BecarioRow" msprop:Generator_UserTableName="Becario" msprop:Generator_RowEvArgName="BecarioRowChangeEvent">
+        <xs:element name="Becario" msprop:Generator_TableClassName="BecarioDataTable" msprop:Generator_TableVarName="tableBecario" msprop:Generator_TablePropName="Becario" msprop:Generator_RowDeletingName="BecarioRowDeleting" msprop:Generator_RowChangingName="BecarioRowChanging" msprop:Generator_RowEvHandlerName="BecarioRowChangeEventHandler" msprop:Generator_RowDeletedName="BecarioRowDeleted" msprop:Generator_UserTableName="Becario" msprop:Generator_RowChangedName="BecarioRowChanged" msprop:Generator_RowEvArgName="BecarioRowChangeEvent" msprop:Generator_RowClassName="BecarioRow">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="Cedula" msprop:Generator_ColumnVarNameInTable="columnCedula" msprop:Generator_ColumnPropNameInRow="Cedula" msprop:Generator_ColumnPropNameInTable="CedulaColumn" msprop:Generator_UserColumnName="Cedula">
@@ -718,7 +760,7 @@ ORDER BY TotalHoras</CommandText>
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="ActividadEncargado" msprop:Generator_TableClassName="ActividadEncargadoDataTable" msprop:Generator_TableVarName="tableActividadEncargado" msprop:Generator_RowChangedName="ActividadEncargadoRowChanged" msprop:Generator_TablePropName="ActividadEncargado" msprop:Generator_RowDeletingName="ActividadEncargadoRowDeleting" msprop:Generator_RowChangingName="ActividadEncargadoRowChanging" msprop:Generator_RowEvHandlerName="ActividadEncargadoRowChangeEventHandler" msprop:Generator_RowDeletedName="ActividadEncargadoRowDeleted" msprop:Generator_RowClassName="ActividadEncargadoRow" msprop:Generator_UserTableName="ActividadEncargado" msprop:Generator_RowEvArgName="ActividadEncargadoRowChangeEvent">
+        <xs:element name="ActividadEncargado" msprop:Generator_TableClassName="ActividadEncargadoDataTable" msprop:Generator_TableVarName="tableActividadEncargado" msprop:Generator_TablePropName="ActividadEncargado" msprop:Generator_RowDeletingName="ActividadEncargadoRowDeleting" msprop:Generator_RowChangingName="ActividadEncargadoRowChanging" msprop:Generator_RowEvHandlerName="ActividadEncargadoRowChangeEventHandler" msprop:Generator_RowDeletedName="ActividadEncargadoRowDeleted" msprop:Generator_UserTableName="ActividadEncargado" msprop:Generator_RowChangedName="ActividadEncargadoRowChanged" msprop:Generator_RowEvArgName="ActividadEncargadoRowChangeEvent" msprop:Generator_RowClassName="ActividadEncargadoRow">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="Cedula" msprop:Generator_ColumnVarNameInTable="columnCedula" msprop:Generator_ColumnPropNameInRow="Cedula" msprop:Generator_ColumnPropNameInTable="CedulaColumn" msprop:Generator_UserColumnName="Cedula">
@@ -754,7 +796,7 @@ ORDER BY TotalHoras</CommandText>
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="ActividadBecarios" msprop:Generator_TableClassName="ActividadBecariosDataTable" msprop:Generator_TableVarName="tableActividadBecarios" msprop:Generator_RowChangedName="ActividadBecariosRowChanged" msprop:Generator_TablePropName="ActividadBecarios" msprop:Generator_RowDeletingName="ActividadBecariosRowDeleting" msprop:Generator_RowChangingName="ActividadBecariosRowChanging" msprop:Generator_RowEvHandlerName="ActividadBecariosRowChangeEventHandler" msprop:Generator_RowDeletedName="ActividadBecariosRowDeleted" msprop:Generator_RowClassName="ActividadBecariosRow" msprop:Generator_UserTableName="ActividadBecarios" msprop:Generator_RowEvArgName="ActividadBecariosRowChangeEvent">
+        <xs:element name="ActividadBecarios" msprop:Generator_TableClassName="ActividadBecariosDataTable" msprop:Generator_TableVarName="tableActividadBecarios" msprop:Generator_TablePropName="ActividadBecarios" msprop:Generator_RowDeletingName="ActividadBecariosRowDeleting" msprop:Generator_RowChangingName="ActividadBecariosRowChanging" msprop:Generator_RowEvHandlerName="ActividadBecariosRowChangeEventHandler" msprop:Generator_RowDeletedName="ActividadBecariosRowDeleted" msprop:Generator_UserTableName="ActividadBecarios" msprop:Generator_RowChangedName="ActividadBecariosRowChanged" msprop:Generator_RowEvArgName="ActividadBecariosRowChangeEvent" msprop:Generator_RowClassName="ActividadBecariosRow">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="Cedula" msprop:Generator_ColumnVarNameInTable="columnCedula" msprop:Generator_ColumnPropNameInRow="Cedula" msprop:Generator_ColumnPropNameInTable="CedulaColumn" msprop:Generator_UserColumnName="Cedula">
@@ -798,7 +840,7 @@ ORDER BY TotalHoras</CommandText>
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="AsignadoA" msprop:Generator_TableClassName="AsignadoADataTable" msprop:Generator_TableVarName="tableAsignadoA" msprop:Generator_TablePropName="AsignadoA" msprop:Generator_RowDeletingName="AsignadoARowDeleting" msprop:Generator_RowChangingName="AsignadoARowChanging" msprop:Generator_RowEvHandlerName="AsignadoARowChangeEventHandler" msprop:Generator_RowDeletedName="AsignadoARowDeleted" msprop:Generator_UserTableName="AsignadoA" msprop:Generator_RowChangedName="AsignadoARowChanged" msprop:Generator_RowEvArgName="AsignadoARowChangeEvent" msprop:Generator_RowClassName="AsignadoARow">
+        <xs:element name="AsignadoA" msprop:Generator_TableClassName="AsignadoADataTable" msprop:Generator_TableVarName="tableAsignadoA" msprop:Generator_RowChangedName="AsignadoARowChanged" msprop:Generator_TablePropName="AsignadoA" msprop:Generator_RowDeletingName="AsignadoARowDeleting" msprop:Generator_RowChangingName="AsignadoARowChanging" msprop:Generator_RowEvHandlerName="AsignadoARowChangeEventHandler" msprop:Generator_RowDeletedName="AsignadoARowDeleted" msprop:Generator_RowClassName="AsignadoARow" msprop:Generator_UserTableName="AsignadoA" msprop:Generator_RowEvArgName="AsignadoARowChangeEvent">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="TotalHoras" msprop:Generator_ColumnVarNameInTable="columnTotalHoras" msprop:Generator_ColumnPropNameInRow="TotalHoras" msprop:Generator_ColumnPropNameInTable="TotalHorasColumn" msprop:Generator_UserColumnName="TotalHoras" type="xs:int" />

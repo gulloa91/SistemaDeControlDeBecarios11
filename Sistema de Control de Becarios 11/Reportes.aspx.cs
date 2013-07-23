@@ -18,12 +18,13 @@ public partial class Reportes : System.Web.UI.Page
 	private static List<Object[]> lsObject = new List<Object[]>(); 
 	static int indexEstado = 0;
 	static int indexPeriodo = 0;
-	static int indexAño = 6;
+	static int indexAño = 0;
 	static int indexUltimaAsignacion = 0;
 	static int indexBecario = 0;
 	static int indexEncargado = 0;
 	private static List<EncargadoAtrasado> lsEncargadosAtrasados = new List<EncargadoAtrasado>();
 	private static List<BecarioInactivo> lsBecariosInactivos = new List<BecarioInactivo>();
+    private static List<string> lsCedulas = new List<string>();
 
     //EFECTO: Carga la pagina correctamente
     //REQUIERE: N/A
@@ -52,7 +53,7 @@ public partial class Reportes : System.Web.UI.Page
                 {
                     indexEstado = 0;
                     indexPeriodo = 0;
-                    indexAño = 6;
+                    indexAño = 0;
                     indexUltimaAsignacion = 0;
 
                     tipoReporte = 1;
@@ -65,8 +66,8 @@ public partial class Reportes : System.Web.UI.Page
                 {
                     indexEstado = 0;
                     indexPeriodo = 0;
-                    indexAño = 6;
-                    indexUltimaAsignacion = 1;
+                    indexAño = 0;
+                    indexUltimaAsignacion = 0;
 
                     tipoReporte = 2;
                     mostrarGrid();                  
@@ -79,7 +80,7 @@ public partial class Reportes : System.Web.UI.Page
                 {
                     indexEstado = 0;
                     indexPeriodo = 0;
-                    indexAño = 6;
+                    indexAño = 0;
                     indexUltimaAsignacion = 0;
 
                     tipoReporte = 3;
@@ -95,7 +96,7 @@ public partial class Reportes : System.Web.UI.Page
                     {
                         indexEstado = 0;
                         indexPeriodo = 0;
-                        indexAño = 6;
+                        indexAño = 0;
                         indexUltimaAsignacion = 0;
 
                         tipoReporte = 4;
@@ -107,7 +108,7 @@ public partial class Reportes : System.Web.UI.Page
                     {
                         indexEstado = 0;
                         indexPeriodo = 0;
-                        indexAño = 6;
+                        indexAño = 0;
                         indexUltimaAsignacion = 0;
 
                         tipoReporte = 5;
@@ -119,14 +120,18 @@ public partial class Reportes : System.Web.UI.Page
             // REPORTE 6
             case "Asignaciones de un Becario":
                 {
+                    indexBecario = 0;
+
                     tipoReporte = 6;
                     mostrarGrid(); 
                     
                 } break;
 
             // REPORTE 7
-            case "Anotaciones de un Encargado":
+            case "Asignaciones de un Encargado":
                 {
+                    indexEncargado = 0;
+
                     tipoReporte = 7;
                     mostrarGrid();
 
@@ -722,6 +727,7 @@ public partial class Reportes : System.Web.UI.Page
                     Hashtable estado = new Hashtable();
                     estado.Add(0, "Pendiente de Horas");
                     estado.Add(1, "Horas Finalizadas");
+                    estado.Add(2, "Seleccionar Estado");
                     this.DropDownListCriterio1.DataTextField = "Value";
                     this.DropDownListCriterio1.DataValueField = "Key";
                     this.DropDownListCriterio1.DataSource = estado;
@@ -733,6 +739,7 @@ public partial class Reportes : System.Web.UI.Page
                     periodo.Add(0, "III - Periodo");
                     periodo.Add(1, "II  - Periodo");
                     periodo.Add(2, "I   - Periodo");
+                    periodo.Add(3, "Seleccionar Periodo");
                     this.DropDownListCriterio2.DataTextField = "Value";
                     this.DropDownListCriterio2.DataValueField = "Key";
                     this.DropDownListCriterio2.DataSource = periodo;
@@ -743,9 +750,10 @@ public partial class Reportes : System.Web.UI.Page
                     Hashtable año = new Hashtable();
 
                     DateTime today = DateTime.Today;
-                    año.Add(0, today.Year);
-                    año.Add(1, (today.Year) - 1); año.Add(2, (today.Year) - 2); año.Add(3, (today.Year) - 3);
-                    año.Add(4, (today.Year) - 4); año.Add(5, (today.Year) - 5); año.Add(6, (today.Year) - 6);
+                    año.Add(0, (today.Year)+1); año.Add(1, today.Year);
+                    año.Add(2, (today.Year) - 1); año.Add(3, (today.Year) - 2); año.Add(4, (today.Year) - 3);
+                    año.Add(5, (today.Year) - 4); año.Add(6, (today.Year) - 5); año.Add(7, (today.Year) - 6);
+                    año.Add(8, "Seleccionar Año");
                     this.DropDownListCriterio3.DataTextField = "Value";
                     this.DropDownListCriterio3.DataValueField = "Key";
                     this.DropDownListCriterio3.DataSource = año;
@@ -768,6 +776,7 @@ public partial class Reportes : System.Web.UI.Page
                     periodo.Add(0, "III - Periodo");
                     periodo.Add(1, "II  - Periodo");
                     periodo.Add(2, "I   - Periodo");
+                    periodo.Add(3, "Seleccionar Periodo");
                     this.DropDownListCriterio1.DataTextField = "Value";
                     this.DropDownListCriterio1.DataValueField = "Key";
                     this.DropDownListCriterio1.DataSource = periodo;
@@ -778,9 +787,10 @@ public partial class Reportes : System.Web.UI.Page
                     Hashtable año = new Hashtable();
 
                     DateTime today = DateTime.Today;
-                    año.Add(0, today.Year);
-                    año.Add(1, (today.Year) - 1); año.Add(2, (today.Year) - 2); año.Add(3, (today.Year) - 3);
-                    año.Add(4, (today.Year) - 4); año.Add(5, (today.Year) - 5); año.Add(6, (today.Year) - 6);
+                    año.Add(0, (today.Year) + 1); año.Add(1, today.Year);
+                    año.Add(2, (today.Year) - 1); año.Add(3, (today.Year) - 2); año.Add(4, (today.Year) - 3);
+                    año.Add(5, (today.Year) - 4); año.Add(6, (today.Year) - 5); año.Add(7, (today.Year) - 6);
+                    año.Add(8, "Seleccionar Año");
                     this.DropDownListCriterio2.DataTextField = "Value";
                     this.DropDownListCriterio2.DataValueField = "Key";
                     this.DropDownListCriterio2.DataSource = año;
@@ -793,6 +803,7 @@ public partial class Reportes : System.Web.UI.Page
                     ultimaAsignación.Add(1, "Hace 2 periodos");
                     ultimaAsignación.Add(2, "Periodo anterior");
                     ultimaAsignación.Add(3, "Becarios nunca Asignados");
+                    ultimaAsignación.Add(4, "Seleccionar Lapso");
                     this.DropDownListCriterio3.DataTextField = "Value";
                     this.DropDownListCriterio3.DataValueField = "Key";
                     this.DropDownListCriterio3.DataSource = ultimaAsignación;
@@ -815,6 +826,7 @@ public partial class Reportes : System.Web.UI.Page
                     periodo.Add(0, "III - Periodo");
                     periodo.Add(1, "II  - Periodo");
                     periodo.Add(2, "I   - Periodo");
+                    periodo.Add(3, "Seleccionar Periodo");
                     this.DropDownListCriterio1.DataTextField = "Value";
                     this.DropDownListCriterio1.DataValueField = "Key";
                     this.DropDownListCriterio1.DataSource = periodo;
@@ -825,9 +837,10 @@ public partial class Reportes : System.Web.UI.Page
                     Hashtable año = new Hashtable();
 
                     DateTime today = DateTime.Today;
-                    año.Add(0, today.Year);
-                    año.Add(1, (today.Year) - 1); año.Add(2, (today.Year) - 2); año.Add(3, (today.Year) - 3);
-                    año.Add(4, (today.Year) - 4); año.Add(5, (today.Year) - 5); año.Add(6, (today.Year) - 6);
+                    año.Add(0, (today.Year) + 1); año.Add(1, today.Year);
+                    año.Add(2, (today.Year) - 1); año.Add(3, (today.Year) - 2); año.Add(4, (today.Year) - 3);
+                    año.Add(5, (today.Year) - 4); año.Add(6, (today.Year) - 5); año.Add(7, (today.Year) - 6);
+                    año.Add(8, "Seleccionar Año");
                     this.DropDownListCriterio2.DataTextField = "Value";
                     this.DropDownListCriterio2.DataValueField = "Key";
                     this.DropDownListCriterio2.DataSource = año;
@@ -837,10 +850,12 @@ public partial class Reportes : System.Web.UI.Page
                     //llenar criterio de selección 3
                     Hashtable ultimaAsignación = new Hashtable();
                     List<string> lsSiglasUA = controladoraReportes.optenerUnidadesAcademicas();
-                    for(int i=0;i<lsSiglasUA.Count();i++)
+                    int i;
+                    for(i=0;i<lsSiglasUA.Count();i++)
                     {
                     ultimaAsignación.Add(i, lsSiglasUA[i]);
                     }
+                    ultimaAsignación.Add(i, "Seleccionar Unidad Académica");
                     this.DropDownListCriterio3.DataTextField = "Value";
                     this.DropDownListCriterio3.DataValueField = "Key";
                     this.DropDownListCriterio3.DataSource = ultimaAsignación;
@@ -862,14 +877,18 @@ public partial class Reportes : System.Web.UI.Page
                     semestre.Add(0, "III - Periodo");
                     semestre.Add(1, "II  - Periodo");
                     semestre.Add(2, "I   - Periodo");
+                    semestre.Add(3, "Seleccionar Periodo");
                     this.DropDownListCriterio1.DataTextField = "Value";
                     this.DropDownListCriterio1.DataValueField = "Key";
                     this.DropDownListCriterio1.DataSource = semestre;
                     this.DropDownListCriterio1.DataBind();
+                    this.DropDownListCriterio1.SelectedIndex = indexPeriodo;
 
                     //llenar criterio de selección 2
                     Hashtable año = new Hashtable();
                     DateTime hoy = DateTime.Now;
+                    año.Add(7, "Seleccionar Año");
+                    año.Add(6, (hoy.Year + 1).ToString());
                     año.Add(5, hoy.Year.ToString());
                     año.Add(4, (hoy.Year - 1).ToString());
                     año.Add(3, (hoy.Year - 2).ToString());
@@ -880,26 +899,14 @@ public partial class Reportes : System.Web.UI.Page
                     this.DropDownListCriterio2.DataValueField = "Key";
                     this.DropDownListCriterio2.DataSource = año;
                     this.DropDownListCriterio2.DataBind();
-
-                    //llenar criterio de selección 3
-                    Hashtable fechaUltimoReporte = new Hashtable();
-
-                    fechaUltimoReporte.Add(3, "Más de una semana");
-                    fechaUltimoReporte.Add(2, "Más de dos semanas");
-                    fechaUltimoReporte.Add(1, "Más de un mes");
-                    fechaUltimoReporte.Add(0, "Más de dos meses");
-
-                    this.DropDownListCriterio3.DataTextField = "Value";
-                    this.DropDownListCriterio3.DataValueField = "Key";
-                    this.DropDownListCriterio3.DataSource = fechaUltimoReporte;
-                    this.DropDownListCriterio3.DataBind();
-                    DropDownListCriterio3.SelectedIndex = 2;
+                    DropDownListCriterio2.SelectedIndex = indexAño;
 
                     //llenar criterio de selección 3
                     Hashtable ultimaAsigancion = new Hashtable();
                     ultimaAsigancion.Add(0, "Hace más de un mes");
                     ultimaAsigancion.Add(1, "Hace 3 semanas");
                     ultimaAsigancion.Add(2, "Hace 2 semanas");
+                    ultimaAsigancion.Add(3, "Seleccionar Lapso");
                     this.DropDownListCriterio3.DataTextField = "Value";
                     this.DropDownListCriterio3.DataValueField = "Key";
                     this.DropDownListCriterio3.DataSource = ultimaAsigancion;
@@ -921,6 +928,7 @@ public partial class Reportes : System.Web.UI.Page
                     periodo.Add(0, "III - Periodo");
                     periodo.Add(1, "II - Periodo");
                     periodo.Add(2, "I - Periodo");
+                    periodo.Add(3, "Seleccionar Periodo");
                     this.DropDownListCriterio1.DataTextField = "Value";
                     this.DropDownListCriterio1.DataValueField = "Key";
                     this.DropDownListCriterio1.DataSource = periodo;
@@ -930,7 +938,9 @@ public partial class Reportes : System.Web.UI.Page
 					//llenar criterio de selección 2
 					Hashtable año = new Hashtable();
 					DateTime hoy = DateTime.Now;
-					año.Add(5, hoy.Year.ToString());
+                    año.Add(7, "Seleccionar Año");
+                    año.Add(6, (hoy.Year + 1).ToString());
+                    año.Add(5, hoy.Year.ToString());
 					año.Add(4, (hoy.Year - 1).ToString());
 					año.Add(3, (hoy.Year - 2).ToString());
 					año.Add(2, (hoy.Year - 3).ToString());
@@ -940,20 +950,23 @@ public partial class Reportes : System.Web.UI.Page
 					this.DropDownListCriterio2.DataValueField = "Key";
 					this.DropDownListCriterio2.DataSource = año;
 					this.DropDownListCriterio2.DataBind();
+                    DropDownListCriterio2.SelectedIndex = indexAño;
 
 					//llenar criterio de selección 3
 					Hashtable fechaUltimoReporte = new Hashtable();
 
+                    fechaUltimoReporte.Add(4, "Seleccionar Lapso");
 					fechaUltimoReporte.Add(3, "Más de una semana");
 					fechaUltimoReporte.Add(2, "Más de dos semanas");
 					fechaUltimoReporte.Add(1, "Más de un mes");
 					fechaUltimoReporte.Add(0, "Más de dos meses");
+                    
 					
 					this.DropDownListCriterio3.DataTextField = "Value";
 					this.DropDownListCriterio3.DataValueField = "Key";
 					this.DropDownListCriterio3.DataSource = fechaUltimoReporte;
 					this.DropDownListCriterio3.DataBind();
-					DropDownListCriterio3.SelectedIndex = 2;                              
+					DropDownListCriterio3.SelectedIndex = indexUltimaAsignacion;                              
                 } break;
             case 6:
                 {
@@ -965,12 +978,22 @@ public partial class Reportes : System.Web.UI.Page
                     commonService.correrJavascript("$('#criterio5').css('display', 'none');");
                     llenarGridReportes(6);
 
+                    List<string> lsCedulasAux = new List<string>();
+
                     List<Becario> lsBecarios = controladoraBecarios.consultarTablaBecario();
+                    lsCedulasAux.Clear();
                     Hashtable becario = new Hashtable();
+                    becario.Add(lsBecarios.Count(), "Seleccionar Becario");
+                    lsCedulasAux.Add(lsBecarios.Count().ToString());
+                    int j = lsBecarios.Count()-1;
                     for (int i = 0; i < lsBecarios.Count(); i++)
                     {
-                        becario.Add(lsBecarios[i].cedula, lsBecarios[i].nombre + " " + lsBecarios[i].apellido1 + " " + lsBecarios[i].apellido2);
+                        becario.Add(j, lsBecarios[i].nombre + " " + lsBecarios[i].apellido1 + " " + lsBecarios[i].apellido2);
+                        lsCedulasAux.Add(lsBecarios[i].cedula);
+                        j--;
                     }
+                    lsCedulas = lsCedulasAux;
+
                     this.DropDownListCriterio1.DataTextField = "Value";
                     this.DropDownListCriterio1.DataValueField = "Key";
                     this.DropDownListCriterio1.DataSource = becario;
@@ -979,7 +1002,7 @@ public partial class Reportes : System.Web.UI.Page
                 } break;
             case 7:
                 {
-                    this.lblReporteActivo.Text = "Reporte de Historial de Anotaciones que hace un Encargado";
+                    this.lblReporteActivo.Text = "Reporte de Historial de Asignaciones que hace un Encargado";
                     this.lblCriterio1.Text = "Seleccione Encargado";
                     commonService.correrJavascript("$('#criterio2').css('display', 'none');");
                     commonService.correrJavascript("$('#criterio3').css('display', 'none');");
@@ -987,12 +1010,23 @@ public partial class Reportes : System.Web.UI.Page
                     commonService.correrJavascript("$('#criterio5').css('display', 'none');");
                     llenarGridReportes(7);
 
+                    List<string> lsCedulasAux = new List<string>();
+
                     List<Encargado> lsEncargados = controladoraEncargados.consultarTablaEncargados();
+                    lsCedulasAux.Clear();
                     Hashtable encargdo = new Hashtable();
+                    encargdo.Add(lsEncargados.Count(), "Seleccionar Encargado");
+                    lsCedulasAux.Add(lsEncargados.Count().ToString());
+                    int j = lsEncargados.Count() - 1;
                     for (int i = 0; i < lsEncargados.Count(); i++)
                     {
-                        encargdo.Add(lsEncargados[i].Cedula, lsEncargados[i].Nombre + " " + lsEncargados[i].Apellido1 + " " + lsEncargados[i].Apellido2);
-                    }                    
+                        encargdo.Add(j, lsEncargados[i].Nombre + " " + lsEncargados[i].Apellido1 + " " + lsEncargados[i].Apellido2);
+                        lsCedulasAux.Add(lsEncargados[i].Cedula);
+                        j--;
+                    }
+                    lsCedulas = lsCedulasAux;
+                    
+
                     this.DropDownListCriterio1.DataTextField = "Value";
                     this.DropDownListCriterio1.DataValueField = "Key";
                     this.DropDownListCriterio1.DataSource = encargdo;
@@ -1064,7 +1098,7 @@ public partial class Reportes : System.Web.UI.Page
                     indexUltimaAsignacion = this.DropDownListCriterio3.SelectedIndex;
 
                     string criterioBusqueda = "%" + this.txtBuscarGeneral.Text + "%";
-                    int periodo = Convert.ToInt32(this.DropDownListCriterio1.SelectedItem.ToString());
+                    string periodo = this.DropDownListCriterio1.SelectedItem.ToString();
                     int año = Convert.ToInt32(this.DropDownListCriterio2.SelectedItem.ToString());
 
                     DateTime fechaUltimoReporte = DateTime.Now;
@@ -1095,7 +1129,7 @@ public partial class Reportes : System.Web.UI.Page
                     indexUltimaAsignacion = this.DropDownListCriterio3.SelectedIndex;
 
                     string criterioBusqueda = "%" + this.txtBuscarGeneral.Text + "%";
-                    int semestre = Convert.ToInt32(this.DropDownListCriterio1.SelectedItem.ToString());
+                    string semestre = this.DropDownListCriterio1.SelectedItem.ToString();
                     int año = Convert.ToInt32(this.DropDownListCriterio2.SelectedItem.ToString());
 
                     DateTime fechaUltimoReporte = DateTime.Now;
@@ -1124,10 +1158,17 @@ public partial class Reportes : System.Web.UI.Page
                     indexBecario = this.DropDownListCriterio1.SelectedIndex;
 
                     string criterioBusqueda = "%" + this.txtBuscarGeneral.Text + "%";
-                    string cedulaBecario  = this.DropDownListCriterio1.SelectedValue.ToString();
+                    int index = Convert.ToInt32(this.DropDownListCriterio1.SelectedValue);
+                    string cedulaBecario = lsCedulas[(Convert.ToInt32(lsCedulas[0]) - index)];
 
-                    lsObject = controladoraReportes.reportarHistorialDeAsignacionesBecario(criterioBusqueda, cedulaBecario);
-
+                    if (Convert.ToInt32(this.DropDownListCriterio1.SelectedValue) != Convert.ToInt32(lsCedulas[0]))
+                    {
+                        lsObject = controladoraReportes.reportarHistorialDeAsignacionesBecario(criterioBusqueda, cedulaBecario, 0);
+                    }
+                    else 
+                    {
+                        lsObject = controladoraReportes.reportarHistorialDeAsignacionesBecario(criterioBusqueda, cedulaBecario, 1);
+                    }
                     mostrarGrid();
                 } break;
             case 7:
@@ -1135,9 +1176,17 @@ public partial class Reportes : System.Web.UI.Page
                     indexEncargado = this.DropDownListCriterio1.SelectedIndex;
 
                     string criterioBusqueda = "%" + this.txtBuscarGeneral.Text + "%";
-                    string cedulaBecario = this.DropDownListCriterio1.SelectedValue.ToString();
+                    int index = Convert.ToInt32(this.DropDownListCriterio1.SelectedValue);
+                    string cedulaEncargado = lsCedulas[(Convert.ToInt32(lsCedulas[0]) - index)];
 
-					lsObject = controladoraReportes.reportarHistorialDeAnotacionesEncargado(criterioBusqueda, cedulaBecario);
+                    if (Convert.ToInt32(this.DropDownListCriterio1.SelectedValue) != Convert.ToInt32(lsCedulas[0]))
+                    {
+                        lsObject = controladoraReportes.reportarHistorialDeAsignacionesEncargado(criterioBusqueda, cedulaEncargado, 0);
+                    }
+                    else 
+                    {
+                        lsObject = controladoraReportes.reportarHistorialDeAsignacionesEncargado(criterioBusqueda, cedulaEncargado, 1);
+                    }
 					
 					mostrarGrid();
 				} break;

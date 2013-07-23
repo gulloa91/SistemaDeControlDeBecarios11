@@ -83,7 +83,7 @@
                                     </asp:MenuItem>
                                     <asp:MenuItem Text="Historiales">
                                         <asp:MenuItem Text="Asignaciones de un Becario" ToolTip="Reporte de Historial de Asignaciones de un Becario"></asp:MenuItem>
-                                        <asp:MenuItem Text="Anotaciones de un Encargado" ToolTip="Reporte de Historial de Asiganciones de un Encargado"></asp:MenuItem>
+                                        <asp:MenuItem Text="Asignaciones de un Encargado" ToolTip="Reporte de Historial de Asiganciones de un Encargado"></asp:MenuItem>
                                     </asp:MenuItem>
                                 </Items>
                             </asp:Menu>
