@@ -57,32 +57,28 @@
                             <!-- DRP Año -->
                             <div style="width: 15.66%; float: left; margin-right: 1%;">
                                 <span style="float:left; width:100%;">Año:</span>
-                                <asp:DropDownList ID="dropDownAnio" CssClass="txtAsignacion" runat="server"
-                                  AutoPostBack="true" OnSelectedIndexChanged ="dropDownAnio_SelectedIndexChanged"> 
+                                <asp:DropDownList ID="dropDownAnio" CssClass="txtAsignacion" runat="server"> 
                                 </asp:DropDownList>
                             </div>
 
                             <!-- DRP Ciclo -->
                             <div style="width: 15.66%; float: left; margin-right: 1%;">
                                 <span style="float:left; width:100%;">Ciclo:</span>
-                                <asp:DropDownList ID="dropDownCiclo" CssClass="txtAsignacion" runat="server"
-                                  AutoPostBack="true" OnSelectedIndexChanged ="dropDownCiclo_SelectedIndexChanged" >
+                                <asp:DropDownList ID="dropDownCiclo" CssClass="txtAsignacion" runat="server">
                                 </asp:DropDownList>
                             </div>
 
                             <!-- DRP Estado -->
                             <div style="width: 15.66%; float: left; margin-right: 1%;">
                                 <span style="float:left; width:100%;">Estado:</span>
-                                <asp:DropDownList ID="dropDownEstado" CssClass="txtAsignacion" runat="server"  
-                                 AutoPostBack="true" OnSelectedIndexChanged ="dropDownEstado_SelectedIndexChanged" >
+                                <asp:DropDownList ID="dropDownEstado" CssClass="txtAsignacion" runat="server">
                                 </asp:DropDownList>
                             </div>
 
                             <!-- DRP Encargado -->
                             <div style="width: 15.66%; float: left; margin-right: 1%;">
                                 <span style="float:left; width:100%;">Encargado:</span>
-                                <asp:DropDownList ID="dropDownBusquedaEncargado" CssClass="txtAsignacion" runat="server" 
-                                AutoPostBack="true" OnSelectedIndexChanged ="dropDownBusquedaEncargado_SelectedIndexChanged">                       
+                                <asp:DropDownList ID="dropDownBusquedaEncargado" CssClass="txtAsignacion" runat="server">                       
                                 </asp:DropDownList>
                             </div>
 

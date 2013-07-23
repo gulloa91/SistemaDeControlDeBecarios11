@@ -447,51 +447,159 @@ public partial class Asignaciones : System.Web.UI.Page
 
 
     /*  Requiere: n/a
-    *   Efectúa:  Implementa la funcionalidad de búsqueda por texto libre
+    *   Efectúa:  Implementa la funcionalidad de búsqueda en el grid de asignaciones.
+    *             Primero se implementa la búsqueda por texto libe, luego a partir de las coincidencias se hace la búsqueda por año, luego
+    *            por ciclo, luego por estado y finalmente por encargado. Al final se llena el grid con las asignaciones que cumplan 
+    *            con la combinación de criterios.
     *             
     *   Modifica: n/a .
     */
     protected void btnBuscar_Click(object sender, EventArgs e)
     {
 
+        bool primeraBusqueda = true;
+
         TextInfo miTexto = CultureInfo.CurrentCulture.TextInfo;
         string criterioDeBusqueda = miTexto.ToTitleCase( this.txtBuscarAsignacion.Text );
-       
+        int añoSeleccionado = Convert.ToInt32(dropDownAnio.SelectedValue);
+        int cicloSeleccionado = Convert.ToInt32(dropDownCiclo.SelectedValue);
+        int estadoSeleccionado = Convert.ToInt32(dropDownEstado.SelectedValue);
+        string encargadoSeleccionado = dropDownBusquedaEncargado.SelectedValue;
 
-        List<Asignacion> listaAux = new List<Asignacion>();
-
-        for (int i = 0; i < listaAsignaciones.Count; i++) {
-
-            string cedEncargado = listaAsignaciones[i].CedulaEncargado;
-            string cedBecario = listaAsignaciones[i].CedulaBecario;
-            string nombreEncargardo = controladoraAsignaciones.getNombreEncargado(cedEncargado);
-            string nombreBecario = controladoraAsignaciones.getNombreBecario(cedBecario);
-
-            char[] delimiterChars = { ' ' };
-            string[] words = nombreEncargardo.Split(delimiterChars);
-
-            foreach (string palabra in words)
-            {
-                if (palabra.Equals(criterioDeBusqueda) )
-                {
-                    listaAux.Add(listaAsignaciones[i])  ;
-                }
-            }
-
-            words = nombreBecario.Split(delimiterChars);
-            foreach (string palabra in words)
-            {
-                if (palabra.Equals(criterioDeBusqueda))
-                {
-                    listaAux.Add(listaAsignaciones[i]);
-                }
-            }
-
+        if ((criterioDeBusqueda.Equals("")) && (añoSeleccionado == 0) && (cicloSeleccionado == 0) && (estadoSeleccionado == 0) && (encargadoSeleccionado.Equals("0")))
+        {
+            llenarGridAsignaciones(listaAsignaciones);
         }
+        else
+        {
 
-        llenarGridAsignaciones(listaAux);  
+            List<Asignacion> listaDeCoincidencias = new List<Asignacion>();
+
+            if ( !(criterioDeBusqueda.Equals(""))  )
+            {
+
+                primeraBusqueda = false;
+
+                for (int i = 0; i < listaAsignaciones.Count; i++)
+                {
+
+                    string cedEncargado = listaAsignaciones[i].CedulaEncargado;
+                    string cedBecario = listaAsignaciones[i].CedulaBecario;
+                    string nombreEncargardo = controladoraAsignaciones.getNombreEncargado(cedEncargado);
+                    string nombreBecario = controladoraAsignaciones.getNombreBecario(cedBecario);
+
+                    char[] delimiterChars = { ' ' };
+                    string[] words = nombreEncargardo.Split(delimiterChars);
+
+                    foreach (string palabra in words)
+                    {
+                        if (palabra.Equals(criterioDeBusqueda))
+                        {
+                            listaDeCoincidencias.Add(listaAsignaciones[i]);
+                        }
+                    }
+
+                    words = nombreBecario.Split(delimiterChars);
+                    foreach (string palabra in words)
+                    {
+                        if (palabra.Equals(criterioDeBusqueda))
+                        {
+                            listaDeCoincidencias.Add(listaAsignaciones[i]);
+                        }
+                    }
+
+                }
+
+            }
+
+            List<Asignacion> listaAux = new List<Asignacion>();
+            if (añoSeleccionado != 0)
+            {
+
+                if (  (listaDeCoincidencias.Count == 0) &&(primeraBusqueda == true) )
+                {
+                    listaAux = busquedaPorAño(listaAsignaciones);
+                    primeraBusqueda = false;
+                }
+                else
+                {
+                    listaAux = busquedaPorAño(listaDeCoincidencias);
+                }
+
+                listaDeCoincidencias.Clear();
+                for (int i = 0; i < listaAux.Count; i++)
+                {
+                    listaDeCoincidencias.Add(listaAux[i]);
+                }
+            }
+
+            
+            if (cicloSeleccionado != 0) {
+
+
+                if ((listaDeCoincidencias.Count == 0) &&(primeraBusqueda == true))
+                {
+                    listaAux = busquedaPorCiclo(listaAsignaciones);
+                    primeraBusqueda = false;
+                }
+                else
+                {
+                    listaAux = busquedaPorCiclo(listaDeCoincidencias);
+                }
+
+                listaDeCoincidencias.Clear();
+                for (int i = 0; i < listaAux.Count; i++)
+                {
+                    listaDeCoincidencias.Add(listaAux[i]);
+                }
+
+            }
+
+
+            if ( estadoSeleccionado != 0 )
+            {
+
+                if ((listaDeCoincidencias.Count == 0) && (primeraBusqueda == true))
+                {
+                    listaAux = busquedaPorEstado(listaAsignaciones);
+                    primeraBusqueda = false;
+                }
+                else
+                {
+                    listaAux = busquedaPorEstado(listaDeCoincidencias);
+                }
+
+                listaDeCoincidencias.Clear();
+                for (int i = 0; i < listaAux.Count; i++)
+                {
+                    listaDeCoincidencias.Add(listaAux[i]);
+                }
+            }
+
+            if ( !(encargadoSeleccionado.Equals("0")) )  
+            {
+
+                if ((listaDeCoincidencias.Count == 0) && (primeraBusqueda == true))
+                {
+                    listaAux = busquedaPorEncargado(listaAsignaciones);
+                    primeraBusqueda = false;
+                }
+                else
+                {
+                    listaAux = busquedaPorEncargado(listaDeCoincidencias);
+                }
+
+                listaDeCoincidencias.Clear();
+                for (int i = 0; i < listaAux.Count; i++)
+                {
+                    listaDeCoincidencias.Add(listaAux[i]);
+                }
+
+            }
+
+            llenarGridAsignaciones(listaDeCoincidencias);
+        }
     }
-
 
 
 
@@ -544,508 +652,118 @@ public partial class Asignaciones : System.Web.UI.Page
     }
 
 
-    /*  Requiere: n/a.
-    *   Efectúa:  Método que se invoca al seleccionar un año para las búsuqedas
-    *             
-    *   Modifica: n/a .
-    */
-    protected void dropDownAnio_SelectedIndexChanged(object sender, EventArgs e)
-    {
-        busquedaPorAño();
-    }
-
 
     /*  Requiere: n/a.
     *   Efectúa: Implementa la búsuqeda por año
-    *            Primero selecciona las que asignaciones cumplen con el criterio del año seleccionado , luego verifica de esas 
-    *           cuales no cumplen los otros criterios selecionados por el usuario para removerlas al final    
+    *            A partir de la lista recibida por parámetro se busca cuales elementos cumplen con el criterio del año seleccionado 
+    *            y se retorna una lista el resultado.
     *             
     *   Modifica: n/a .
     */
-    protected void busquedaPorAño()
+    protected List<Asignacion> busquedaPorAño(List<Asignacion> listaDeCoincidencias)
     {
-
-        List<Asignacion> asignacionesParaRemover = new List<Asignacion>();
-        listaBusquedaAño.Clear();
 
         int añoSeleccionado = Convert.ToInt32(dropDownAnio.SelectedValue);
-        int periodoSeleccionado = Convert.ToInt32(dropDownCiclo.SelectedValue);
-        int estadoSeleccionado = Convert.ToInt32(dropDownEstado.SelectedValue);
-        string encargadoSeleccionado = dropDownBusquedaEncargado.SelectedValue;
 
+        List<Asignacion> listaBusqueda = new List<Asignacion>();
+       
 
-        if (añoSeleccionado != 0)
-        {
-         
-            for (int i = 0; i < listaAsignaciones.Count; i++)
+            for (int i = 0; i < listaDeCoincidencias.Count; i++)
             {
-                if (listaAsignaciones[i].Año == añoSeleccionado)
+                if (listaDeCoincidencias[i].Año == añoSeleccionado)
                 {
-                    listaBusquedaAño.Add(listaAsignaciones[i]);
+                    listaBusqueda.Add(listaDeCoincidencias[i]);
                 }
             }
+    
 
-            asignacionesParaRemover.Clear();
-            if (periodoSeleccionado != 0)
-            {
-
-                for (int i = 0; i < listaBusquedaAño.Count; ++i)
-                {
-                    if (!(listaBusquedaAño[i].Periodo == periodoSeleccionado))
-                    {
-                        asignacionesParaRemover.Add(listaBusquedaAño[i]);
-                    }
-                }
-
-                for (int i = 0; i < asignacionesParaRemover.Count; ++i)
-                {
-                    listaBusquedaAño.Remove(asignacionesParaRemover[i]);
-                }
-            }
-
-            asignacionesParaRemover.Clear();
-            if (estadoSeleccionado != 0)
-            {
-               
-                for (int i = 0; i < listaBusquedaAño.Count; ++i)
-                {
-                    if (!(listaBusquedaAño[i].Estado == estadoSeleccionado))
-                    {
-                        asignacionesParaRemover.Add(listaBusquedaAño[i]);
-                    }
-                }
-
-                for (int i = 0; i < asignacionesParaRemover.Count; ++i)
-                {
-                    listaBusquedaAño.Remove(asignacionesParaRemover[i]);
-                }
-            }
-
-
-            asignacionesParaRemover.Clear();
-            if ( !(encargadoSeleccionado.Equals("0"))  )
-            {
-
-                for (int i = 0; i < listaBusquedaAño.Count; ++i)
-                {
-                    if (!(listaBusquedaAño[i].CedulaEncargado.Equals(encargadoSeleccionado)))
-                    {
-                       asignacionesParaRemover.Add(listaBusquedaAño[i]);
-                    }
-                }
-
-                for (int i = 0; i < asignacionesParaRemover.Count; ++i)
-                {
-                    listaBusquedaAño.Remove(asignacionesParaRemover[i]);
-                }
-            }
-
-
-            llenarGridAsignaciones(listaBusquedaAño);
-        }
-        else {
-
-            if ((periodoSeleccionado == 0) && (estadoSeleccionado == 0) && (encargadoSeleccionado.Equals("0")))
-            {
-                llenarGridAsignaciones(listaAsignaciones);
-            }
-            else
-            {
-                if (periodoSeleccionado != 0)
-                {
-                    busquedaPorCiclo();
-                }
-                if (estadoSeleccionado != 0)
-                {
-                    busquedaPorEstado();
-                }
-                if (!(encargadoSeleccionado.Equals("0")))
-                {
-                    busquedaPorEncargado();
-                }
-            }           
-        }
-
-    }
-
-
-
-    /*  Requiere: n/a.
-    *   Efectúa: Método que se invoca a al seleccionar un ciclo para las búsuqedas.
-    *             
-    *   Modifica: n/a .
-    */
-    protected void dropDownCiclo_SelectedIndexChanged(object sender, EventArgs e)
-    {
-        busquedaPorCiclo();
+        return listaBusqueda;
+        
     }
 
 
 
     /*  Requiere: n/a.
     *   Efectúa: Implementa la búsuqeda por ciclo
-    *            Primero selecciona las asignaciones que cumplen con el criterio del ciclo seleccionado , luego verifica de esas 
-    *            cuales no cumplen los otros criterios selecionados por el usuario para removerlas al final    
-    *             
+    *            A partir de la lista recibida por parámetro se busca cuales elementos cumplen con el criterio del ciclo seleccionado 
+    *            y se retorna una lista el resultado.
+    *            
     *   Modifica: n/a .
     */
-    protected void busquedaPorCiclo()
+    protected List<Asignacion> busquedaPorCiclo( List<Asignacion> listaDeCoincidencias)
     {
 
-        List<Asignacion> asignacionesParaRemover = new List<Asignacion>();
-        listaBusquedaCiclo.Clear();
+        int cicloSeleccionado = Convert.ToInt32(dropDownCiclo.SelectedValue);
 
-        int cicloSeleccinado = Convert.ToInt32( dropDownCiclo.SelectedValue );
-        int añoSeleccionado = Convert.ToInt32(dropDownAnio.SelectedValue);
-        int estadoSeleccionado = Convert.ToInt32(dropDownEstado.SelectedValue);
-        string encargadoSeleccionado = dropDownBusquedaEncargado.SelectedValue;
+        List<Asignacion> listaBusqueda = new List<Asignacion>();
+       
 
-        if (cicloSeleccinado != 0)
-        {
-        
-            for (int i = 0; i < listaAsignaciones.Count; i++)
+            for (int i = 0; i < listaDeCoincidencias.Count; i++)
             {
-                if (listaAsignaciones[i].Periodo == cicloSeleccinado)
+                if (listaDeCoincidencias[i].Periodo == cicloSeleccionado)
                 {
-                    listaBusquedaCiclo.Add(listaAsignaciones[i]);
+                    listaBusqueda.Add(listaDeCoincidencias[i]);
                 }
             }
-
-
-            if (añoSeleccionado != 0)
-            {
-                asignacionesParaRemover.Clear();
-                for (int i = 0; i < listaBusquedaCiclo.Count; ++i)
-                {
-                    if (!(listaBusquedaCiclo[i].Año == añoSeleccionado))
-                    {
-                        asignacionesParaRemover.Add(listaBusquedaCiclo[i]);
-                    }
-                }
-
-                for (int i = 0; i < asignacionesParaRemover.Count; ++i)
-                {
-                    listaBusquedaCiclo.Remove(asignacionesParaRemover[i]);
-                }
-            }
-
-
-            if (estadoSeleccionado != 0)
-            {
-                asignacionesParaRemover.Clear();
-                for (int i = 0; i < listaBusquedaCiclo.Count; ++i)
-                {
-                    if (!(listaBusquedaCiclo[i].Estado == estadoSeleccionado))
-                    {
-                        asignacionesParaRemover.Add(listaBusquedaCiclo[i]);
-                    }
-                }
-
-                for (int i = 0; i < asignacionesParaRemover.Count; ++i)
-                {
-                    listaBusquedaCiclo.Remove(asignacionesParaRemover[i]);
-                }
-            }
-
-
-            if (!(encargadoSeleccionado.Equals("0")))
-            {
-
-                asignacionesParaRemover.Clear();
-                for (int i = 0; i < listaBusquedaCiclo.Count; ++i)
-                {
-                    if (!(listaBusquedaCiclo[i].CedulaEncargado.Equals(encargadoSeleccionado)))
-                    {
-                        asignacionesParaRemover.Add(listaBusquedaCiclo[i]);
-                    }
-                }
-
-                for (int i = 0; i < asignacionesParaRemover.Count; ++i)
-                {
-                    listaBusquedaCiclo.Remove(asignacionesParaRemover[i]);
-                }
-            }
-
-
-            llenarGridAsignaciones(listaBusquedaCiclo);
-        }
-        else
-        {
-
-            if ((añoSeleccionado == 0) && (estadoSeleccionado == 0) && (encargadoSeleccionado.Equals("0")))
-            {
-                llenarGridAsignaciones(listaAsignaciones);
-            }
-            else
-            {
-                if (añoSeleccionado != 0)
-                {
-                    busquedaPorAño();
-                }
-                if (estadoSeleccionado != 0)
-                {
-                    busquedaPorEstado();
-                }
-
-                if (!(encargadoSeleccionado.Equals("0")))
-                {
-                    busquedaPorEncargado();
-                }
-            }
-        }
-
-    }
-
-
-    /*  Requiere: n/a.
-    *   Efectúa: Método que se invoca a al seleccionar un estado para las búsuqedas.
-    *             
-    *   Modifica: n/a .
-    */
-    protected void dropDownEstado_SelectedIndexChanged(object sender, EventArgs e)
-    {
-        busquedaPorEstado();
+   
+         return listaBusqueda;
     }
 
 
 
     /*  Requiere: n/a.
     *   Efectúa: Implementa la búsuqeda por estado
-    *            Primero selecciona las asignaciones tienen el estado seleccionado , luego verifica de esas 
-    *            cuales no cumplen los otros criterios selecionados por el usuario para removerlas al final    
+    *            A partir de la lista recibida por parámetro se busca cuales elementos cumplen con el criterio del estado seleccionado 
+    *            y se retorna una lista el resultado.   
     *             
     *   Modifica: n/a .
     */
-    protected void busquedaPorEstado()
+    protected List<Asignacion> busquedaPorEstado(List<Asignacion> listaDeCoincidencias)
     {
-
-        List<Asignacion> asignacionesParaRemover = new List<Asignacion>();
-        listaBusquedaEstado.Clear();
 
         int estadoSeleccionado = Convert.ToInt32(dropDownEstado.SelectedValue);
-        int periodoSeleccionado = Convert.ToInt32(dropDownCiclo.SelectedValue);
-        int añoSeleccionado = Convert.ToInt32(dropDownAnio.SelectedValue);
-        string encargadoSeleccionado = dropDownBusquedaEncargado.SelectedValue;
 
-        if (estadoSeleccionado != 0)
+        List<Asignacion> listaBusqueda = new List<Asignacion>();
+
+        for (int i = 0; i < listaDeCoincidencias.Count; i++)
         {
-
-            for (int i = 0; i < listaAsignaciones.Count; i++)
+            if (listaDeCoincidencias[i].Estado == estadoSeleccionado)
             {
-                if (listaAsignaciones[i].Estado == estadoSeleccionado)
-                {
-                    listaBusquedaEstado.Add(listaAsignaciones[i]);
-                }
-            }
-
-
-            if (periodoSeleccionado != 0)
-            {
-                asignacionesParaRemover.Clear();
-                for (int i = 0; i < listaBusquedaEstado.Count; ++i)
-                {
-                    if (!(listaBusquedaEstado[i].Periodo == periodoSeleccionado))
-                    {
-                      asignacionesParaRemover.Add(listaBusquedaEstado[i]);
-                    }
-                }
-
-                for (int i = 0; i < asignacionesParaRemover.Count; ++i)
-                {
-                    listaBusquedaEstado.Remove(asignacionesParaRemover[i]);
-                }
-            }
-
-
-            if (añoSeleccionado != 0)
-            {
-                asignacionesParaRemover.Clear();
-                for (int i = 0; i < listaBusquedaEstado.Count; ++i)
-                {
-                    if (!(listaBusquedaEstado[i].Año == añoSeleccionado))
-                    {
-                        asignacionesParaRemover.Add(listaBusquedaEstado[i]);                     
-                    }
-                }
-
-                for (int i = 0; i < asignacionesParaRemover.Count; ++i)
-                {
-                    listaBusquedaEstado.Remove(asignacionesParaRemover[i]);
-                }
-            }
-
-
-            if (!(encargadoSeleccionado.Equals("0")))
-            {
-
-                asignacionesParaRemover.Clear();
-                for (int i = 0; i < listaBusquedaEstado.Count; ++i)
-                {
-                    if (!(listaBusquedaEstado[i].CedulaEncargado.Equals(encargadoSeleccionado)))
-                    {
-                        asignacionesParaRemover.Add(listaBusquedaEstado[i]);
-                    }
-                }
-
-                for (int i = 0; i < asignacionesParaRemover.Count; ++i)
-                {
-                    listaBusquedaEstado.Remove(asignacionesParaRemover[i]);
-                }
-            }
-
-
-            llenarGridAsignaciones(listaBusquedaEstado);
-        }
-        else
-        {
-
-            if ((añoSeleccionado == 0) && (periodoSeleccionado == 0) && (encargadoSeleccionado.Equals("0")))
-            {
-                llenarGridAsignaciones(listaAsignaciones);
-            }
-            else
-            {
-                if (añoSeleccionado != 0)
-                {
-                    busquedaPorAño();
-                }
-                if (periodoSeleccionado != 0)
-                {
-                    busquedaPorCiclo();
-                }
-                if (!(encargadoSeleccionado.Equals("0")))
-                {
-                    busquedaPorEncargado();
-                }
+                listaBusqueda.Add(listaDeCoincidencias[i]);
             }
         }
 
+       return listaBusqueda;
     }
 
-
-
-    /*  Requiere: n/a.
-    *   Efectúa: Método que se invoca a al seleccionar un encargado para las búsuqedas.
-    *             
-    *   Modifica: n/a .
-    */
-    protected void dropDownBusquedaEncargado_SelectedIndexChanged(object sender, EventArgs e)
-    {
-        busquedaPorEncargado();
-    }
 
 
     /*  Requiere: n/a.
     *   Efectúa: Implementa la búsuqeda por encargado
-    *            Primero selecciona las asignaciones que involucran al encargado seleccionado , luego verifica de esas 
-    *            cuales no cumplen los otros criterios selecionados por el usuario para removerlas al final    
+    *            A partir de la lista recibida por parámetro se busca cuales elementos cumplen con el criterio del encargado seleccionado 
+    *            y se retorna una lista el resultado.    
     *             
     *   Modifica: n/a .
     */
-    protected void busquedaPorEncargado() {
+    protected List<Asignacion> busquedaPorEncargado(List<Asignacion> listaDeCoincidencias)
+    {
 
         List<Asignacion> asignacionesParaRemover = new List<Asignacion>();
      
-        listaBusquedaEncargado.Clear();
-
-        int estadoSeleccionado = Convert.ToInt32(dropDownEstado.SelectedValue);
-        int periodoSeleccionado = Convert.ToInt32(dropDownCiclo.SelectedValue);
-        int añoSeleccionado = Convert.ToInt32(dropDownAnio.SelectedValue);
         string encargadoSeleccionado = dropDownBusquedaEncargado.SelectedValue;
 
-        if ( !(encargadoSeleccionado.Equals("0")))
+
+        List<Asignacion> listaBusqueda = new List<Asignacion>();
+
+        for (int i = 0; i < listaDeCoincidencias.Count; i++)
         {
-
-            for (int i = 0; i < listaAsignaciones.Count; i++)
+            if (listaDeCoincidencias[i].CedulaEncargado.Equals(encargadoSeleccionado))
             {
-                if (listaAsignaciones[i].CedulaEncargado.Equals(encargadoSeleccionado))
-                {
-                    listaBusquedaEncargado.Add(listaAsignaciones[i]);
-                }
-            }
-
-
-            if (añoSeleccionado != 0)
-            {
-                asignacionesParaRemover.Clear();
-                for (int i = 0; i < listaBusquedaEncargado.Count; ++i)
-                {
-                    if (!(listaBusquedaEncargado[i].Año == añoSeleccionado))
-                    {
-                        asignacionesParaRemover.Add(listaBusquedaEncargado[i]);
-                    }
-                }
-
-                for (int i = 0; i < asignacionesParaRemover.Count; ++i)
-                {
-                    listaBusquedaEncargado.Remove(asignacionesParaRemover[i]);
-                }
-            }
-
-
-            if (periodoSeleccionado != 0)
-            {
-                asignacionesParaRemover.Clear();
-                for (int i = 0; i < listaBusquedaEncargado.Count; ++i)
-                {
-                    if (!(listaBusquedaEncargado[i].Periodo == periodoSeleccionado))
-                    {
-                        asignacionesParaRemover.Add(listaBusquedaEncargado[i]);
-                    }
-                }
-
-                for (int i = 0; i < asignacionesParaRemover.Count; ++i)
-                {
-                    listaBusquedaEncargado.Remove(asignacionesParaRemover[i]);
-                }
-            }
-
-
-            if (estadoSeleccionado != 0)
-            {
-                asignacionesParaRemover.Clear();
-                for (int i = 0; i < listaBusquedaEncargado.Count; ++i)
-                {
-                    if (!(listaBusquedaEncargado[i].Estado == estadoSeleccionado))
-                    {
-                        asignacionesParaRemover.Add(listaBusquedaEncargado[i]);
-                    }
-                }
-
-                for (int i = 0; i < asignacionesParaRemover.Count; ++i)
-                {
-                    listaBusquedaEncargado.Remove(asignacionesParaRemover[i]);
-                }
-            }
-
-
-            llenarGridAsignaciones(listaBusquedaEncargado);
-        }
-        else
-        {
-
-            if ((añoSeleccionado == 0) && (periodoSeleccionado == 0) && (estadoSeleccionado == 0))
-            {
-                llenarGridAsignaciones(listaAsignaciones);
-            }
-            else
-            {
-                if (añoSeleccionado != 0)
-                {
-                    busquedaPorAño();
-                }
-                if (periodoSeleccionado != 0)
-                {
-                    busquedaPorCiclo();
-                }
-
-                if (estadoSeleccionado != 0)
-                {
-                    busquedaPorEstado();
-                }
+                listaBusqueda.Add(listaDeCoincidencias[i]);
             }
         }
 
+        return listaBusqueda;
     }
 
 
