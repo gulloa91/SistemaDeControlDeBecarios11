@@ -216,10 +216,6 @@ public partial class ControlDeHoras : System.Web.UI.Page
             default://no se hace nada
                 break;
         }
-        //cierra la ventana emergente
-        commonService.correrJavascript("$('#PopUpCtrlBecario').dialog('close');");
-        vaciarCampos();//limpia los campos
-        llenarGridHorasReportadas();//llena nuevamente el grid
     }
 
     //limpia todos los campos de texto
@@ -231,37 +227,63 @@ public partial class ControlDeHoras : System.Web.UI.Page
 
     //se inserta un nuevo reporte de horas
     public void insertarReporte() {
-        Object[] datos = new Object[9];//se crea el objeto de datos
-        datos[0] = this.cb.getCedulaEncargado(Session["Cedula"].ToString(), Convert.ToInt32(Session["Periodo"].ToString()));//recupera la cedula del encargado para el becario logueado en el sistema
-        datos[1] = Session["Cedula"].ToString();//el becario que esta logueado
-        datos[2] = 0;//0 pendiente, 1 rechazada y 2 aceptada
-        datos[3] = Convert.ToInt32(this.txtCantidadHoras.Text);//horas digitadas por el usuario
-        datos[4] = txtFecha.Text;//fecha actual del sistema
-        datos[5] = "";
-        datos[6] = this.txtComentario.Text;//comentario del becario
-        datos[7] = Session["Periodo"].ToString();//periodo
-        datos[8] = DateTime.Now.Year;
-        String resultado = "";
-        resultado = this.cb.enviarReporte(datos);//inserta el reporte de horas
-        commonService.mensajeJavascript(resultado, "Reporte de Horas");//muestra un mensaje de exito o error
+        if (Convert.ToInt32(txtCantidadHoras.Text) <= Convert.ToInt32(lblHorasRestantes.Text))
+        {// cantidad de horas que reporto son menores o iguales a las que me hacen falta
+            Object[] datos = new Object[9];//se crea el objeto de datos
+            datos[0] = this.cb.getCedulaEncargado(Session["Cedula"].ToString(), Convert.ToInt32(Session["Periodo"].ToString()));//recupera la cedula del encargado para el becario logueado en el sistema
+            datos[1] = Session["Cedula"].ToString();//el becario que esta logueado
+            datos[2] = 0;//0 pendiente, 1 rechazada y 2 aceptada
+            datos[3] = Convert.ToInt32(this.txtCantidadHoras.Text);//horas digitadas por el usuario
+            datos[4] = txtFecha.Text;//fecha actual del sistema
+            datos[5] = "";
+            datos[6] = this.txtComentario.Text;//comentario del becario
+            datos[7] = Session["Periodo"].ToString();//periodo
+            datos[8] = DateTime.Now.Year;
+            String resultado = "";
+            resultado = this.cb.enviarReporte(datos);//inserta el reporte de horas
+            commonService.mensajeJavascript(resultado, "Reporte de Horas");//muestra un mensaje de exito o error
+            //cierra la ventana emergente
+            commonService.correrJavascript("$('#PopUpCtrlBecario').dialog('close');");
+            vaciarCampos();//limpia los campos
+            llenarGridHorasReportadas();//llena nuevamente el grid
+        }
+        else {
+            commonService.mensajeJavascript("La cantidad de horas reportadas excede la cantidad de horas restantes", "Error");
+            commonService.correrJavascript("$('#comentarioDeEncargado').hide();");
+            commonService.correrJavascript("$('.dateText').datepicker({ dateFormat: 'dd-MM-yy' });");
+        }
+        
     }
 
     //para modificar un reporte existente
     public void modificarReporte() {
-        Object[] datos = new Object[9];//crea el arreglo de datos
-        datos[0] = this.cb.getCedulaEncargado(Session["Cedula"].ToString(), Convert.ToInt32(Session["Periodo"].ToString()));//recupera la cedula del encargado para el becario logueado en el sistema
-        datos[1] = Session["Cedula"].ToString();//el becario que esta logueado
-        datos[2] = 0;//0 pendiente, 1 rechazada y 2 aceptada
-        datos[3] = Convert.ToInt32(this.txtCantidadHoras.Text);//horas digitadas por el usuario
-        datos[4] = infoActual.Rows[indice].ItemArray[3].ToString();
-        datos[5] = this.txtComentarioEncargado.Text;
-        datos[6] = this.txtComentario.Text;//comentario del becario
-        datos[7] = Session["Periodo"].ToString();//periodo
-        datos[8] = DateTime.Now.Year;
-        int resultado;//resultado de la modificacion
-        resultado = this.cb.modificarReporte(datos);//modifico el reporte
-        if (resultado == 1) commonService.mensajeJavascript("Modificacion Exitosa", "Reporte de Horas");//exitoso
-        else  commonService.mensajeJavascript("Modificacion Fallida", "Reporte de Horas"); //fallido
+        if (Convert.ToInt32(txtCantidadHoras.Text) <= Convert.ToInt32(lblHorasRestantes.Text))
+        {// cantidad de horas que reporto son menores o iguales a las que me hacen falta
+            Object[] datos = new Object[9];//crea el arreglo de datos
+            datos[0] = this.cb.getCedulaEncargado(Session["Cedula"].ToString(), Convert.ToInt32(Session["Periodo"].ToString()));//recupera la cedula del encargado para el becario logueado en el sistema
+            datos[1] = Session["Cedula"].ToString();//el becario que esta logueado
+            datos[2] = 0;//0 pendiente, 1 rechazada y 2 aceptada
+            datos[3] = Convert.ToInt32(this.txtCantidadHoras.Text);//horas digitadas por el usuario
+            datos[4] = infoActual.Rows[indice].ItemArray[3].ToString();
+            datos[5] = this.txtComentarioEncargado.Text;
+            datos[6] = this.txtComentario.Text;//comentario del becario
+            datos[7] = Session["Periodo"].ToString();//periodo
+            datos[8] = DateTime.Now.Year;
+            int resultado;//resultado de la modificacion
+            resultado = this.cb.modificarReporte(datos);//modifico el reporte
+            if (resultado == 1) commonService.mensajeJavascript("Modificacion Exitosa", "Reporte de Horas");//exitoso
+            else commonService.mensajeJavascript("Modificacion Fallida", "Reporte de Horas"); //fallido
+            //cierra la ventana emergente
+            commonService.correrJavascript("$('#PopUpCtrlBecario').dialog('close');");
+            vaciarCampos();//limpia los campos
+            llenarGridHorasReportadas();//llena nuevamente el grid
+        }
+        else {
+            commonService.mensajeJavascript("La cantidad de horas reportadas excede la cantidad de horas restantes", "Error");
+            commonService.correrJavascript("$('#comentarioDeEncargado').hide();");
+            commonService.correrJavascript("$('.dateText').datepicker({ dateFormat: 'dd-MM-yy' });");
+        }
+        
     }
 
     //obtiene el siguiente periodo al actual

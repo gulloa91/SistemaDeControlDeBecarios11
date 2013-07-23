@@ -542,6 +542,8 @@ public partial class Perfiles : System.Web.UI.Page
         String temp = txtNombrePerfil.Text;
         vaciarCampos();
         txtNombrePerfil.Text = temp;
+        habilitarCampos(true);
+        //se marcan los permisos por defecto
         radioSinAccesoBecario.Checked = false;
         radioBecarioCompleto.Checked = true;
         radioEncargadoCompleto.Checked = true;
@@ -549,6 +551,18 @@ public partial class Perfiles : System.Web.UI.Page
         checkPerfiles.Checked = true;
         checkReportes.Checked = true;
         radioCuentaCompleta.Checked = true;
+        //se deshabilitan los permisos no validos
+        radioCuentaParcial.Enabled = false;
+        radioSinCuenta.Enabled = false;
+        radioControlBecario.Enabled = false;
+        radioControlEncargado.Enabled = false;
+        radioBecarioParcial.Enabled = false;
+        radioSinAccesoBecario.Enabled = false;
+        radioEncargadoParcial.Enabled = false;
+        radioSinAccesoEncargado.Enabled = false;
+        radioAsignacionBecario.Enabled = false;
+        radioAsignacionEncargado.Enabled = false;
+        noControlHoras.Checked = true;
     }
 
     protected void radioEncargado_CheckedChanged(object sender, EventArgs e)
@@ -556,11 +570,17 @@ public partial class Perfiles : System.Web.UI.Page
         String temp = txtNombrePerfil.Text;
         vaciarCampos();
         txtNombrePerfil.Text = temp;
+        habilitarCampos(true);
+        //permisos por defecto
         radioSinAccesoBecario.Checked = true;
         radioEncargadoParcial.Checked = true;
         radioControlEncargado.Checked = true;
         radioAsignacionEncargado.Checked = true;
         radioCuentaParcial.Checked = true;
+        //permisos no admitidos
+        radioBecarioParcial.Enabled = false;
+        radioControlBecario.Enabled = false;
+        radioAsignacionBecario.Enabled = false;
     }
 
     protected void radioBecario_CheckedChanged(object sender, EventArgs e)
@@ -568,10 +588,15 @@ public partial class Perfiles : System.Web.UI.Page
         String temp = txtNombrePerfil.Text;
         vaciarCampos();
         txtNombrePerfil.Text = temp;
+        habilitarCampos(true);
         radioSinAccesoEncargado.Checked = true;
         radioBecarioParcial.Checked = true;
         radioControlBecario.Checked = true;
         radioAsignacionBecario.Checked = true;
         radioCuentaParcial.Checked = true;
+            //permisos no admitidos
+        radioEncargadoParcial.Enabled = false;
+        radioControlEncargado.Enabled = false;
+        radioAsignacionEncargado.Enabled = false;
     }
 }
