@@ -318,8 +318,10 @@ public partial class Becarios : System.Web.UI.Page
         }
         else {
 
-          commonService.mensajeJavascript("Aún hay datos escritos en algún grid del perfil, debe borrar esta información o presionar el botón con el signo  \\+  para guardarla ", "AVISO");
+          commonService.mensajeJavascript("En la sección del perfil hay datos que no se han guardado , para hacerlo debe presionar el botón color verde con el signo  \\+ en la correspondiente tabla", "AVISO");
           arreglarTabs();
+          correrJavascript("seleccionarTabs();");
+
         }
 
 
