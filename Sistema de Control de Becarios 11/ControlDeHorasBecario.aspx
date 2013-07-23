@@ -142,7 +142,7 @@
                                     Cantidad de Horas:
                                 </div>
                                 <div style="width: 60%; float: left">
-                                    <asp:TextBox ID="txtCantidadHoras" runat="server"></asp:TextBox>
+                                    <asp:TextBox ID="txtCantidadHoras" runat="server" MaxLength="2"></asp:TextBox>
                                 </div>
                             </div>
                             <!--Para la fecha en que se hicieron las horas-->
@@ -162,7 +162,8 @@
                                     <asp:RegularExpressionValidator ID="RegularExpressionValidator1"
                                         ControlToValidate="txtCantidadHoras" runat="server"
                                         ErrorMessage="Horas no válidas" Display="Dynamic"
-                                        ForeColor="Red" ValidationExpression="\d{1,2}"></asp:RegularExpressionValidator>
+                                        ForeColor="Red" ValidationExpression="\d{1,2}" Enabled="false"></asp:RegularExpressionValidator>
+                                    <asp:RangeValidator ID="RangeValidator1" runat="server" ErrorMessage="Horas no válidas" Font-Bold="True" ForeColor="Red" ControlToValidate="txtCantidadHoras" MaximumValue="16" MinimumValue="1"></asp:RangeValidator>
                                 </div>
                             </div>
                             <div id="comentario" style="width: 84%; padding: 0% 8% 0% 8%; float: left; background: #D8D8BF; border-radius: 5px;">
@@ -173,15 +174,16 @@
                                     <asp:TextBox ID="txtComentario" CssClass="comentarioCHB" TextMode="MultiLine" Rows="5"
                                         runat="server"></asp:TextBox>
                                 </div>
+                                <div id="validadorComentario" style="width: 100%; float: left">
+                                    <asp:RequiredFieldValidator ValidationGroup="NuevoReporte" Display="Dynamic" ID="RequiredFieldValidator2" ForeColor="Red" runat="server" ControlToValidate="txtComentario" ErrorMessage="Comentario Requerido"></asp:RequiredFieldValidator>
+                                </div>
                                 <!-- Textbox para comentario respuesta -->
                                 <div id="comentarioDeEncargado" style="width: 100%; float: left">
                                     <asp:Label ID="Label2" runat="server" Text="Comentario del encargado"></asp:Label>
                                     <asp:TextBox ID="txtComentarioEncargado" CssClass="comentarioCHB" TextMode="MultiLine"
                                         Rows="5" runat="server"></asp:TextBox>
                                 </div>
-                                <div id="validadorComentario" style="width: 100%; float: left">
-                                    <asp:RequiredFieldValidator ValidationGroup="NuevoReporte" Display="Dynamic" ID="RequiredFieldValidator2" ForeColor="Red" runat="server" ControlToValidate="txtComentario" ErrorMessage="Comentario Requerido"></asp:RequiredFieldValidator>
-                                </div>
+                                
                             </div>
                         </div>
                     </ContentTemplate>
