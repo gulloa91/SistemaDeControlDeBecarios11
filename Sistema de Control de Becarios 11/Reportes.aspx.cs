@@ -98,7 +98,7 @@ public partial class Reportes : System.Web.UI.Page
                     {
                         indexEstado = 0;
                         indexPeriodo = 0;
-                        indexAño = 6;
+                        indexAño = 1;
                         indexUltimaAsignacion = 0;
 
                         tipoReporte = 4;
@@ -1045,7 +1045,7 @@ public partial class Reportes : System.Web.UI.Page
                     lsObject = controladoraReportes.reporteBecarios(tipoReporte, criterioDeBusqueda, estado, periodo, año, null, null);
 
                     mostrarGrid();
-                    if (this.GridViewReporte.Rows[0].Cells[0].Text != "-")
+                    if (this.GridViewReporte.Rows[0].Cells[0].Text != "-" && Convert.ToInt32(this.DropDownListCriterio1.SelectedIndex) == 0)
                     {
                         btnPopUpGenerarPDF.Visible = true;
                     }
