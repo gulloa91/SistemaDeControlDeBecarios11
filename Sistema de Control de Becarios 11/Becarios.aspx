@@ -1077,7 +1077,7 @@
                <div style="width: 12%; float: right; margin-bottom:0% ; margin-top:0% ">
                  <asp:Button ID="btnCancelarPerfilParcial" runat="server" Text="Cancelar" 
                   CssClass="boton ui-widget ui-state-default ui-corner-all ui-button-text-only" 
-                  onClick="btnCancelarP_Click"  CausesValidation="false"/>
+                  onClick="btnCancelarPerfilP_Click"  CausesValidation="false"/>
                </div>
 
                <div style="width: 12%; float: right; margin-bottom:0% ; margin-top:0%;margin-right:10px">    
