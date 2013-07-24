@@ -101,11 +101,9 @@
                                 </div>
                             </div>
                             <div id="validadores">
-                                <div id="validarores1">
-                                </div>
-                                <div id="validarores2">
+                                <div id="validarores2" style="padding-left: 23%;">
                                     <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ErrorMessage="Nombre Requerido" ControlToValidate="txtNombrePerfil" Display="Dynamic" EnableClientScript="False" Font-Bold="True" ForeColor="Red"></asp:RequiredFieldValidator>
-                                    <asp:RegularExpressionValidator ID="RegularExpressionValidator1" runat="server" ErrorMessage="Se han escrito caracteres inválidos" ControlToValidate="txtNombrePerfil" Display="Dynamic" EnableClientScript="False" Font-Bold="True" ForeColor="Red" ValidationExpression="[a-zA-ZÀ-ÖØ-öø-ÿ]+\.?(( |\-)[a-zA-ZÀ-ÖØ-öø-ÿ]+\.?)*"></asp:RegularExpressionValidator>
+                                    <asp:RegularExpressionValidator ID="RegularExpressionValidator1" runat="server" ErrorMessage="Se han escrito caracteres inválidos" ControlToValidate="txtNombrePerfil" Display="Dynamic" EnableClientScript="False" Font-Bold="True" ForeColor="Red" ValidationExpression="[0-9a-zA-ZÀ-ÖØ-öø-ÿ]+\.?(( |\-)[0-9a-zA-ZÀ-ÖØ-öø-ÿ]+\.?)*"></asp:RegularExpressionValidator>
                                 </div>
                             </div>
                             <!--RADIO BUTTONS PARA EL TIPO DE PERFIL-->
