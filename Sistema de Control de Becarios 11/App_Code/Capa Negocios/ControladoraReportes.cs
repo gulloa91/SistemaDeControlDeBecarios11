@@ -45,7 +45,7 @@ public class ControladoraReportes
                             {
                                 periodo = 2;
                             } break;
-                        case "III   - Periodo":
+                        case "III - Periodo":
                             {
                                 periodo = 3;
                             } break;
@@ -56,11 +56,45 @@ public class ControladoraReportes
                     {
                         case "Horas Finalizadas":
                             {
-                                tbBecarios = controladoraBDReportes.reportarBecariosConHorasFinalizadas(criterioBusquedaGeneral, periodo, criterio3);
+                                int criterioLibre = 111;
+                                if(periodo == 0)
+                                {
+                                    criterioLibre -= 10;                                   
+                                }
+                                if (String.Compare(criterio3, "Seleccionar Año") == 0)
+                                {
+                                    criterioLibre -= 1;
+                                    criterio3 = "0";
+                                }
+                                tbBecarios = controladoraBDReportes.reportarBecariosConHorasFinalizadas(criterioBusquedaGeneral, periodo, criterio3, criterioLibre);
                             } break;
                         case "Pendiente de Horas":
                             {
-                                tbBecarios = controladoraBDReportes.reportarBecariosPendientesDeHoras(criterioBusquedaGeneral, periodo, criterio3);
+                                int criterioLibre = 111;
+                                if (periodo == 0)
+                                {
+                                    criterioLibre -= 10;
+                                }
+                                if (String.Compare(criterio3, "Seleccionar Año") == 0)
+                                {
+                                    criterioLibre -= 1;
+                                    criterio3 = "0";
+                                }
+                                tbBecarios = controladoraBDReportes.reportarBecariosPendientesDeHoras(criterioBusquedaGeneral, periodo, criterio3, criterioLibre);
+                            } break;
+                        case "Seleccionar Estado":
+                            {
+                                int criterioLibre = 11;
+                                if (periodo == 0)
+                                {
+                                    criterioLibre -= 10;
+                                }
+                                if (String.Compare(criterio3, "Seleccionar Año") == 0)
+                                {
+                                    criterioLibre -= 1;
+                                    criterio3 = "0";
+                                }
+                                tbBecarios = controladoraBDReportes.reportarBecariosConHorasFinalizadas(criterioBusquedaGeneral, periodo, criterio3, criterioLibre);
                             } break;
                     }
 
@@ -126,40 +160,44 @@ public class ControladoraReportes
                     {
                         case "Hace más de 3 periodos":
                             {
-                                int periodoAnterior;
-                                int añoAnterior;
-                                int periodoTrasAnterior;
-                                int añoTrasAnterior;
-                                int periodoTrasTrasAnterior;
-                                int añoTrasTrasAnterior;
-                                if (periodo == 1)
+                                int periodoAnterior = 0;
+                                int añoAnterior = 0;
+                                int periodoTrasAnterior = 0;
+                                int añoTrasAnterior = 0;
+                                int periodoTrasTrasAnterior = 0;
+                                int añoTrasTrasAnterior = 0;
+
+                                if (String.Compare(criterio2, "Seleccionar Año") != 0)
                                 {
-                                    periodoAnterior = 3;
-                                    periodoTrasAnterior = 2;
-                                    periodoTrasTrasAnterior = 1;
-                                    añoAnterior = Convert.ToInt32(criterio2) - 1;
-                                    añoTrasAnterior = Convert.ToInt32(criterio2) - 1;
-                                    añoTrasTrasAnterior = Convert.ToInt32(criterio2) - 1;
-                                }
-                                else
-                                {
-                                    if (periodo == 2)
+                                    if (periodo == 1)
                                     {
-                                        periodoAnterior = 1;
-                                        periodoTrasAnterior = 3;
-                                        periodoTrasTrasAnterior = 2;
-                                        añoAnterior = Convert.ToInt32(criterio2);
+                                        periodoAnterior = 3;
+                                        periodoTrasAnterior = 2;
+                                        periodoTrasTrasAnterior = 1;
+                                        añoAnterior = Convert.ToInt32(criterio2) - 1;
                                         añoTrasAnterior = Convert.ToInt32(criterio2) - 1;
                                         añoTrasTrasAnterior = Convert.ToInt32(criterio2) - 1;
                                     }
                                     else
                                     {
-                                        periodoAnterior = 2;
-                                        periodoTrasAnterior = 1;
-                                        periodoTrasTrasAnterior = 3;
-                                        añoAnterior = Convert.ToInt32(criterio2);
-                                        añoTrasAnterior = Convert.ToInt32(criterio2);
-                                        añoTrasTrasAnterior = Convert.ToInt32(criterio2)-1;
+                                        if (periodo == 2)
+                                        {
+                                            periodoAnterior = 1;
+                                            periodoTrasAnterior = 3;
+                                            periodoTrasTrasAnterior = 2;
+                                            añoAnterior = Convert.ToInt32(criterio2);
+                                            añoTrasAnterior = Convert.ToInt32(criterio2) - 1;
+                                            añoTrasTrasAnterior = Convert.ToInt32(criterio2) - 1;
+                                        }
+                                        else
+                                        {
+                                            periodoAnterior = 2;
+                                            periodoTrasAnterior = 1;
+                                            periodoTrasTrasAnterior = 3;
+                                            añoAnterior = Convert.ToInt32(criterio2);
+                                            añoTrasAnterior = Convert.ToInt32(criterio2);
+                                            añoTrasTrasAnterior = Convert.ToInt32(criterio2) - 1;
+                                        }
                                     }
                                 }
 
@@ -167,32 +205,35 @@ public class ControladoraReportes
                             } break;
                         case "Hace 2 periodos":
                             {
-                                int periodoAnterior;
-                                int añoAnterior;
-                                int periodoTrasAnterior;
-                                int añoTrasAnterior;
-                                if (periodo == 1)
+                                int periodoAnterior = 0;
+                                int añoAnterior = 0;
+                                int periodoTrasAnterior = 0;
+                                int añoTrasAnterior = 0;
+                                if (String.Compare(criterio2, "Seleccionar Año") != 0)
                                 {
-                                    periodoAnterior = 3;
-                                    periodoTrasAnterior = 2;
-                                    añoAnterior = Convert.ToInt32(criterio2) - 1;
-                                    añoTrasAnterior = Convert.ToInt32(criterio2) - 1;
-                                }
-                                else
-                                {
-                                    if (periodo == 2)
+                                    if (periodo == 1)
                                     {
-                                        periodoAnterior = 1;
-                                        periodoTrasAnterior = 3;
-                                        añoAnterior = Convert.ToInt32(criterio2);
+                                        periodoAnterior = 3;
+                                        periodoTrasAnterior = 2;
+                                        añoAnterior = Convert.ToInt32(criterio2) - 1;
                                         añoTrasAnterior = Convert.ToInt32(criterio2) - 1;
                                     }
                                     else
                                     {
-                                        periodoAnterior = 2;
-                                        periodoTrasAnterior = 1;
-                                        añoAnterior = Convert.ToInt32(criterio2);
-                                        añoTrasAnterior = Convert.ToInt32(criterio2);
+                                        if (periodo == 2)
+                                        {
+                                            periodoAnterior = 1;
+                                            periodoTrasAnterior = 3;
+                                            añoAnterior = Convert.ToInt32(criterio2);
+                                            añoTrasAnterior = Convert.ToInt32(criterio2) - 1;
+                                        }
+                                        else
+                                        {
+                                            periodoAnterior = 2;
+                                            periodoTrasAnterior = 1;
+                                            añoAnterior = Convert.ToInt32(criterio2);
+                                            añoTrasAnterior = Convert.ToInt32(criterio2);
+                                        }
                                     }
                                 }
 
@@ -200,23 +241,46 @@ public class ControladoraReportes
                             } break;
                         case "Periodo anterior":
                             {
-                                int periodoAnterior;
-                                int añoAnterior;
-                                if (periodo == 1)
+                                int periodoAnterior = 0;
+                                int añoAnterior = 0;
+                                if (String.Compare(criterio2, "Seleccionar Año") != 0)
                                 {
-                                    periodoAnterior = 3;
-                                    añoAnterior = Convert.ToInt32(criterio2) - 1;
+                                    if (periodo == 1)
+                                    {
+                                        periodoAnterior = 3;
+                                        añoAnterior = Convert.ToInt32(criterio2) - 1;
+                                    }
+                                    else
+                                    {
+                                        periodoAnterior = periodo - 1;
+                                        añoAnterior = Convert.ToInt32(criterio2);
+                                    }
                                 }
-                                else {
-                                    periodoAnterior = periodo - 1;
-                                    añoAnterior = Convert.ToInt32(criterio2);
-                                }
+
+
                                 tbBecarios = controladoraBDReportes.reportarBecariosNoAsignados(criterioBusquedaGeneral, periodo, criterio2, añoAnterior, periodoAnterior);
                             } break;
 
                         case "Becarios nunca Asignados":
                             {
                                 tbBecarios = controladoraBDReportes.reportarBecariosNoAsignados4(criterioBusquedaGeneral);
+                            } break;
+
+                        case "Seleccionar Lapso":
+                            {
+                                int criterioLibre = 11;
+
+                                if (periodo == 0)
+                                {
+                                    criterioLibre -= 10;
+                                }
+                                if (String.Compare(criterio2, "Seleccionar Año") == 0)
+                                {
+                                    criterioLibre -= 1;
+                                    criterio2 = "0";
+                                }
+
+                                tbBecarios = controladoraBDReportes.reportarBecariosNoAsignados5(criterioBusquedaGeneral, criterioLibre, criterio2, periodo);
                             } break;
                     }
 
@@ -263,8 +327,24 @@ public class ControladoraReportes
                             } break;
                     }
 
+                    int criterioLibre = 111;
+                    if (String.Compare(criterio3, "Seleccionar UA") == 0)
+                    {
+                        criterioLibre = 11;
+                    }
+
+                    if (periodo == 0)
+                    {
+                        criterioLibre -= 10;
+                    }
+                    if (String.Compare(criterio2, "Seleccionar Año") == 0)
+                    {
+                        criterioLibre -= 1;
+                        criterio2 = "0";
+                    }
+
                     DataTable tbBecarios = new DataTable();
-                    tbBecarios = controladoraBDReportes.reportarBecariosPorUnidadAcademica(criterioBusquedaGeneral, periodo, criterio2, criterio3);
+                    tbBecarios = controladoraBDReportes.reportarBecariosPorUnidadAcademica(criterioBusquedaGeneral, periodo, criterio2, criterio3, criterioLibre);
                     List<object[]> lsObjectAux = new List<object[]>();
 
 
@@ -339,13 +419,28 @@ public class ControladoraReportes
                 {
                     periodo = 2;
                 } break;
-            case "III   - Periodo":
+            case "III - Periodo":
                 {
                     periodo = 3;
                 } break;
         }
 
-        DataTable dt = controladoraBDReportes.llenarEncargadosAtrasados(criterioBusqueda, año, periodo, fechaUltimoReporte);
+        int criterioLibre = 111;
+        DateTime fechaHoy = DateTime.Now;
+        if (fechaHoy < fechaUltimoReporte)
+        {
+            criterioLibre = 11;
+        }
+        if (periodo == 0)
+        {
+            criterioLibre -= 10;
+        }
+        if (año == 0)
+        {
+            criterioLibre -= 1;
+        }
+
+        DataTable dt = controladoraBDReportes.llenarEncargadosAtrasados(criterioBusqueda, año, periodo, fechaUltimoReporte, criterioLibre);
         foreach (DataRow r in dt.Rows)
         {
             EncargadoAtrasado encargado = new EncargadoAtrasado();
@@ -467,13 +562,29 @@ public class ControladoraReportes
                 {
                     periodo = 2;
                 } break;
-            case "III   - Periodo":
+            case "III - Periodo":
                 {
                     periodo = 3;
                 } break;
         }
 
-        DataTable dt = controladoraBDReportes.llenarBecariosInactivos(criterioBusqueda, año, periodo, fechaUltimoReporte);
+        int criterioLibre = 111;
+        DateTime fechaHoy = DateTime.Now;
+        if (fechaHoy < fechaUltimoReporte)
+        {
+            criterioLibre = 11;
+        }
+
+        if (periodo == 0)
+        {
+            criterioLibre -= 10;
+        }
+        if (año == 0)
+        {
+            criterioLibre -= 1;
+        }
+
+        DataTable dt = controladoraBDReportes.llenarBecariosInactivos(criterioBusqueda, año, periodo, fechaUltimoReporte, criterioLibre);
         foreach (DataRow r in dt.Rows)
         {
             BecarioInactivo becario = new BecarioInactivo();

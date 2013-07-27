@@ -36,20 +36,20 @@ public class ControladoraBDReportes
     //EFECTO: Genera la consulta a la base de datos del reporte de los becarios que han finalizado sus horas
     //REQUIERE: N/A
     //RETORNA: Un DataTable con la columnas correspondientes al reporte
-    public DataTable reportarBecariosConHorasFinalizadas(string criterioDeBusqueda, int periodo, string año)
+    public DataTable reportarBecariosConHorasFinalizadas(string criterioDeBusqueda, int periodo, string año, int criterioLibre)
     {
         DataTable dt = new DataTable();
-        dt = this.adapterReporte1.reportarBecariosConHorasFinalizadas(criterioDeBusqueda, periodo, Convert.ToInt32(año));
+        dt = this.adapterReporte1.reportarBecariosConHorasFinalizadas(criterioDeBusqueda, periodo, Convert.ToInt32(año), criterioLibre.ToString());
         return dt;
     }
 
     //EFECTO: Genera la consulta a la base de datos del reporte de los becarios pendientes de horas
     //REQUIERE: N/A
     //RETORNA: Un DataTable con la columnas correspondientes al reporte
-    public DataTable reportarBecariosPendientesDeHoras(string criterioDeBusqueda, int periodo, string año)
+    public DataTable reportarBecariosPendientesDeHoras(string criterioDeBusqueda, int periodo, string año, int criterioLibre)
     {
         DataTable dt = new DataTable();
-        dt = this.adapterReporte1.reportarBecariosPendientesDeHoras(criterioDeBusqueda, periodo, Convert.ToInt32(año));
+        dt = this.adapterReporte1.reportarBecariosPendientesDeHoras(criterioDeBusqueda, periodo, Convert.ToInt32(año), criterioLibre.ToString());
         return dt;
     }
 
@@ -95,6 +95,16 @@ public class ControladoraBDReportes
         return dt;
     }
 
+    //EFECTO: Genera la consulta a la base de datos del reporte de los becarios que no han sido asignados para el periodo dado
+    //REQUIERE: N/A
+    //RETORNA: Un DataTable con la columnas correspondientes al reporte
+    public DataTable reportarBecariosNoAsignados5(string criterioBusquedaGeneral, int criterioLibre, string añoActual, int periodoActual)
+    {
+        DataTable dt = new DataTable();
+        dt = this.adapterReporte2.reportarBecariosNoAsignados5(criterioBusquedaGeneral, criterioLibre.ToString(), Convert.ToInt32(añoActual), periodoActual);
+        return dt;
+    }
+
     //Consultas para Reorte3
 
     //EFECTO: Genera la consulta a la base de datos de las unidades académicas existentes
@@ -110,10 +120,10 @@ public class ControladoraBDReportes
     //EFECTO: Genera la consulta a la base de datos del reporte de los becarios asigandos a una unidad académica específica
     //REQUIERE: N/A
     //RETORNA: Un DataTable con la columnas correspondientes al reporte
-    public DataTable reportarBecariosPorUnidadAcademica(string criterioBusquedaGeneral, int periodo, string año, string siglaUA)
+    public DataTable reportarBecariosPorUnidadAcademica(string criterioBusquedaGeneral, int periodo, string año, string siglaUA, int criterioLibre)
     {
         DataTable dt = new DataTable();
-        dt = this.adapterReporte1.reportarBecariosPorUnidadAcademica(criterioBusquedaGeneral, periodo, Convert.ToInt32(año), siglaUA);
+        dt = this.adapterReporte1.reportarBecariosPorUnidadAcademica(criterioBusquedaGeneral, criterioLibre.ToString(), periodo, Convert.ToInt32(año), siglaUA);
         return dt;
     }
 
@@ -122,10 +132,10 @@ public class ControladoraBDReportes
     //EFECTO: Genera la consulta a la base de datos del reporte de los becarios Inactivos
     //REQUIERE: N/A
     //RETORNA: Un DataTable con la columnas correspondientes al reporte
-    public DataTable llenarBecariosInactivos(string criterioBusqueda, int año, int periodo, DateTime fechaUltimoReporte)
+    public DataTable llenarBecariosInactivos(string criterioBusqueda, int año, int periodo, DateTime fechaUltimoReporte, int criterioLibre)
     {
         DataTable dt = new DataTable();
-        dt = adapterReporte4.obtenerBecariosInactivos(fechaUltimoReporte, año, periodo, criterioBusqueda);
+        dt = adapterReporte4.obtenerBecariosInactivos(criterioLibre.ToString(), fechaUltimoReporte, año, periodo, criterioBusqueda);
         return dt;
     }
 
@@ -134,10 +144,10 @@ public class ControladoraBDReportes
     //EFECTO: Genera la consulta a la base de datos del reporte de los encargados que están atrasados con sus reportes de horas
     //REQUIERE: N/A
     //RETORNA: Un DataTable con la columnas correspondientes al reporte
-    public DataTable llenarEncargadosAtrasados(string criterioBusqueda, int año, int semestre, DateTime fechaUltimoReporte)
+    public DataTable llenarEncargadosAtrasados(string criterioBusqueda, int año, int semestre, DateTime fechaUltimoReporte, int criterioLibre)
     {
         DataTable dt = new DataTable();
-        dt = adapterReporte5.obtenerEncargadosAtrasados(fechaUltimoReporte, semestre, año, criterioBusqueda);
+        dt = adapterReporte5.obtenerEncargadosAtrasados(fechaUltimoReporte, semestre, año, criterioBusqueda, criterioLibre.ToString());
         return dt;
     }
 

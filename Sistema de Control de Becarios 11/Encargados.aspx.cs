@@ -139,12 +139,11 @@ public partial class Encargados : System.Web.UI.Page
                     commonService.mensajeJavascript("No fue posible modificar el encargado actual!", "ERROR");
                 }
             }
-        }
-        modo = 0;
-        commonService.cerrarPopUp("PopUpEncargado");
-
+        }        
         if (mensajeResultado == "Exito")
         {
+            modo = 0;
+            commonService.cerrarPopUp("PopUpEncargado");
             //correo, nombreCompleto, pass, usuario
             // Abrir mensaje de mandar correo
             commonService.mensajeEspera("Enviando correo de confirmación al/la encargad@", "Enviando correo");

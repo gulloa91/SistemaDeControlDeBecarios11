@@ -56,8 +56,8 @@
 					<!-- Botones Invisibles -->
 					<asp:Button ID="btnInvisible1"
 						CssClass="btnInvisible1 invisible" runat="server" Text="" />
-					<asp:Button ID="btnInvisGenerarPDF" CssClass="btnInvisGenerarPDF invisible" runat="server"
-						OnClientClick="IniciarSolicitud()" CausesValidation="true" ValidationGroup="vldPopUpPDF" />
+					<asp:Button ID="btnInvisGenerarPDF" CssClass="btnInvisGenerarPDF invisible" runat="server" 
+						OnClick="btnInvisGenerarPDF_Click" CausesValidation="true"  />
 
                     <!-- Cuerpo -->
                     <div style="width: 100%; float: left;">
@@ -205,29 +205,32 @@
 						<!-- cuerpo del PopUp -->
 						<div style="width: 96%; padding: 2%; float: left; background: #D8D8BF; border-radius: 5px;">
 							<div>
-								<span>Destinatario:*</span>
+								<span>Destinatario:<span style="color:red">*</span></span>
 								<asp:TextBox runat="server" ID="txtDestinatario" Width="100%"></asp:TextBox>
-								<asp:RequiredFieldValidator Display="Dynamic" ControlToValidate="txtDestinatario" ID="RequiredFieldValidator1" runat="server" ErrorMessage="*Destinatario requerido"></asp:RequiredFieldValidator>
+								<asp:RequiredFieldValidator Display="Dynamic" ControlToValidate="txtDestinatario" ID="RequiredFieldValidator1" runat="server" ErrorMessage="*Destinatario requerido" ForeColor="#FF3300" font-size="Small" Font-Bold="true"></asp:RequiredFieldValidator>
 								<asp:RegularExpressionValidator ValidationExpression="^[a-zA-ZñÑáéíóúÁÉÍÓÚüÜ\ |., ]{1,50}$" Display="Dynamic" ControlToValidate="txtDestinatario" ID="RegularExpressionValidator1" runat="server" ErrorMessage="*Se han escrito caracteres inválidos"></asp:RegularExpressionValidator>
 							</div>
 							<div>
-								<span>Remitente:*</span>
+								<span>Remitente:<span style="color:red">*</span></span>
 								<asp:TextBox runat="server" ID="txtRemitente" Width="100%"></asp:TextBox>
-								<asp:RequiredFieldValidator Display="Dynamic" ControlToValidate="txtRemitente" ID="RequiredFieldValidator2" runat="server" ErrorMessage="*Remitente requerido"></asp:RequiredFieldValidator>
+								<asp:RequiredFieldValidator Display="Dynamic" ControlToValidate="txtRemitente" ID="RequiredFieldValidator2" runat="server" ErrorMessage="*Remitente requerido" ForeColor="#FF3300" font-size="Small" Font-Bold="true"></asp:RequiredFieldValidator>
 								<asp:RegularExpressionValidator Display="Dynamic" ControlToValidate="txtRemitente" ValidationExpression="^[a-zA-ZñÑáéíóúÁÉÍÓÚüÜ\ |., ]{1,50}$" ID="RegularExpressionValidator3" runat="server" ErrorMessage="*Se han escrito caracteres inválidos"></asp:RegularExpressionValidator>
 							</div>
 							<div style="width: 50%; float: left;">
 								<div>
-									<span style="display: block">Iniciales:*</span>
+									<span style="display: block">Iniciales:<span style="color:red">*</span></span>
 									<asp:TextBox runat="server" ID="txtIniciales"></asp:TextBox>
-									<asp:RequiredFieldValidator Display="Dynamic" ControlToValidate="txtIniciales" ID="RequiredFieldValidator3" runat="server" ErrorMessage="*Iniciales requeridas"></asp:RequiredFieldValidator>
-									<asp:RegularExpressionValidator  ValidationExpression="^[A-ZÑÁÉÍÓÚÜ]{1,50}$" Display="Dynamic" ControlToValidate="txtIniciales" ID="RegularExpressionValidator2" runat="server" ErrorMessage="*Sólo mayúsculas"></asp:RegularExpressionValidator>
+									<asp:RequiredFieldValidator Display="Dynamic" ControlToValidate="txtIniciales" ID="RequiredFieldValidator3" runat="server" ErrorMessage="*Iniciales requeridas" ForeColor="#FF3300" font-size="Small" Font-Bold="true"></asp:RequiredFieldValidator>
+									<asp:RegularExpressionValidator  ValidationExpression="^[A-ZÑÁÉÍÓÚÜ]{1,50}$" Display="Dynamic" ControlToValidate="txtIniciales" ID="RegularExpressionValidator2" runat="server" ErrorMessage="*Sólo mayúsculas" ForeColor="#FF3300" font-size="Small" Font-Bold="true"></asp:RegularExpressionValidator>
 								</div>
 								<div>
 									<span style="display: block">Cantidad de horas:</span>
 									<!-- Llenado por programación -->
 									<asp:DropDownList ID="ddlCantHoras" runat="server"></asp:DropDownList>
 								</div>
+                                <div>
+                                    <span style="color:red; font:bold;">* Campos obligatorios</span>
+                                </div>
 							</div>
 							<div>
 								<div style="width: 50%; float: left;">
