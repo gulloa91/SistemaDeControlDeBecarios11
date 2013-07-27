@@ -94,6 +94,7 @@ public partial class Cuentas : System.Web.UI.Page
     protected void btnInvisible1_Click(object sender, EventArgs e) // insertar o modificar una cuenta
     {
         string mensaje = "-1";
+        bool banderaCerrarPopUp = false;
         Object[] datos = new Object[4]; // datos que se enviaran a la controladora para insertar la cuenta
         if(modo==1 || modo==2){
             datos[0] = this.txtUsuario.Text;
@@ -114,9 +115,10 @@ public partial class Cuentas : System.Web.UI.Page
               Object [] datosAsoc = new Object[2];
               datosAsoc[0] = this.txtUsuario.Text;
               datosAsoc[1] = this.drpDownPerfiles.SelectedItem.Text;
-              controladoraCuentas.ejecutarAsociacion(1, datosAsoc, null);
+              mensaje = controladoraCuentas.ejecutarAsociacion(1, datosAsoc, null);
               if(mensaje==""){
                   mensaje = "Se ha insertado correctamente la cuenta";
+                  banderaCerrarPopUp = true;
               }
            }
         }
@@ -131,14 +133,17 @@ public partial class Cuentas : System.Web.UI.Page
                     datosAsoc[1] = this.drpDownPerfiles.SelectedItem.Text;
                     controladoraCuentas.ejecutarAsociacion(1, datosAsoc, null); //vuelvo a crear la nueva asociacion
                     mensaje = "Se ha modificado correctamente la cuenta";
+                    banderaCerrarPopUp = true;
                 }
             }
         }
         if(mensaje!="-1"){
             commonService.mensajeJavascript(mensaje, "Aviso");
         }
-        llenarGridCuentas(); // actualizo el grid
-        commonService.cerrarPopUp("PopUp");
+        if (banderaCerrarPopUp){// si no hay error cierro popUp
+            llenarGridCuentas(); // actualizo el grid
+            commonService.cerrarPopUp("PopUp");
+        }
     }
 
 
@@ -501,11 +506,15 @@ public partial class Cuentas : System.Web.UI.Page
         if(accion){
             btnAcepPers.Enabled = true;
             btnCancPers.Enabled = true;
+            btnAcepPers.Visible = true;
+            btnCancPers.Visible = true;
         }
             // desactivo aceptar y cancelar cuando la variable sea false
         else{
             btnAcepPers.Enabled = false;
             btnCancPers.Enabled = false;
+            btnAcepPers.Visible = false;
+            btnCancPers.Visible = false;
         }
     }
 
@@ -686,6 +695,7 @@ public partial class Cuentas : System.Web.UI.Page
         datosOriginalesAsociacion[1] = this.txtPerfil.Text;
         controlarCamposPersonales(true); // activo los campos de texto cuando presiona modificar
         controlarACCAPers(true); // controlo los botones aceptar y cancelar
+        this.btnModPers.Visible = false;
         modo = 2;
     }
 
@@ -718,6 +728,8 @@ public partial class Cuentas : System.Web.UI.Page
                 }
             }
             commonService.mensajeJavascript(mensaje, "Ateción");
+            this.btnModPers.Visible = true;
+            controlarACCAPers(false);
         }
     }
 
@@ -729,6 +741,7 @@ public partial class Cuentas : System.Web.UI.Page
     {
         llenarCamposPersonal(); // cargo los campos con los datos de la cuenta activa
         controlarACCAPers(false); // desactivo los campos de aceptar y cancelars
+        this.btnModPers.Visible = true;
     }
 
     /* Efectúa: Se encarga de cargar el grid de cuentas en la pagina seleccionada.

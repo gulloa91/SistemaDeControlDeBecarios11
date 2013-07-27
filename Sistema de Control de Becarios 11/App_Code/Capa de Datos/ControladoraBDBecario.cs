@@ -55,8 +55,17 @@ public class ControladoraBDBecario
             r = e.Number;
             if (r == 2627)
             {
-                adapterBecarios.UpdateQuery(becario.cedula, becario.nombre, becario.apellido1, becario.apellido2, becario.correo, becario.carne, becario.telefonoFijo, becario.telefonoCelular, becario.telefonoOtro, becario.foto, true, becario.cedula);
-                returnValue = "Exito"; 
+                BecariosDataSet.BecarioDataTable becarioRepetido = adapterBecarios.obtenerBecarioPorCedula(becario.cedula);
+
+                if (!(bool)becarioRepetido[0][10])
+                {
+                    adapterBecarios.UpdateQuery(becario.cedula, becario.nombre, becario.apellido1, becario.apellido2, becario.correo, becario.carne, becario.telefonoFijo, becario.telefonoCelular, becario.telefonoOtro, becario.foto, true, becario.cedula);
+                    returnValue = "Exito";
+                }
+                else
+                {
+                    returnValue = "Error1";
+                } 
             }
             else
             {
