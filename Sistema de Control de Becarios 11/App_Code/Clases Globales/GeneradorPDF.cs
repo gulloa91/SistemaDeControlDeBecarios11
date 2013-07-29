@@ -9,6 +9,7 @@ using System.Data;
 using iTextSharp;
 using iTextSharp.text;
 using iTextSharp.text.pdf;
+using System.Web.UI.WebControls;
 
 /// <summary>
 /// Descripción breve de GeneradorPDF
@@ -217,18 +218,18 @@ public class GeneradorPDF
         doc.Add(p);
     }
 
-    public Image colocarImagenUCR(Document doc){
-		Image imagen = Image.GetInstance(rutaCarpetaPDFs + "Images/UCR-Escudo-Colores.png");
-        imagen.Alignment = Image.TEXTWRAP;
+    public iTextSharp.text.Image colocarImagenUCR(Document doc){
+        iTextSharp.text.Image imagen = iTextSharp.text.Image.GetInstance(rutaCarpetaPDFs + "Images/UCR-Escudo-Colores.png");
+        imagen.Alignment = iTextSharp.text.Image.TEXTWRAP;
         imagen.ScaleAbsolute(75f, 75f);
         imagen.SetAbsolutePosition(40, doc.PageSize.Height - 100);
         return imagen;
     }
 
-    public Image colocarImagenECCI(Document doc)
+    public iTextSharp.text.Image colocarImagenECCI(Document doc)
     {
-		Image imagen = Image.GetInstance(rutaCarpetaPDFs + "Images/logoEcci.jpg");
-        imagen.Alignment = Image.TEXTWRAP;
+        iTextSharp.text.Image imagen = iTextSharp.text.Image.GetInstance(rutaCarpetaPDFs + "Images/logoEcci.jpg");
+        imagen.Alignment = iTextSharp.text.Image.TEXTWRAP;
         imagen.ScaleAbsolute(75f, 75f);
         imagen.SetAbsolutePosition(doc.Right - 95, doc.PageSize.Height - 100);
         return imagen;
@@ -250,11 +251,11 @@ public class GeneradorPDF
     public void crearEncabezado(Document doc, PdfWriter writer)
     {
         doc.NewPage();
-        Image imagen = colocarImagenUCR(doc);
-        imagen.Alignment = Image.TEXTWRAP | Image.LEFT_ALIGN;
+        iTextSharp.text.Image imagen = colocarImagenUCR(doc);
+        imagen.Alignment = iTextSharp.text.Image.TEXTWRAP | iTextSharp.text.Image.LEFT_ALIGN;
         doc.Add(imagen);
         imagen = colocarImagenECCI(doc);
-        imagen.Alignment = Image.TEXTWRAP | Image.RIGHT_ALIGN;
+        imagen.Alignment = iTextSharp.text.Image.TEXTWRAP | iTextSharp.text.Image.RIGHT_ALIGN;
         doc.Add(imagen);
         Paragraph parrafo = new Paragraph();
         parrafo = GenerarParrafo("Universidad de Costa Rica\nFacultad de Ingeniería\nEscuela de Ciencias de la Computación e\nInformática");
@@ -266,9 +267,10 @@ public class GeneradorPDF
         cb.Stroke();
     }
 
-    private Image colocarImagenAcreditacion(Document doc) {
-		Image imagen = Image.GetInstance(rutaCarpetaPDFs + "Images/acreditacion.png");
-        imagen.Alignment = Image.TEXTWRAP;
+    private iTextSharp.text.Image colocarImagenAcreditacion(Document doc)
+    {
+        iTextSharp.text.Image imagen = iTextSharp.text.Image.GetInstance(rutaCarpetaPDFs + "Images/acreditacion.png");
+        imagen.Alignment = iTextSharp.text.Image.TEXTWRAP;
         imagen.ScaleAbsolute(75f, 75f);
         imagen.SetAbsolutePosition((float)(doc.PageSize.Width / 2),40);
         return imagen;
@@ -289,9 +291,130 @@ public class GeneradorPDF
         cb.SetTextMatrix(doc.Right-95, 80);
         cb.ShowText("Fax: (506) 2511-5527");
         cb.EndText();
-        Image imagen = colocarImagenAcreditacion(doc);
-        imagen.Alignment = Image.TEXTWRAP | Image.ALIGN_CENTER;
+        iTextSharp.text.Image imagen = colocarImagenAcreditacion(doc);
+        imagen.Alignment = iTextSharp.text.Image.TEXTWRAP | iTextSharp.text.Image.ALIGN_CENTER;
         doc.Add(imagen);
+    }
+
+    public PdfPTable retornarTablaHistorial(int opcionEB)
+    {
+        PdfPTable tablaBecarios = new PdfPTable(8);
+        tablaBecarios.SetWidthPercentage(new float[] { 150, 55, 60, 40, 75, 100, 100, 100 }, PageSize.LETTER);
+        if (opcionEB == 0)
+        {
+            tablaBecarios.AddCell(new Paragraph("Becario"));
+            tablaBecarios.AddCell(new Paragraph("Carné"));
+            tablaBecarios.AddCell(new Paragraph("Período"));
+            tablaBecarios.AddCell(new Paragraph("Año"));
+            tablaBecarios.AddCell(new Paragraph("Horas Asignadas"));
+            tablaBecarios.AddCell(new Paragraph("Encargado"));
+            tablaBecarios.AddCell(new Paragraph("Correo Encargado"));
+            tablaBecarios.AddCell(new Paragraph("Comentario Encargado"));
+        }
+        else {
+            tablaBecarios.AddCell(new Paragraph("Encargado"));
+            tablaBecarios.AddCell(new Paragraph("Cédula"));
+            tablaBecarios.AddCell(new Paragraph("Período"));
+            tablaBecarios.AddCell(new Paragraph("Año"));
+            tablaBecarios.AddCell(new Paragraph("Horas Asignadas"));
+            tablaBecarios.AddCell(new Paragraph("Becario"));
+            tablaBecarios.AddCell(new Paragraph("Carné Becario"));
+            tablaBecarios.AddCell(new Paragraph("Comentario Becario"));
+        }
+        //para darle formato a las columnas del nombre y carnet
+        foreach (PdfPCell celda in tablaBecarios.Rows[0].GetCells())
+        {
+            celda.BackgroundColor = BaseColor.LIGHT_GRAY;
+            celda.HorizontalAlignment = 1;
+            celda.Padding = 3;
+            celda.VerticalAlignment = PdfPCell.ALIGN_MIDDLE;
+        }
+        return tablaBecarios;
+    }
+
+    /*Este metodo generea el PDF de reporte de historiales de asiganciones (0 = Reporte Asignaciones Becario, 1 = Reporte Asignaciones Encargado)*/
+    public String generarReporteAsignacionesBecarioEncargado(string rutaCompleta, int opcion, DataTable dt) {
+		this.rutaCarpetaPDFs = rutaCompleta;
+        Document document = new Document(PageSize.LETTER);
+        string nombreCompletoArchivo = "";
+        string titulo = "";
+        if (opcion == 0)
+        {
+            nombreCompletoArchivo = "Reporte Asignaciones Becario" + DateTime.Now.ToString("dd_MM_yyyy-HH_mm_ss_fffff") + ".PDF";
+            titulo = "Reporte de Historial de Asignaciones de un Becario";
+        }
+        else { 
+            if(opcion==1){
+                nombreCompletoArchivo = "Reporte Asignaciones Encargado" + DateTime.Now.ToString("dd_MM_yyyy-HH_mm_ss_fffff") + ".PDF";
+                titulo = "Reporte de Historial de Asignaciones que hace un Encargado";
+            }
+        }
+        PdfWriter writer = PdfWriter.GetInstance(document, new FileStream(rutaCompleta + nombreCompletoArchivo, FileMode.OpenOrCreate));
+        document.Open();
+        crearEncabezado(document, writer);
+        document.Add(new Paragraph(" "));
+        Paragraph p = new Paragraph();
+        p.Alignment = Element.ALIGN_CENTER;
+        p.Font = FontFactory.GetFont("Arial", 13);
+        p.Add(DateTime.Now.ToString("dd-MM-yyyy") + "\n");
+        p.Font.SetStyle(iTextSharp.text.Font.BOLD);
+        p.Add(titulo);
+        document.Add(p);
+        // dejo un espaciado de un renglon
+        document.Add(new Paragraph(" "));
+        if (dt.Rows.Count > 0)
+        {
+                PdfPTable tablaHistorial = retornarTablaHistorial(opcion);
+                    foreach (DataRow r in dt.Rows)
+                    {
+						PdfPCell[] datos = new PdfPCell[8];
+						if (opcion == 0)
+						{
+							//Becario
+							datos[0] = new PdfPCell(new Paragraph((HttpUtility.HtmlDecode((string)r["NombreB"] + " " + (string)r["Apellido1B"] + " " + r["Apellido2B"].ToString()).Trim()), FontFactory.GetFont("Arial", 10)));
+							//Carné
+							datos[1] = new PdfPCell(new Paragraph((HttpUtility.HtmlDecode((string)r["CarneB"]).Trim()), FontFactory.GetFont("Arial", 10)));
+							//Período
+							datos[2] = new PdfPCell(new Paragraph((HttpUtility.HtmlDecode((Convert.ToString(r["Periodo"])).Trim())), FontFactory.GetFont("Arial", 10)));
+							//Año
+							datos[3] = new PdfPCell(new Paragraph((HttpUtility.HtmlDecode((Convert.ToString(r["Año"])).Trim())), FontFactory.GetFont("Arial", 10)));
+							//Horas Asignadas
+							datos[4] = new PdfPCell(new Paragraph((HttpUtility.HtmlDecode((Convert.ToString(r["TotalHorasA"])).Trim())), FontFactory.GetFont("Arial", 10)));
+							//Encargado
+							datos[5] = new PdfPCell(new Paragraph((HttpUtility.HtmlDecode((string)r["NombreE"] + " " + (string)r["Apellido1E"] + " " + r["Apellido2E"].ToString()).Trim()), FontFactory.GetFont("Arial", 10)));
+							//Correo Encargado
+							datos[6] = new PdfPCell(new Paragraph((HttpUtility.HtmlDecode((string)r["CorreoE"]).Trim()), FontFactory.GetFont("Arial", 10)));
+							//Comentario del Encargado
+							datos[7] = new PdfPCell(new Paragraph((HttpUtility.HtmlDecode(r["ComentarioDeEncargado"].ToString()).Trim()), FontFactory.GetFont("Arial", 10)));
+						}
+						else
+						{
+							//Encargado
+							datos[0] = new PdfPCell(new Paragraph((HttpUtility.HtmlDecode((string)r["NombreE"] + " " + (string)r["Apellido1E"] + " " + r["Apellido2E"].ToString()).Trim()), FontFactory.GetFont("Arial", 10)));
+							//Cédula
+							datos[1] = new PdfPCell(new Paragraph((HttpUtility.HtmlDecode((string)r["CedulaE"]).Trim()), FontFactory.GetFont("Arial", 10)));
+							//Período
+							datos[2] = new PdfPCell(new Paragraph((HttpUtility.HtmlDecode((Convert.ToString(r["Periodo"])).Trim())), FontFactory.GetFont("Arial", 10)));
+							//Año
+							datos[3] = new PdfPCell(new Paragraph((HttpUtility.HtmlDecode((Convert.ToString(r["Año"])).Trim())), FontFactory.GetFont("Arial", 10)));
+							//Horas Asignadas
+							datos[4] = new PdfPCell(new Paragraph((HttpUtility.HtmlDecode((Convert.ToString(r["TotalHorasA"])).Trim())), FontFactory.GetFont("Arial", 10)));
+							//Becario
+							datos[5] = new PdfPCell(new Paragraph((HttpUtility.HtmlDecode((string)r["NombreB"] + " " + (string)r["Apellido1B"] + " " + r["Apellido2B"].ToString()).Trim()), FontFactory.GetFont("Arial", 10)));
+							//Carné del Becario
+							datos[6] = new PdfPCell(new Paragraph((HttpUtility.HtmlDecode((string)r["CarneB"]).Trim()), FontFactory.GetFont("Arial", 10)));
+							//Comentario del Becario
+							datos[7] = new PdfPCell(new Paragraph((HttpUtility.HtmlDecode(r["ComentarioDeBecario"].ToString()).Trim()), FontFactory.GetFont("Arial", 10)));
+						}
+                        PdfPRow fila = new PdfPRow(datos);
+                        tablaHistorial.Rows.Add(fila);
+                    }
+                    centrarDatos(tablaHistorial);
+                    document.Add(tablaHistorial);
+            }
+        crearPieDePagina(document, writer);
+        document.Close();
+        return nombreCompletoArchivo;    
     }
 
 }

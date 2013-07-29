@@ -1065,7 +1065,7 @@ public partial class Reportes : System.Web.UI.Page
                     mostrarGrid();
                     if (this.GridViewReporte.Rows[0].Cells[0].Text != "-" && Convert.ToInt32(this.DropDownListCriterio1.SelectedIndex) == 1 && Convert.ToInt32(this.DropDownListCriterio2.SelectedIndex) != 0 && Convert.ToInt32(this.DropDownListCriterio3.SelectedIndex) != 0)
                     {
-                        btnPopUpGenerarPDF.Visible = true;
+                        btnPopUpGenerarPDF.Visible = false;
                     }
                     else 
                     {
@@ -1236,7 +1236,7 @@ public partial class Reportes : System.Web.UI.Page
 
                     if (this.GridViewReporte.Rows[0].Cells[0].Text != "-")
                     {
-                        this.btnGenerarPDFHistorialAsignacionesBecario.Visible = true;
+                        this.btnGenerarPDFHistorialAsignacionesBecario.Visible = false;
                     }
                     else
                     {
@@ -1265,7 +1265,7 @@ public partial class Reportes : System.Web.UI.Page
 
                     if (this.GridViewReporte.Rows[0].Cells[0].Text != "-")
                     {
-                        this.btnGenerarPDFHistorialAsignacionesEncargado.Visible = true;
+                        this.btnGenerarPDFHistorialAsignacionesEncargado.Visible = false;
                     }
                     else
                     {
@@ -1338,14 +1338,22 @@ public partial class Reportes : System.Web.UI.Page
 			case "btnGenerarPDFHistorialAsignacionesBecario":
 				{
 					tipo = 2;
-					cedula = lsCedulas[this.DropDownListCriterio1.SelectedIndex];
+                    if (this.DropDownListCriterio1.SelectedIndex == lsCedulas.Count)
+                    {
+                        int index = Convert.ToInt32(this.DropDownListCriterio1.SelectedValue);
+                        cedula = lsCedulas[(Convert.ToInt32(lsCedulas[0]) - index)];
+                    }
                     mostrarGrid();
 				}
 				break;
 			case "btnGenerarPDFHistorialAsignacionesEncargado":
 				{
 					tipo = 3;
-					cedula = lsCedulas[this.DropDownListCriterio1.SelectedIndex];
+                    if (this.DropDownListCriterio1.SelectedIndex == lsCedulas.Count)
+                    {
+                        int index = Convert.ToInt32(this.DropDownListCriterio1.SelectedValue);
+                        cedula = lsCedulas[(Convert.ToInt32(lsCedulas[0]) - index)];
+                    }
                     mostrarGrid();
 				}
 				break;

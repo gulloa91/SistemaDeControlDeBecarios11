@@ -2,17 +2,18 @@
 <xs:schema id="DataSetCuentas" targetNamespace="http://tempuri.org/DataSetCuentas.xsd" xmlns:mstns="http://tempuri.org/DataSetCuentas.xsd" xmlns="http://tempuri.org/DataSetCuentas.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
   <xs:annotation>
     <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
-      <DataSource DefaultConnectionIndex="3" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="4" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
         <Connections>
-          <Connection AppSettingsObjectName="Web.config" AppSettingsPropertyName="ingegsg2ConnectionString" ConnectionStringObject="" IsAppSettingsProperty="true" Modifier="Assembly" Name="ingegsg2ConnectionString (Web.config)" ParameterPrefix="@" PropertyReference="AppConfig.System.Configuration.ConfigurationManager.0.ConnectionStrings.ingegsg2ConnectionString.ConnectionString" Provider="System.Data.SqlClient" />
-          <Connection AppSettingsObjectName="Web.config" AppSettingsPropertyName="ingegsg2ConnectionString1" ConnectionStringObject="" IsAppSettingsProperty="true" Modifier="Assembly" Name="ingegsg2ConnectionString1 (Web.config)" ParameterPrefix="@" PropertyReference="AppConfig.System.Configuration.ConfigurationManager.0.ConnectionStrings.ingegsg2ConnectionString1.ConnectionString" Provider="System.Data.SqlClient" />
+          <Connection AppSettingsObjectName="Web.config" AppSettingsPropertyName="ingegsg2ConnectionString" IsAppSettingsProperty="true" Modifier="Assembly" Name="ingegsg2ConnectionString (Web.config)" ParameterPrefix="@" PropertyReference="AppConfig.System.Configuration.ConfigurationManager.0.ConnectionStrings.ingegsg2ConnectionString.ConnectionString" Provider="System.Data.SqlClient" />
+          <Connection AppSettingsObjectName="Web.config" AppSettingsPropertyName="ingegsg2ConnectionString1" IsAppSettingsProperty="true" Modifier="Assembly" Name="ingegsg2ConnectionString1 (Web.config)" ParameterPrefix="@" PropertyReference="AppConfig.System.Configuration.ConfigurationManager.0.ConnectionStrings.ingegsg2ConnectionString1.ConnectionString" Provider="System.Data.SqlClient" />
           <Connection AppSettingsObjectName="Web.config" AppSettingsPropertyName="SistemaControlBecariosConnectionString" IsAppSettingsProperty="true" Modifier="Assembly" Name="SistemaControlBecariosConnectionString (Web.config)" ParameterPrefix="@" PropertyReference="AppConfig.System.Configuration.ConfigurationManager.0.ConnectionStrings.SistemaControlBecariosConnectionString.ConnectionString" Provider="System.Data.SqlClient" />
           <Connection AppSettingsObjectName="Web.config" AppSettingsPropertyName="SistemaControlBecariosConnectionString1" IsAppSettingsProperty="true" Modifier="Assembly" Name="SistemaControlBecariosConnectionString1 (Web.config)" ParameterPrefix="@" PropertyReference="AppConfig.System.Configuration.ConfigurationManager.0.ConnectionStrings.SistemaControlBecariosConnectionString1.ConnectionString" Provider="System.Data.SqlClient" />
+          <Connection AppSettingsObjectName="Web.config" AppSettingsPropertyName="ingegsg2ConnectionString3" ConnectionStringObject="" IsAppSettingsProperty="true" Modifier="Assembly" Name="ingegsg2ConnectionString3 (Web.config)" ParameterPrefix="@" PropertyReference="AppConfig.System.Configuration.ConfigurationManager.0.ConnectionStrings.ingegsg2ConnectionString3.ConnectionString" Provider="System.Data.SqlClient" />
         </Connections>
         <Tables>
           <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="CuentaTableAdapter" GeneratorDataComponentClassName="CuentaTableAdapter" Name="Cuenta" UserDataComponentName="CuentaTableAdapter">
             <MainSource>
-              <DbSource ConnectionRef="ingegsg2ConnectionString1 (Web.config)" DbObjectName="ingegsg2.dbo.Cuenta" DbObjectType="Table" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="true" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetData" UserSourceName="Fill">
+              <DbSource ConnectionRef="ingegsg2ConnectionString3 (Web.config)" DbObjectName="ingegsg2.dbo.Cuenta" DbObjectType="Table" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="true" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetData" UserSourceName="Fill">
                 <DeleteCommand>
                   <DbCommand CommandType="Text" ModifiedByUser="false">
                     <CommandText>DELETE FROM [dbo].[Cuenta] WHERE (([Nombre] = @Original_Nombre) AND ([Contraseña] = @Original_Contraseña) AND ((@IsNull_UltimoAcceso = 1 AND [UltimoAcceso] IS NULL) OR ([UltimoAcceso] = @Original_UltimoAcceso)) AND ((@IsNull_CedulaUsuario = 1 AND [CedulaUsuario] IS NULL) OR ([CedulaUsuario] = @Original_CedulaUsuario)))</CommandText>
@@ -69,7 +70,7 @@
               <Mapping SourceColumn="CedulaUsuario" DataSetColumn="CedulaUsuario" />
             </Mappings>
             <Sources>
-              <DbSource ConnectionRef="ingegsg2ConnectionString1 (Web.config)" DbObjectName="" DbObjectType="Unknown" GenerateShortCommands="true" GeneratorSourceName="actualizarFechaIngresoCuenta" Modifier="Public" Name="actualizarFechaIngresoCuenta" QueryType="NoData" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy" UserSourceName="actualizarFechaIngresoCuenta">
+              <DbSource ConnectionRef="ingegsg2ConnectionString3 (Web.config)" DbObjectName="" DbObjectType="Unknown" GenerateShortCommands="true" GeneratorSourceName="actualizarFechaIngresoCuenta" Modifier="Public" Name="actualizarFechaIngresoCuenta" QueryType="NoData" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy" UserSourceName="actualizarFechaIngresoCuenta">
                 <UpdateCommand>
                   <DbCommand CommandType="Text" ModifiedByUser="true">
                     <CommandText>UPDATE [dbo].[Cuenta] SET [UltimoAcceso] = @fecha WHERE Nombre=@nombreCuenta</CommandText>
@@ -80,7 +81,20 @@
                   </DbCommand>
                 </UpdateCommand>
               </DbSource>
-              <DbSource ConnectionRef="ingegsg2ConnectionString1 (Web.config)" DbObjectName="ingegsg2.dbo.Cuenta" DbObjectType="Table" GenerateShortCommands="true" GeneratorSourceName="getCedulaByUsuario" Modifier="Public" Name="getCedulaByUsuario" QueryType="Scalar" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy1" UserSourceName="getCedulaByUsuario">
+              <DbSource ConnectionRef="ingegsg2ConnectionString3 (Web.config)" DbObjectName="" DbObjectType="Unknown" GenerateShortCommands="true" GeneratorSourceName="DeleteQuery" Modifier="Public" Name="DeleteQuery" QueryType="NoData" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy3" UserSourceName="DeleteQuery">
+                <DeleteCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="true">
+                    <CommandText>DELETE 
+FROM [dbo].[Cuenta] 
+
+WHERE (( ([CedulaUsuario] = @Original_CedulaUsuario)))</CommandText>
+                    <Parameters>
+                      <Parameter AllowDbNull="true" AutogeneratedName="Original_CedulaUsuario" ColumnName="CedulaUsuario" DataSourceName="ingegsg2.dbo.Cuenta" DataTypeServer="varchar(15)" DbType="AnsiString" Direction="Input" ParameterName="@Original_CedulaUsuario" Precision="0" ProviderType="VarChar" Scale="0" Size="15" SourceColumn="CedulaUsuario" SourceColumnNullMapping="false" SourceVersion="Original" />
+                    </Parameters>
+                  </DbCommand>
+                </DeleteCommand>
+              </DbSource>
+              <DbSource ConnectionRef="ingegsg2ConnectionString3 (Web.config)" DbObjectName="ingegsg2.dbo.Cuenta" DbObjectType="Table" GenerateShortCommands="true" GeneratorSourceName="getCedulaByUsuario" Modifier="Public" Name="getCedulaByUsuario" QueryType="Scalar" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy1" UserSourceName="getCedulaByUsuario">
                 <SelectCommand>
                   <DbCommand CommandType="Text" ModifiedByUser="true">
                     <CommandText>SELECT        CedulaUsuario
@@ -92,7 +106,7 @@ WHERE        (Nombre = @Nombre)</CommandText>
                   </DbCommand>
                 </SelectCommand>
               </DbSource>
-              <DbSource ConnectionRef="ingegsg2ConnectionString1 (Web.config)" DbObjectName="ingegsg2.dbo.Cuenta" DbObjectType="Table" GenerateMethods="Get" GenerateShortCommands="true" GeneratorGetMethodName="GetDataByBusqueda" GetMethodModifier="Public" GetMethodName="GetDataByBusqueda" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataByBusqueda" UserSourceName="GetDataByBusqueda">
+              <DbSource ConnectionRef="ingegsg2ConnectionString3 (Web.config)" DbObjectName="ingegsg2.dbo.Cuenta" DbObjectType="Table" GenerateMethods="Get" GenerateShortCommands="true" GeneratorGetMethodName="GetDataByBusqueda" GetMethodModifier="Public" GetMethodName="GetDataByBusqueda" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataByBusqueda" UserSourceName="GetDataByBusqueda">
                 <SelectCommand>
                   <DbCommand CommandType="Text" ModifiedByUser="true">
                     <CommandText>SELECT Nombre, Contraseña, UltimoAcceso, CedulaUsuario FROM dbo.Cuenta WHERE(Nombre LIKE @Nombre);</CommandText>
@@ -102,7 +116,7 @@ WHERE        (Nombre = @Nombre)</CommandText>
                   </DbCommand>
                 </SelectCommand>
               </DbSource>
-              <DbSource ConnectionRef="ingegsg2ConnectionString1 (Web.config)" DbObjectName="ingegsg2.dbo.Cuenta" DbObjectType="Table" GenerateMethods="Get" GenerateShortCommands="true" GeneratorGetMethodName="GetDataByNombreContr" GetMethodModifier="Public" GetMethodName="GetDataByNombreContr" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataByNombreContr" UserSourceName="GetDataByNombreContr">
+              <DbSource ConnectionRef="ingegsg2ConnectionString3 (Web.config)" DbObjectName="ingegsg2.dbo.Cuenta" DbObjectType="Table" GenerateMethods="Get" GenerateShortCommands="true" GeneratorGetMethodName="GetDataByNombreContr" GetMethodModifier="Public" GetMethodName="GetDataByNombreContr" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataByNombreContr" UserSourceName="GetDataByNombreContr">
                 <SelectCommand>
                   <DbCommand CommandType="Text" ModifiedByUser="true">
                     <CommandText>SELECT CedulaUsuario, Contraseña, Nombre, UltimoAcceso FROM Cuenta WHERE (Nombre = @Nombre) AND (Contraseña = @Contraseña)</CommandText>
@@ -113,7 +127,7 @@ WHERE        (Nombre = @Nombre)</CommandText>
                   </DbCommand>
                 </SelectCommand>
               </DbSource>
-              <DbSource ConnectionRef="ingegsg2ConnectionString1 (Web.config)" DbObjectName="ingegsg2.dbo.Cuenta" DbObjectType="Table" GenerateMethods="Get" GenerateShortCommands="true" GeneratorGetMethodName="obtenerDatosNombre" GetMethodModifier="Public" GetMethodName="obtenerDatosNombre" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="obtenerDatosNombre" UserSourceName="obtenerDatosNombre">
+              <DbSource ConnectionRef="ingegsg2ConnectionString3 (Web.config)" DbObjectName="ingegsg2.dbo.Cuenta" DbObjectType="Table" GenerateMethods="Get" GenerateShortCommands="true" GeneratorGetMethodName="obtenerDatosNombre" GetMethodModifier="Public" GetMethodName="obtenerDatosNombre" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="obtenerDatosNombre" UserSourceName="obtenerDatosNombre">
                 <SelectCommand>
                   <DbCommand CommandType="Text" ModifiedByUser="true">
                     <CommandText>SELECT Nombre, Contraseña, UltimoAcceso, CedulaUsuario FROM dbo.Cuenta WHERE(Nombre=@Nombre);</CommandText>
@@ -123,7 +137,7 @@ WHERE        (Nombre = @Nombre)</CommandText>
                   </DbCommand>
                 </SelectCommand>
               </DbSource>
-              <DbSource ConnectionRef="ingegsg2ConnectionString1 (Web.config)" DbObjectType="Unknown" GenerateShortCommands="true" GeneratorSourceName="validarUsuario" Modifier="Public" Name="validarUsuario" QueryType="Scalar" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy2" UserSourceName="validarUsuario">
+              <DbSource ConnectionRef="ingegsg2ConnectionString3 (Web.config)" DbObjectType="Unknown" GenerateShortCommands="true" GeneratorSourceName="validarUsuario" Modifier="Public" Name="validarUsuario" QueryType="Scalar" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy2" UserSourceName="validarUsuario">
                 <SelectCommand>
                   <DbCommand CommandType="Text" ModifiedByUser="true">
                     <CommandText>SELECT COUNT(*) FROM Cuenta WHERE(Nombre=@Nombre AND Contraseña=@Contraseña);</CommandText>
@@ -138,7 +152,7 @@ WHERE        (Nombre = @Nombre)</CommandText>
           </TableAdapter>
           <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="EncargadoTableAdapter" GeneratorDataComponentClassName="EncargadoTableAdapter" Name="Encargado" UserDataComponentName="EncargadoTableAdapter">
             <MainSource>
-              <DbSource ConnectionRef="ingegsg2ConnectionString1 (Web.config)" DbObjectName="ingegsg2.dbo.Encargado" DbObjectType="Table" GenerateMethods="Get" GenerateShortCommands="false" GeneratorGetMethodName="devolverEncargadosSinCuenta" GetMethodModifier="Public" GetMethodName="devolverEncargadosSinCuenta" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="false" UserGetMethodName="devolverEncargadosSinCuenta" UserSourceName="devolverEncargadosSinCuenta">
+              <DbSource ConnectionRef="ingegsg2ConnectionString3 (Web.config)" DbObjectName="ingegsg2.dbo.Encargado" DbObjectType="Table" GenerateMethods="Get" GenerateShortCommands="false" GeneratorGetMethodName="devolverEncargadosSinCuenta" GetMethodModifier="Public" GetMethodName="devolverEncargadosSinCuenta" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="false" UserGetMethodName="devolverEncargadosSinCuenta" UserSourceName="devolverEncargadosSinCuenta">
                 <DeleteCommand>
                   <DbCommand CommandType="Text" ModifiedByUser="false">
                     <CommandText>DELETE FROM [Encargado] WHERE (([Cedula] = @Original_Cedula))</CommandText>
@@ -177,7 +191,7 @@ Where Cedula not in(
           </TableAdapter>
           <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="BecarioTableAdapter" GeneratorDataComponentClassName="BecarioTableAdapter" Name="Becario" UserDataComponentName="BecarioTableAdapter">
             <MainSource>
-              <DbSource ConnectionRef="ingegsg2ConnectionString1 (Web.config)" DbObjectName="ingegsg2.dbo.Becario" DbObjectType="Table" GenerateMethods="Get" GenerateShortCommands="false" GeneratorGetMethodName="devolverBecariosSinCuenta" GetMethodModifier="Public" GetMethodName="devolverBecariosSinCuenta" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="false" UserGetMethodName="devolverBecariosSinCuenta" UserSourceName="devolverBecariosSinCuenta">
+              <DbSource ConnectionRef="ingegsg2ConnectionString3 (Web.config)" DbObjectName="ingegsg2.dbo.Becario" DbObjectType="Table" GenerateMethods="Get" GenerateShortCommands="false" GeneratorGetMethodName="devolverBecariosSinCuenta" GetMethodModifier="Public" GetMethodName="devolverBecariosSinCuenta" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="false" UserGetMethodName="devolverBecariosSinCuenta" UserSourceName="devolverBecariosSinCuenta">
                 <DeleteCommand>
                   <DbCommand CommandType="Text" ModifiedByUser="false">
                     <CommandText>DELETE FROM [Becario] WHERE (([Cedula] = @Original_Cedula))</CommandText>
@@ -216,7 +230,7 @@ Where Cedula not in(
           </TableAdapter>
           <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="DataTable1TableAdapter" GeneratorDataComponentClassName="DataTable1TableAdapter" Name="DataTable1" UserDataComponentName="DataTable1TableAdapter">
             <MainSource>
-              <DbSource ConnectionRef="ingegsg2ConnectionString1 (Web.config)" DbObjectType="Unknown" GenerateMethods="Get" GenerateShortCommands="false" GeneratorGetMethodName="obtenerNombrePorCedulaCuenta" GetMethodModifier="Public" GetMethodName="obtenerNombrePorCedulaCuenta" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="false" UserGetMethodName="obtenerNombrePorCedulaCuenta" UserSourceName="obtenerNombrePorCedulaCuenta">
+              <DbSource ConnectionRef="ingegsg2ConnectionString3 (Web.config)" DbObjectType="Unknown" GenerateMethods="Get" GenerateShortCommands="false" GeneratorGetMethodName="obtenerNombrePorCedulaCuenta" GetMethodModifier="Public" GetMethodName="obtenerNombrePorCedulaCuenta" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="false" UserGetMethodName="obtenerNombrePorCedulaCuenta" UserSourceName="obtenerNombrePorCedulaCuenta">
                 <SelectCommand>
                   <DbCommand CommandType="Text" ModifiedByUser="true">
                     <CommandText>Select Nombre + ' ' + Apellido1 + ' ' + Apellido2 as NombreCompleto
@@ -246,7 +260,7 @@ Where(Cedula=@Cedula);</CommandText>
   <xs:element name="DataSetCuentas" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:Generator_DataSetName="DataSetCuentas" msprop:Generator_UserDSName="DataSetCuentas">
     <xs:complexType>
       <xs:choice minOccurs="0" maxOccurs="unbounded">
-        <xs:element name="Cuenta" msprop:Generator_TableClassName="CuentaDataTable" msprop:Generator_TableVarName="tableCuenta" msprop:Generator_RowChangedName="CuentaRowChanged" msprop:Generator_TablePropName="Cuenta" msprop:Generator_RowDeletingName="CuentaRowDeleting" msprop:Generator_RowChangingName="CuentaRowChanging" msprop:Generator_RowEvHandlerName="CuentaRowChangeEventHandler" msprop:Generator_RowDeletedName="CuentaRowDeleted" msprop:Generator_RowClassName="CuentaRow" msprop:Generator_UserTableName="Cuenta" msprop:Generator_RowEvArgName="CuentaRowChangeEvent">
+        <xs:element name="Cuenta" msprop:Generator_TableClassName="CuentaDataTable" msprop:Generator_TableVarName="tableCuenta" msprop:Generator_TablePropName="Cuenta" msprop:Generator_RowDeletingName="CuentaRowDeleting" msprop:Generator_UserTableName="Cuenta" msprop:Generator_RowChangingName="CuentaRowChanging" msprop:Generator_RowEvHandlerName="CuentaRowChangeEventHandler" msprop:Generator_RowDeletedName="CuentaRowDeleted" msprop:Generator_RowEvArgName="CuentaRowChangeEvent" msprop:Generator_RowChangedName="CuentaRowChanged" msprop:Generator_RowClassName="CuentaRow">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="Nombre" msprop:Generator_ColumnVarNameInTable="columnNombre" msprop:Generator_ColumnPropNameInRow="Nombre" msprop:Generator_ColumnPropNameInTable="NombreColumn" msprop:Generator_UserColumnName="Nombre">
@@ -274,7 +288,7 @@ Where(Cedula=@Cedula);</CommandText>
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="Encargado" msprop:Generator_TableClassName="EncargadoDataTable" msprop:Generator_TableVarName="tableEncargado" msprop:Generator_TablePropName="Encargado" msprop:Generator_RowDeletingName="EncargadoRowDeleting" msprop:Generator_RowChangingName="EncargadoRowChanging" msprop:Generator_RowEvHandlerName="EncargadoRowChangeEventHandler" msprop:Generator_RowDeletedName="EncargadoRowDeleted" msprop:Generator_UserTableName="Encargado" msprop:Generator_RowChangedName="EncargadoRowChanged" msprop:Generator_RowEvArgName="EncargadoRowChangeEvent" msprop:Generator_RowClassName="EncargadoRow">
+        <xs:element name="Encargado" msprop:Generator_TableClassName="EncargadoDataTable" msprop:Generator_TableVarName="tableEncargado" msprop:Generator_TablePropName="Encargado" msprop:Generator_RowDeletingName="EncargadoRowDeleting" msprop:Generator_UserTableName="Encargado" msprop:Generator_RowChangingName="EncargadoRowChanging" msprop:Generator_RowEvHandlerName="EncargadoRowChangeEventHandler" msprop:Generator_RowDeletedName="EncargadoRowDeleted" msprop:Generator_RowEvArgName="EncargadoRowChangeEvent" msprop:Generator_RowChangedName="EncargadoRowChanged" msprop:Generator_RowClassName="EncargadoRow">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="nombreCompleto" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnnombreCompleto" msprop:Generator_ColumnPropNameInRow="nombreCompleto" msprop:Generator_ColumnPropNameInTable="nombreCompletoColumn" msprop:Generator_UserColumnName="nombreCompleto" minOccurs="0">
@@ -294,7 +308,7 @@ Where(Cedula=@Cedula);</CommandText>
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="Becario" msprop:Generator_TableClassName="BecarioDataTable" msprop:Generator_TableVarName="tableBecario" msprop:Generator_TablePropName="Becario" msprop:Generator_RowDeletingName="BecarioRowDeleting" msprop:Generator_RowChangingName="BecarioRowChanging" msprop:Generator_RowEvHandlerName="BecarioRowChangeEventHandler" msprop:Generator_RowDeletedName="BecarioRowDeleted" msprop:Generator_UserTableName="Becario" msprop:Generator_RowChangedName="BecarioRowChanged" msprop:Generator_RowEvArgName="BecarioRowChangeEvent" msprop:Generator_RowClassName="BecarioRow">
+        <xs:element name="Becario" msprop:Generator_TableClassName="BecarioDataTable" msprop:Generator_TableVarName="tableBecario" msprop:Generator_TablePropName="Becario" msprop:Generator_RowDeletingName="BecarioRowDeleting" msprop:Generator_UserTableName="Becario" msprop:Generator_RowChangingName="BecarioRowChanging" msprop:Generator_RowEvHandlerName="BecarioRowChangeEventHandler" msprop:Generator_RowDeletedName="BecarioRowDeleted" msprop:Generator_RowEvArgName="BecarioRowChangeEvent" msprop:Generator_RowChangedName="BecarioRowChanged" msprop:Generator_RowClassName="BecarioRow">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="nombreCompleto" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnnombreCompleto" msprop:Generator_ColumnPropNameInRow="nombreCompleto" msprop:Generator_ColumnPropNameInTable="nombreCompletoColumn" msprop:Generator_UserColumnName="nombreCompleto" minOccurs="0">
@@ -314,7 +328,7 @@ Where(Cedula=@Cedula);</CommandText>
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="DataTable1" msprop:Generator_TableClassName="DataTable1DataTable" msprop:Generator_TableVarName="tableDataTable1" msprop:Generator_RowChangedName="DataTable1RowChanged" msprop:Generator_TablePropName="DataTable1" msprop:Generator_RowDeletingName="DataTable1RowDeleting" msprop:Generator_RowChangingName="DataTable1RowChanging" msprop:Generator_RowEvHandlerName="DataTable1RowChangeEventHandler" msprop:Generator_RowDeletedName="DataTable1RowDeleted" msprop:Generator_RowClassName="DataTable1Row" msprop:Generator_UserTableName="DataTable1" msprop:Generator_RowEvArgName="DataTable1RowChangeEvent">
+        <xs:element name="DataTable1" msprop:Generator_TableClassName="DataTable1DataTable" msprop:Generator_TableVarName="tableDataTable1" msprop:Generator_TablePropName="DataTable1" msprop:Generator_RowDeletingName="DataTable1RowDeleting" msprop:Generator_UserTableName="DataTable1" msprop:Generator_RowChangingName="DataTable1RowChanging" msprop:Generator_RowEvHandlerName="DataTable1RowChangeEventHandler" msprop:Generator_RowDeletedName="DataTable1RowDeleted" msprop:Generator_RowEvArgName="DataTable1RowChangeEvent" msprop:Generator_RowChangedName="DataTable1RowChanged" msprop:Generator_RowClassName="DataTable1Row">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="NombreCompleto" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnNombreCompleto" msprop:Generator_ColumnPropNameInRow="NombreCompleto" msprop:Generator_ColumnPropNameInTable="NombreCompletoColumn" msprop:Generator_UserColumnName="NombreCompleto" minOccurs="0">

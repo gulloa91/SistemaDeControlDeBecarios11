@@ -136,7 +136,7 @@ public partial class Encargados : System.Web.UI.Page
                 }
                 else
                 {
-                    commonService.mensajeJavascript("No fue posible modificar el encargado actual!", "ERROR");
+                    commonService.mensajeJavascript(mensajeResultado, "ERROR");
                 }
             }
         }        
@@ -193,6 +193,7 @@ public partial class Encargados : System.Web.UI.Page
         {
 
             string mensajeResultado = controladora.ejecutar(modo, null, encargado);
+            controladoraCuentas.eliminarCuentaPorCedula(lsEncargados[rowIndex].Cedula);
             if (mensajeResultado == "Exito")
             {
                 commonService.mensajeJavascript("El encargado ha sido eliminado correctamente", "Aviso");
@@ -339,7 +340,7 @@ public partial class Encargados : System.Web.UI.Page
     {
         if (mostrar)
         {
-            txtCedulaP.Enabled = true;
+            txtCedulaP.Enabled = false;
             txtNombreP.Enabled = true;
             txtPrimerApellidoP.Enabled = true;
             txtSegundoApellidoP.Enabled = true;
@@ -634,7 +635,7 @@ public partial class Encargados : System.Web.UI.Page
         Object[] datos = new Object[4];
         datos[0] = usuario;//this.txtUsuario.Text;
         datos[1] = pass;  //this.cntUsuario.Text;
-        datos[2] = new DateTime?();
+        datos[2] = DateTime.Now;
         datos[3] = cedula;
 
         Object[] datosPerfil = new Object[2];

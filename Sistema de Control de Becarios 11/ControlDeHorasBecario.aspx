@@ -136,6 +136,7 @@
                     <ContentTemplate>
                         <!-- Campos PopUp -->
                         <div id="popUpContent" style="width: 84%; padding: 2% 8%; float: left; background: #D8D8BF; border-radius: 5px;">
+                        <p>Tome en cuenta que solo puede realizar un reporte de horas trabajadas para un día específico</p>
                             <!-- Cantidad de Horas -->
                             <div style="width: 92%; float: left; margin-bottom: 10px; padding-left: 8%;">
                                 <div style="width: 40%; float: left; margin-bottom: 0px;">
@@ -159,11 +160,15 @@
                                     <asp:RequiredFieldValidator ID="RequiredFieldValidator1" ValidationGroup="NuevoReporte"
                                         ControlToValidate="txtCantidadHoras" runat="server"
                                         ErrorMessage="Cantidad de Horas Requeridas" ForeColor="Red" Display="Dynamic"></asp:RequiredFieldValidator>
+                                   
                                     <asp:RegularExpressionValidator ID="RegularExpressionValidator1"
                                         ControlToValidate="txtCantidadHoras" runat="server"
                                         ErrorMessage="Horas no válidas" Display="Dynamic"
-                                        ForeColor="Red" ValidationExpression="\d{1,2}" Enabled="false"></asp:RegularExpressionValidator>
-                                    <asp:RangeValidator ID="RangeValidator1" runat="server" ErrorMessage="Horas no válidas" Font-Bold="True" ForeColor="Red" ControlToValidate="txtCantidadHoras" MaximumValue="16" MinimumValue="1"></asp:RangeValidator>
+                                        ForeColor="Red" ValidationExpression="[1-9]||10||11||12||13||14||15||16" Enabled="true"></asp:RegularExpressionValidator>
+                                    <asp:RangeValidator ID="RangeValidator1" Enabled="false" runat="server" 
+                                        ErrorMessage="Horas no válidas" Font-Bold="True" ForeColor="Red" 
+                                        ControlToValidate="txtCantidadHoras" MaximumValue="16" MinimumValue="1" 
+                                        Type="Integer"></asp:RangeValidator>
                                 </div>
                             </div>
                             <div id="comentario" style="width: 84%; padding: 0% 8% 0% 8%; float: left; background: #D8D8BF; border-radius: 5px;">

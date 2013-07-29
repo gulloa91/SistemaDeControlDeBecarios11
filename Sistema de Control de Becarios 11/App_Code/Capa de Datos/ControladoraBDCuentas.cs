@@ -287,4 +287,12 @@ public class ControladoraBDCuentas
         return dt;
     }
 
+    /* Efectua: Elimina la cuenta asociada a la cedula enviada
+     * Requiere: N/A
+     * Modifica: N/A
+     */
+    public void eliminarCuentaPorCedula(string cedula)
+    {
+        adapterCuentas.DeleteQuery(cedula);
+    }
 }

@@ -86,7 +86,8 @@ public partial class SiteMaster : System.Web.UI.MasterPage
                         case 8: // Asig. Comp
                             {
                                 MenuItem AsignacionesMenuItem = new MenuItem("Asignaciones", "m0", "", "~/Asignaciones.aspx");
-                                NavigationMenu.Items.Add(AsignacionesMenuItem);
+                                int index = NavigationMenu.Items.Count - 1;
+                                NavigationMenu.Items.AddAt(index, AsignacionesMenuItem);
                             } break;
 
                         case 9: // Asig. Encargado

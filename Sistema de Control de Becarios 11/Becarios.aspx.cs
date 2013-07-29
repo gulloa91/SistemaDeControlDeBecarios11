@@ -371,7 +371,7 @@ public partial class Becarios : System.Web.UI.Page
 
             Object[] datos = new Object[1];
             datos[0] = this.txtCedula.Text;
-
+            controladoraCuentas.eliminarCuentaPorCedula(this.txtCedula.Text);
             string resultado = controladoraBecarios.ejecutar(3, datos, null);
             this.gridBecarios.SelectedIndex = -1;
 
@@ -380,6 +380,7 @@ public partial class Becarios : System.Web.UI.Page
             if (resultado.Equals("Exito"))
             {
                 commonService.mensajeJavascript("Se ha eliminado correctamente el becario", "Éxito");
+               
             }
             else
             {
@@ -1030,7 +1031,7 @@ public partial class Becarios : System.Web.UI.Page
         Object[] datos = new Object[4];
         datos[0] = usuario;//this.txtUsuario.Text;
         datos[1] = pass;  //this.cntUsuario.Text;
-        datos[2] = new DateTime?();
+        datos[2] = DateTime.Now;
         datos[3] = cedula;
 
         Object[] datosPerfil = new Object[2];

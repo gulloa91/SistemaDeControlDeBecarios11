@@ -71,7 +71,7 @@ public class ControladoraBDEncargado
        } 
         catch (SqlException e)
         {
-            mensajeError = "Se ha producido un error al insertar el encargado";
+            mensajeError = "Se ha producido un error al modificar el encargado. Verifique que no haya otro encargado en el sistema con la misma cédula.";
         }
 
         return mensajeError;

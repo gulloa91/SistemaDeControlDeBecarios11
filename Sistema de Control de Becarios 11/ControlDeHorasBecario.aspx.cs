@@ -36,9 +36,10 @@ public partial class ControlDeHoras : System.Web.UI.Page
         else
         {
             this.MultiViewBecario.ActiveViewIndex = 0;
-            if(estado == 7 && comentario == null){//esta finalizada y no ha hecho el comentario final
+            if(estado == 7 && (comentario == null || comentario=="")){//esta finalizada y no ha hecho el comentario final
                 commonService = new CommonServices(panelVacio);//inicializo vairables
-                commonService.correrJavascript("abrir();");//abre ventana para ultimo comentario y aceptar sig asignacion
+                if(!IsPostBack)
+                    commonService.correrJavascript("abrir();");//abre ventana para ultimo comentario y aceptar sig asignacion
             }
             //no se muestra nada pues no hay asignacion activa
         }
@@ -315,7 +316,7 @@ public partial class ControlDeHoras : System.Web.UI.Page
             }
             //agrego el comentario final del becario
             cb.comentarioFinal(Session["Cedula"].ToString(), encargado, txtComentFin.Text);
-            commonService.cerrarPopUp("siguienteAsig");//cierra la ventana emergente
+            commonService.correrJavascript("cerrar();");//cierra la ventana emergente
         }
     }
 

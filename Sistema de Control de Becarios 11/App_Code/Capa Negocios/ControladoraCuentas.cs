@@ -204,4 +204,13 @@ public class ControladoraCuentas
         }
         return resultado;
     }
+
+    /* Efectua: Elimina la cuenta asociada a la cedula enviada
+     * Requiere: N/A
+     * Modifica: N/A
+     */
+    public void eliminarCuentaPorCedula(string cedula)
+    {
+        controladoraBDCuentas.eliminarCuentaPorCedula(cedula);
+    }
 }

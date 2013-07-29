@@ -99,7 +99,7 @@ public partial class Cuentas : System.Web.UI.Page
         if(modo==1 || modo==2){
             datos[0] = this.txtUsuario.Text;
             datos[1] = this.cntUsuario.Text;
-			datos[2] = Session["FechaÚltimoIngreso"];
+            datos[2] = DateTime.Now;
             if (lsTipoCuentasDrp[this.drpDownPerfiles.SelectedIndex] != 1 && lsTipoCuentasDrp[this.drpDownPerfiles.SelectedIndex] != 2)
             {
                 datos[3] = "000000000"; // si es administrador no necesita cedula, se usa el default
@@ -727,7 +727,7 @@ public partial class Cuentas : System.Web.UI.Page
                     mensaje = "Se ha modificado correctamente la cuenta";
                 }
             }
-            commonService.mensajeJavascript(mensaje, "Ateción");
+            commonService.mensajeJavascript(mensaje, "Atención");
             this.btnModPers.Visible = true;
             controlarACCAPers(false);
         }
