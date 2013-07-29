@@ -164,9 +164,9 @@
                                     <asp:RegularExpressionValidator ID="RegularExpressionValidator1"
                                         ControlToValidate="txtCantidadHoras" runat="server"
                                         ErrorMessage="Horas no válidas" Display="Dynamic"
-                                        ForeColor="Red" ValidationExpression="[1-9]||10||11||12||13||14||15||16" Enabled="true"></asp:RegularExpressionValidator>
+                                        ForeColor="Red" ValidationExpression="^([1-16])*$" Enabled="true"></asp:RegularExpressionValidator>
                                     <asp:RangeValidator ID="RangeValidator1" Enabled="false" runat="server" 
-                                        ErrorMessage="Horas no válidas" Font-Bold="True" ForeColor="Red" 
+                                        ErrorMessage="Horas no válidas range" Font-Bold="True" ForeColor="Red" 
                                         ControlToValidate="txtCantidadHoras" MaximumValue="16" MinimumValue="1" 
                                         Type="Integer"></asp:RangeValidator>
                                 </div>
