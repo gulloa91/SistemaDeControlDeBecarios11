@@ -668,35 +668,35 @@ WHERE  (
      )) OR
 
      (@criterioLibre = 11 AND (
-             ((THFUI.FechaUltimoIngreso &lt; @fecha) AND (A.Periodo = @periodo) AND (A.Año = @año) AND (B.Cedula LIKE @criterioBusqueda))OR
-             ((THFUI.FechaUltimoIngreso &lt; @fecha) AND (A.Periodo = @periodo) AND (A.Año = @año) AND (B.Nombre LIKE @criterioBusqueda)) OR
-             ((THFUI.FechaUltimoIngreso &lt; @fecha) AND (A.Periodo = @periodo) AND (A.Año = @año) AND (B.Apellido1 LIKE @criterioBusqueda)) OR
-             ((THFUI.FechaUltimoIngreso &lt; @fecha) AND (A.Periodo = @periodo) AND (A.Año = @año) AND (B.Apellido2 LIKE @criterioBusqueda)) OR
-             ((THFUI.FechaUltimoIngreso &lt; @fecha) AND (A.Periodo = @periodo) AND (A.Año = @año) AND (A.Encargado LIKE @criterioBusqueda))
+             ((A.Periodo = @periodo) AND (A.Año = @año) AND (B.Cedula LIKE @criterioBusqueda))OR
+             ((A.Periodo = @periodo) AND (A.Año = @año) AND (B.Nombre LIKE @criterioBusqueda)) OR
+             ((A.Periodo = @periodo) AND (A.Año = @año) AND (B.Apellido1 LIKE @criterioBusqueda)) OR
+             ((A.Periodo = @periodo) AND (A.Año = @año) AND (B.Apellido2 LIKE @criterioBusqueda)) OR
+             ((A.Periodo = @periodo) AND (A.Año = @año) AND (A.Encargado LIKE @criterioBusqueda))
      )) OR
 
      (@criterioLibre = 10 AND (
-             ((THFUI.FechaUltimoIngreso &lt; @fecha) AND (A.Periodo = @periodo) AND (B.Cedula LIKE @criterioBusqueda))OR
-             ((THFUI.FechaUltimoIngreso &lt; @fecha) AND (A.Periodo = @periodo) AND (B.Nombre LIKE @criterioBusqueda)) OR
-             ((THFUI.FechaUltimoIngreso &lt; @fecha) AND (A.Periodo = @periodo) AND (B.Apellido1 LIKE @criterioBusqueda)) OR
-             ((THFUI.FechaUltimoIngreso &lt; @fecha) AND (A.Periodo = @periodo) AND (B.Apellido2 LIKE @criterioBusqueda)) OR
-             ((THFUI.FechaUltimoIngreso &lt; @fecha) AND (A.Periodo = @periodo) AND (A.Encargado LIKE @criterioBusqueda))
+             ((A.Periodo = @periodo) AND (B.Cedula LIKE @criterioBusqueda))OR
+             ((A.Periodo = @periodo) AND (B.Nombre LIKE @criterioBusqueda)) OR
+             ((A.Periodo = @periodo) AND (B.Apellido1 LIKE @criterioBusqueda)) OR
+             ((A.Periodo = @periodo) AND (B.Apellido2 LIKE @criterioBusqueda)) OR
+             ((A.Periodo = @periodo) AND (A.Encargado LIKE @criterioBusqueda))
      )) OR
 
      (@criterioLibre = 1 AND (
-             ((THFUI.FechaUltimoIngreso &lt; @fecha) AND (A.Año = @año) AND (B.Cedula LIKE @criterioBusqueda))OR
-             ( (A.Año = @año) AND (B.Nombre LIKE @criterioBusqueda)) OR
-             ((THFUI.FechaUltimoIngreso &lt; @fecha) AND (A.Año = @año) AND (B.Apellido1 LIKE @criterioBusqueda)) OR
-             ((THFUI.FechaUltimoIngreso &lt; @fecha) AND (A.Año = @año) AND (B.Apellido2 LIKE @criterioBusqueda)) OR
-             ((THFUI.FechaUltimoIngreso &lt; @fecha) AND (A.Año = @año) AND (A.Encargado LIKE @criterioBusqueda))
+             ((A.Año = @año) AND (B.Cedula LIKE @criterioBusqueda))OR
+             ((A.Año = @año) AND (B.Nombre LIKE @criterioBusqueda)) OR
+             ((A.Año = @año) AND (B.Apellido1 LIKE @criterioBusqueda)) OR
+             ((A.Año = @año) AND (B.Apellido2 LIKE @criterioBusqueda)) OR
+             ((A.Año = @año) AND (A.Encargado LIKE @criterioBusqueda))
      )) OR
 
      (@criterioLibre = 0 AND (
-             ((THFUI.FechaUltimoIngreso &lt; @fecha) AND (B.Cedula LIKE @criterioBusqueda))OR
-             ((THFUI.FechaUltimoIngreso &lt; @fecha) AND (B.Nombre LIKE @criterioBusqueda)) OR
-             ((THFUI.FechaUltimoIngreso &lt; @fecha) AND (B.Apellido1 LIKE @criterioBusqueda)) OR
-             ((THFUI.FechaUltimoIngreso &lt; @fecha) AND (B.Apellido2 LIKE @criterioBusqueda)) OR
-             ((THFUI.FechaUltimoIngreso &lt; @fecha) AND (A.Encargado LIKE @criterioBusqueda))
+             ((B.Cedula LIKE @criterioBusqueda))OR
+             ((B.Nombre LIKE @criterioBusqueda)) OR
+             ((B.Apellido1 LIKE @criterioBusqueda)) OR
+             ((B.Apellido2 LIKE @criterioBusqueda)) OR
+             ((A.Encargado LIKE @criterioBusqueda))
      )) 
 
 )
