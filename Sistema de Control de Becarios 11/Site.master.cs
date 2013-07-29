@@ -176,7 +176,6 @@ public partial class SiteMaster : System.Web.UI.MasterPage
 			Session["Nombre"] = nombre;
 			Session["Apellido1"] = apellido1;
             Session["Cedula"] = cedulaUsuario;
-			Session.Remove("UltimoAcceso");
 			Response.Redirect("~/Default.aspx");
 		}
 		else {

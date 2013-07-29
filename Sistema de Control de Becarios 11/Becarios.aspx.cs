@@ -1682,6 +1682,26 @@ public partial class Becarios : System.Web.UI.Page
 
 
 
+    protected void btnCancelarPerfilP_Click(object sender, EventArgs e)
+    {
+
+        arreglarTabs();
+        correrJavascript("seleccionarTabPerfilParcial();");
+
+        TextBox txtBox =  new TextBox();
+
+        txtBox = (TextBox)gridLenguajesProgP.FooterRow.Cells[0].FindControl("txtNuevoLenguajeParcial");
+        txtBox.Text = "";
+        txtBox = (TextBox)gridIdiomasP.FooterRow.Cells[0].FindControl("txtNuevoIdiomaParcial");
+        txtBox.Text = "";
+        txtBox = (TextBox)gridAreasInteresP.FooterRow.Cells[0].FindControl("txtNuevaAreaInteresParcial");
+        txtBox.Text = "";
+        txtBox = (TextBox)gridCualidadesP.FooterRow.Cells[0].FindControl("txtNuevaCualidadParcial");
+        txtBox.Text = ""; 
+    }
+
+
+
     /*  Requiere: n/a.
     *   Efectúa: Método que se invoca al dar click al botón 'ACEPTAR' en la vista parcial.
     *            Toma los datos ingresados y pide modificar la información del becario correspondiente
@@ -1730,18 +1750,29 @@ public partial class Becarios : System.Web.UI.Page
             if (resultadoPerfil.Equals("Exito"))
             {
                 commonService.mensajeJavascript("Se ha modificado correctamente la información", "Éxito");
+
+                Button aux = (Button)sender;
+                Label lb = new Label();
+                lb.Text = aux.ID;
+
+                if (lb.Text.Equals("btnAceptarPerfilParcial"))
+                {
+                    correrJavascript("seleccionarTabPerfilParcial();");
+                }
+
             }
 
 
-            habilitarCampos(false, 1);          
-           
+            habilitarCampos(false, 1);
+            mostrarBotonesSecundariosP(false);
             mostrarBotonesPrincipales(true);
 
         }
         else {
 
-          commonService.mensajeJavascript("Aún hay datos escritos en algún grid del perfil, debe borrar esta información o presionar el botón con el signo  \\+  para guardarla ", "AVISO");
+          commonService.mensajeJavascript("Hay datos escritos del perfil que no se han guardado, para hacerlo debe presionar el botón con el signo  \\+ al lado de la tabla correspondiente ", "AVISO");
           arreglarTabs();
+          correrJavascript("seleccionarTabPerfilParcial();");
         }
 
     }
@@ -1766,15 +1797,13 @@ public partial class Becarios : System.Web.UI.Page
 
             this.btnAceptarP.Visible = true;
             this.btnCancelarP.Visible = true;
-            this.btnAceptarPerfilParcial.Visible = true;
-            this.btnCancelarPerfilParcial.Visible = true;
+            //this.btnAceptarPerfilParcial.Visible = true;
+            //this.btnCancelarPerfilParcial.Visible = true;
         }
         else {
 
             this.btnAceptarP.Visible = false;
-            this.btnCancelarP.Visible = false;
-            this.btnAceptarPerfilParcial.Visible = false;
-            this.btnCancelarPerfilParcial.Visible = false;    
+            this.btnCancelarP.Visible = false;   
         }
     }
 
@@ -1802,6 +1831,8 @@ public partial class Becarios : System.Web.UI.Page
         guardarDatosActuales(2);
         modoEjecucion = 2;
 
+        mostrarBotonesSecundariosP(false);
+        
     }
 
 
