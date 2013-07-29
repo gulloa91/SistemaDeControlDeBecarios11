@@ -9,34 +9,57 @@
 		});
 	</script>
 	<script type="text/javascript">
-		function IniciarSolicitud() {
-			var iframe = document.createElement("iframe");
+		/*El parámetro tipo indica qué tipo de PDF es el que debe generarse
+		1 = Becarios que finalizaron sus horas
+		2 = Becarios inactivos
+		3 = Encargados inactivos
+		*/
+		function IniciarSolicitud(tipo, critBusqueda, cedula) {
 
-			//Aquí se le envía la carpeta donde está corriendo el servicio actualmente. Debe tener permisos de escritura
-			var periodo = $("[id*='DropDownListCriterio2'] :selected").val();
-			var ciclo = 0;
-			switch (periodo) {
-				case "0":
-					ciclo = 3;
+			var iframe = document.createElement("iframe");
+			switch (tipo)
+			{
+				case 1:
+					{
+						//Aquí se le envía la carpeta donde está corriendo el servicio actualmente. Debe tener permisos de escritura
+						var periodo = $("[id*='DropDownListCriterio2'] :selected").val();
+						var ciclo = 0;
+						switch (periodo) {
+							case "0":
+								ciclo = 3;
+								break;
+							case "1":
+								ciclo = 2;
+								break;
+							case "2":
+								ciclo = 1;
+								break;
+						}
+
+						var destinatario = $("[id*='txtDestinatario']").val();
+						var remitente = $("[id*='txtRemitente']").val();
+						var iniciales = $("[id*='txtIniciales']").val();
+						var cantHoras = $("[id*='ddlCantHoras'] :selected").text();
+						var año = $("[id*='lblAño']").text();
+
+						iframe.src = "DescargarPDF.aspx?&tipo=" + tipo + "&destinatario=" + destinatario + "&remitente=" + remitente + "&iniciales=" + iniciales + "&cantHoras=" + cantHoras + "&ciclo=" + ciclo + "&periodo=" + periodo + "&año=" + año;
+					}
 					break;
-				case "1":
-					ciclo = 2;
+				case 2:
+					{
+						iframe.src = "DescargarPDF.aspx?&tipo=" + tipo + "&criterioBusqueda=" + critBusqueda + "&cedula=" + cedula;
+					}
 					break;
-				case "2":
-					ciclo = 1;
+				case 3:
+					{
+						iframe.src = "DescargarPDF.aspx?&tipo=" + tipo + "&criterioBusqueda=" + critBusqueda + "&cedula=" + cedula;
+					}
 					break;
 			}
-
-			var destinatario = $("[id*='txtDestinatario']").val();
-			var remitente = $("[id*='txtRemitente']").val();
-			var iniciales = $("[id*='txtIniciales']").val();
-			var cantHoras = $("[id*='ddlCantHoras'] :selected").text();
-			var año = $("[id*='lblAño']").text();
-
-			iframe.src = "DescargarPDF.aspx?&destinatario=" + destinatario + "&remitente=" + remitente + "&iniciales=" + iniciales + "&cantHoras=" + cantHoras + "&ciclo=" + ciclo + "&periodo=" + periodo + "&año=" + año;
 			iframe.style.display = "none";
 			document.body.appendChild(iframe);
-		}
+	    }
+
 	</script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="Server">
@@ -57,7 +80,7 @@
 					<asp:Button ID="btnInvisible1"
 						CssClass="btnInvisible1 invisible" runat="server" Text="" />
 					<asp:Button ID="btnInvisGenerarPDF" CssClass="btnInvisGenerarPDF invisible" runat="server" 
-						OnClick="btnInvisGenerarPDF_Click" CausesValidation="true"  />
+						OnClick="btnGenerarPDF_Click" CausesValidation="true"  />
 
                     <!-- Cuerpo -->
                     <div style="width: 100%; float: left;">
@@ -97,6 +120,8 @@
                         <asp:UpdatePanel ID="UpdatePanelInformacionReportes" runat="server">
                             <Triggers>
                                 <asp:AsyncPostBackTrigger ControlID="MenuListaReportes" EventName="menuitemclick" />
+								<asp:AsyncPostBackTrigger ControlID="btnGenerarPDFHistorialAsignacionesBecario" EventName="Click" />
+								<asp:AsyncPostBackTrigger ControlID="btnGenerarPDFHistorialAsignacionesEncargado" EventName="Click" />
                             </Triggers>
                             <ContentTemplate>
                                 <div style="margin-left: 2%; width: 81%; float: left; border: 2px solid #414141; border-radius: 5px; background: #D8D8BF; padding-bottom: 2%;">
@@ -166,12 +191,12 @@
                                                 <div style="float: left; margin-right: 1%;">
 													<br />
 													<asp:Button ID="btnGenerarPDFHistorialAsignacionesBecario" runat="server" Text="Generar PDF" CausesValidation="false"
-														OnClick="btnGenerarPDFHistorialAsignacionesBecario_Click" CssClass="boton ui-widget ui-state-default ui-corner-all ui-button-text-only" Visible="false" />
+														OnClick="btnGenerarPDF_Click" CssClass="boton ui-widget ui-state-default ui-corner-all ui-button-text-only" Visible="false" />
 												</div>
                                                 <div style="float: left; margin-right: 1%;">
 													<br />
 													<asp:Button ID="btnGenerarPDFHistorialAsignacionesEncargado" runat="server" Text="Generar PDF" CausesValidation="false"
-														OnClick="btnGenerarPDFHistorialAsignacionesEncargado_Click" CssClass="boton ui-widget ui-state-default ui-corner-all ui-button-text-only" Visible="false" />
+														OnClick="btnGenerarPDF_Click" CssClass="boton ui-widget ui-state-default ui-corner-all ui-button-text-only" Visible="false" />
 												</div>
 
                                             </div>

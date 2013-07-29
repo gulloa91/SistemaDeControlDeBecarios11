@@ -1236,7 +1236,7 @@ public partial class Reportes : System.Web.UI.Page
 
                     if (this.GridViewReporte.Rows[0].Cells[0].Text != "-")
                     {
-                        this.btnGenerarPDFHistorialAsignacionesBecario.Visible = false;
+                        this.btnGenerarPDFHistorialAsignacionesBecario.Visible = true;
                     }
                     else
                     {
@@ -1265,7 +1265,7 @@ public partial class Reportes : System.Web.UI.Page
 
                     if (this.GridViewReporte.Rows[0].Cells[0].Text != "-")
                     {
-                        this.btnGenerarPDFHistorialAsignacionesEncargado.Visible = false;
+                        this.btnGenerarPDFHistorialAsignacionesEncargado.Visible = true;
                     }
                     else
                     {
@@ -1323,32 +1323,39 @@ public partial class Reportes : System.Web.UI.Page
     //EFECTO: Ciclo de ejecución al presionar el botón  Acaptar enerar el pdf del reporte 
     //REQUIERE: N/A
     //RETORNA: N/A
-    protected void btnInvisGenerarPDF_Click(object sender, EventArgs e)
+    protected void btnGenerarPDF_Click(object sender, EventArgs e)
     {
-        commonService.correrJavascript("IniciarSolicitud()");
-    }
+		int? tipo = null;
+		string cedula = "nada";
 
-
-    //EFECTO: Ciclo de ejecución al presionar el botón btnGenerarPDFHistorialAsignacionesBecario. Generar el pdf del reporte
-    //REQUIERE: N/A
-    //RETORNA: N/A
-    protected void btnGenerarPDFHistorialAsignacionesBecario_Click(object sender, EventArgs e)
-    {
-        if (inicializarCamposPopUpPDF())
-        {
-            commonService.abrirPopUp("popUpPDF", "Generar PDF");
-        }
-    }
-
-    //EFECTO: Ciclo de ejecución al presionar el botón btnGenerarPDFHistorialAsignacionesEncargado. Generar el pdf del reporte
-    //REQUIERE: N/A
-    //RETORNA: N/A
-    protected void btnGenerarPDFHistorialAsignacionesEncargado_Click(object sender, EventArgs e)
-    {
-        if (inicializarCamposPopUpPDF())
-        {
-            commonService.correrJavascript("guardarPDFHistorialDeAsiganacionesBecario();");
-        }        
+		switch (((Button)sender).ID)
+		{
+			case "btnInvisGenerarPDF":
+				tipo = 1;
+                commonService.correrJavascript("$('#popUpPDF').dialog('close');");
+                mostrarGrid();
+				break;
+			case "btnGenerarPDFHistorialAsignacionesBecario":
+				{
+					tipo = 2;
+					cedula = lsCedulas[this.DropDownListCriterio1.SelectedIndex];
+                    mostrarGrid();
+				}
+				break;
+			case "btnGenerarPDFHistorialAsignacionesEncargado":
+				{
+					tipo = 3;
+					cedula = lsCedulas[this.DropDownListCriterio1.SelectedIndex];
+                    mostrarGrid();
+				}
+				break;
+		}
+		if (tipo.HasValue)
+		{
+			commonService.correrJavascript("IniciarSolicitud(" + tipo.Value + ", \'%" + this.txtBuscarGeneral.Text + "%\', \'" + cedula +"\')");
+		}
+		else
+			throw new Exception("Se recibió un tipo de reporte inválido");
     }
 }
 
